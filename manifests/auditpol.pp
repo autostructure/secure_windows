@@ -2,7 +2,6 @@
 # This class manages Windows Audit Policy
 #
 # TODO: 
-# - Add Domain Controller support
 # - Add unit testing
 # - Consider adding customization with warning messages
 #
@@ -16,15 +15,14 @@ class secure_windows::auditpol {
     failure => 'enable',
   }
 
-  # # V-73417
-  # # Windows Server 2016 must be configured to audit Account Management - Computer Account Management successes.
-  # # !!!!!
-  # # DOMAIN CONTROLLER ONLY
-  # # !!!!!
-  # auditpol { 'Computer Account Management':
-  #   success => 'enable',
-  #   failure => 'disable',
-  # }
+  # V-73417
+  # Windows Server 2016 must be configured to audit Account Management - Computer Account Management successes.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    auditpol { 'Computer Account Management':
+      success => 'enable',
+      failure => 'disable',
+    }
+  }
 
   # V-73419
   # Windows Server 2016 must be configured to audit Account Management - Other Account Management Events successes.
@@ -67,29 +65,27 @@ class secure_windows::auditpol {
     failure => 'disable',
   }
 
-  # # V-73435
-  # # Windows Server 2016 must be configured to audit DS Access - Directory Service Access successes.
-  # # V-73437
-  # # Windows Server 2016 must be configured to audit DS Access - Directory Service Access failures.
-  # # !!!!!
-  # # DOMAIN CONTROLLER ONLY
-  # # !!!!!
-  # auditpol { 'Directory Service Access':
-  #   success => 'enable',
-  #   failure => 'enable',
-  # }
+  # V-73435
+  # Windows Server 2016 must be configured to audit DS Access - Directory Service Access successes.
+  # V-73437
+  # Windows Server 2016 must be configured to audit DS Access - Directory Service Access failures.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    auditpol { 'Directory Service Access':
+      success => 'enable',
+      failure => 'enable',
+    }
+  }
 
-  # # V-73439
-  # # Windows Server 2016 must be configured to audit DS Access - Directory Service Changes successes.
-  # # V-73441
-  # # Windows Server 2016 must be configured to audit DS Access - Directory Service Changes failures.
-  # # !!!!!
-  # # DOMAIN CONTROLLER ONLY
-  # # !!!!!
-  # auditpol { 'Directory Service Changes':
-  #   success => 'enable',
-  #   failure => 'enable',
-  # }
+  # V-73439
+  # Windows Server 2016 must be configured to audit DS Access - Directory Service Changes successes.
+  # V-73441
+  # Windows Server 2016 must be configured to audit DS Access - Directory Service Changes failures.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    auditpol { 'Directory Service Changes':
+      success => 'enable',
+      failure => 'enable',
+    }
+  }
 
   # V-73443
   # Windows Server 2016 must be configured to audit Logon/Logoff - Account Lockout successes.
