@@ -1,4 +1,4 @@
-Facter.add(:Windows_server_type) do
+Facter.add(:windows_server_type) do
     confine :kernel => :windows
     setcode do
       require 'win32/registry'
