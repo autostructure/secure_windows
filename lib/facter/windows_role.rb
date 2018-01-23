@@ -17,6 +17,6 @@ Facter.add(:windows_role) do
         roles.push(role.ID)
       end
   
-      roles.sort
+      roles.sort.join(',')
     end
   end
