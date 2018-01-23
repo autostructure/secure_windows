@@ -1,3 +1,8 @@
+#
+# This fact returns a comma separated list of role IDs on the machine
+#
+# Check this out for translations from ID to role: https://msdn.microsoft.com/en-us/library/cc280268(VS.85).aspx#properties
+#
 require 'facter'
 
 Facter.add(:windows_role) do
@@ -12,6 +17,6 @@ Facter.add(:windows_role) do
         roles.push(role.ID)
       end
   
-      roles.sort.join(',')
+      roles.sort
     end
   end

@@ -230,11 +230,21 @@ class secure_windows::lgpo {
   # The Create symbolic links user right must only be assigned to the Administrators group.
   # TODO:
   # - Hyper-V role gets an additional group.
-  local_security_policy { 'Create symbolic links':
-    ensure         => 'present',
-    policy_setting => 'SeCreateSymbolicLinkPrivilege',
-    policy_type    => 'Privilege Rights',
-    policy_value   => '*S-1-5-32-544',
+  if($facts['windows_role'] =~ /,20/) {
+    local_security_policy { 'Create symbolic links':
+      ensure         => 'present',
+      policy_setting => 'SeCreateSymbolicLinkPrivilege',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544,*S-1-5-83-0',
+    }
+  }
+  else {
+    local_security_policy { 'Create symbolic links':
+      ensure         => 'present',
+      policy_setting => 'SeCreateSymbolicLinkPrivilege',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544',
+    }
   }
 
   # V-73755
