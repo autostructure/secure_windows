@@ -1,8 +1,10 @@
+require 'facter'
+
 Facter.add(:windows_role) do
     confine :operatingsystem => :windows
     setcode do
   
-  
+      require 'facter/util/wmi'
       roles = []
   
       wmi = Facter::Util::WMI.connect()
