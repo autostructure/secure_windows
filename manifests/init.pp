@@ -2,6 +2,7 @@
 # This module secures windows
 #
 # TODO:
+# - LGPO
 # - REGISTRY
 # - GPO
 # - OTHER
