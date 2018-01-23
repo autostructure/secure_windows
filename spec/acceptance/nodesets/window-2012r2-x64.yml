@@ -1,0 +1,14 @@
+HOSTS:
+  win-2012R2-std:
+    roles:
+      - default
+      - agent
+    platform: windows-server-amd64
+    hypervisor: vsphere
+    user: Administrator
+    password: MTV7-whipper
+    ip: '192.168.5.38'
+    is_cygwin: false
+CONFIG:
+  log_level: verbose
+  type: git
