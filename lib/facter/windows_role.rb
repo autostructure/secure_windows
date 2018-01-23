@@ -9,7 +9,7 @@ Facter.add(:windows_role) do
       require 'win32ole'
       wmi = WIN32OLE.connect("winmgmts:\\\\.\\root\\cimv2")
       wmi.ExecQuery("select ID from Win32_ServerFeature").each do |role|
-        roles.push(role.HotFixID)
+        roles.push(role.ID)
       end
   
       roles.sort.join(',')
