@@ -1,10 +1,10 @@
-# This class manages local group policy objects
+#
+# This class manages local group policy objects with local_security_policy
 #
 # TODO:
 # - Unit Tests
 # - Handle V-73753 for Hyper-V role. Need a fact for roles.
 # - Member Server Network Access for Domain Servers
-# - Test fact to see if it works for standalone and member servers and two types of DCs
 # - Kerberos stuff on Domain Controllers
 #
 class secure_windows::lgpo {
