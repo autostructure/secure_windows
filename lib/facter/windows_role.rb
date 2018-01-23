@@ -4,7 +4,6 @@ Facter.add(:windows_role) do
     confine :operatingsystem => :windows
     setcode do
   
-      require 'facter/util/wmi'
       roles = []
   
       require 'win32ole'
