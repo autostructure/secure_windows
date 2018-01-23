@@ -57,7 +57,7 @@ class secure_windows::auditpol {
     failure => 'enable',
     success => 'disable',
   }
-  
+
   # V-73433
   # Windows Server 2016 must be configured to audit Detailed Tracking - Process Creation successes.
   auditpol { 'Process Creation':

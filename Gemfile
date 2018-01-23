@@ -10,6 +10,7 @@ group :test do
   gem 'rspec-puppet-facts'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'semantic_puppet'
   gem 'simplecov'
   gem 'simplecov-console'
 

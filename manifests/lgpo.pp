@@ -333,7 +333,7 @@ class secure_windows::lgpo {
       policy_setting => 'SeEnableDelegationPrivilege',
       policy_type    => 'Privilege Rights',
       policy_value   => '*S-1-5-32-544',
-    }    
+    }
   }
 
   # V-73779
@@ -342,7 +342,7 @@ class secure_windows::lgpo {
   if($facts['windows_server_type'] == 'MemberServer') {
     local_security_policy { 'Enable computer and user accounts to be trusted for delegation':
       ensure         => 'absent',
-    }  
+    }
   }
 
   # V-73781

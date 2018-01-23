@@ -77,6 +77,9 @@ Style/PerlBackrefs:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styleperlbackrefs
 
+Style/MixinUsage:
+  Enabled: false
+
 Style/Semicolon:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylesemicolon
@@ -136,6 +139,9 @@ Lint/AssignmentInCondition:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/BlockNesting:
   Enabled: false
 
@@ -159,4 +165,3 @@ Metrics/ParameterLists:
 
 Metrics/PerceivedComplexity:
   Enabled: false
-
