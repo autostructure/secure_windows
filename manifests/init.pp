@@ -1,10 +1,15 @@
 #
 # This module secures windows
 #
+# TODO:
+# - LGPO
+# - REGISTRY
+# - GPO
+# - OTHER
+#
 class secure_windows {
 
   include secure_windows::auditpol
-
-  notify { 'test message': }
+  include secure_windows::lgpo
 
 }
