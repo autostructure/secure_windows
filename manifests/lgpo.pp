@@ -2,6 +2,8 @@
 #
 # TODO:
 # - Everything
+# - Unit Tests
+# - Handle V-73753 for Hyper-V role. Need a fact for roles.
 #
 class secure_windows::lgpo {
 
@@ -66,5 +68,168 @@ class secure_windows::lgpo {
     policy_setting => 'MinimumPasswordLength',
     policy_type    => 'System Access',
     policy_value   => '14',
+  }
+
+  # V-73323
+  # The built-in Windows password complexity policy must be enabled.
+  local_security_policy { 'Password must meet complexity requirements':
+    ensure         => 'present',
+    policy_setting => 'PasswordComplexity',
+    policy_type    => 'System Access',
+    policy_value   => '1',
+  }
+
+  # V-73325
+  # Reversible password encryption must be disabled.
+  local_security_policy { 'Store passwords using reversible encryption':
+    ensure         => 'present',
+    policy_setting => 'ClearTextPassword',
+    policy_type    => 'System Access',
+    policy_value   => '0',
+  }
+
+  # V-73359
+  # Kerberos user logon restrictions must be enforced.
+
+
+  # V-73361
+  # The Kerberos service ticket maximum lifetime must be limited to 600 minutes or less.
+
+
+  # V-73363
+  # The Kerberos user ticket lifetime must be limited to 10 hours or less.
+
+
+  # V-73365
+  # The Kerberos policy user ticket renewal maximum lifetime must be limited to seven days or less.
+
+
+  # V-73367
+  # The computer clock synchronization tolerance must be limited to 5 minutes or less.
+
+
+  # V-73369
+  # Permissions on the Active Directory data files must only allow System and Administrators access.
+
+
+  # V-73623
+  # The built-in administrator account must be renamed.
+  local_security_policy { 'Accounts: Rename administrator account':
+    ensure         => 'present',
+    policy_setting => 'NewAdministratorName',
+    policy_type    => 'System Access',
+    policy_value   => '"adminaccount"',
+  }
+
+  # V-73625
+  # The built-in guest account must be renamed.
+  local_security_policy { 'Accounts: Rename guest account':
+    ensure         => 'present',
+    policy_setting => 'NewGuestName',
+    policy_type    => 'System Access',
+    policy_value   => '"guestaccount"',
+  }
+
+  # V-73665
+  # Anonymous SID/Name translation must not be allowed.
+  local_security_policy { 'Network access: Allow anonymous SID/name translation':
+    ensure         => 'present',
+    policy_setting => 'LSAAnonymousNameLookup',
+    policy_type    => 'System Access',
+    policy_value   => '0',
+  }
+
+  # V-73689
+  # Windows Server 2016 must be configured to force users to log off when their allowed logon hours expire.
+  local_security_policy { 'Network security: Force logoff when logon hours expire':
+    ensure         => 'present',
+    policy_setting => 'ForceLogoffWhenHourExpire',
+    policy_type    => 'System Access',
+    policy_value   => '1',
+  }
+
+  # V-73735
+  # The Act as part of the operating system user right must not be assigned to any groups or accounts.
+  local_security_policy { 'Act as part of the operating system':
+    ensure         => 'absent',
+  }
+
+  # V-73737
+  # The Add workstations to domain user right must only be assigned to the Administrators group.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    local_security_policy { 'Add workstations to domain':
+      ensure         => 'present',
+      policy_setting => 'SeMachineAccountPrivilege',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544',
+    }
+  }
+
+  # V-73739
+  # The Allow log on locally user right must only be assigned to the Administrators group.
+  local_security_policy { 'Allow log on locally':
+    ensure         => 'present',
+    policy_setting => 'SeInteractiveLogonRight',
+    policy_type    => 'Privilege Rights',
+    policy_value   => '*S-1-5-32-544',
+  }
+
+  # V-73741
+  # The Allow log on through Remote Desktop Services user right must only be assigned to the Administrators group.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    local_security_policy { 'Allow log on through Remote Desktop Services':
+      ensure         => 'present',
+      policy_setting => 'SeRemoteInteractiveLogonRight',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544',
+    }
+  }
+
+  # V-73743
+  # The Back up files and directories user right must only be assigned to the Administrators group.
+  local_security_policy { 'Back up files and directories':
+    ensure         => 'present',
+    policy_setting => 'SeBackupPrivilege',
+    policy_type    => 'Privilege Rights',
+    policy_value   => '*S-1-5-32-544',
+  }
+
+  # V-73745
+  # The Create a pagefile user right must only be assigned to the Administrators group.
+  local_security_policy { 'Create a pagefile':
+    ensure         => 'present',
+    policy_setting => 'SeCreatePagefilePrivilege',
+    policy_type    => 'Privilege Rights',
+    policy_value   => '*S-1-5-32-544',
+  }
+
+  # V-73747
+  # The Create a token object user right must not be assigned to any groups or accounts.
+  local_security_policy { 'Create a token object':
+    ensure         => 'absent',
+  }
+
+  # V-73749
+  # The Create global objects user right must only be assigned to Administrators, Service, Local Service, and Network Service.
+  local_security_policy { 'Create global objects':
+    ensure         => 'present',
+    policy_setting => 'SeCreateGlobalPrivilege',
+    policy_type    => 'Privilege Rights',
+    policy_value   => '*S-1-5-19,*S-1-5-20,*S-1-5-32-544,*S-1-5-6',
+  }
+
+  # V-73751
+  # The Create permanent shared objects user right must not be assigned to any groups or accounts.
+  local_security_policy { 'Create permanent shared objects':
+    ensure         => 'absent',
+  }
+
+  # V-73753
+  # The Create symbolic links user right must only be assigned to the Administrators group.
+  local_security_policy { 'Create symbolic links':
+    ensure         => 'present',
+    policy_setting => 'SeCreateSymbolicLinkPrivilege',
+    policy_type    => 'Privilege Rights',
+    policy_value   => '*S-1-5-32-544',
   }
 }
