@@ -5,7 +5,7 @@
 # - Handle V-73753 for Hyper-V role. Need a fact for roles.
 # - Member Server Network Access for Domain Servers
 # - Test fact to see if it works for standalone and member servers and two types of DCs
-# - Test if absent is good enough
+# - Kerberos stuff on Domain Controllers
 #
 class secure_windows::lgpo {
 
