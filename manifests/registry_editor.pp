@@ -16,6 +16,22 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
+  registry::value { 'v73493':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization',
+    value => 'NoLockScreenSlideshow',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
 
+  registry::value { 'v73495':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    value => 'LocalAccountTokenFilterPolicy',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  class {'::secure_windows::log':
+    message => 'test message.',
+  }
 
 }
