@@ -21,5 +21,6 @@
       ]
     }
   ],
+  "data_provider": "hiera",
   "description": "Module to Harden Windows to DoD STIGs"
 }
