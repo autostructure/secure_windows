@@ -23,6 +23,10 @@ class secure_windows::registry_editor {
     data  => '0x00000001',
   }
 
+  class {'::secure_windows::log':
+    message => 'test message1.',
+  }
+
   registry::value { 'v73495':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
     value => 'LocalAccountTokenFilterPolicy',
@@ -31,7 +35,7 @@ class secure_windows::registry_editor {
   }
 
   class {'::secure_windows::log':
-    message => 'test message.',
+    message => 'test message2.',
   }
 
 }
