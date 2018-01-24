@@ -7,6 +7,7 @@
   "source": "https://github.com/autostructure/secure_windows",
   "project_page": "https://github.com/autostructure/secure_windows",
   "issues_url": "https://github.com/autostructure/secure_windows/issues",
+  "data_provider": "hiera",
   "dependencies": [
     { "name":"puppetlabs/stdlib","version_requirement":">= 4.13.1 < 5.0.0" },
     { "name": "puppetlabs-registry","version_requirement": ">=1.1.4 < 2.0.0" },
