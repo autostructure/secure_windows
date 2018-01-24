@@ -14,7 +14,7 @@
 #  $enabled = true
 
 define secure_windows::log (
-  Boolean $enabled,
+  Boolean $enabled = true,
 ) {
 
   if $enabled {
