@@ -3,6 +3,9 @@ describe 'secure_windows auditpol' do
   context 'auditpol defaults' do
     it {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> test
       should contain_auditpol('Credential Validation').with(
         'success' => 'enable',
         'failure' => 'enable'
@@ -142,6 +145,7 @@ describe 'secure_windows auditpol' do
         'failure' => 'enable'
       )
     }
+<<<<<<< HEAD
   end
 end
 =======
@@ -287,3 +291,7 @@ end
   end
 end
 >>>>>>> another typo
+=======
+  end
+end
+>>>>>>> test
