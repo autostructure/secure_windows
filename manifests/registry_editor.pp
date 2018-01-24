@@ -85,16 +85,20 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
+  # TODO: value should be...
+  #  value => '\\*\NETLOGON',
   registry::value { 'v73509-1':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => "\\\\\*\\NETLOGON",
+    value => 'NETLOGON',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
 
+  # TODO: value should be...
+  #  value => '\\*\SYSVOL',
   registry::value { 'v73509-2':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => "\\\\\*\\SYSVOL",
+    value => 'SYSVOL',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
