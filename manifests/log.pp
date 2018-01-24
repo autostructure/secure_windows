@@ -18,7 +18,7 @@ define secure_windows::log {
     warning("${facts['fqdn']}: ${title}")
 
     # puppet agent logging
-    notify { 'puppetagentlogger':
+    notify { "puppetagentlogger_${title}":
       withpath => false,
       message  => $title,
       loglevel => warning,
