@@ -1,8 +1,10 @@
 ---
 version: 5
-hierarchy:
-  - name: "Module"
-    path: "module.yaml"
 defaults:
   data_hash: yaml_data
   datadir: data
+hierarchy:
+  - name: "Module"
+    paths:
+      - "module.yaml"
+      - "common.yaml"
