@@ -8,10 +8,23 @@
 #
 class secure_windows::log (
   String  $message,
-  Boolean $log = false,
+  Boolean $enabled = false,
 ) {
 
   # Turn log messages on/off for this manifest
-  $logging = $::dod_harden_redhat::secure_system::log
+  $logging = $::secure_windows::log::enabled
+
+  if $logging {
+    # puppetserver.log
+    warning("${facts['fqdn']}: ${message}")
+
+    # puppet agent logging
+    notify { 'puppetagentlogger':
+      withpath => false,
+      message  => $message,
+      loglevel => warning,
+    }
+
+  }
 
 }
