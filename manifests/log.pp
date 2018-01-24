@@ -10,8 +10,12 @@
 #  Boolean $enabled,
 #) {
 
-define secure_windows::log {
-  $enabled = true
+#define secure_windows::log {
+#  $enabled = true
+
+define secure_windows::log (
+  Boolean $enabled,
+) {
 
   if $enabled {
     # puppetserver.log
