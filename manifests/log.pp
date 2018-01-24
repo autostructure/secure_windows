@@ -11,10 +11,7 @@ define secure_windows::log (
   Boolean $enabled = false,
 ) {
 
-  # Turn log messages on/off for this manifest
-  $logging = $::secure_windows::log::enabled
-
-  if $logging {
+  if $enabled {
     # puppetserver.log
     warning("${facts['fqdn']}: ${message}")
 

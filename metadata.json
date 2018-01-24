@@ -13,9 +13,9 @@
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Windows",
+      "operatingsystem": "windows",
       "operatingsystemrelease": [
-        "2016"
+        "2012"
       ]
     }
   ],
