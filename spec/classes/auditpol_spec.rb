@@ -1,6 +1,7 @@
 require 'spec_helper'
 describe 'secure_windows auditpol' do
   context 'auditpol defaults' do
+    let(:facts) { { 'windows_type' => '2' } }
     it {
       should contain_auditpol('Credential Validation').with(
         'success' => 'enable',
