@@ -87,14 +87,14 @@ class secure_windows::registry_editor {
 
   registry::value { 'v73509-1':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '\\*\NETLOGON',
+    value => "\\\\\*\\NETLOGON",
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
 
   registry::value { 'v73509-2':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '\\*\SYSVOL',
+    value => "\\\\\*\\SYSVOL",
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
