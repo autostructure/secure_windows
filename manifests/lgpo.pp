@@ -3,7 +3,6 @@
 #
 # TODO:
 # - Unit Tests
-# - Handle V-73753 for Hyper-V role. Need a fact for roles.
 # - Member Server Network Access for Domain Servers
 # - Kerberos stuff on Domain Controllers
 #
@@ -228,9 +227,7 @@ class secure_windows::lgpo {
 
   # V-73753
   # The Create symbolic links user right must only be assigned to the Administrators group.
-  # TODO:
-  # - Hyper-V role gets an additional group.
-  if($facts['windows_role'] =~ /,20/) {
+  if($facts['windows_role'] =~ /(^20|,20,|,20$)/) {
     local_security_policy { 'Create symbolic links':
       ensure         => 'present',
       policy_setting => 'SeCreateSymbolicLinkPrivilege',
