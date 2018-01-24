@@ -6,7 +6,7 @@
 # - Add unit testing
 # - Consider adding custom warning log/sysout messages
 #
-class secure_windows::log (
+define secure_windows::log (
   String  $message,
   Boolean $enabled = false,
 ) {
