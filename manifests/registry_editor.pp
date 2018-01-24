@@ -23,9 +23,7 @@ class secure_windows::registry_editor {
     data  => '0x00000001',
   }
 
-  ::secure_windows::log {'logmsg1':
-    message => 'test message1.',
-  }
+  ::secure_windows::log { 'test message 1.': }
 
   registry::value { 'v73495':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
@@ -34,8 +32,6 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
-  ::secure_windows::log {'logmsg2':
-    message => 'test message2.',
-  }
+  ::secure_windows::log {'test message 2.': }
 
 }
