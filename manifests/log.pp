@@ -8,7 +8,7 @@
 #
 define secure_windows::log (
   String  $message,
-  Boolean $enabled = false,
+  Boolean $enabled,
 ) {
 
   if $enabled {
