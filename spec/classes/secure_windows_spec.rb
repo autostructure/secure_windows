@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'secure_windows' do
-  context 'supported operating systems' do
+  context 'with supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
@@ -21,7 +21,7 @@ describe 'secure_windows' do
         #   }
         # end
 
-        context "secure_windows class without any parameters" do
+        context 'with secure_windows class without any parameters' do
           it { is_expected.to compile.with_all_deps }
 
           # it { is_expected.to contain_class('secure_windows') }
