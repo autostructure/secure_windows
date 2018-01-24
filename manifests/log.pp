@@ -7,7 +7,7 @@
 # - Consider adding custom warning log/sysout messages
 #
 define secure_windows::log (
-  Boolean $enabled,
+  Optional Boolean $enabled,
 ) {
 
   if $enabled {
