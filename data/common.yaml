@@ -1,1 +1,2 @@
+---
 secure_windows::log::enabled: true

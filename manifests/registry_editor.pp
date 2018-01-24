@@ -8,6 +8,8 @@
 #
 class secure_windows::registry_editor {
 
+  ::secure_windows::log { 'Begin editing registry...': }
+
   # V-73487
   registry::value { 'v73487':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI',
@@ -23,8 +25,6 @@ class secure_windows::registry_editor {
     data  => '0x00000001',
   }
 
-  ::secure_windows::log { 'test message 1.': }
-
   registry::value { 'v73495':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
     value => 'LocalAccountTokenFilterPolicy',
@@ -32,6 +32,6 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
-  ::secure_windows::log {'test message 2.': }
+  ::secure_windows::log {'Registry editing complete.': }
 
 }

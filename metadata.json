@@ -41,5 +41,6 @@
   ],
   "description": "Module to Harden Windows to DoD STIGs",
   "template-url": "file://C:/PROGRA~1/PUPPET~1/DevelopmentKit/share/cache/pdk-templates.git",
+  "data_provider": "hiera",
   "template-ref": "1.3.2-0-g07678c8"
 }

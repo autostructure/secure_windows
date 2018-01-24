@@ -1,10 +1,8 @@
 ---
 version: 5
-defaults:
-  datadir: "hieradata"
 hierarchy:
-  - name: "Normal data (unencrypted)"
-    data_hash: yaml_data # Standard yaml backend
-    paths:
-      - "module.yaml"
-      - "common.yaml"
+  - name: Module
+    path: module.yaml
+defaults:
+  data_hash: yaml_data
+  datadir: data
