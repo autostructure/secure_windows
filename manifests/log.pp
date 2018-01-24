@@ -7,18 +7,17 @@
 # - Consider adding custom warning log/sysout messages
 #
 define secure_windows::log (
-  String  $message,
   Boolean $enabled,
 ) {
 
   if $enabled {
     # puppetserver.log
-    warning("${facts['fqdn']}: ${message}")
+    warning("${facts['fqdn']}: ${title}")
 
     # puppet agent logging
     notify { 'puppetagentlogger':
       withpath => false,
-      message  => $message,
+      message  => $title,
       loglevel => warning,
     }
 
