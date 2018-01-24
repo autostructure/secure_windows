@@ -6,9 +6,12 @@
 # - Add unit testing
 # - Consider adding custom warning log/sysout messages
 #
-define secure_windows::log (
-  Boolean $enabled,
-) {
+#define secure_windows::log (
+#  Boolean $enabled,
+#) {
+
+define secure_windows::log {
+  $enabled = true
 
   if $enabled {
     # puppetserver.log
