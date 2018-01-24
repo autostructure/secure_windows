@@ -12,5 +12,6 @@ Facter.add(:windows_type) do
     end
 
     roles.sort.join(',')
+    roles.to_s
   end
 end
