@@ -6,5 +6,5 @@ hierarchy:
   - name: "Normal data (unencrypted)"
     data_hash: yaml_data # Standard yaml backend
     paths:
-      - "module.yaml"
-      - "common.yaml"
+      - module
+      - common
