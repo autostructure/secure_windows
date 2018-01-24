@@ -278,7 +278,7 @@ class secure_windows::lgpo {
       policy_value   => '*S-1-5-32-546',
     }
   }
-  else if ($facts['windows_type'] =~ /(1|3)/) {
+  elsif ($facts['windows_type'] =~ /(1|3)/) {
     #member server
     local_security_policy { 'Deny access to this computer from the network':
       ensure         => 'present',
