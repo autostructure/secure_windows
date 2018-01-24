@@ -8,12 +8,14 @@
 #
 class secure_windows::registry_editor {
 
-# V-73487
-  registry::value { 'RegistryKey_CredUI':
+  # V-73487
+  registry::value { 'v73487':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI',
     value => 'EnumerateAdministrators',
     type  => 'dword',
-    date  => '0x00000000',
+    data  => '0x00000000',
   }
+
+
 
 }

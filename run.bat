@@ -1,1 +1,1 @@
-'/c/Program Files/Puppet Labs/Puppet/bin/puppet.bat' apply --noop /c/Users/Administrator/Projects/secure_windows/examples/init.pp
+puppet.bat apply --noop /c/opt/puppetlabs/puppet/modules/secure_windows/examples/init.pp
