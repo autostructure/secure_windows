@@ -34,8 +34,8 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
-  ::secure_windows::log {'logmsg1':
-    message => 'test message1.',
+  ::secure_windows::log {'logmsg2':
+    message => 'test message2.',
   }
 
 }
