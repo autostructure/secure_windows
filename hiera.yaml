@@ -1,8 +1,8 @@
 ---
 version: 5
-defaults:
-  datadir: "data"
-  data_hash: yaml_data # Standard yaml backend
 hierarchy:
-  - name: "Module data"
-    path: "module.yaml"
+  - name: Module
+    path: module.yaml
+defaults:
+  data_hash: yaml_data
+  datadir: data
