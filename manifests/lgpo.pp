@@ -227,7 +227,8 @@ class secure_windows::lgpo {
 
   # V-73753
   # The Create symbolic links user right must only be assigned to the Administrators group.
-  if($facts['windows_role'] =~ /(^20|,20,|,20$)/) {
+  if ($facts['windows_role'] and
+      $facts['windows_role'] =~ /(^20|,20,|,20$)/) {
     local_security_policy { 'Create symbolic links':
       ensure         => 'present',
       policy_setting => 'SeCreateSymbolicLinkPrivilege',
@@ -254,7 +255,7 @@ class secure_windows::lgpo {
   }
 
   # V-73757
-  # The Deny access to this computer from the network user right on domain controllers must be configured to prevent 
+  # The Deny access to this computer from the network user right on domain controllers must be configured to prevent
   # unauthenticated access.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny access to this computer from the network':
@@ -266,7 +267,7 @@ class secure_windows::lgpo {
   }
 
   # V-73759
-  # The Deny access to this computer from the network user right on member servers must be configured to prevent 
+  # The Deny access to this computer from the network user right on member servers must be configured to prevent
   # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
 
 
@@ -282,7 +283,7 @@ class secure_windows::lgpo {
   }
 
   # V-73763
-  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain 
+  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain
   # accounts on domain systems and from unauthenticated access on all systems.
 
 
@@ -295,7 +296,7 @@ class secure_windows::lgpo {
   }
 
   # V-73767
-  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain 
+  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain
   # accounts on domain systems. No other groups or accounts must be assigned this right.
 
 
@@ -311,7 +312,7 @@ class secure_windows::lgpo {
   }
 
   # V-73771
-  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on 
+  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on
   # domain systems and from unauthenticated access on all systems.
 
 
