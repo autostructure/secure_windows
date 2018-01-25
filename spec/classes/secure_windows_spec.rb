@@ -6,7 +6,7 @@ describe 'secure_windows' do
       context "on #{os}" do
         let(:facts) do
           facts
-          let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows' } }
+          { { 'windows_type' => '2' } }
         end
 
         print facts
