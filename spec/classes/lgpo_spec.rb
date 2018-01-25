@@ -360,7 +360,7 @@ describe 'secure_windows lgpo' do
     }
   end
   context 'lgpo standalone server' do
-    let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc', 'windows_role' => '20' } }
+    let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'MemberServer', 'windows_role' => '20' } }
     it {
         is_expected.to contain_local_security_policy('Deny access to this computer from the network').with(
           'ensure'         => 'present',
