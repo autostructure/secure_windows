@@ -3,10 +3,6 @@ describe 'secure_windows auditpol' do
   context 'auditpol defaults' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows' } }
     it {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> test
       should contain_auditpol('Credential Validation').with(
         'success' => 'enable',
         'failure' => 'enable'
