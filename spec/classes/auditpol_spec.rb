@@ -1,6 +1,13 @@
 require 'spec_helper'
 describe 'secure_windows auditpol' do
   context 'auditpol defaults' do
+    let(:facts) do
+      facts.merge(
+        windows_type: '2',
+        windows_server_type: 'windowsdc',
+        windows_role: '2',
+      )
+    end
     it {
       should contain_auditpol('Credential Validation').with(
         'success' => 'enable',
