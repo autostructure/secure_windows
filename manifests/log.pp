@@ -6,6 +6,7 @@
 #
 define secure_windows::log (
   Boolean $enabled = true,
+  String $threatlevel = 'warning',
 ) {
 
   if $enabled {
@@ -16,7 +17,7 @@ define secure_windows::log (
     notify { "puppetagentlogger_${title}":
       withpath => false,
       message  => $title,
-      loglevel => warning,
+      loglevel => $threatlevel,
     }
 
   }
