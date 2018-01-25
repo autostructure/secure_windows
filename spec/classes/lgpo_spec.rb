@@ -271,6 +271,14 @@ describe 'secure_windows lgpo' do
         'policy_value'   => '*S-1-5-32-544',
       )
     }
+    it {
+      is_expected.to contain_local_security_policy('EnableGuestAccount').with(
+        'ensure'         => 'present',
+        'policy_setting' => 'EnableGuestAccount',
+        'policy_type'    => 'System Access',
+        'policy_value'   => '0',
+      )
+    }
   end
   context 'lgpo domain controller' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }

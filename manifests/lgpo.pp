@@ -527,4 +527,13 @@ class secure_windows::lgpo {
     policy_type    => 'Privilege Rights',
     policy_value   => '*S-1-5-32-544',
   }
+
+  # V-73809
+  # The built-in guest account must be disabled.
+  local_security_policy { 'EnableGuestAccount':
+    ensure         => 'present',
+    policy_setting => 'EnableGuestAccount',
+    policy_type    => 'System Access',
+    policy_value   => '0',
+  }
 }
