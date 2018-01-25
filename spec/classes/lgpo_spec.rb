@@ -114,7 +114,7 @@ describe 'secure_windows lgpo' do
       is_expected.to contain_local_security_policy('Access Credential Manager as a trusted caller').with(
         'ensure'         => 'absent',
       )
-    }    
+    }
     it {
       is_expected.to contain_local_security_policy('Act as part of the operating system').with(
         'ensure'         => 'absent',
@@ -274,6 +274,7 @@ describe 'secure_windows lgpo' do
   end
   context 'lgpo domain controller' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }
+
     it {
       is_expected.to contain_local_security_policy('Access this computer from the network').with(
         'ensure'         => 'present',
@@ -358,6 +359,7 @@ describe 'secure_windows lgpo' do
   end
   context 'lgpo connected to domain' do
     let(:facts) { { 'windows_type' => '1', 'operatingsystem' => 'windows', 'windows_server_type' => 'MemberServer', 'windows_role' => '20' } }
+
     it {
       is_expected.to contain_local_security_policy('Access this computer from the network').with(
         'ensure'         => 'present',
