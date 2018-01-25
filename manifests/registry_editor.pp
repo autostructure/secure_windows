@@ -237,11 +237,39 @@ class secure_windows::registry_editor {
     data  => '0x000000ff',
   }
 
-  registry::value { 'v735':
-    key   => 'HKEY_LOCAL_MACHINE',
-    value => '',
+  registry::value { 'v73551':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection',
+    value => 'AllowTelemetry',
     type  => 'dword',
     data  => '0x00000000',
+  }
+
+  registry::value { 'v73553':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
+    value => 'MaxSize',
+    type  => 'dword',
+    data  => '0x00008000',
+  }
+
+  registry::value { 'v73555':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
+    value => 'MaxSize',
+    type  => 'dword',
+    data  => '0x00030000',
+  }
+
+  registry::value { 'v73557':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
+    value => 'MaxSize',
+    type  => 'dword',
+    data  => '0x00008000',
+  }
+
+  registry::value { 'v73559':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+    value => 'EnableSmartScreen',
+    type  => 'dword',
+    data  => '0x00000001',
   }
 
   ::secure_windows::log {'Registry editing complete.': }
