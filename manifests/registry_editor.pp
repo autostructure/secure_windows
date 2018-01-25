@@ -639,14 +639,14 @@ Deviations are not permitted except as authorized by the Deputy Assistant Secret
   }
 
   registry::value { 'v73681':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA\MSV1_0',
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
     value => 'allownullsessionfallback',
     type  => 'dword',
     data  => '0x00000000',
   }
 
   registry::value { 'v73683':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA\pku2u',
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\pku2u',
     value => 'AllowOnlineID',
     type  => 'dword',
     data  => '0x00000000',
