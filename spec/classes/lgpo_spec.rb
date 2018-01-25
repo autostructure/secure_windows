@@ -1,3 +1,6 @@
+#
+# This spec test will test for resources that apply to all nodes
+#
 require 'spec_helper'
 describe 'secure_windows lgpo' do
   context 'lgpo defaults' do
