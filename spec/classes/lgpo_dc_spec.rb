@@ -2,7 +2,7 @@
 # This spec test will test for resources that only apply to domain controllers
 #
 require 'spec_helper'
-describe 'secure_windows lgpo domain controller' do
+describe 'lgpo_dc_spec' do
   context 'lgpo domain controller' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }
 
