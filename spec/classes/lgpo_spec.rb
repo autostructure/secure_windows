@@ -111,6 +111,11 @@ describe 'secure_windows lgpo' do
       )
     }
     it {
+      is_expected.to contain_local_security_policy('Access Credential Manager as a trusted caller').with(
+        'ensure'         => 'absent',
+      )
+    }    
+    it {
       is_expected.to contain_local_security_policy('Act as part of the operating system').with(
         'ensure'         => 'absent',
       )
@@ -269,7 +274,14 @@ describe 'secure_windows lgpo' do
   end
   context 'lgpo domain controller' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }
-
+    it {
+      is_expected.to contain_local_security_policy('Access this computer from the network').with(
+        'ensure'         => 'present',
+        'policy_setting' => 'SeNetworkLogonRight',
+        'policy_type'    => 'Privilege Rights',
+        'policy_value'   => '*S-1-5-32-544,*S-1-5-11,*S-1-5-9',
+      )
+    }
     it {
       is_expected.to contain_local_security_policy('Add workstations to domain').with(
         'ensure'         => 'present',
@@ -346,7 +358,14 @@ describe 'secure_windows lgpo' do
   end
   context 'lgpo connected to domain' do
     let(:facts) { { 'windows_type' => '1', 'operatingsystem' => 'windows', 'windows_server_type' => 'MemberServer', 'windows_role' => '20' } }
-
+    it {
+      is_expected.to contain_local_security_policy('Access this computer from the network').with(
+        'ensure'         => 'present',
+        'policy_setting' => 'SeNetworkLogonRight',
+        'policy_type'    => 'Privilege Rights',
+        'policy_value'   => '*S-1-5-32-544,*S-1-5-11',
+      )
+    }
     it {
       is_expected.to contain_local_security_policy('Deny access to this computer from the network').with(
         'ensure'         => 'present',
