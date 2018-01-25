@@ -6,8 +6,8 @@ Facter.add(:windows_type) do
     roles = []
 
     require 'win32ole'
-    wmi = WIN32OLE.connect("winmgmts:\\\\.\\root\\cimv2")
-    wmi.ExecQuery("select * from Win32_ComputerSystem").each do |role|
+    wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
+    wmi.ExecQuery('select * from Win32_ComputerSystem').each do |role|
       roles.push(role.DomainRole)
     end
 
