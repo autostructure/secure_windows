@@ -54,8 +54,8 @@ class secure_windows::auditpol {
   # V-73431
   # Windows Server 2016 must be configured to audit Detailed Tracking - Plug and Play Events successes.
   auditpol { 'Plug and Play Events':
-    failure => 'enable',
-    success => 'disable',
+    success => 'enable',
+    failure => 'disable',
   }
 
   # V-73433
@@ -99,8 +99,8 @@ class secure_windows::auditpol {
   # V-73447
   # Windows Server 2016 must be configured to audit Logon/Logoff - Group Membership successes.
   auditpol { 'Group Membership':
-    failure => 'enable',
-    success => 'disable',
+    success => 'enable',
+    failure => 'disable',
   }
 
   # V-73449
@@ -131,8 +131,8 @@ class secure_windows::auditpol {
   # V-73459
   # Windows Server 2016 must be configured to audit Object Access - Removable Storage failures.
   auditpol { 'Removable Storage':
-    failure => 'enable',
     success => 'enable',
+    failure => 'enable',
   }
 
   # V-73461
@@ -154,8 +154,8 @@ class secure_windows::auditpol {
   # V-73467
   # Windows Server 2016 must be configured to audit Policy Change - Authorization Policy Change successes.
   auditpol { 'Authorization Policy Change':
-    failure => 'enable',
-    success => 'disable',
+    success => 'enable',
+    failure => 'disable',
   }
 
   # V-73469
