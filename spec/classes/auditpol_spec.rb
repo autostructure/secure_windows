@@ -12,23 +12,11 @@ describe 'secure_windows auditpol' do
         'failure' => 'enable'
       )
     }
-    it {
-      should contain_auditpol('Application Group Management').with(
-        'success' => 'enable',
-        'failure' => 'enable'
-      )
-    }
-    it {
-      should contain_auditpol('Computer Account Management').with(
-        'success' => 'enable',
-        'failure' => 'enable'
-      )
-    }
     # DC ONLY
     # it {
-    #   should contain_auditpol('Distribution Group Management').with(
+    #   should contain_auditpol('Computer Account Management').with(
     #     'success' => 'enable',
-    #     'failure' => 'enable'
+    #     'failure' => 'disable'
     #   )
     # }
     it {
@@ -50,26 +38,38 @@ describe 'secure_windows auditpol' do
       )
     }
     it {
+      should contain_auditpol('Plug and Play Events').with(
+        'success' => 'enable',
+        'failure' => 'disable'
+      )
+    }
+    it {
       should contain_auditpol('Process Creation').with(
         'success' => 'enable',
         'failure' => 'disable'
       )
     }
-    # DC ONLY
-    # it {
-    #   should contain_auditpol('Directory Service Changes').with(
-    #     'success' => 'enable',
-    #     'failure' => 'enable'
-    #   )
-    # }
+    #DC ONLY
     # it {
     #   should contain_auditpol('Directory Service Access').with(
     #     'success' => 'enable',
     #     'failure' => 'enable'
     #   )
     # }
+    # it {
+    #   should contain_auditpol('Directory Service Changes').with(
+    #     'success' => 'enable',
+    #     'failure' => 'enable'
+    #   )
+    # }
     it {
       should contain_auditpol('Account Lockout').with(
+        'success' => 'enable',
+        'failure' => 'enable'
+      )
+    }
+    it {
+      should contain_auditpol('Group Membership').with(
         'success' => 'enable',
         'failure' => 'disable'
       )
@@ -87,15 +87,15 @@ describe 'secure_windows auditpol' do
       )
     }
     it {
-      should contain_auditpol('Other Logon/Logoff Events').with(
-        'success' => 'enable',
-        'failure' => 'enable'
-      )
-    }
-    it {
       should contain_auditpol('Special Logon').with(
         'success' => 'enable',
         'failure' => 'disable'
+      )
+    }
+    it {
+      should contain_auditpol('Removable Storage').with(
+        'success' => 'enable',
+        'failure' => 'enable'
       )
     }
     it {
@@ -106,6 +106,12 @@ describe 'secure_windows auditpol' do
     }
     it {
       should contain_auditpol('Authentication Policy Change').with(
+        'success' => 'enable',
+        'failure' => 'disable'
+      )
+    }
+    it {
+      should contain_auditpol('Authorization Policy Change').with(
         'success' => 'enable',
         'failure' => 'disable'
       )
