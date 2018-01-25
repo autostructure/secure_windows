@@ -1,2 +1,3 @@
 ---
 secure_windows::log::enabled: false
+secure_windows::log::threatlevel: crit

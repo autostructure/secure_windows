@@ -6,7 +6,7 @@
 #
 define secure_windows::log (
   Boolean $enabled = true,
-  Enum['alert', 'crit', 'debug', 'emerg', 'err', 'info', 'notice', 'warning'] $threatlevel = 'warning',
+  Enum['alert', 'crit', 'debug', 'emerg', 'err', 'info', 'notice', 'warning'] $threatlevel = 'crit',
 ) {
 
   if $enabled {
