@@ -132,22 +132,23 @@ describe 'secure_windows auditpol' do
   end
   context 'auditpol domain controller' do
     let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }
+
     it {
-      should contain_auditpol('Computer Account Management').with(
+      is_expected.to contain_auditpol('Computer Account Management').with(
         'success' => 'enable',
-        'failure' => 'disable'
+        'failure' => 'disable',
       )
     }
     it {
-      should contain_auditpol('Directory Service Access').with(
+      is_expected.to contain_auditpol('Directory Service Access').with(
         'success' => 'enable',
-        'failure' => 'enable'
+        'failure' => 'enable',
       )
     }
     it {
-      should contain_auditpol('Directory Service Changes').with(
+      is_expected.to contain_auditpol('Directory Service Changes').with(
         'success' => 'enable',
-        'failure' => 'enable'
+        'failure' => 'enable',
       )
     }
   end
