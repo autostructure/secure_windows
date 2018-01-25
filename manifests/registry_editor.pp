@@ -328,13 +328,6 @@ class secure_windows::registry_editor {
     data  => '0x00000003',
   }
 
-  registry::value { 'v73575':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'MinEncryptionLevel',
-    type  => 'dword',
-    data  => '0x00000003',
-  }
-
   registry::value { 'v73577':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
     value => 'DisableEnclosureDownload',
