@@ -153,6 +153,97 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
+  registry::value { 'v73527':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+    value => 'DisableWebPnPDownload',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73529':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+    value => 'DisableHTTPPrinting',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73531':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+    value => 'DontDisplayNetworkSelectionUI',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73533':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+    value => 'EnumerateLocalUsers',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73535':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOption',
+    value => 'MitigationOptions_FontBocking',
+    type  => 'string',
+    data  => '1000000000000',
+  }
+
+  registry::value { 'v73537':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+    value => 'DCSettingIndex',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73539':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+    value => 'ACSettingIndex',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73541':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc',
+    value => 'RestrictRemoteClients',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73543':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat',
+    value => 'DisableInventory',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73545':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+    value => 'NoAutoplayfornonVolume',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73547':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+    value => 'NoAutorun',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73549':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+    value => 'NoDriveTypeAutoRun',
+    type  => 'dword',
+    data  => '0x000000ff',
+  }
+
+  registry::value { 'v735':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
   ::secure_windows::log {'Registry editing complete.': }
 
 }
