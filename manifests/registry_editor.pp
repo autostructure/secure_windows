@@ -272,6 +272,188 @@ class secure_windows::registry_editor {
     data  => '0x00000001',
   }
 
+  registry::value { 'v73561':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+    value => 'NoDataExecutionPrevention',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73563':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+    value => 'NoHeapTerminationOnCorruption',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73565':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+    value => 'PreXPSP2ShellProtocolBehavior',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73567':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'DisablePasswordSaving',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73569':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'fDisableCdm',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73571':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'fPromptForPassword',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73573':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'fEncryptRPCTraffic',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73575':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'MinEncryptionLevel',
+    type  => 'dword',
+    data  => '0x00000003',
+  }
+
+  registry::value { 'v73575':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+    value => 'MinEncryptionLevel',
+    type  => 'dword',
+    data  => '0x00000003',
+  }
+
+  registry::value { 'v73577':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+    value => 'DisableEnclosureDownload',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73579':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+    value => 'AllowBasicAuthInClear',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73581':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
+    value => 'AllowIndexingEncryptedStoresOrItems',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73583':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+    value => 'EnableUserControl',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73585':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+    value => 'AlwaysInstallElevated',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73587':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+    value => 'SafeForScripting',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73589':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    value => 'DisableAutomaticRestartSignOn',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73591':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging',
+    value => 'EnableScriptBlockLogging',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73593':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+    value => 'AllowBasic',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73595':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+    value => 'AllowUnencryptedTraffic',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73597':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+    value => 'AllowDigest',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
   ::secure_windows::log {'Registry editing complete.': }
 
 }
