@@ -6,8 +6,8 @@ describe 'secure_windows' do
       context "on #{os}" do
         let(:facts) do
           facts
-          { { 'windows_type' => '2' } }
         end
+        super().merge({ 'windows_type' => '2' })
 
         print facts
 
