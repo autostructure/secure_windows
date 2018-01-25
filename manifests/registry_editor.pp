@@ -412,6 +412,388 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
+  registry::value { 'v73599':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+    value => 'AllowBasic',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73601':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+    value => 'AllowUnencryptedTraffic',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73603':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+    value => 'DisableRunAs',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73621':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'LimitBlankPasswordUse',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73627':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'SCENoApplyLegacyAuditPolicy',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73629':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters',
+    value => 'LDAPServerIntegrity',
+    type  => 'dword',
+    data  => '0x00000002',
+  }
+
+  registry::value { 'v73631':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'RefusePasswordChange',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73633':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'RequireSignOrSeal',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73635':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'SealSecureChannel',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73637':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'SignSecureChannel',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73639':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'DisablePasswordChange',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73641':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'MaximumPasswordAge',
+    type  => 'dword',
+    data  => '0x0000001e',
+  }
+
+  registry::value { 'v73643':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+    value => 'RequireStrongKey',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73645':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    value => 'InactivityTimeoutSecs',
+    type  => 'dword',
+    data  => '0x00000384',
+  }
+
+  $legalnoticetext = "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+
+By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+
+-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+
+-At any time, the USG may inspect and seize data stored on this IS.
+
+-Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+
+-This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+
+-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
+
+Any OS versions that do not support the full text version must state the following:
+\"I've read & consent to terms in IS user agreem't.\"
+
+Deviations are not permitted except as authorized by the Deputy Assistant Secretary of Defense for Information and Identity Assurance."
+
+  registry::value { 'v73647':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    value => 'LegalNoticeText',
+    type  => 'string',
+    data  => $legalnoticetext,
+  }
+
+  $legalnoticetitle = 'US Department of Defense Warning Statement'
+  # Alternatively, the title below is also valid...
+  # $legalnoticetitle = "DoD Notice and Consent Banner",
+
+  registry::value { 'v73649':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    value => 'LegalNoticeCaption',
+    type  => 'string',
+    data  => $legalnoticetitle,
+  }
+
+  registry::value { 'v73651':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+    value => 'CachedLogonsCount',
+    type  => 'string',
+    data  => '4',
+  }
+
+  registry::value { 'v73653':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+    value => 'RequireSecuritySignature',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73655':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+    value => 'EnableSecuritySignature',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73657':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+    value => 'EnablePlainTextPassword',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73659':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+    value => 'autodisconnect',
+    type  => 'dword',
+    data  => '0x0000000f',
+  }
+
+  registry::value { 'v73661':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+    value => 'RequireSecuritySignature',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73663':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+    value => 'EnableSecuritySignature',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73667':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'RestrictAnonymousSAM',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73669':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'RestrictAnonymous',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73671':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'DisableDomainCreds',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73673':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'EveryoneIncludesAnonymous',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73675':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameter',
+    value => 'RestrictNullSessAccess',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73677':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'RestrictRemoteSAM',
+    type  => 'string',
+    data  => 'O:BAG:BAD:(A;;RC;;;BA)',
+  }
+
+  registry::value { 'v73679':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'UseMachineId',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+  registry::value { 'v73681':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA\MSV1_0',
+    value => 'allownullsessionfallback',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73683':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA\pku2u',
+    value => 'AllowOnlineID',
+    type  => 'dword',
+    data  => '0x00000000',
+  }
+
+  registry::value { 'v73685':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters',
+    value => 'SupportedEncryptionTypes',
+    type  => 'dword',
+    data  => '0x7ffffff8',
+  }
+
+  registry::value { 'v73687':
+    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+    value => 'NoLMHash',
+    type  => 'dword',
+    data  => '0x00000001',
+  }
+
+
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
+  registry::value { 'v73':
+    key   => 'HKEY_LOCAL_MACHINE',
+    value => '',
+    type  => 'dword',
+    data  => '',
+  }
+
   registry::value { 'v73':
     key   => 'HKEY_LOCAL_MACHINE',
     value => '',
