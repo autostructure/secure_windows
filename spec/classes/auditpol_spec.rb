@@ -9,13 +9,6 @@ describe 'secure_windows auditpol' do
         'failure' => 'enable',
       )
     }
-    # DC ONLY
-    # it {
-    #   should contain_auditpol('Computer Account Management').with(
-    #     'success' => 'enable',
-    #     'failure' => 'disable'
-    #   )
-    # }
     it {
       is_expected.to contain_auditpol('Other Account Management Events').with(
         'success' => 'enable',
@@ -46,19 +39,6 @@ describe 'secure_windows auditpol' do
         'failure' => 'disable',
       )
     }
-    # DC ONLY
-    # it {
-    #   should contain_auditpol('Directory Service Access').with(
-    #     'success' => 'enable',
-    #     'failure' => 'enable'
-    #   )
-    # }
-    # it {
-    #   should contain_auditpol('Directory Service Changes').with(
-    #     'success' => 'enable',
-    #     'failure' => 'enable'
-    #   )
-    # }
     it {
       is_expected.to contain_auditpol('Account Lockout').with(
         'success' => 'enable',
@@ -147,6 +127,27 @@ describe 'secure_windows auditpol' do
       is_expected.to contain_auditpol('System Integrity').with(
         'success' => 'enable',
         'failure' => 'enable',
+      )
+    }
+  end
+  context 'auditpol domain controller' do
+    let(:facts) { { 'windows_type' => '2', 'operatingsystem' => 'windows', 'windows_server_type' => 'windowsdc' } }
+    it {
+      should contain_auditpol('Computer Account Management').with(
+        'success' => 'enable',
+        'failure' => 'disable'
+      )
+    }
+    it {
+      should contain_auditpol('Directory Service Access').with(
+        'success' => 'enable',
+        'failure' => 'enable'
+      )
+    }
+    it {
+      should contain_auditpol('Directory Service Changes').with(
+        'success' => 'enable',
+        'failure' => 'enable'
       )
     }
   end
