@@ -231,7 +231,7 @@ class secure_windows::registry_editor {
   }
 
   registry::value { 'v73549':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer',
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
     value => 'NoDriveTypeAutoRun',
     type  => 'dword',
     data  => '0x000000ff',
