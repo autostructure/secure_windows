@@ -5,14 +5,30 @@
 # %windir%\security\database directory (where %windir% is the drive and path to your Windows directory).
 # secedit /configure /db mysecure.sdb /areas FILESTORE /log %windir% \security\logs\Mysecure.log /verbose.
 confine :osfamily => :windows
+defaultfor :operatingsystem => :windows
+confine :exists => "c:\\Windows\\security\\database\\secedit.sdb"
+commands :secedit => "secedit"
 
-dbfile = 'c:\Windows\security\database\secedit.sdb'
-admintemplatefile = 'MSS-Legacy.admx' # MSS-Legacy.admx, MSS-Legacy.adml
-logfile = 'c:\Windows\security\logs\puppet-secedit.log'
-cmdline = "secedit /configure /db #{dbfile} /cfg #{admintemplatefile} /log #{logfile}" # /overwrite ???
+Puppet::Type.type(:package).provide(:secedit) do
+  desc "puppet windows provider that loads group policy templates."
 
-if File.exist?(dbfile) && File.exist?(admintemplatefile)
-  Facter::Core::Execution.exec(cmdline)
-else
-  raise Puppet::Error, "Failed to load policy template: #{cmdline}"
+  dbfile = 'c:\Windows\security\database\secedit.sdb'
+  templatefile = 'MSS-Legacy.admx' # MSS-Legacy.admx, MSS-Legacy.adml
+  logfile = 'c:\Windows\security\logs\puppet-secedit.log'
+  _cmdline = "secedit /configure /db #{dbfile} /cfg #{templatefile} /log #{logfile}" # /overwrite ???
+
+  # hard code the file path (this allows purging)
+  def self.template_file_path
+    templatefile
+  end
+
+  # load policy template
+  def load
+    if File.exist?(dbfile) && File.exist?(templatefile)
+      Facter::Core::Execution.exec(_cmdline)
+    else
+      raise Puppet::Error, "Failed to load policy template: #{_cmdline}"
+    end
+  end
+
 end
