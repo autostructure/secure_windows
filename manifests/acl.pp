@@ -122,22 +122,19 @@ class secure_windows::acl {
     inherit_parent_permissions => true,
     permissions                => [
       {
-        'identity'     => 'NT SERVICE\\EventLog',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true,
+        'identity' => 'NT SERVICE\\EventLog',
+        'rights'   => ['full'],
+        'affects'  => 'self_only',
       },
       {
-        'identity'     => 'NT AUTHORITY\\SYSTEM',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true,
+        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'rights'   => ['full'],
+        'affects'  => 'self_only',
       },
       {
-        'identity'     => 'BUILTIN\\Administrators',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true,
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['full'],
+        'affects'  => 'self_only',
       }
     ],
   }
