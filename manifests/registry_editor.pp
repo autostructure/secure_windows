@@ -87,9 +87,13 @@ class secure_windows::registry_editor {
 
   # TODO: value should be...
   #  value => '\\*\NETLOGON',
+  # Since this requirement relates to UNC Paths, I choose to use
+  # forward slashes instead of backslashes.  I wonder if the STIG
+  # mis-reported this req because I can't even manually adding
+  # a registry key with backslashes.
   registry::value { 'v73509-1':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => "\\\\*\\NETLOGON",
+    value => '//*/NETLOGON',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
@@ -98,7 +102,7 @@ class secure_windows::registry_editor {
   #  value => '\\*\SYSVOL',
   registry::value { 'v73509-2':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => 'SYSVOL',
+    value => '//*/SYSVOL',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
