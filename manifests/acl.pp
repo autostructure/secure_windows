@@ -119,7 +119,7 @@ class secure_windows::acl {
           '%SystemRoot%\\System32\\winevt\\Logs\\Security.evtx',
           '%SystemRoot%\\System32\\winevt\\Logs\\System.evtx'
         ]:
-    inherit_parent_permissions => true,
+    inherit_parent_permissions => false,
     permissions                => [
       {
         'identity'     => 'NT SERVICE\\EventLog',
