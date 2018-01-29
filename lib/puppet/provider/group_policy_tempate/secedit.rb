@@ -4,7 +4,7 @@
 # secedit /configure /db FileName [/cfg FileName ] [/overwrite][/areas area1 area2...] [/log FileName] [/quiet]
 # %windir%\security\database drectory (where %windir% is the drive and path to your Windows directory).
 # secedit /configure /db mysecure.sdb /areas FILESTORE /log %windir% \security\logs\Mysecure.log /verbose.
-Puppet::Type.type(:group_policy_template).provide(:group_policy_template) do
+Puppet::Type.type(:group_policy_template).provide(:secedit) do
   desc "Puppet custom type provider that loads Windows group policy templates."
 
   confine :osfamily => :windows
@@ -17,10 +17,10 @@ Puppet::Type.type(:group_policy_template).provide(:group_policy_template) do
   logfile = 'c:\Windows\security\logs\puppet-secedit.log'
   _cmdline = "secedit /configure /db #{dbfile} /cfg #{templatefile} /log #{logfile}" # /overwrite ???
 
-  # hard code the file path (this allows purging)
-  def self.template_file_path
-    templatefile
-  end
+  # template path (property or param?)
+  #def self.template_file_path
+  #  templatefile
+  #end
 
   # load policy template
   def load
