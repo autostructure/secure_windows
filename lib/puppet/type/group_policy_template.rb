@@ -1,36 +1,55 @@
 Puppet::Type.newtype(:group_policy_template) do
   desc 'Puppet type that supports Windows group policy templates.'
 
-  ensurable
+  # ensurable
 
-  newparam(:name) do
-    desc "Group policy security template name"
-  end
+  ensurable do
+    newvalue(:present) do
+      provider.install
+    end
 
-  newparam(:sdbfilepath) do
-    desc "Path to the security database file"
-  end
+    newvalue(:absent) do
+      provider.uninstall
+    end
 
-  newparam(:templatefilepath) do
-    desc "Path to the group policy template file (*.admx)"
+    newvalue(:purged) do
+      provider.purge
+    end
 
-    validate do |value|
-      raise ArgumentError, "Key must be included ':'" if value.nil?
+    newvalue(:held) do
+      provider.hold
     end
   end
 
-  #newparam(:type) do
-  #  desc 'The datatype of the key'
-  #  newvalues(:string, :int, :integer, :float, :bool, :boolean)
-  #end
+  newparam(:name, :namevar => :true) do
+    desc "Group policy security template name"
 
-  #newproperty(:value) do
-  #  desc 'The value to assign to the key'
-  #end
+    validate do |value|
+      raise ArgumentError, "You must supply a path to the template file ':'" if value.nil?
+    end
+
+    # dbfile = 'c:\Windows\security\database\secedit.sdb'
+    # templatefile = 'c:\tmp\MSS-Legacy.admx' # MSS-Legacy.admx, MSS-Legacy.adml
+    logfile = 'c:\Windows\security\logs\puppet-secedit.log'
+
+    provider.load(:load_template, :sdb_filepath, logfile)
+  end
+
+  newparam(:sdb_filepath) do
+    desc "Path to the security database file"
+  end
+
+  newparam(:load_template) do
+    desc "Path to the group policy template file (*.admx)"
+  end
 
   def pre_run_check
-  #  if self[:value].nil?
-  #    raise Puppet::Error, "A value is required!"
-  #  end
+    if self[:sdb_filepath].nil?
+      raise Puppet::Error, "A path to the policy database is required!"
+    end
+
+    if self[:load_template].nil?
+      raise Puppet::Error, "A path to the group policy template file is required (*.admx)!"
+    end
   end
 end
