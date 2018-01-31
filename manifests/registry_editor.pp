@@ -85,43 +85,31 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
-  # TODO: value should be...
-  #  value => '\\*\NETLOGON',
-  # Since this requirement relates to UNC Paths, I choose to use
-  # forward slashes instead of backslashes.  I wonder if the STIG
-  # mis-reported this req because I can't even manually adding
-  # a registry key with backslashes.
-  # echo %comspec%
-  # C:\Windows\system32\cmd.exe
-  # %COMSPEC% /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=0" /t REG_SZ
-  # %COMSPEC% /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=0" /t REG_SZ
-  # Source: https://serverfault.com/questions/754012/windows-10-unable-to-access-sysvol-and-netlogon
-  # New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "\\*\SYSVOL" -Value "RequireMutualAuthentication=0" -Property "String"
-  # New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "\\*\NETLOGON" -Value "RequireMutualAuthentication=0" -Property "String"
-  # Source: https://community.spiceworks.com/topic/1389891-windows-10-and-sysvol-netlogon
-  #registry::value { 'v73509-1':
-  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-  #  value => '\\*\NETLOGON',
-  #  type  => 'string',
-  #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
-  #}
+  # registry::value { 'v73509-1':
+  #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #   value => '\\*\NETLOGON',
+  #   type  => 'string',
+  #   data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  # }
   #
-  # TODO: value should be...
-  #  value => '\\*\SYSVOL',
-  #registry::value { 'v73509-2':
-  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-  #  value => '\\*\SYSVOL',
-  #  type  => 'string',
-  #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
-  #}
+  # registry::value { 'v73509-2':
+  #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #   value => '\\*\SYSVOL',
+  #   type  => 'string',
+  #   data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  # }
 
   # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f
+  # NOTE: %ERRORLEVEL% returns 0 if match found and 1 if no match
+  #       So, using unless instead of onlyif as a test.
   exec { 'v73509_netlogon':
     command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+    unless  => 'C:\Windows\system32\cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON"',
   }
 
   exec { 'v73509_sysvol':
     command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+    unless  => 'C:\Windows\system32\cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL"',
   }
 
   registry::value { 'v73511':
