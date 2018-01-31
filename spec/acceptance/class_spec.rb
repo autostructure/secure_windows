@@ -1,9 +1,9 @@
 require 'spec_helper_acceptance'
 
 describe 'secure_docker class' do
-  context 'default parameters' do
+  context 'with default parameters' do
     # Using puppet_apply as a helper
-    it 'should work idempotently with no errors' do
+    it 'works idempotently with no errors' do
       pp = <<-SECURE_WINDOWS
       class { 'secure_windows': }
       SECURE_WINDOWS

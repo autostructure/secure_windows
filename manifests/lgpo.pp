@@ -149,6 +149,35 @@ class secure_windows::lgpo {
     policy_value   => '1',
   }
 
+  # V-73729
+  # The Access Credential Manager as a trusted caller user right must not be assigned to any groups or accounts.
+  local_security_policy { 'Access Credential Manager as a trusted caller':
+    ensure         => 'absent',
+  }
+
+  # V-73731
+  # The Access this computer from the network user right must only be assigned to the Administrators, Authenticated Users, and
+  # Enterprise Domain Controllers groups on domain controllers.
+  # V-73733
+  # The Access this computer from the network user right must only be assigned to the Administrators and Authenticated Users groups
+  # on member servers.
+  if($facts['windows_server_type'] == 'windowsdc') {
+    local_security_policy { 'Access this computer from the network':
+      ensure         => 'present',
+      policy_setting => 'SeNetworkLogonRight',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544,*S-1-5-11,*S-1-5-9',
+    }
+  }
+  else {
+    local_security_policy { 'Access this computer from the network':
+      ensure         => 'present',
+      policy_setting => 'SeNetworkLogonRight',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544,*S-1-5-11',
+    }
+  }
+
   # V-73735
   # The Act as part of the operating system user right must not be assigned to any groups or accounts.
   local_security_policy { 'Act as part of the operating system':
@@ -227,7 +256,8 @@ class secure_windows::lgpo {
 
   # V-73753
   # The Create symbolic links user right must only be assigned to the Administrators group.
-  if($facts['windows_role'] =~ /(^20|,20,|,20$)/) {
+  if ($facts['windows_role'] and
+      $facts['windows_role'] =~ /(^20|,20,|,20$)/) {
     local_security_policy { 'Create symbolic links':
       ensure         => 'present',
       policy_setting => 'SeCreateSymbolicLinkPrivilege',
@@ -254,7 +284,7 @@ class secure_windows::lgpo {
   }
 
   # V-73757
-  # The Deny access to this computer from the network user right on domain controllers must be configured to prevent 
+  # The Deny access to this computer from the network user right on domain controllers must be configured to prevent
   # unauthenticated access.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny access to this computer from the network':
@@ -264,11 +294,51 @@ class secure_windows::lgpo {
       policy_value   => '*S-1-5-32-546',
     }
   }
+  else {
+    # V-73759
+    # The Deny access to this computer from the network user right on member servers must be configured to prevent
+    # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+    if($facts['windows_type'] =~ /(0|2)/) {
+      #standalone
+      local_security_policy { 'Deny access to this computer from the network':
+        ensure         => 'present',
+        policy_setting => 'SeDenyNetworkLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => '*S-1-5-32-546',
+      }
+    }
+    elsif ($facts['windows_type'] =~ /(1|3)/) {
+      #member server
+      local_security_policy { 'Deny access to this computer from the network':
+        ensure         => 'present',
+        policy_setting => 'SeDenyNetworkLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => '*S-1-5-32-546',
+      }
+    }
+  }
 
-  # V-73759
-  # The Deny access to this computer from the network user right on member servers must be configured to prevent 
-  # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
-
+  # # V-73759
+  # # The Deny access to this computer from the network user right on member servers must be configured to prevent
+  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+  # if($facts['windows_type'] =~ /(0|2)/) {
+  #   #standalone
+  #   local_security_policy { 'Deny access to this computer from the network':
+  #     ensure         => 'present',
+  #     policy_setting => 'SeDenyNetworkLogonRight',
+  #     policy_type    => 'Privilege Rights',
+  #     policy_value   => '*S-1-5-32-546',
+  #   }
+  # }
+  # elsif ($facts['windows_type'] =~ /(1|3)/) {
+  #   #member server
+  #   local_security_policy { 'Deny access to this computer from the network':
+  #     ensure         => 'present',
+  #     policy_setting => 'SeDenyNetworkLogonRight',
+  #     policy_type    => 'Privilege Rights',
+  #     policy_value   => '*S-1-5-32-546',
+  #   }
+  # }
 
   # V-73761
   # The Deny log on as a batch job user right on domain controllers must be configured to prevent unauthenticated access.
@@ -282,7 +352,7 @@ class secure_windows::lgpo {
   }
 
   # V-73763
-  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain 
+  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain
   # accounts on domain systems and from unauthenticated access on all systems.
 
 
@@ -295,7 +365,7 @@ class secure_windows::lgpo {
   }
 
   # V-73767
-  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain 
+  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain
   # accounts on domain systems. No other groups or accounts must be assigned this right.
 
 
@@ -311,7 +381,7 @@ class secure_windows::lgpo {
   }
 
   # V-73771
-  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on 
+  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on
   # domain systems and from unauthenticated access on all systems.
 
 
@@ -456,5 +526,14 @@ class secure_windows::lgpo {
     policy_setting => 'SeTakeOwnershipPrivilege',
     policy_type    => 'Privilege Rights',
     policy_value   => '*S-1-5-32-544',
+  }
+
+  # V-73809
+  # The built-in guest account must be disabled.
+  local_security_policy { 'EnableGuestAccount':
+    ensure         => 'present',
+    policy_setting => 'EnableGuestAccount',
+    policy_type    => 'System Access',
+    policy_value   => '0',
   }
 }
