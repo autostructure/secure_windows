@@ -99,21 +99,26 @@ class secure_windows::registry_editor {
   # New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "\\*\SYSVOL" -Value "RequireMutualAuthentication=0" -Property "String"
   # New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "\\*\NETLOGON" -Value "RequireMutualAuthentication=0" -Property "String"
   # Source: https://community.spiceworks.com/topic/1389891-windows-10-and-sysvol-netlogon
-  registry::value { 'v73509-1':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\NETLOGON',
-    value => '',
-    type  => 'string',
-    data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  #registry::value { 'v73509-1':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #  value => '\\*\NETLOGON',
+  #  type  => 'string',
+  #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  #}
+
+  # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ
+  exec {
+    command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ"'
   }
 
   # TODO: value should be...
   #  value => '\\*\SYSVOL',
-  registry::value { 'v73509-2':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '\\*\SYSVOL',
-    type  => 'string',
-    data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
-  }
+  #registry::value { 'v73509-2':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #  value => '\\*\SYSVOL',
+  #  type  => 'string',
+  #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  #}
 
   registry::value { 'v73511':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit',
