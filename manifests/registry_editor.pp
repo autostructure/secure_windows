@@ -105,12 +105,7 @@ class secure_windows::registry_editor {
   #  type  => 'string',
   #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   #}
-
-  # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ
-  exec { 'reg_add_netlogon':
-    command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ"',
-  }
-
+  #
   # TODO: value should be...
   #  value => '\\*\SYSVOL',
   #registry::value { 'v73509-2':
@@ -119,6 +114,15 @@ class secure_windows::registry_editor {
   #  type  => 'string',
   #  data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   #}
+
+  # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f
+  exec { 'v73509_netlogon':
+    command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+  }
+
+  exec { 'v73509_sysvol':
+    command => 'C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+  }
 
   registry::value { 'v73511':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit',
