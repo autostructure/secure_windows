@@ -91,9 +91,14 @@ class secure_windows::registry_editor {
   # forward slashes instead of backslashes.  I wonder if the STIG
   # mis-reported this req because I can't even manually adding
   # a registry key with backslashes.
+  # echo %comspec%
+  # C:\Windows\system32\cmd.exe
+  # %COMSPEC% /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=0" /t REG_SZ
+  # %COMSPEC% /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=0" /t REG_SZ
+
   registry::value { 'v73509-1':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '//*/NETLOGON',
+    value => "\\\\*\\NETLOGON",
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
@@ -102,7 +107,7 @@ class secure_windows::registry_editor {
   #  value => '\\*\SYSVOL',
   registry::value { 'v73509-2':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '//*/SYSVOL',
+    value => '\\*\SYSVOL',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
