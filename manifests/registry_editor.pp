@@ -100,8 +100,8 @@ class secure_windows::registry_editor {
   # New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "\\*\NETLOGON" -Value "RequireMutualAuthentication=0" -Property "String"
   # Source: https://community.spiceworks.com/topic/1389891-windows-10-and-sysvol-netlogon
   registry::value { 'v73509-1':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => '\\*\NETLOGON',
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\NETLOGON',
+    value => '',
     type  => 'string',
     data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
   }
