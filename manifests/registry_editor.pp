@@ -85,22 +85,37 @@ class secure_windows::registry_editor {
     data  => '0x00000000',
   }
 
-  # TODO: value should be...
-  #  value => '\\*\NETLOGON',
-  registry::value { 'v73509-1':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => 'NETLOGON',
-    type  => 'string',
-    data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  # These two registry entries were added via command-line.
+  # The values contained characters that the registry value resource
+  # didn't like.  See further below for implementation.
+  #
+  # registry::value { 'v73509-1':
+  #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #   value => '\\*\NETLOGON',
+  #   type  => 'string',
+  #   data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  # }
+  #
+  # registry::value { 'v73509-2':
+  #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
+  #   value => '\\*\SYSVOL',
+  #   type  => 'string',
+  #   data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  # }
+
+  # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f
+  # NOTE: %ERRORLEVEL% returns 0 if match found and 1 if no match
+  #       So, using unless instead of onlyif as a test.
+  exec { 'v73509_netlogon':
+    path    => 'C:\Windows\system32',
+    command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+    unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON"',
   }
 
-  # TODO: value should be...
-  #  value => '\\*\SYSVOL',
-  registry::value { 'v73509-2':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths',
-    value => 'SYSVOL',
-    type  => 'string',
-    data  => 'RequireMutualAuthentication=1, RequireIntegrity=1',
+  exec { 'v73509_sysvol':
+    path    => 'C:\Windows\system32',
+    command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+    unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL"',
   }
 
   registry::value { 'v73511':
