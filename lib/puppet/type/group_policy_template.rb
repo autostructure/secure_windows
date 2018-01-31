@@ -5,19 +5,19 @@ Puppet::Type.newtype(:group_policy_template) do
 
   ensurable do
     newvalue(:present) do
-      provider.install
+      provider.create
     end
 
     newvalue(:absent) do
-      provider.uninstall
+      provider.destroy
     end
 
     newvalue(:purged) do
-      provider.purge
+      # provider.purge
     end
 
     newvalue(:held) do
-      provider.hold
+      # provider.hold
     end
   end
 

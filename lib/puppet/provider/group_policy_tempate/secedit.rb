@@ -1,5 +1,9 @@
-
 # secedit.rb
+#
+# NOTE: deprecated.
+# secedit loads *.inf files.
+# The *.inf files are an older policy file format.
+# the secedit command won't load *.admx/*.adml template data.
 #
 # secedit /configure /db FileName [/cfg FileName ] [/overwrite][/areas area1 area2...] [/log FileName] [/quiet]
 # %windir%\security\database drectory (where %windir% is the drive and path to your Windows directory).
