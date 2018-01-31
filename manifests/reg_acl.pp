@@ -9,6 +9,7 @@ class secure_windows::reg_acl {
   # Security
   # Let's try this
   # So security is so locked down by default that Puppet can't query it. I don't know a workaround
+  # Maybe we can just notify if we can read the values?
   # reg_acl { 'hklm:security\\':
   #   inherit_from_parent => false,
   #   owner               => 'S-1-5-32-544',
