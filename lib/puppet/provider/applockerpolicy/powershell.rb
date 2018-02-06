@@ -27,7 +27,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'Autostructure: xmlstr...'
     xml.root.elements.each('RuleCollection') do |rc|
       puts 'Autostructure: rc'
-      rc.elements[0].each('FileHashRule') do |fhr|
+      puts rc.to_s
+      puts 'Autostructure: rc[1]'
+      rc.elements[1].to_s
+      rc.elements[1].each('FileHashRule') do |fhr|
         puts 'Autostructure: fhr(in)'
         puts "AppLockerPolicy {'#{fhr['Name']}':"
         puts '  rule_type         => hash'
@@ -42,7 +45,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts
       end
       puts 'Autostructure: fpr'
-      rc.elements[0].each('FilePathRule') do |fpr|
+      rc.elements[1].each('FilePathRule') do |fpr|
         puts 'Autostructure: fpr(in)'
         puts fpr.to_s
         puts "AppLockerPolicy {'#{fpr['Name']}':"
@@ -58,7 +61,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts
       end
       puts 'Autostructure: pr'
-      rc.elements[0].each('FilePublisherRule') do |pr|
+      rc.elements[1].each('FilePublisherRule') do |pr|
         puts 'Autostructure: pr(0)'
         puts pr.to_s
         puts "AppLockerPolicy {'#{pr['Name']}':"
