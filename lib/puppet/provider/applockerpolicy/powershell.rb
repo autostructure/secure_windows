@@ -27,6 +27,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
         puts "AppLockerPolicy {'#{fhr.attributes['Name']}':"
+        puts '  ensure            => present'
         puts '  rule_type         => hash'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
@@ -40,6 +41,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       end
       rc.elements.each('FilePathRule') do |fpr|
         puts "AppLockerPolicy {'#{fpr.attributes['Name']}':"
+        puts '  ensure            => present'
         puts '  rule_type         => file'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
@@ -53,6 +55,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       end
       rc.elements.each('FilePublisherRule') do |element|
         puts "AppLockerPolicy {'#{element.attributes['Name']}':"
+        puts '  ensure            => present'
         puts '  rule_type         => publisher'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"

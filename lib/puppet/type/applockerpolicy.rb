@@ -7,7 +7,7 @@ Puppet::Type.newtype(:applockerpolicy) do
   end
 
   newparam(:name) do
-    isnamevar
+    # isnamevar
   end
 
   newparam(:rule_type) do
