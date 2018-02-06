@@ -25,12 +25,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xmlstr = File.read './examples/applocker.xml'
     xml = Document.new xmlstr
     puts 'Autostructure: xmlstr...'
+    puts xml.root.elements.size
     xml.root.elements.each('RuleCollection') do |rc|
       puts 'Autostructure: rc'
       puts rc.to_s
       puts 'Autostructure: rc[1]'
-      rc.elements[1].to_s
-      rc.elements[1].each('FileHashRule') do |fhr|
+      rc.elements.size
+      rc.elements.each('FileHashRule') do |fhr|
         puts 'Autostructure: fhr(in)'
         puts "AppLockerPolicy {'#{fhr['Name']}':"
         puts '  rule_type         => hash'
