@@ -72,19 +72,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def create
     # New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
     # an array to store powershell command
-    array = []
+  #array = []
     # raise an error if no rule_type specified...
-    if @resource[:prefix].to_s.strip.empty?
-      raise Puppet::Error, 'AppLockerPolicy must be supplied a rule_type = [file, hash, publisher]'
-    end
+  #if @resource[:prefix].to_s.strip.empty?
+    #raise Puppet::Error, 'AppLockerPolicy must be supplied a rule_type = [file, hash, publisher]'
+  #end
     # add cmd and options...
-    array << "New-AppLockerPolicy '#{resource[:name]}'"
+  #array << "New-AppLockerPolicy '#{resource[:name]}'"
     # array << "Import-Module ServerManager; Install-WindowsFeature #{resource[:name]}"
-    array << "-RuleType #{resource[:rule_type]}"
-    array << "-User #{resource[:user]}" unless @resource[:user].to_s.strip.empty?
-    array << "-RuleNamePrefix #{resource[:prefix]}" unless @resource[:prefix].to_s.strip.empty?
+  #array << "-RuleType #{resource[:rule_type]}"
+  #array << "-User #{resource[:user]}" unless @resource[:user].to_s.strip.empty?
+  #array << "-RuleNamePrefix #{resource[:prefix]}" unless @resource[:prefix].to_s.strip.empty?
     # show the created ps string, get the result, show the result (debug)
-    Puppet.debug "Powershell create command is '#{array}'"
+  #Puppet.debug "Powershell create command is '#{array}'"
     # TODO: dont enable creation yet...
     # result = ps(array.join(' '))
     # Puppet.debug "Powershell create response was '#{result}'"
