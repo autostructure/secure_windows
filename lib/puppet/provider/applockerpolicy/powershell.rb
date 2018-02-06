@@ -38,7 +38,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
-      puts 'Autostructure: fpr'
       rc.elements.each('FilePathRule') do |fpr|
         puts "AppLockerPolicy {'#{fpr.attributes['Name']}':"
         puts '  rule_type         => file'
