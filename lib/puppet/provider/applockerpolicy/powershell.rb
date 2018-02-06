@@ -31,8 +31,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       puts rc.elements.size
       puts rc.to_s
       puts 'Autostructure: rc[0]'
-      puts rc.first.to_s
-      rc.first.elements.each('FileHashRule') do |fhr|
+      puts rc.collect
+      rc.elements.each('FileHashRule') do |fhr|
         puts 'Autostructure: fhr(in)'
         puts "AppLockerPolicy {'#{fhr['Name']}':"
         puts '  rule_type         => hash'
@@ -63,9 +63,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts
       end
       puts 'Autostructure: pr'
-      rc.first.elements.each('FilePublisherRule') do |pr|
+      rc.elements.each('FilePublisherRule') do |element|
         puts 'Autostructure: pr(0)'
-        puts pr.to_s
+        puts element.to_s
         puts "AppLockerPolicy {'#{pr['Name']}':"
         puts 'Autostructure: pr(1)'
         puts '  rule_type         => publisher'
