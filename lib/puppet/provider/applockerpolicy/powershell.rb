@@ -52,17 +52,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
-      rc.elements.each('FilePublisherRule') do |element|
-        puts "AppLockerPolicy {'#{element.attributes['Name']}':"
+      rc.elements.each('FilePublisherRule') do |pr|
+        puts "AppLockerPolicy {'#{pr.attributes['Name']}':"
         puts '  ensure            => present'
         puts '  rule_type         => publisher'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
-        puts "  name              => '#{element.attributes['Name']}'"
-        puts "  id                => #{element.attributes['Id']}"
-        puts "  description       => '#{element.attributes['Description']}'"
-        puts "  user_or_group_sid => #{element.attributes['UserOrGroupSid']}"
-        puts "  action            => #{element.attributes['Action']}"
+        puts "  name              => '#{pr.attributes['Name']}'"
+        puts "  id                => #{pr.attributes['Id']}"
+        puts "  description       => '#{pr.attributes['Description']}'"
+        puts "  user_or_group_sid => #{pr.attributes['UserOrGroupSid']}"
+        puts "  action            => #{pr.attributes['Action']}"
         puts '}'
         puts
       end
