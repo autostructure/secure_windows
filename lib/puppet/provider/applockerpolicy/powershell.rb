@@ -20,11 +20,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   #     - Conditions/Exceptions
   #       - FilePathCondition
   def self.instances
-    puts 'Starting self analysis...'
+    puts 'Autostructure: Starting self analysis...'
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     xmlstr = File.read './examples/applocker.xml'
     xml = Document.new xmlstr
+    puts 'Autostructure: xmlstr...'
+    puts xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
+      puts 'Autostructure: rc'
       rc.elements.each('FileHashRule') do |fhr|
         puts "AppLockerPolicy {'#{fhr['Name']}':"
         puts '  rule_type         => hash'
@@ -38,6 +41,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
+      puts 'Autostructure: fpr'
       rc.elements.each('FilePathRule') do |fpr|
         puts "AppLockerPolicy {'#{fpr['Name']}':"
         puts '  rule_type         => file'
@@ -51,6 +55,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
+      puts 'Autostructure: pr'
       rc.elements.each('FilePublisherRule') do |pr|
         puts "AppLockerPolicy {'#{pr['Name']}':"
         puts '  rule_type         => publisher'
@@ -68,7 +73,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
-    puts 'Creating AppLocker policy...'
     # New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
     # an array to store powershell command
     array = []
