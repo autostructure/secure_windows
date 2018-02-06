@@ -20,6 +20,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   #     - Conditions/Exceptions
   #       - FilePathCondition
   def self.instances
+    puts 'Starting self analysis...'
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     xmlstr = File.read './examples/applocker.xml'
     xml = Document.new xmlstr
@@ -67,6 +68,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
+    puts 'Creating AppLocker policy...'
     # New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
     # an array to store powershell command
     array = []
@@ -93,5 +95,5 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def destroy; end
 
-  def self.prefetch(resources) end
+  # def self.prefetch(resources) end
 end
