@@ -43,4 +43,12 @@ Puppet::Type.newtype(:applockerpolicy) do
   newparam(:action) do
     desc 'The AppLocker action.'
   end
+
+  newparam(:user) do
+    desc 'The o/s user that will set the AppLocker policy rule.'
+  end
+
+  newparam(:prefix) do
+    desc 'A prefix to prepend to the AppLocker rule.'
+  end
 end

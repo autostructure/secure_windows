@@ -64,12 +64,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts
       end
     end
-
-  def self.prefetch(resources)
-  end
-
-  def exists?
-    # lookup resource in applocker
   end
 
   def create
@@ -83,19 +77,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       raise Puppet::Error, 'AppLockerPolicy must be supplied a rule_type = [file, hash, publisher]'
     end
     # add cmd and options...
-    array << "New-AppLockerPolicy #{resource[:name]}"
+    array << "New-AppLockerPolicy '#{resource[:name]}'"
     # array << "Import-Module ServerManager; Install-WindowsFeature #{resource[:name]}"
     array << "-RuleType #{resource[:rule_type]}"
-    array << "-User Everyone" if @resource[:restart] == true
+    array << "-User #{resource[:user]}" unless @resource[:user].to_s.strip.empty?
     array << "-RuleNamePrefix #{resource[:prefix]}" unless @resource[:prefix].to_s.strip.empty?
     # show the created ps string, get the result, show the result (debug)
     Puppet.debug "Powershell create command is '#{array}'"
     # TODO: dont enable creation yet...
-    #result = ps(array.join(' '))
-    Puppet.debug "Powershell create response was '#{result}'"
+    # result = ps(array.join(' '))
+    # Puppet.debug "Powershell create response was '#{result}'"
   end
 
-  def destroy
+  def exists?
+    # lookup resource in applocker
   end
 
+  def destroy; end
+  
+  def self.prefetch(resources) end
 end
