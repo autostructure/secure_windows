@@ -24,66 +24,44 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     xmlstr = File.read './examples/applocker.xml'
     xml = Document.new xmlstr
-    puts 'Autostructure: xmlstr...'
-    puts xml.root.elements.size
     xml.root.elements.each('RuleCollection') do |rc|
-      puts 'Autostructure: rc'
-      puts rc.elements.size
-      puts rc.to_s
-      puts 'Autostructure: rc[0]'
-      puts rc.collect
       rc.elements.each('FileHashRule') do |fhr|
-        puts 'Autostructure: fhr(in)'
-        puts "AppLockerPolicy {'#{fhr['Name']}':"
+        puts "AppLockerPolicy {'#{fhr.attributes['Name']}':"
         puts '  rule_type         => hash'
-        puts "  collection_type   => #{rc['Type']}"
-        puts "  enforcement_mode  => #{rc['EnforcementMode']}"
-        puts "  name              => '#{fhr['Name']}'"
-        puts "  id                => #{fhr['Id']}"
-        puts "  description       => '#{fhr['Description']}'"
-        puts "  user_or_group_sid => #{fhr['UserOrGroupSid']}"
-        puts "  action            => #{fhr['Action']}"
+        puts "  collection_type   => #{rc.attributes['Type']}"
+        puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
+        puts "  name              => '#{fhr.attributes['Name']}'"
+        puts "  id                => #{fhr.attributes['Id']}"
+        puts "  description       => '#{fhr.attributes['Description']}'"
+        puts "  user_or_group_sid => #{fhr.attributes['UserOrGroupSid']}"
+        puts "  action            => #{fhr.attributes['Action']}"
         puts '}'
         puts
       end
       puts 'Autostructure: fpr'
       rc.elements.each('FilePathRule') do |fpr|
-        puts 'Autostructure: fpr(in)'
-        puts fpr.to_s
-        puts "AppLockerPolicy {'#{fpr['Name']}':"
+        puts "AppLockerPolicy {'#{fpr.attributes['Name']}':"
         puts '  rule_type         => file'
-        puts "  collection_type   => #{rc['Type']}"
-        puts "  enforcement_mode  => #{rc['EnforcementMode']}"
-        puts "  name              => '#{fpr['Name']}'"
-        puts "  id                => #{fpr['Id']}"
-        puts "  description       => '#{fpr['Description']}'"
-        puts "  user_or_group_sid => #{fpr['UserOrGroupSid']}"
-        puts "  action            => #{fpr['Action']}"
+        puts "  collection_type   => #{rc.attributes['Type']}"
+        puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
+        puts "  name              => '#{fpr.attributes['Name']}'"
+        puts "  id                => #{fpr.attributes['Id']}"
+        puts "  description       => '#{fpr.attributes['Description']}'"
+        puts "  user_or_group_sid => #{fpr.attributes['UserOrGroupSid']}"
+        puts "  action            => #{fpr.attributes['Action']}"
         puts '}'
         puts
       end
-      puts 'Autostructure: pr'
       rc.elements.each('FilePublisherRule') do |element|
-        puts 'Autostructure: pr(0)'
-        puts element.to_s
         puts "AppLockerPolicy {'#{element.attributes['Name']}':"
-        puts 'Autostructure: pr(1)'
         puts '  rule_type         => publisher'
-        puts 'Autostructure: pr(2)'
         puts "  collection_type   => #{rc.attributes['Type']}"
-        puts 'Autostructure: pr(3)'
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
-        puts 'Autostructure: pr(4)'
         puts "  name              => '#{element.attributes['Name']}'"
-        puts 'Autostructure: pr(5)'
         puts "  id                => #{element.attributes['Id']}"
-        puts 'Autostructure: pr(6)'
         puts "  description       => '#{element.attributes['Description']}'"
-        puts 'Autostructure: pr(7)'
         puts "  user_or_group_sid => #{element.attributes['UserOrGroupSid']}"
-        puts 'Autostructure: pr(8)'
         puts "  action            => #{element.attributes['Action']}"
-        puts 'Autostructure: pr(9)'
         puts '}'
         puts
       end
