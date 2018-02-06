@@ -28,9 +28,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts xml.root.elements.size
     xml.root.elements.each('RuleCollection') do |rc|
       puts 'Autostructure: rc'
+      puts rc.elements.size
       puts rc.to_s
-      puts 'Autostructure: rc[1]'
-      rc.elements.size
+      puts 'Autostructure: rc[0]'
+      puts rc[0].to_s
       rc.elements.each('FileHashRule') do |fhr|
         puts 'Autostructure: fhr(in)'
         puts "AppLockerPolicy {'#{fhr['Name']}':"
