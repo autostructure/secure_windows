@@ -2,22 +2,22 @@ Puppet::Type.newtype(:applockerpolicy) do
   @doc = 'Manage the Windows O/S AppLocker policies.'
 
   ensurable do
-    # defaultvalues
-    # defaultto :present
+    defaultvalues
+    defaultto :present
   end
 
   newparam(:name) do
-    # isnamevar
+    isnamevar
   end
 
   newparam(:rule_type) do
     desc 'The type of AppLocker rule [file, hash, publisher].'
-    # validate value
-    # validate do |value|
-    #   if value.is_empty? # TODO: and check for 1 of the 3 values.
-    #     raise Puppet::Error, 'AppLockerPolicy requires a rule type [file, hash, publisher].'
-    #   end
-    # end
+    validate value
+    validate do |value|
+      if value.is_empty? # TODO: and check for 1 of the 3 values.
+        raise Puppet::Error, 'AppLockerPolicy requires a rule type [file, hash, publisher].'
+      end
+    end
   end
 
   newparam(:collection_type) do
