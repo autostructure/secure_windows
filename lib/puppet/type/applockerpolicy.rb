@@ -2,8 +2,8 @@ Puppet::Type.newtype(:applockerpolicy) do
   @doc = 'Manage the Windows O/S AppLocker policies.'
 
   ensurable do
-    defaultvalues
-    defaultto :present
+    # defaultvalues
+    # defaultto :present
   end
 
   newparam(:name) do
