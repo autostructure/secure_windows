@@ -70,19 +70,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts 'Autostructure: pr(1)'
         puts '  rule_type         => publisher'
         puts 'Autostructure: pr(2)'
-        puts "  collection_type   => #{rc['Type']}"
+        puts "  collection_type   => #{rc.attributes['Type']}"
         puts 'Autostructure: pr(3)'
-        puts "  enforcement_mode  => #{rc['EnforcementMode']}"
+        puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
         puts 'Autostructure: pr(4)'
-        puts "  name              => '#{element['Name']}'"
+        puts "  name              => '#{element.attributes['Name']}'"
         puts 'Autostructure: pr(5)'
-        puts "  id                => #{element['Id']}"
+        puts "  id                => #{element.attributes['Id']}"
         puts 'Autostructure: pr(6)'
-        puts "  description       => '#{element['Description']}'"
+        puts "  description       => '#{element.attributes['Description']}'"
         puts 'Autostructure: pr(7)'
-        puts "  user_or_group_sid => #{element['UserOrGroupSid']}"
+        puts "  user_or_group_sid => #{element.attributes['UserOrGroupSid']}"
         puts 'Autostructure: pr(8)'
-        puts "  action            => #{element['Action']}"
+        puts "  action            => #{element.attributes['Action']}"
         puts 'Autostructure: pr(9)'
         puts '}'
         puts
