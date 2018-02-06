@@ -4,7 +4,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
   # windows only
   confine :kernel => :windows
-  commands :ps => 'powershell.exe'
+  #commands :ps => 'powershell.exe'
     # if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
     #   "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
     # elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
@@ -85,7 +85,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   #array << "-RuleNamePrefix #{resource[:prefix]}" unless @resource[:prefix].to_s.strip.empty?
     # show the created ps string, get the result, show the result (debug)
   #Puppet.debug "Powershell create command is '#{array}'"
-    # TODO: dont enable creation yet...
+    # dont enable creation yet...
     # result = ps(array.join(' '))
     # Puppet.debug "Powershell create response was '#{result}'"
   end
