@@ -21,7 +21,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   #       - FilePathCondition
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
-    xmlstr = File.read 'applocker.xml'
+    xmlstr = File.read './examples/applocker.xml'
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
@@ -67,11 +67,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
+    # New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
     # an array to store powershell command
     array = []
-
-    #New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
-
     # raise an error if no rule_type specified...
     if @resource[:prefix].to_s.strip.empty?
       raise Puppet::Error, 'AppLockerPolicy must be supplied a rule_type = [file, hash, publisher]'
@@ -94,6 +92,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def destroy; end
-  
+
   def self.prefetch(resources) end
 end
