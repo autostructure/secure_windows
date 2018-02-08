@@ -21,7 +21,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   #       - FilePathCondition/FilePublisherCondition
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
-    xmlstr = File.read './examples/applocker.xml'
+    # xmlstr = File.read './examples/applocker.xml'
+    xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
