@@ -2,6 +2,16 @@ require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
+
+  psstring =
+    if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+      "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
+    elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+      "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
+    else
+      'powershell.exe'
+    end
+
   # windows only
   confine :kernel => :windows
   #commands :ps => "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
@@ -24,7 +34,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # Get-AppLockerPolicy [-Local] [-Xml] [<CommonParameters>]
-    puts :ps.to_s
+    puts psstring
     xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
