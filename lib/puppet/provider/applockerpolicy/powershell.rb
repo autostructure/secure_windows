@@ -11,6 +11,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     xmlstr = ps('Get-AppLockerPolicy -Effecrive -Xml')
+    puts xmlstr
+    puts '--------------------------------------------------------------------------------'
+    puts xmlstr.to_s
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
