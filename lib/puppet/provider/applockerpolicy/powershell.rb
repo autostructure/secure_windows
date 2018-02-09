@@ -12,7 +12,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     puts '--------------------------------------------------------------------------------'
-    xmlstr = ps('Get-AppLockerPolicy -Effecrive -Xml')
+    xmlstr = ps('Get-AppLockerPolicy -Effective -Xml')
     puts xmlstr
     puts '--------------------------------------------------------------------------------'
     puts xmlstr.to_s
