@@ -4,14 +4,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
   # windows only
   confine :kernel => :windows
-  commands :ps => "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
-    # if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
-    #   "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
-    # elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
-    #   "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
-    # else
-    #   'powershell.exe'
-    # end
+  #commands :ps => "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
+  commands :ps =>
+    if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+      "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
+    elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+      "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
+    else
+      'powershell.exe'
+    end
 
   # XML hierarchy...
   # AppLockerPolicy
@@ -22,6 +23,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
+    # Get-AppLockerPolicy [-Local] [-Xml] [<CommonParameters>]
+    puts :ps.to_s
     xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
@@ -71,7 +74,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
-    # New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
+    # Get-ChildItem C:\Windows\System32\*.exe | Get-AppLockerFileInformation | New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
     # an array to store powershell command
   #array = []
     # raise an error if no rule_type specified...
