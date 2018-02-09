@@ -4,19 +4,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
   confine :kernel => :windows
-  commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
-  # commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe" : 'powershell.exe'
-
+  commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
+  # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    puts '--------------------------------------------------------------------------------'
     xmlstr = ps('Get-AppLockerPolicy -Effective -Xml')
-    puts xmlstr
-    puts '--------------------------------------------------------------------------------'
-    puts xmlstr.to_s
-    puts '--------------------------------------------------------------------------------'
+    Puppet.debug 'powershell.rb::self.instances::xmlstr: '
+    Puppet.debug xmlstr
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
