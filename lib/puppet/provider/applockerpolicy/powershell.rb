@@ -16,42 +16,42 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       rc.elements.each('FileHashRule') do |fhr|
-        puts "AppLockerPolicy {'#{fhr.attributes['Name']}':"
+        puts "AppLockerPolicy {\"#{fhr.attributes['Name']}\":"
         puts '  ensure            => present'
         puts '  rule_type         => hash'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
-        puts "  name              => '#{fhr.attributes['Name']}'"
+        puts "  name              => \"#{fhr.attributes['Name']}\""
         puts "  id                => #{fhr.attributes['Id']}"
-        puts "  description       => '#{fhr.attributes['Description']}'"
+        puts "  description       => \"#{fhr.attributes['Description']}\""
         puts "  user_or_group_sid => #{fhr.attributes['UserOrGroupSid']}"
         puts "  action            => #{fhr.attributes['Action']}"
         puts '}'
         puts
       end
       rc.elements.each('FilePathRule') do |fpr|
-        puts "AppLockerPolicy {'#{fpr.attributes['Name']}':"
+        puts "AppLockerPolicy {\"#{fpr.attributes['Name']}\":"
         puts '  ensure            => present'
         puts '  rule_type         => file'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
-        puts "  name              => '#{fpr.attributes['Name']}'"
+        puts "  name              => \"#{fpr.attributes['Name']}\""
         puts "  id                => #{fpr.attributes['Id']}"
-        puts "  description       => '#{fpr.attributes['Description']}'"
+        puts "  description       => \"#{fpr.attributes['Description']}\""
         puts "  user_or_group_sid => #{fpr.attributes['UserOrGroupSid']}"
         puts "  action            => #{fpr.attributes['Action']}"
         puts '}'
         puts
       end
       rc.elements.each('FilePublisherRule') do |pr|
-        puts "AppLockerPolicy {'#{pr.attributes['Name']}':"
+        puts "AppLockerPolicy {\"#{pr.attributes['Name']}\":"
         puts '  ensure            => present'
         puts '  rule_type         => publisher'
         puts "  collection_type   => #{rc.attributes['Type']}"
         puts "  enforcement_mode  => #{rc.attributes['EnforcementMode']}"
-        puts "  name              => '#{pr.attributes['Name']}'"
+        puts "  name              => \"#{pr.attributes['Name']}\""
         puts "  id                => #{pr.attributes['Id']}"
-        puts "  description       => '#{pr.attributes['Description']}'"
+        puts "  description       => \"#{pr.attributes['Description']}\""
         puts "  user_or_group_sid => #{pr.attributes['UserOrGroupSid']}"
         puts "  action            => #{pr.attributes['Action']}"
         puts '}'
