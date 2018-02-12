@@ -16,6 +16,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
       puts "rc=#{rc.attributes['Type']}"
+      puts "rc, filehashrule"
       rc.elements.each('FileHashRule') do |fhr|
         puts "AppLockerPolicy {\"#{fhr.attributes['Name']}\":"
         puts '  ensure            => present'
@@ -30,7 +31,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
+      puts "rc, filepathrule"
       rc.elements.each('FilePathRule') do |fpr|
+        puts fpr.to_s
         puts "AppLockerPolicy {\"#{fpr.attributes['Name']}\":"
         puts '  ensure            => present'
         puts '  rule_type         => file'
@@ -44,7 +47,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts '}'
         puts
       end
+      puts "rc, filepubrule"
       rc.elements.each('FilePublisherRule') do |pr|
+        puts pr.to_s
         puts "AppLockerPolicy {\"#{pr.attributes['Name']}\":"
         puts '  ensure            => present'
         puts '  rule_type         => publisher'
