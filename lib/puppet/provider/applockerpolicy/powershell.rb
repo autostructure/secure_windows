@@ -98,41 +98,43 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def name
-    'applockerpolicy name.'
+    @resource[:name]
   end
 
   def rule_type
     desc 'The type of AppLocker rule [file, hash, publisher].'
-    'file'
+    @resource[:rule_type]
   end
 
   def collection_type
     desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
-    'Exe'
+    @resource[:collection_type]
   end
 
   def enforcement_mode
     desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    'NotConfigured'
+    @resource[:enforcement_mode]
   end
 
   def enforcement_mode=(value)
     desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    puts 'setter enforcement_mode='
+    puts value
   end
 
   def id
     desc 'The AppLocker rule identifier.'
-    '0'
+    @resource[:id]
   end
 
   def description
     desc 'The AppLocker rule description.'
-    'No comment.'
+    @resource[:description]
   end
 
   def user_or_group_sid
     desc 'The AppLocker user or group system identifier.'
-    'Everyone'
+    @resource[:user_or_group_sid]
   end
 
   # def self.prefetch(resources) end
