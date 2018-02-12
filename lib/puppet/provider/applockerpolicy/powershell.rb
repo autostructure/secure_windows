@@ -61,24 +61,24 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
-    # Get-ChildItem C:\Windows\System32\*.exe | Get-AppLockerFileInformation | New-AppLockerPolicy -RuleType Publisher, Hash -User Everyone -RuleNamePrefix System32
-    # an array to store powershell command
-  #array = []
-    # raise an error if no rule_type specified...
-  #if @resource[:prefix].to_s.strip.empty?
-    #raise Puppet::Error, 'AppLockerPolicy must be supplied a rule_type = [file, hash, publisher]'
-  #end
-    # add cmd and options...
-  #array << "New-AppLockerPolicy '#{resource[:name]}'"
-    # array << "Import-Module ServerManager; Install-WindowsFeature #{resource[:name]}"
-  #array << "-RuleType #{resource[:rule_type]}"
-  #array << "-User #{resource[:user]}" unless @resource[:user].to_s.strip.empty?
-  #array << "-RuleNamePrefix #{resource[:prefix]}" unless @resource[:prefix].to_s.strip.empty?
-    # show the created ps string, get the result, show the result (debug)
-  #Puppet.debug "Powershell create command is '#{array}'"
-    # dont enable creation yet...
-    # result = ps(array.join(' '))
-    # Puppet.debug "Powershell create response was '#{result}'"
+    # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
+    xmltest <<EOF
+<AppLockerPolicy Version='1'>
+  <RuleCollection Type='Exe' EnforcementMode='NotConfigured'>
+    <FilePathRule Name='Allow everyone to execute all files located in the Windows Temp folder' Description='Allows members of the Everyone group to run applications that are located in the C:\\Windows\\Temp folder.' UserOrGroupSid='S-1-1-0' Action='Allow'>
+      <Conditions>
+        <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
+      </Conditions>
+    </FilePathRule>
+ </RuleCollection>
+</AppLockerPolicy>
+EOF
+    puts xmltest
+    testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
+    testfile.puts xmltestdata
+    testfile.close
+    # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
+    ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
   end
 
   def exists?
