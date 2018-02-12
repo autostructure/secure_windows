@@ -73,7 +73,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
  </RuleCollection>
 </AppLockerPolicy>
 EOF
+
     puts testxml
+    puts @resource[:name]
     testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
     testfile.puts testxml
     testfile.close
@@ -83,10 +85,12 @@ EOF
   end
 
   def exists?
-    # lookup resource in applocker
+    false
   end
 
-  def destroy; end
+  def destroy
+    puts 'powershell.rb::destroy called.'
+  end
 
   def name
     'applockerpolicy name.'
@@ -105,6 +109,10 @@ EOF
   def enforcement_mode
     desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     'NotConfigured'
+  end
+
+  def enforcement_mode=(value)
+    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
   end
 
   def id
