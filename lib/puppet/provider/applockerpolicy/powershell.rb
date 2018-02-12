@@ -62,23 +62,24 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
-    xmltest <<EOF
+    testxml <<EOF
 <AppLockerPolicy Version='1'>
   <RuleCollection Type='Exe' EnforcementMode='NotConfigured'>
-    <FilePathRule Name='Allow everyone to execute all files located in the Windows Temp folder' Description='Allows members of the Everyone group to run applications that are located in the C:\\Windows\\Temp folder.' UserOrGroupSid='S-1-1-0' Action='Allow'>
+    <FilePathRule Name='Allow everyone to execute all files located in the Windows Temp folder' Description='Allows members of the Everyone group to run applications that are located in the C:\Windows\Temp folder.' UserOrGroupSid='S-1-1-0' Action='Allow'>
       <Conditions>
-        <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
+        <FilePathCondition Path='%WINDIR%\Temp\*'/>
       </Conditions>
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>
 EOF
-    puts xmltest
+    puts testxml
     testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
-    testfile.puts xmltestdata
+    testfile.puts testxml
     testfile.close
     # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
     ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
+    # testfile.delete
   end
 
   def exists?
@@ -86,6 +87,40 @@ EOF
   end
 
   def destroy; end
+
+  def name
+    'applockerpolicy name.'
+  end
+
+  def rule_type
+    desc 'The type of AppLocker rule [file, hash, publisher].'
+    'file'
+  end
+
+  def collection_type
+    desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
+    'Exe'
+  end
+
+  def enforcement_mode
+    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    'NotConfigured'
+  end
+
+  def id
+    desc 'The AppLocker rule identifier.'
+    '0'
+  end
+
+  def description
+    desc 'The AppLocker rule description.'
+    'No comment.'
+  end
+
+  def user_or_group_sid
+    desc 'The AppLocker user or group system identifier.'
+    'Everyone'
+  end
 
   # def self.prefetch(resources) end
 end

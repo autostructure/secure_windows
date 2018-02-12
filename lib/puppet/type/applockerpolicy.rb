@@ -19,7 +19,7 @@ Puppet::Type.newtype(:applockerpolicy) do
   end
 
   newparam(:enforcement_mode) do
-    desc 'Is the rule enforced?'
+    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
   end
 
   newparam(:id) do
