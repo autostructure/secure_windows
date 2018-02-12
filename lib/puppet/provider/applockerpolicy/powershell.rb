@@ -62,19 +62,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
-    testxml <<EOF
-<AppLockerPolicy Version='1'>
+    testxml = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='Exe' EnforcementMode='NotConfigured'>
-    <FilePathRule Name='Allow everyone to execute all files located in the Windows Temp folder' Description='Allows members of the Everyone group to run applications that are located in the C:\Windows\Temp folder.' UserOrGroupSid='S-1-1-0' Action='Allow'>
+    <FilePathRule Name='Allow everyone to execute all files located in the Windows Temp folder' Description='Allows members of the Everyone group to run applications that are located in the C:\\Windows\\Temp folder.' UserOrGroupSid='S-1-1-0' Action='Allow'>
       <Conditions>
-        <FilePathCondition Path='%WINDIR%\Temp\*'/>
+        <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
       </Conditions>
     </FilePathRule>
  </RuleCollection>
-</AppLockerPolicy>
-EOF
+</AppLockerPolicy>"
 
+    puts 'testxml='
     puts testxml
+    puts '@resource[name]='
     puts @resource[:name]
     testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
     testfile.puts testxml
