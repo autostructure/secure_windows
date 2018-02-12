@@ -15,6 +15,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug xmlstr
     xml = Document.new xmlstr
     xml.root.elements.each('RuleCollection') do |rc|
+      puts "rc=#{rc.attributes['Type']}"
       rc.elements.each('FileHashRule') do |fhr|
         puts "AppLockerPolicy {\"#{fhr.attributes['Name']}\":"
         puts '  ensure            => present'
@@ -63,7 +64,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def create
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testxml = "<AppLockerPolicy Version='1'>
-  <RuleCollection Type='Exe' EnforcementMode='NotConfigured'>
+  <RuleCollection Type='#{@resource[:collection_type]}' EnforcementMode='#{@resource[:enforcement_mode]}'>
     <FilePathRule Id='12345678-9012-3456-7890-123456789012' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='S-1-1-0' Action='Allow'>
       <Conditions>
         <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
