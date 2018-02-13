@@ -17,8 +17,8 @@ Puppet::Type.newtype(:applockerpolicy) do
     newvalues('file', 'hash', 'publisher')
   end
 
-  newparam(:collection_type) do
-    puts 'applockerpolicy.rb::collection_type'
+  newparam(:type) do
+    puts 'applockerpolicy.rb::type'
     # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
     newvalues('Appx', 'Dll', 'Exe', 'Msi', 'Script')
   end
