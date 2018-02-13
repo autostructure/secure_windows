@@ -88,7 +88,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def exists?
     puts 'powershell.rb::exists?'
-    false
+    true
   end
 
   def destroy
