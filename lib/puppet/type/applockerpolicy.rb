@@ -23,8 +23,8 @@ Puppet::Type.newtype(:applockerpolicy) do
     newvalues('Appx', 'Dll', 'Exe', 'Msi', 'Script')
   end
 
-  newproperty(:enforcement_mode) do
-    puts 'applockerpolicy.rb::enforcement_mode'
+  newproperty(:enforcementmode) do
+    puts 'applockerpolicy.rb::enforcementmode'
     # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     newvalues('Enabled', 'Disabled', 'NotConfigured')
   end

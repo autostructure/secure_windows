@@ -65,7 +65,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def create
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testxml = "<AppLockerPolicy Version='1'>
-  <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcement_mode]}'>
+  <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
     <FilePathRule Id='12345678-9012-3456-7890-123456789012' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='S-1-1-0' Action='Allow'>
       <Conditions>
         <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
@@ -106,21 +106,21 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource[:rule_type]
   end
 
-  def collection_type
-    puts 'powershell.rb::collection_type'
+  def type
+    puts 'powershell.rb::type'
     # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
     @resource[:type]
   end
 
-  def enforcement_mode
-    puts 'powershell.rb::enforcement_mode'
+  def enforcementmode
+    puts 'powershell.rb::enforcementmode'
     # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    @resource[:enforcement_mode]
+    @resource[:enforcementmode]
   end
 
-  def enforcement_mode=(value)
+  def enforcementmode=(value)
     # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    puts 'setter enforcement_mode='
+    puts 'setter enforcementmode='
     puts value
   end
 
