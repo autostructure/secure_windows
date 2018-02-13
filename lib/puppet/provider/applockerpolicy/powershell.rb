@@ -85,12 +85,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     testfile.puts testxml
     testfile.close
     # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
-    ps('Set-AppLockerPolicy -XMLPolicy C:\Windows\Temp\applockerpolicy.xml') #  -Merge
+    # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
+    ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
     # testfile.delete
   end
 
   def exists?
-    false
+    true
+    # false
   end
 
   def destroy
