@@ -101,42 +101,49 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def name
+    puts 'powershell.rb::name'
     @resource[:name]
   end
 
   def rule_type
-    desc 'The type of AppLocker rule [file, hash, publisher].'
+    puts 'powershell.rb::rule_type'
+    # desc 'The type of AppLocker rule [file, hash, publisher].'
     @resource[:rule_type]
   end
 
   def collection_type
-    desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
+    puts 'powershell.rb::collection_type'
+    # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
     @resource[:collection_type]
   end
 
   def enforcement_mode
-    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    puts 'powershell.rb::enforcement_mode'
+    # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     @resource[:enforcement_mode]
   end
 
   def enforcement_mode=(value)
-    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     puts 'setter enforcement_mode='
     puts value
   end
 
   def id
-    desc 'The AppLocker rule identifier.'
+    puts 'powershell.rb::id'
+    # desc 'The AppLocker rule identifier.'
     @resource[:id]
   end
 
   def description
-    desc 'The AppLocker rule description.'
+    puts 'powershell.rb::description'
+    # desc 'The AppLocker rule description.'
     @resource[:description]
   end
 
   def user_or_group_sid
-    desc 'The AppLocker user or group system identifier.'
+    puts 'powershell.rb::uid-or-sid'
+    # desc 'The AppLocker user or group system identifier.'
     @resource[:user_or_group_sid]
   end
 
