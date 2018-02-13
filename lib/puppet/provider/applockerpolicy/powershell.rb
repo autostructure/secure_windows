@@ -1,7 +1,8 @@
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
-  desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
+  # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
+  # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
   confine :kernel => :windows
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
@@ -91,8 +92,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def exists?
-    true
-    # false
+    puts 'powershell.rb::exists?'
+    false
   end
 
   def destroy
