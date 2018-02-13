@@ -11,42 +11,43 @@ Puppet::Type.newtype(:applockerpolicy) do
   end
 
   newparam(:rule_type) do
-    desc 'The type of AppLocker rule [file, hash, publisher].'
+    # desc 'The type of AppLocker rule [file, hash, publisher].'
     newvalues('file', 'hash', 'publisher')
   end
 
   newparam(:collection_type) do
-    desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
+    # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
     newvalues('Appx', 'Dll', 'Exe', 'Msi', 'Script')
   end
 
   newproperty(:enforcement_mode) do
-    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     newvalues('Enabled', 'Disabled', 'NotConfigured')
   end
 
   newparam(:id) do
-    desc 'The AppLocker rule identifier.'
+    # desc 'The AppLocker rule identifier.'
   end
 
   newparam(:description) do
-    desc 'The AppLocker rule description.'
+    puts 'applockerpolicy.rb::description'
+    # desc 'The AppLocker rule description.'
   end
 
   newparam(:user_or_group_sid) do
-    desc 'The AppLocker user or group system identifier.'
+    # desc 'The AppLocker user or group system identifier.'
   end
 
   newparam(:action) do
-    desc 'The AppLocker action [Allow, Deny].'
+    # desc 'The AppLocker action [Allow, Deny].'
     newvalues('Allow', 'Deny')
   end
 
   newparam(:user) do
-    desc 'The o/s user that will set the AppLocker policy rule.'
+    # desc 'The o/s user that will set the AppLocker policy rule.'
   end
 
   newparam(:prefix) do
-    desc 'A prefix to prepend to the AppLocker rule.'
+    # desc 'A prefix to prepend to the AppLocker rule.'
   end
 end
