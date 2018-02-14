@@ -9,6 +9,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   confine :kernel => :windows
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
+
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
@@ -56,15 +57,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # testfile.delete
   end
 
+  def destroy
+    puts 'powershell.rb::destroy called.'
+  end
+
   def exists?
     puts 'powershell.rb::exists?'
     false
   end
 
-  def destroy
-    puts 'powershell.rb::destroy called.'
-  end
-
+  # setters and getters
   def name
     puts 'powershell.rb::name'
     @resource[:name]
