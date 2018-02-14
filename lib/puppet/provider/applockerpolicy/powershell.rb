@@ -22,11 +22,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # end
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
-    xml.elements.each do |n|
-      puts "xml.elements.each: name=#{n.name}, expanded_name=#{n.expanded_name}"
-      #puts n.expanded_name
-      #puts n.name
-      object_hash[n.name] = n
+    xml.elements.each_element do |n|
+      if n.exists?
+        puts "xml.elements.each: name=#{n.name}, expanded_name=#{n.expanded_name}"
+        object_hash[n.name] = n
+      end
     end
     Puppet.debug 'object_hash ='
     Puppet.debug object_hash
