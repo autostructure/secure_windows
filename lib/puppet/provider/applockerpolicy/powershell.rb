@@ -23,11 +23,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
     xml.elements.each do |n|
+      puts "xml.elements.each: name=#{n.name}, expanded_name=#{n.expanded_name}"
+      #puts n.expanded_name
+      #puts n.name
       object_hash[n.name] = n
     end
     Puppet.debug 'object_hash ='
     Puppet.debug object_hash
-    object_hash
+    object_hash.values
   end
 
   def create
