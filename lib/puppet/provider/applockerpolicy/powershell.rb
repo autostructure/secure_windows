@@ -15,14 +15,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     object_hash = {}
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml_doc = Document.new xml_string
-    xml = xml_doc.root
+    xml = Document.new xml_string
+    #xml = xml_doc.root
     # xml.elements.each('RuleCollection') do |rc|
     #   rc.elements.each do |rule|
     # end
-    Puppet.debug 'powershell.rb::self.instances::xml_string: '
+    Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
-    xml.elements.each_element do |n|
+    xml.root.elements.each_element do |n|
       if n.exists?
         puts "xml.elements.each: name=#{n.name}, expanded_name=#{n.expanded_name}"
         object_hash[n.name] = n
