@@ -23,7 +23,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
     xml.elements.each do |n|
-      object_hash.push(n)
+      if object_hash<<(n.name,n)
     end
     Puppet.debug 'object_hash='
     Puppet.debug object_hash
