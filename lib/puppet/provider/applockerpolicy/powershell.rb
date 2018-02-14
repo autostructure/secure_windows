@@ -1,5 +1,4 @@
 require 'rexml/document'
-require 'active_support'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
@@ -64,7 +63,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     false
   end
 
-  def prefetch(resources)
+  def prefetch()
     puts 'powershell.rb::flush called.'
   end
 
