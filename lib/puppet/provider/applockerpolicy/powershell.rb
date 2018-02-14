@@ -25,9 +25,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml.elements.each do |n|
       object_hash[n.name] = n
     end
-    Puppet.debug 'object_hash='
+    Puppet.debug 'object_hash ='
     Puppet.debug object_hash
-    puts object_hash
+    object_hash
   end
 
   def create
