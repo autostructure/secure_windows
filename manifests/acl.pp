@@ -174,4 +174,90 @@ class secure_windows::acl {
       }
     ],
   }
+
+  # V-73369 Maintain the permissions on NTDS database and log files
+  $ntds_files = union($facts['database_log_files'], [$facts['ntds_parameters']['DSA Database file']])
+
+  acl { $ntds_files:
+    group                      => 'S-1-5-18',
+    inherit_parent_permissions => true,
+    owner                      => 'S-1-5-32-544',
+    permissions                => [
+      {
+        'identity'     => 'NT AUTHORITY\\SYSTEM',
+        'rights'       => ['full'],
+        'affects'      => 'self_only',
+        'is_inherited' => true
+      },
+      {
+        'identity'     => 'BUILTIN\\Administrators',
+        'rights'       => ['full'],
+        'affects'      => 'self_only',
+        'is_inherited' => true
+      }
+    ],
+  }
+
+  # V-73371 The Active Directory SYSVOL directory must have the proper access control permissions.
+  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '(\S+SYSVOL)', '\1')
+
+  acl { $sysvol_mount:
+    group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
+    inherit_parent_permissions => false,
+    owner                      => 'S-1-5-32-544',
+    permissions                => [
+      {
+        'identity' => 'NT AUTHORITY\\Authenticated Users',
+        'rights'   => ['read', 'execute'],
+        'affects'  => 'self_only'
+      },
+      {
+        'identity' => 'NT AUTHORITY\\Authenticated Users',
+        'rights'   => ['read', 'execute'],
+        'affects'  => 'children_only'
+      },
+      {
+        'identity' => 'BUILTIN\\Server Operators',
+        'rights'   => ['read', 'execute'],
+        'affects'  => 'self_only'
+      },
+      {
+        'identity' => 'BUILTIN\\Server Operators',
+        'rights'   => ['read', 'execute'],
+        'affects'  => 'children_only'
+      },
+      {
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['mask_specific'],
+        'mask'     => '2032063',
+        'affects'  => 'self_only'
+      },
+      {
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['full'],
+        'affects'  => 'children_only'
+      },
+      {
+        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'rights'   => ['full'],
+        'affects'  => 'self_only'
+      },
+      {
+        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'rights'   => ['full'],
+        'affects'  => 'children_only'
+      },
+      {
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['mask_specific'],
+        'mask'     => '2032063',
+        'affects'  => 'self_only'
+      },
+      {
+        'identity' => 'CREATOR OWNER',
+        'rights'   => ['full'],
+        'affects'  => 'children_only'
+      }
+    ],
+  }
 }
