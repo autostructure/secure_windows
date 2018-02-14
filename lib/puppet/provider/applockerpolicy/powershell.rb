@@ -13,10 +13,20 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
+    object_hash = {}
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
+    xml_doc = Document.new xml_string
+    xml = xml_doc.root
+
+    xml.elements.each('RuleCollection') do |rc|
+      rc.elements.each do |rule|
+
+      end
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
-    object_hash = Hash.from_xml(xml_string)
+    element.nodes.each do |n|
+      object_hash.push(n)
+    end
     Puppet.debug 'object_hash='
     Puppet.debug object_hash
     puts object_hash
