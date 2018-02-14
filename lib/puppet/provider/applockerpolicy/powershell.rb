@@ -18,11 +18,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
     xml = xml_doc.root
-
-    xml.elements.each('RuleCollection') do |rc|
-      rc.elements.each do |rule|
-
-      end
+    # xml.elements.each('RuleCollection') do |rc|
+    #   rc.elements.each do |rule|
+    # end
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
     element.nodes.each do |n|
@@ -65,6 +63,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'powershell.rb::exists?'
     false
   end
+
+  def prefetch(resources)
+    puts 'powershell.rb::flush called.'
+  end
+
+  def flush
+    puts 'powershell.rb::flush called.'
+  end
+
 
   # setters and getters
   def name
@@ -114,5 +121,4 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource[:user_or_group_sid]
   end
 
-  # def self.prefetch(resources) end
 end
