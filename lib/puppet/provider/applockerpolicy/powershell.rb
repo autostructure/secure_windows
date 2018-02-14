@@ -23,7 +23,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # end
     Puppet.debug 'powershell.rb::self.instances::xml_string: '
     Puppet.debug xml_string
-    element.nodes.each do |n|
+    xml.element.nodes.each do |n|
       object_hash.push(n)
     end
     Puppet.debug 'object_hash='
@@ -33,7 +33,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
-    testxml = "<AppLockerPolicy Version='1'>
+    test_xml = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
     <FilePathRule Id='12345678-9012-3456-7890-123456789012' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='S-1-1-0' Action='Allow'>
       <Conditions>
@@ -44,10 +44,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 </AppLockerPolicy>"
 
     puts 'testxml='
-    puts testxml
+    puts test_xml
     puts
     testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
-    testfile.puts testxml
+    testfile.puts test_xml
     testfile.close
     # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
     # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
