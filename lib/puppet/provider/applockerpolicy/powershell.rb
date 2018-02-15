@@ -41,15 +41,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        Puppet.debug 'rule ='
+        Puppet.debug rule
         rule_collection << rule
       end
       # then loop thru conditions exceptions
       # push to policy array after tree loaded
+      Puppet.debug 'rule_collection ='
+      Puppet.debug rule_collection
       applocker_policies << rule_collection
     end
     Puppet.debug 'applocker_policies ='
     Puppet.debug applocker_policies
-    #applocker_policies
+    applocker_policies
   end
 
   def create
