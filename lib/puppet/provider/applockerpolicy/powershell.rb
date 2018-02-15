@@ -35,6 +35,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.elements.each('FilePathRules') do |fpr|
         rule = {}
+        puts 'fpr...'
         rule['type'] = rule_collection_type
         rule['enforcementmode'] = rule_collection_enforcementmode
         rule['rule_type'] = 'file'
