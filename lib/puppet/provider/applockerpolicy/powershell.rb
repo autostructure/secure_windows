@@ -13,23 +13,27 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    policies = []
-    object_hash = {}
+    applocker_policies = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml = Document.new xml_string
+    xml_doc = Document.new xml_string
     #xml = xml_doc.root
     # xml.elements.each('RuleCollection') do |rc|
     #   rc.elements.each do |rule|
     # end
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
-    xml.root.elements.each do |n|
-      object_hash[n.attributes["name"]] = n #puts "xml.elements.each: name=#{n.name}, expanded_name=#{n.expanded_name}"
+    xml_doc.root.elements.each('RuleCollection') do |rc|
+      rule_collection = {}
+      rule_collection['type'] = rc.attribute('Type')
+      rule_collection['enforcementmode'] = rc.attribute('EnforcementMode')
+      # then loop through rules and add to rc
+      # then loop thru conditions exceptions
+      # push to policy array after tree loaded
+      applocker_policies << rule_collection
     end
-    Puppet.debug 'object_hash ='
-    Puppet.debug object_hash
-    object_hash.values
-    policies.push(object_hash)
+    Puppet.debug 'applocker_policies ='
+    Puppet.debug applocker_policies
+    applocker_policies
   end
 
   def create
