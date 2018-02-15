@@ -41,16 +41,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         rule['type'] = rule_collection_type
         rule['enforcementmode'] = rule_collection_enforcementmode
         rule['rule_type'] = 'file'
-        #puts 'name ='
-        #puts fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #Puppet.debug 'rule ='
-        #Puppet.debug rule
-        #rule_collection << rule
+        puts 'name ='
+        puts fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        Puppet.debug 'rule ='
+        Puppet.debug rule
+        rule_collection << rule
       end
       # then loop thru conditions exceptions
       # push to policy array after tree loaded
