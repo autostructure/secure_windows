@@ -47,6 +47,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           rule_collection << rule
         end
       end
+      Puppet.debug 'rule_collection ='
+      Puppet.debug rule_collection
       # push to policy array after xml tree loaded
       applocker_policies << rule_collection
     end
