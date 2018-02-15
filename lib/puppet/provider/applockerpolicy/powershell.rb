@@ -29,13 +29,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # So, the value must be parsed using slice.
       rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
       rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      puts rule_collection_type
-      puts rule_collection_enforcementmode
-      puts rc
-      puts rc.has_elements?
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
-      rc.each_element('FilePathRule') do |fpr|
+      rc.each_element('FilePathRule') do |fpr| if rc.has_elements?
         rule = {}
         rule['type'] = rule_collection_type
         rule['enforcementmode'] = rule_collection_enforcementmode
