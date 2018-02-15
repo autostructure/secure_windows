@@ -22,7 +22,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # end
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
-    xml_doc.root.elements.each('RuleCollection') do |rc|
+    xml_doc.root.elements['RuleCollection'].each_element do |rc|
       rule_collection = {}
       rule_collection['type'] = rc.attribute('Type')
       rule_collection['enforcementmode'] = rc.attribute('EnforcementMode')
@@ -33,7 +33,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     end
     Puppet.debug 'applocker_policies ='
     Puppet.debug applocker_policies
-    applocker_policies
+    #applocker_policies
   end
 
   def create
