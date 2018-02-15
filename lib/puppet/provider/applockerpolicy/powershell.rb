@@ -36,32 +36,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.each_element('FilePathRule') do |fpr|
-        puts 'fpr...'
         rule = {}
         rule['type'] = rule_collection_type
         rule['enforcementmode'] = rule_collection_enforcementmode
         rule['rule_type'] = 'file'
-        puts 'name ='
-        puts fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        Puppet.debug 'rule ='
-        Puppet.debug rule
+        # then loop thru conditions exceptions
         rule_collection << rule
       end
-      # then loop thru conditions exceptions
-      # push to policy array after tree loaded
-      Puppet.debug 'rule_collection ='
-      Puppet.debug rule_collection
+      # push to policy array after xml tree loaded
       applocker_policies << rule_collection
     end
     Puppet.debug 'applocker_policies ='
     Puppet.debug applocker_policies
-    junk = [1,2,3]
-    Puppet.debug junk
     applocker_policies
   end
 
