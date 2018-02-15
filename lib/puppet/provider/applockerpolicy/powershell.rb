@@ -34,7 +34,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       if rc.has_elements?
         rc.each_element('FilePathRule') do |fpr|
           puts fpr
-          ule = {}
+          rule = Hash.new
           rule['type'] = rule_collection_type
           rule['enforcementmode'] = rule_collection_enforcementmode
           rule['rule_type'] = 'file'
@@ -66,7 +66,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
-
     puts 'testxml='
     puts test_xml
     puts
