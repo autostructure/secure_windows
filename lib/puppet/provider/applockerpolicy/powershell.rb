@@ -24,8 +24,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug xml_string
     xml_doc.root.elements.each('RuleCollection') do |rc|
       rule_collection = {}
-      rule_collection['type'] = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/)
-      rule_collection['enforcementmode'] = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/)
+      rule_collection['type'] = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,0)
+      rule_collection['enforcementmode'] = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # then loop through rules and add to rc
       # then loop thru conditions exceptions
       # push to policy array after tree loaded
