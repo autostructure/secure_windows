@@ -1,59 +1,69 @@
 require 'rexml/document'
 include REXML
+
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
   # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
-  confine :kernel => :windows
-  commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
+  confine kernel: :windows
+  commands ps: File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
+
+  def initialize(value={})
+    super(value)
+    @property_flush = {}
+  end
 
   def self.instances
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    applocker_policies = []
+    # applocker_policies = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
-    #xml = xml_doc.root
+    # xml = xml_doc.root
     # xml.elements.each('RuleCollection') do |rc|
     #   rc.elements.each do |rule|
     # end
-    Puppet.debug 'powershell.rb::self.instances::xml_string:'
-    Puppet.debug xml_string
+    # Puppet.debug 'powershell.rb::self.instances::xml_string:'
+    # Puppet.debug xml_string
+
     xml_doc.root.elements.each('RuleCollection') do |rc|
       rule_collection = []
+
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
       # So, the value must be parsed using slice.
-      rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      puts rule_collection_type
-      puts rule_collection_enforcementmode
-      puts rc
-      puts rc.has_elements?
+      rule_collection_type = rc.attribute('Type').to_string.slice(%r{=['|"]*(.*)['|"]}, 1)
+      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(%r{=['|"]*(.*)['|"]}, 1)
+      # puts rule_collection_type
+      # puts rule_collection_enforcementmode
+      # puts rc
+      # puts rc.has_elements?
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.each_element('FilePathRule') do |fpr|
-        rule = {}
-        rule['type'] = rule_collection_type
-        rule['enforcementmode'] = rule_collection_enforcementmode
-        rule['rule_type'] = 'file'
-        rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule = {
+          type: rule_collection_type,
+          enforcementmode: rule_collection_enforcementmode,
+          rule_type: 'file',
+          name: fpr.attribute('Name').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          description: fpr.attribute('Description').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          id: fpr.attribute('Id').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          action: fpr.attribute('Action').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+        }
+
         # then loop thru conditions exceptions
         rule_collection << rule
       end
       # push to policy array after xml tree loaded
-      applocker_policies << rule_collection
+      new(rule_collection)
     end
-    Puppet.debug 'applocker_policies ='
-    Puppet.debug applocker_policies
-    applocker_policies
+    # Puppet.debug 'applocker_policies ='
+    # Puppet.debug applocker_policies
+    # applocker_policies
   end
 
   def create
@@ -89,14 +99,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     false
   end
 
-  def prefetch()
+  def prefetch
     puts 'powershell.rb::flush called.'
   end
 
   def flush
     puts 'powershell.rb::flush called.'
   end
-
 
   # setters and getters
   def name
@@ -145,5 +154,4 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # desc 'The AppLocker user or group system identifier.'
     @resource[:user_or_group_sid]
   end
-
 end
