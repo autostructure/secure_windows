@@ -60,6 +60,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     end
     Puppet.debug 'applocker_policies ='
     Puppet.debug applocker_policies
+    junk = [1,2,3]
+    Puppet.debug junk
     applocker_policies
   end
 
