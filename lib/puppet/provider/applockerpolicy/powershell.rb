@@ -23,10 +23,26 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     xml_doc.root.elements.each('RuleCollection') do |rc|
-      rule_collection = {}
-      rule_collection['type'] = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,0)
-      rule_collection['enforcementmode'] = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
+      rule_collection = []
+      # REXML Attributes are returned with the attribute and its value, including delimiters.
+      # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
+      # So, the value must be parsed using slice.
+      rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
+      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # then loop through rules and add to rc
+      # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
+      rc.elements.each('FilePathRules') do |fpr|
+        rule = {}
+        rule['type'] = rule_collection_type
+        rule['enforcementmode'] = rule_collection_enforcementmode
+        rule['rule_type'] = 'file'
+        rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule_collection << rule
+      end
       # then loop thru conditions exceptions
       # push to policy array after tree loaded
       applocker_policies << rule_collection
