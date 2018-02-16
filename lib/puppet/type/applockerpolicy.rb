@@ -21,19 +21,19 @@ Puppet::Type.newtype(:applockerpolicy) do
   newparam(:rule_type) do
     puts 'applockerpolicy.rb::rule_type'
     # desc 'The type of AppLocker rule [file, hash, publisher].'
-    newvalues(:file, :hash, :publisher)
+    #newvalues(:file, :hash, :publisher)
   end
 
   newparam(:type) do
     puts 'applockerpolicy.rb::type'
     # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
-    newvalues(:Appx, :Dll, :Exe, :Msi, :Script)
+    #newvalues(:Appx, :Dll, :Exe, :Msi, :Script)
   end
 
   newproperty(:enforcementmode) do
     puts 'applockerpolicy.rb::enforcementmode'
     # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    newvalues(:Enabled, :Disabled, :NotConfigured)
+    #newvalues(:Enabled, :Disabled, :NotConfigured)
   end
 
   newparam(:id) do
@@ -54,7 +54,7 @@ Puppet::Type.newtype(:applockerpolicy) do
   newparam(:action) do
     puts 'applockerpolicy.rb::action'
     # desc 'The AppLocker action [Allow, Deny].'
-    newvalues(:Allow, :Deny)
+    #newvalues(:Allow, :Deny)
   end
 
   #newparam(:user) do
