@@ -2,9 +2,9 @@ Puppet::Type.newtype(:applockerpolicy) do
   @doc = 'Manage the Windows O/S AppLocker policies.'
 
   ensurable do
+    puts 'applockerpolicy.rb::ensurable'
     defaultvalues
     defaultto :present
-    puts 'applockerpolicy.rb::ensurable'
   end
 
   # newproperty(:ensure, :parent => Puppet::Property::Ensure) do
@@ -12,7 +12,6 @@ Puppet::Type.newtype(:applockerpolicy) do
   #      provider.create
   #    end
   # end
-
 
   newparam(:name) do
     puts 'applockerpolicy.rb::name'
@@ -58,13 +57,13 @@ Puppet::Type.newtype(:applockerpolicy) do
     newvalues(:Allow, :Deny)
   end
 
-  newparam(:user) do
-    puts 'applockerpolicy.rb::user'
+  #newparam(:user) do
+  #  puts 'applockerpolicy.rb::user'
     # desc 'The o/s user that will set the AppLocker policy rule.'
-  end
+  #end
 
-  newparam(:prefix) do
-    puts 'applockerpolicy.rb::prefix'
+  #newparam(:prefix) do
+  #  puts 'applockerpolicy.rb::prefix'
     # desc 'A prefix to prepend to the AppLocker rule.'
-  end
+  #end
 end
