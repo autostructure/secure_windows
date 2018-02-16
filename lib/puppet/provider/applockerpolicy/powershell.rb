@@ -1,3 +1,4 @@
+require 'puppet'
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
