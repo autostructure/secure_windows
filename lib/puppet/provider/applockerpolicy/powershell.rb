@@ -40,6 +40,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     xml_doc.root.elements.each('RuleCollection') do |rc|
+      puts 'rule_collection'
       #rule_collection = []
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
@@ -48,32 +49,27 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
-      #if rc.has_elements?
-        rc.each_element('FilePathRule') do |fpr|
-          rule = {}
-          rule[:ensure]            = :present
-          rule[:provider]          = :directoryservice
-          rule[:rule_type]         = :file
-          rule[:type]              = rule_collection_type
-          rule[:enforcementmode]   = rule_collection_enforcementmode
-          rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:user]              = :Everyone      # 'Everyone'
-          rule[:prefix]            = :autostructure # 'autostructure'
-          # then loop thru conditions exceptions
-          # TODO: conditions/exceptions coding
-          # push to policy array after xml tree loaded
-          # applocker_policies << rule
-          self.new(rule)
-        end
-      #end
+      rc.each_element('FilePathRule') do |fpr|
+        rule = {}
+        rule[:ensure]            = :present
+        rule[:provider]          = :directoryservice
+        rule[:rule_type]         = :file
+        rule[:type]              = rule_collection_type
+        rule[:enforcementmode]   = rule_collection_enforcementmode
+        rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:user]              = :Everyone      # 'Everyone'
+        rule[:prefix]            = :autostructure # 'autostructure'
+        # then loop thru conditions exceptions
+        # TODO: conditions/exceptions coding
+        # push to policy array after xml tree loaded
+        # applocker_policies << rule
+        self.new(rule)
+      end
     end
-    #Puppet.debug 'applocker_policies ='
-    #Puppet.debug applocker_policies
-    #self.new(applocker_policies)
   end
 
   def create
