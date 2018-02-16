@@ -58,7 +58,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
-    puts "resource[#{@resource.length}]="
+    puts 'resource='
     puts @resource.to_s
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     test_xml = "<AppLockerPolicy Version='1'>
