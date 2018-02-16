@@ -40,7 +40,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     xml_doc.root.elements.each('RuleCollection') do |rc|
-      puts 'rule_collection'
+      puts 'rule_collection0'
       #rule_collection = []
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
@@ -49,7 +49,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
+      puts 'rule_collection1'
       rc.each_element('FilePathRule') do |fpr|
+        puts 'filepathrule2'
         rule = {}
         rule[:ensure]            = :present
         rule[:provider]          = :directoryservice
@@ -67,9 +69,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         # TODO: conditions/exceptions coding
         # push to policy array after xml tree loaded
         # applocker_policies << rule
+        puts 'filepathrule3'
         self.new(rule)
+        puts 'filepathrule4'
       end
+      puts 'rule_collection5'
     end
+    puts 'rule_collection6'
   end
 
   def create
