@@ -124,13 +124,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def self.prefetch(resources)
     puts 'powershell.rb::prefetch called.'
     instances.each do |prov|
-      puts 'powershell.rb::prefetch instance loop.'
-      puts prov
       if @resource = resources[prov.name]
         @resource.provider = prov
       end
     end
-    puts 'powershell.rb::prefetch past loop.'
   end
 
   def flush
@@ -184,6 +181,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'powershell.rb::uid-or-sid'
     # desc 'The AppLocker user or group system identifier.'
     @resource[:user_or_group_sid]
+  end
+
+  def prefix
+    puts 'powershell.rb::prefix'
+    @resource[:prefix]
+  end
+
+  def user
+    puts 'powershell.rb::user'
+    @resource[:user]
   end
 
 end
