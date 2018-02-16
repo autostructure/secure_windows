@@ -7,6 +7,13 @@ Puppet::Type.newtype(:applockerpolicy) do
     puts 'applockerpolicy.rb::ensurable'
   end
 
+  # newproperty(:ensure, :parent => Puppet::Property::Ensure) do
+  #    newvalue(:present, :event => :user_created) do
+  #      provider.create
+  #    end
+  # end
+
+
   newparam(:name) do
     puts 'applockerpolicy.rb::name'
     isnamevar

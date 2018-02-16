@@ -34,7 +34,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       if rc.has_elements?
         rc.each_element('FilePathRule') do |fpr|
           puts fpr
-          rule = Hash.new
+          rule = {}
           rule['type'] = rule_collection_type
           rule['enforcementmode'] = rule_collection_enforcementmode
           rule['rule_type'] = 'file'
@@ -54,7 +54,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     end
     Puppet.debug 'applocker_policies ='
     Puppet.debug applocker_policies
-    applocker_policies
+    self.new(applocker_policies)
   end
 
   def create
