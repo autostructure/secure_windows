@@ -9,22 +9,37 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
 
+  # This method exists to map the dscl values to the correct Puppet
+  # properties. This stays relatively consistent, but who knows what
+  # Apple will do next year...
+  def self.xml2resource_attribute_map
+    {
+      'Type'            => :type,
+      'EnforcementMode' => :enforcementmode,
+      'Name'            => :name,
+      'Description'     => :description,
+      'Id'              => :id,
+      'UserOrGroupSid'  => :user_or_group_sid,
+      'Action'          => :action,
+    }
+  end
+
+  def self.resource2xml_attribute_map
+    @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
+  end
+
   def self.instances
     puts 'powershell.rb::instances called.'
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    applocker_policies = []
+    # applocker_policies = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
-    #xml = xml_doc.root
-    # xml.elements.each('RuleCollection') do |rc|
-    #   rc.elements.each do |rule|
-    # end
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     xml_doc.root.elements.each('RuleCollection') do |rc|
-      rule_collection = []
+      #rule_collection = []
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
       # So, the value must be parsed using slice.
@@ -36,26 +51,29 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         rc.each_element('FilePathRule') do |fpr|
           puts fpr
           rule = {}
-          rule['type'] = rule_collection_type
-          rule['enforcementmode'] = rule_collection_enforcementmode
-          rule['rule_type'] = 'file'
-          rule['name'] = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule['description'] = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule['id'] = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule['user_or_group_sid'] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule['action'] = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:ensure]            = :present
+          rule[:provider]          = :directoryservice
+          rule[:rule_type]         = :file
+          rule[:type]              = rule_collection_type
+          rule[:enforcementmode]   = rule_collection_enforcementmode
+          rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
+          rule[:user]              = 'Everyone'
+          rule[:prefix]            = 'autostructure'
           # then loop thru conditions exceptions
-          rule_collection << rule
+          # TODO: conditions/exceptions coding
+          # push to policy array after xml tree loaded
+          # applocker_policies << rule
+          self.new(rule)
         end
       end
-      Puppet.debug 'rule_collection ='
-      Puppet.debug rule_collection
-      # push to policy array after xml tree loaded
-      applocker_policies << rule_collection
     end
-    Puppet.debug 'applocker_policies ='
-    Puppet.debug applocker_policies
-    self.new(applocker_policies)
+    #Puppet.debug 'applocker_policies ='
+    #Puppet.debug applocker_policies
+    #self.new(applocker_policies)
   end
 
   def create
