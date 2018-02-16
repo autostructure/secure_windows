@@ -48,9 +48,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # then loop through rules and add to rc
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
-      if rc.has_elements?
+      #if rc.has_elements?
         rc.each_element('FilePathRule') do |fpr|
-          puts fpr
           rule = {}
           rule[:ensure]            = :present
           rule[:provider]          = :directoryservice
@@ -62,15 +61,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
           rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
           rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
-          rule[:user]              = 'Everyone'
-          rule[:prefix]            = 'autostructure'
+          rule[:user]              = :Everyone      # 'Everyone'
+          rule[:prefix]            = :autostructure # 'autostructure'
           # then loop thru conditions exceptions
           # TODO: conditions/exceptions coding
           # push to policy array after xml tree loaded
           # applocker_policies << rule
           self.new(rule)
         end
-      end
+      #end
     end
     #Puppet.debug 'applocker_policies ='
     #Puppet.debug applocker_policies
@@ -79,8 +78,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     puts 'powershell.rb::create called.'
-    puts 'resource='
-    puts @resource.to_s
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     test_xml = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
@@ -91,9 +88,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
-    puts 'testxml='
-    puts test_xml
-    puts
     testfile = File.open('C:\Windows\Temp\applockerpolicy.xml', 'w')
     testfile.puts test_xml
     testfile.close
