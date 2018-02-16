@@ -39,7 +39,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc = Document.new xml_string
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
-    xml_doc.root.elements.each('RuleCollection') do |rc|
+    xml_doc.root.each_element('RuleCollection') do |rc|
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
       # So, the value must be parsed using slice.
