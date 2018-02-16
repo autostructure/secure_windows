@@ -125,7 +125,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'powershell.rb::prefetch called.'
     instances.each do |prov|
       puts 'powershell.rb::prefetch instance loop.'
-      if @resource == @resources[prov.name]
+      if @resource == resources[prov.name]
         @resource.provider = prov
       end
     end
