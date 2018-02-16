@@ -146,11 +146,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource[:enforcementmode]
   end
 
-  def enforcementmode=(value)
+#  def enforcementmode=(value)
     # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    puts 'setter enforcementmode='
-    puts value
-  end
+#    puts 'setter enforcementmode='
+#    puts value
+#  end
 
   def id
     puts 'powershell.rb::id'
