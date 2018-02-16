@@ -10,6 +10,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
 
   def self.instances
+    puts 'powershell.rb::instances called.'
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
@@ -58,6 +59,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def create
+    puts 'powershell.rb::create called.'
     puts 'resource='
     puts @resource.to_s
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
@@ -103,10 +105,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def self.prefetch(resources)
     puts 'powershell.rb::prefetch called.'
     instances.each do |prov|
+      puts 'powershell.rb::prefetch instance loop.'
       if resource == resources[prov.name]
         resource.provider = prov
       end
     end
+    puts 'powershell.rb::prefetch past loop.'
   end
 
   def flush
