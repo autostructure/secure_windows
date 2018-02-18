@@ -1,6 +1,3 @@
-require 'puppet'
-require 'rexml/document'
-include REXML
 Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
   @doc = 'Test provider.'
 
