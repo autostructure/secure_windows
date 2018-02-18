@@ -7,8 +7,4 @@ Puppet::Type.newtype(:windowspolicy) do
     puts 'windowspolicy.rb::name'
     # isnamevar
   end
-
-  newparam(:description) do
-    puts 'windowspolicy.rb::description'
-  end
 end
