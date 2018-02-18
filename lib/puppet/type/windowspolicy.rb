@@ -3,8 +3,8 @@ Puppet::Type.newtype(:windowspolicy) do
 
   ensurable
 
-  newparam(:name, :namevar => true) do
+  newparam(:name) do
+    isnamevar
     puts 'windowspolicy.rb::name'
-    # isnamevar
   end
 end

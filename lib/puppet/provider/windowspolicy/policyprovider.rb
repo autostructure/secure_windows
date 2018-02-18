@@ -6,29 +6,20 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 
   confine :kernel => :windows
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
-  # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
+
   def self.instances
     puts 'instances'
-    # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
-    # xmlstr = File.read './examples/applocker.xml'
-    # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    # applocker_policies = []
-    xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml_doc = Document.new xml_string
-    Puppet.debug 'powershell.rb::self.instances::xml_string='
-    Puppet.debug xml_string
-    xml_doc.root.each_element('RuleCollection') do |rc|
-      # REXML Attributes are returned with the attribute and its value, including delimiters.
-      # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
-      # So, the value must be parsed using slice.
-      #rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      #rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
-      rc.each_element('FilePathRule') do |fpr|
+#    xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
+#    xml_doc = Document.new xml_string
+#    Puppet.debug 'powershell.rb::self.instances::xml_string='
+#    Puppet.debug xml_string
+#    xml_doc.root.each_element('RuleCollection') do |rc|
+#      rc.each_element('FilePathRule') do |fpr|
         rule = {}
-        rule[:ensure]            = :present
-        rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+#        rule[:ensure]            = :present
+#        rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
+#        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+rule = {:ensure => :present, :name => 'windowspolicytest'}
         self.new(rule)
       end
     end
