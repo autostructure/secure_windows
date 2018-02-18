@@ -37,26 +37,4 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     puts 'exists?'
     true
   end
-
-  # Prefetching is necessary to use @property_hash inside any setter methods.
-  # self.prefetch uses self.instances to gather an array of user instances
-  # on the system, and then populates the @property_hash instance variable
-  # with attribute data for the specific instance in question (i.e. it
-  # gathers the 'is' values of the resource into the @property_hash instance
-  # variable so you don't have to read from the system every time you need
-  # to gather the 'is' values for a resource. The downside here is that
-  # populating this instance variable for every resource on the system
-  # takes time and front-loads your Puppet run.
-  def self.prefetch(resources)
-    puts 'prefetch'
-    instances.each do |prov|
-      if @resource = resources[prov.name]
-        @resource.provider = prov
-      end
-    end
-  end
-
-  def flush
-    puts 'flush'
-  end
 end
