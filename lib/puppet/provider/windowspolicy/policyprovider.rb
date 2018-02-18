@@ -35,7 +35,7 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 
   def exists?
     puts 'exists?'
-    false
+    true
   end
 
   # Prefetching is necessary to use @property_hash inside any setter methods.
