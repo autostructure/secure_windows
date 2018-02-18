@@ -9,7 +9,7 @@ Puppet::Type.newtype(:windowspolicy) do
 #  end
 
   newparam(:name, :namevar => true) do
-    desc "Interface name - currently must be 'friendly' name (e.g. Ethernet)"
+    desc 'windowspolicy.rb::name (param)'
     puts 'windowspolicy.rb::name'
     munge do |value|
       value.downcase
