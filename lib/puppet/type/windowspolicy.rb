@@ -3,20 +3,20 @@ Puppet::Type.newtype(:windowspolicy) do
 
   ensurable
 
-  newparam(:name) do
-    isnamevar
-    puts 'windowspolicy.rb::name'
-  end
-
-#  newparam(:name, :namevar => true) do
-#    desc 'windowspolicy.rb::name (param)'
+#  newparam(:name) do
+#    isnamevar
 #    puts 'windowspolicy.rb::name'
-#    munge do |value|
-#      value.downcase
-#    end
-#    def insync?(is)
-#      is.downcase == should.downcase
-#    end
 #  end
+
+  newparam(:name, :namevar => true) do
+    desc 'windowspolicy.rb::name (param)'
+    puts 'windowspolicy.rb::name'
+    munge do |value|
+      value.downcase
+    end
+    def insync?(is)
+      is.downcase == should.downcase
+    end
+  end
 
 end
