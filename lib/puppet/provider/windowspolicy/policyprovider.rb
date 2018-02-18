@@ -18,7 +18,8 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 #        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule = {:ensure => :present, :name => 'windowspolicytest'}
         puts 'instances0'
-        self.new(rule)
+        #self.new(rule)
+        rule
         puts 'instances1'
 #      end
 #    end
