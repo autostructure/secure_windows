@@ -15,7 +15,7 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     # applocker_policies = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
-    Puppet.debug 'powershell.rb::self.instances::xml_string:'
+    Puppet.debug 'powershell.rb::self.instances::xml_string='
     Puppet.debug xml_string
     xml_doc.root.each_element('RuleCollection') do |rc|
       # REXML Attributes are returned with the attribute and its value, including delimiters.

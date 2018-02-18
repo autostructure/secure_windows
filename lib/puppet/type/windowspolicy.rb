@@ -1,15 +1,11 @@
 Puppet::Type.newtype(:windowspolicy) do
   @doc = 'Test type.'
 
-  ensurable do
-    puts 'windowspolicy.rb::ensurable'
-    defaultvalues
-    defaultto :present
-  end
+  ensurable
 
-  newparam(:name) do
+  newparam(:name, :namevar => true) do
     puts 'windowspolicy.rb::name'
-    isnamevar
+    # isnamevar
   end
 
   newparam(:description) do
