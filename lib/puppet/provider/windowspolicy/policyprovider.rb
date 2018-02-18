@@ -21,8 +21,8 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
       # So, the value must be parsed using slice.
-      rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
+      #rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
+      #rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.each_element('FilePathRule') do |fpr|
         rule = {}
