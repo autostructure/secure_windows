@@ -38,4 +38,14 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     #true <- worked
     false
   end
+
+  def self.prefetch(resources)
+    puts 'powershell.rb::prefetch called.'
+    instances.each do |prov|
+      if @resource = resources[prov.name]
+        @resource.provider = prov
+      end
+    end
+  end
+  
 end
