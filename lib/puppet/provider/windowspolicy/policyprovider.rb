@@ -35,6 +35,7 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 
   def exists?
     puts 'exists?'
-    true
+    #true <- worked
+    false
   end
 end
