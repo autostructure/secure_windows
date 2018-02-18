@@ -13,10 +13,21 @@ Puppet::Type.newtype(:applockerpolicy) do
   #    end
   # end
 
-  newparam(:name) do
-    puts 'applockerpolicy.rb::name'
-    isnamevar
+   newparam(:name, :namevar => true) do
+     desc 'applockerpolicy.rb::name (param)'
+     puts 'applockerpolicy.rb::name'
+     munge do |value|
+       value.downcase
+     end
+     def insync?(is)
+       is.downcase == should.downcase
+     end
   end
+
+  #newparam(:name) do
+  #  puts 'applockerpolicy.rb::name'
+  #  isnamevar
+  #end
 
   newparam(:rule_type) do
     puts 'applockerpolicy.rb::rule_type'
