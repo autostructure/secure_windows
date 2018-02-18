@@ -35,17 +35,19 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 
   def exists?
     puts 'exists?'
-    #true <- worked
+    #true <- won't call create method.
     false
   end
 
-  def self.prefetch(resources)
-    puts 'powershell.rb::prefetch called.'
-    instances.each do |prov|
-      if @resource = resources[prov.name]
-        @resource.provider = prov
-      end
-    end
-  end
-  
+#  # caused an error...
+#  # Error: Failed to apply catalog: undefined method `each' for nil:NilClass
+#  def self.prefetch(resources)
+#   puts 'powershell.rb::prefetch called.'
+#    instances.each do |prov|
+#      if @resource = resources[prov.name]
+#        @resource.provider = prov
+#      end
+#    end
+#  end
+
 end

@@ -108,14 +108,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # to gather the 'is' values for a resource. The downside here is that
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
-  def self.prefetch(resources)
-    puts 'powershell.rb::prefetch called.'
-    instances.each do |prov|
-      if @resource = resources[prov.name]
-        @resource.provider = prov
-      end
-    end
-  end
+
+  #  # caused an error...
+  #  # Error: Failed to apply catalog: undefined method `each' for nil:NilClass
+  #def self.prefetch(resources)
+  #  puts 'powershell.rb::prefetch called.'
+  #  instances.each do |prov|
+  #    if @resource = resources[prov.name]
+  #      @resource.provider = prov
+  #    end
+  #  end
+  #end
 
   def flush
     puts 'powershell.rb::flush called.'
