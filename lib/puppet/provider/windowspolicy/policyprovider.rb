@@ -2,10 +2,10 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
   @doc = 'Test provider.'
 
   confine :kernel => :windows
-  commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
+  #commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
 
   def self.instances
-    puts 'instances'
+    puts 'windowspolicy::policyprovider::instances'
 #    xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
 #    xml_doc = Document.new xml_string
 #    Puppet.debug 'powershell.rb::self.instances::xml_string='
@@ -17,24 +17,24 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 #        rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
 #        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
         #rule = {:ensure => :present, :name => 'windowspolicytest'}
-        puts 'instances0'
+        #puts 'windowspolicy::policyprovider::instances0'
         #self.new(rule)
         #rule
-        puts 'instances1'
+        #puts 'windowspolicy::policyprovider::instances1'
 #      end
 #    end
   end
 
   def create
-    puts 'create'
+    puts 'windowspolicy::policyprovider::create'
   end
 
   def destroy
-    puts 'destroy'
+    puts 'windowspolicy::policyprovider::destroy'
   end
 
   def exists?
-    puts 'exists?'
+    puts 'windowspolicy::policyprovider::exists?'
     #true <- won't call create method.
     false
   end
