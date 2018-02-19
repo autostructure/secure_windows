@@ -98,7 +98,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def exists?
     retval = false
-    self.instances.each do |provider_instance|
+    provider_array = self.instances
+    provider_array.each do |provider_instance|
       if @resource.name == provider_instance.name
         retval = true
       end
