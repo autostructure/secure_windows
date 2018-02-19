@@ -40,6 +40,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc = Document.new xml_string
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
+    Puppet.debug 'rules...'
     xml_doc.root.each_element('RuleCollection') do |rc|
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
@@ -62,7 +63,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
         # push to policy array after xml tree loaded
-        puts rule
+        Puppet.debug rule
         provider_array.push(self.new(rule))
       end
     end
@@ -96,7 +97,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'powershell.rb::destroy called.'
   end
 
-  def self.exists?
+  def exists?
     puts 'powershell.rb::exists?'
     true
   end
