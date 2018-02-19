@@ -96,7 +96,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     puts 'powershell.rb::destroy called.'
   end
 
-  def exists?
+  def self.exists?
     retval = false
     provider_array = self.instances
     provider_array.each do |provider_instance|
