@@ -6,25 +6,19 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
   #commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
 
   def create
-    puts 'windowspolicy::policyprovider::create'
-    # echo.>c:\windows\temp\test.txt
     File.open(@resource[:name], 'w') { |f| f.puts '' } # Create an empty file
   end
 
   def destroy
-    puts 'windowspolicy::policyprovider::destroy'
     File.unlink(@resource[:name])
   end
 
+  # true -> will NOT call the create method, false -> calls create
   def exists?
-    puts 'windowspolicy::policyprovider::exists?'
     File.exist?(@resource[:name])
-    #true <- won't call create method.
-    #false
   end
 
   def self.instances
-    puts 'windowspolicy::policyprovider::instances'
     provider_array = []
     test_property_hash = {}
     test_property_hash[:name]   = 'c:\windows\temp\windowspolicy.txt'
