@@ -7,27 +7,16 @@ Puppet::Type.newtype(:applockerpolicy) do
     defaultto :present
   end
 
-  # newproperty(:ensure, :parent => Puppet::Property::Ensure) do
-  #    newvalue(:present, :event => :user_created) do
-  #      provider.create
-  #    end
-  # end
-
-  newparam(:name, :namevar => true) do
-    desc 'applockerpolicy.rb::name (param)'
+  newparam(:name) do
+    desc 'applockerpolicy.rb::name (namevar).'
     puts 'applockerpolicy.rb::name'
-    munge do |value|
-      value.downcase
-    end
-    def insync?(is)
-      is.downcase == should.downcase
-    end
+    isnamevar
   end
 
-  #newparam(:name) do
-  #  puts 'applockerpolicy.rb::name'
-  #  isnamevar
-  #end
+  newparam(:description) do
+    puts 'applockerpolicy.rb::description'
+    # desc 'The AppLocker rule description.'
+  end
 
   newparam(:rule_type) do
     puts 'applockerpolicy.rb::rule_type'
@@ -47,25 +36,20 @@ Puppet::Type.newtype(:applockerpolicy) do
     #newvalues(:Enabled, :Disabled, :NotConfigured)
   end
 
+  newparam(:action) do
+    puts 'applockerpolicy.rb::action'
+    # desc 'The AppLocker action [Allow, Deny].'
+    #newvalues(:Allow, :Deny)
+  end
+
   newparam(:id) do
     puts 'applockerpolicy.rb::id'
     # desc 'The AppLocker rule identifier.'
   end
 
-  newparam(:description) do
-    puts 'applockerpolicy.rb::description'
-    # desc 'The AppLocker rule description.'
-  end
-
   newparam(:user_or_group_sid) do
     puts 'applockerpolicy.rb::user_or_group_sid'
     # desc 'The AppLocker user or group system identifier.'
-  end
-
-  newparam(:action) do
-    puts 'applockerpolicy.rb::action'
-    # desc 'The AppLocker action [Allow, Deny].'
-    #newvalues(:Allow, :Deny)
   end
 
   #newparam(:user) do

@@ -2,7 +2,8 @@ require 'puppet'
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
-  @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
+  desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
+  # @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
   # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
@@ -31,10 +32,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def self.instances
     puts 'powershell.rb::instances called.'
+    provider_array = []
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
     # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
-    # applocker_policies = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
@@ -54,18 +55,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         rule[:enforcementmode]   = rule_collection_enforcementmode
         rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
+        rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
         rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
         #rule[:user]              = :Everyone      # 'Everyone'
         #rule[:prefix]            = :autostructure # 'autostructure'
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
         # push to policy array after xml tree loaded
         # applocker_policies << rule
-        self.new(rule)
+        provider_array.push(self.new(rule))
       end
     end
+    provider_array
   end
 
   def create
