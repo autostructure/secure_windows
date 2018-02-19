@@ -9,7 +9,6 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     puts 'windowspolicy::policyprovider::create'
     # echo.>c:\windows\temp\test.txt
     File.open(@resource[:name], 'w') { |f| f.puts '' } # Create an empty file
-
   end
 
   def destroy
@@ -22,6 +21,14 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     File.exist?(@resource[:name])
     #true <- won't call create method.
     #false
+  end
+
+  def self.instances
+    puts 'windowspolicy::policyprovider::instances'
+    testfile = {}
+    testfile[:ensure] = :present
+    testfile[:name]   = 'c:\windows\temp\windowspolicy.txt'
+    self.new(testfile)
   end
 
   #def self.instances

@@ -49,7 +49,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       rc.each_element('FilePathRule') do |fpr|
         rule = {}
         rule[:ensure]            = :present
-        rule[:provider]          = :directoryservice
         rule[:rule_type]         = :file
         rule[:type]              = rule_collection_type
         rule[:enforcementmode]   = rule_collection_enforcementmode
