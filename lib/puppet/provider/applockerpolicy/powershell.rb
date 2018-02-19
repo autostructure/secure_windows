@@ -97,19 +97,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def self.exists?
-    puts 'powershell.rb::exists?0'
-    retval = false
-    provider_array = self.instances
-    puts 'powershell.rb::exists?1'
-    provider_array.each do |provider_instance|
-      puts 'powershell.rb::exists?2'
-      if @resource.name == provider_instance.name
-        puts 'powershell.rb::exists?3'
-        retval = true
-      end
-    end
-    puts "powershell.rb::exists?=#{retval}"
-    retval
+    puts 'powershell.rb::exists?'
+    false
   end
 
   # Prefetching is necessary to use @property_hash inside any setter methods.
@@ -121,6 +110,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # to gather the 'is' values for a resource. The downside here is that
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
+  def self.prefetch(resources)
+    puts 'powershell.rb::prefetch called.'
+    # self.instances returns an array of Pupper::Provider objects...
+    instances.each do |provider_instance|
+      if @resource == resources[provider_instance.name]
+        @resource.provider = provider_instance
+      end
+    end
+  end
 
   #  # caused an error...
   #  # Error: Failed to apply catalog: undefined method `each' for nil:NilClass
