@@ -82,16 +82,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
-puts 'test_xml = '
-puts test_xml
     testfile = File.open('c:\windows\temp\applockerpolicy.xml', 'w')
     testfile.puts test_xml
     testfile.close
-    # File.unlink('c:\windows\temp\applockerpolicy.xml')
+    #
     # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
     # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
     ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
-    # testfile.delete
+    # testfile.unlink
+    File.unlink('c:\windows\temp\applockerpolicy.xml')
   end
 
   def destroy
