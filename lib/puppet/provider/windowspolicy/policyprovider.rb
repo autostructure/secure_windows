@@ -25,11 +25,12 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
 
   def self.instances
     puts 'windowspolicy::policyprovider::instances'
-    testfile = {}
-    testfile[:ensure] = :present
-    testfile[:name]   = 'c:\windows\temp\windowspolicy.txt'
-    testfile
-    #self.new(testfile)
+    provider_array = []
+    test_property_hash = {}
+    test_property_hash[:name]   = 'c:\windows\temp\windowspolicy.txt'
+    test_property_hash[:ensure] = :present
+    provider_array.push(self.new(test_property_hash))
+    provider_array
   end
 
   #def self.instances
