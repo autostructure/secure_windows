@@ -62,7 +62,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
         # push to policy array after xml tree loaded
-        # applocker_policies << rule
+        puts rule
         provider_array.push(self.new(rule))
       end
     end
