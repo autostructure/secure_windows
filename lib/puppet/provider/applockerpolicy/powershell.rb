@@ -111,7 +111,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # to gather the 'is' values for a resource. The downside here is that
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
-  def prefetch(resources)
+  def self.prefetch(resources)
     puts 'powershell.rb::prefetch called.'
     # self.instances returns an array of Pupper::Provider objects...
     resources['applockerpolicy'].each do |provider_instance|
