@@ -97,10 +97,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def self.exists?
+    puts 'powershell.rb::exists?0'
     retval = false
     provider_array = self.instances
+    puts 'powershell.rb::exists?1'
     provider_array.each do |provider_instance|
+      puts 'powershell.rb::exists?2'
       if @resource.name == provider_instance.name
+        puts 'powershell.rb::exists?3'
         retval = true
       end
     end
