@@ -28,7 +28,8 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     testfile = {}
     testfile[:ensure] = :present
     testfile[:name]   = 'c:\windows\temp\windowspolicy.txt'
-    self.new(testfile)
+    testfile
+    #self.new(testfile)
   end
 
   #def self.instances
