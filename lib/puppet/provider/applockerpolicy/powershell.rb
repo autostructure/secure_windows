@@ -98,7 +98,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def self.exists?
     puts 'powershell.rb::exists?'
-    false
+    true
   end
 
   # Prefetching is necessary to use @property_hash inside any setter methods.
