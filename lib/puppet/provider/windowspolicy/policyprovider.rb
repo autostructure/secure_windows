@@ -24,9 +24,9 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     #false
   end
 
-  def self.instances
-    puts 'windowspolicy::policyprovider::instances'
-  end
+  #def self.instances
+  #  puts 'windowspolicy::policyprovider::instances'
+  #end
 #    xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
 #    xml_doc = Document.new xml_string
 #    Puppet.debug 'powershell.rb::self.instances::xml_string='
