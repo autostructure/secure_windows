@@ -97,8 +97,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def exists?
-    puts 'powershell.rb::exists?'
-    false
+    retval = false
+    instances.each do |provider_instance|
+      if @resource.name == provider_instance.name
+        retval = true
+      end
+    end
+    puts "powershell.rb::exists?=#{retval}"
+    retval
   end
 
   # Prefetching is necessary to use @property_hash inside any setter methods.
