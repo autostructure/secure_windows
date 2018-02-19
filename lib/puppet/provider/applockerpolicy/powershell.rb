@@ -48,18 +48,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.each_element('FilePathRule') do |fpr|
-        rule = {}
-        rule[:ensure]            = :present
-        rule[:rule_type]         = :file
-        rule[:type]              = rule_collection_type
-        rule[:enforcementmode]   = rule_collection_enforcementmode
-        rule[:name]              = fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:description]       = fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:action]            = fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:id]                = fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        rule[:user_or_group_sid] = fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1)
-        #rule[:user]              = :Everyone      # 'Everyone'
-        #rule[:prefix]            = :autostructure # 'autostructure'
+        rule = {
+          ensure:            :present,
+          rule_type:         :file,
+          type:              rule_collection_type,
+          enforcementmode:   rule_collection_enforcementmode,
+          action:            fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          name:              fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
+        }
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
         # push to policy array after xml tree loaded
