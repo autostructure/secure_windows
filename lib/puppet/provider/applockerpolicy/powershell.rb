@@ -113,8 +113,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # takes time and front-loads your Puppet run.
   def self.prefetch(resources)
     puts 'powershell.rb::prefetch called.'
+    puts resources
     # self.instances returns an array of Pupper::Provider objects...
-    instances.each do |provider_instance|
+    resources.each do |provider_instance|
       puts "powershell.rb::prefetch provider_instance: #{provider_instance.name}"
       if @resource == resources[provider_instance.name]
         puts "powershell.rb::prefetch provider_instance FOUND: #{provider_instance.name}"
