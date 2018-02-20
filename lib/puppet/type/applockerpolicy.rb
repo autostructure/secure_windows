@@ -1,55 +1,43 @@
 Puppet::Type.newtype(:applockerpolicy) do
   @doc = 'Manage the Windows O/S AppLocker policies.'
 
-  ensurable do
-    puts 'applockerpolicy.rb::ensurable'
-    defaultvalues
-    defaultto :present
-  end
+  ensurable
 
   newparam(:name) do
     desc 'applockerpolicy.rb::name (namevar).'
-    puts 'applockerpolicy.rb::name'
     isnamevar
   end
 
   newparam(:description) do
-    puts 'applockerpolicy.rb::description'
-    # desc 'The AppLocker rule description.'
+    desc 'The AppLocker rule description.'
   end
 
   newparam(:rule_type) do
-    puts 'applockerpolicy.rb::rule_type'
-    # desc 'The type of AppLocker rule [file, hash, publisher].'
+    desc 'The type of AppLocker rule [file, hash, publisher].'
     #newvalues(:file, :hash, :publisher)
   end
 
   newparam(:type) do
-    puts 'applockerpolicy.rb::type'
-    # desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
+    desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
     #newvalues(:Appx, :Dll, :Exe, :Msi, :Script)
   end
 
   newparam(:enforcementmode) do
-    puts 'applockerpolicy.rb::enforcementmode'
-    # desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
+    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
     #newvalues(:Enabled, :Disabled, :NotConfigured)
   end
 
   newparam(:action) do
-    puts 'applockerpolicy.rb::action'
-    # desc 'The AppLocker action [Allow, Deny].'
+    desc 'The AppLocker action [Allow, Deny].'
     #newvalues(:Allow, :Deny)
   end
 
   newparam(:id) do
-    puts 'applockerpolicy.rb::id'
-    # desc 'The AppLocker rule identifier.'
+    desc 'The AppLocker rule identifier.'
   end
 
   newparam(:user_or_group_sid) do
-    puts 'applockerpolicy.rb::user_or_group_sid'
-    # desc 'The AppLocker user or group system identifier.'
+    desc 'The AppLocker user or group system identifier.'
   end
 
   #newparam(:user) do

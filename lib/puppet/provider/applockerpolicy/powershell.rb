@@ -1,4 +1,3 @@
-require 'puppet'
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
@@ -13,10 +12,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
 
-def initialize(value = {})
-  super(value)
-  @property_flush = {}
-end
+  def initialize(value = {})
+    super(value)
+    @property_flush = {}
+  end
 
   # This method exists to map the dscl values to the correct Puppet
   # properties. This stays relatively consistent, but who knows what
@@ -38,7 +37,7 @@ end
   end
 
   def self.instances
-    puts 'powershell.rb::instances called.'
+    Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
     # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
     # xmlstr = File.read './examples/applocker.xml'
@@ -78,7 +77,7 @@ end
   end
 
   def create
-    puts 'powershell.rb::create called.'
+    Puppet.debug 'powershell.rb::create called.'
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     test_xml = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
@@ -101,11 +100,11 @@ end
   end
 
   def destroy
-    puts 'powershell.rb::destroy called.'
+    Puppet.debug 'powershell.rb::destroy called.'
   end
 
   def exists?
-    puts 'powershell.rb::exists?'
+    Puppet.debug 'powershell.rb::exists?'
     @property_hash[:ensure] = :present
   end
 
@@ -119,7 +118,7 @@ end
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
   def self.prefetch(resources)
-    puts 'powershell.rb::prefetch called.'
+    Puppet.debug 'powershell.rb::prefetch called.'
     # the resources object that contains all resources in the catalog.
     instances.each do |provider_instance|
       if resource = resources[provider_instance.name]
@@ -128,19 +127,12 @@ end
     end
   end
 
-  #  # caused an error...
-  #  # Error: Failed to apply catalog: undefined method `each' for nil:NilClass
-  #def self.prefetch(resources)
-  #  puts 'powershell.rb::prefetch called.'
-  #  instances.each do |prov|
-  #    if @resource = resources[prov.name]
-  #      @resource.provider = prov
-  #    end
-  #  end
-  #end
-
+  # called when a property is changed.
+  # check @property_flush hash for keys to changed properties.
+  # at the end of flush, update the @property_hash from the 'is' to 'should' values.
   def flush
-    puts 'powershell.rb::flush called.'
+    Puppet.debug 'powershell.rb::flush called.'
+    # set policy
     #set @property_hash = (update hash from is to should value)
   end
 end
