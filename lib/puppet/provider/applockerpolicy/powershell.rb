@@ -8,10 +8,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
   mk_resource_methods
-  
+
   confine :kernel => :windows
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
+
+def initialize(value = {})
+  super(value)
+  @property_flush = {}
+end
 
   # This method exists to map the dscl values to the correct Puppet
   # properties. This stays relatively consistent, but who knows what
@@ -136,5 +141,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def flush
     puts 'powershell.rb::flush called.'
+    #set @property_hash = (update hash from is to should value)
   end
 end
