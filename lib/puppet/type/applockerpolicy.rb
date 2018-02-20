@@ -3,7 +3,7 @@ Puppet::Type.newtype(:applockerpolicy) do
 
   ensurable
 
-  newproperty(:name) do
+  newparam(:name) do
     desc 'applockerpolicy.rb::name (namevar).'
     isnamevar
   end
