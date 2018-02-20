@@ -1,3 +1,4 @@
+# Test Provider.
 Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
   desc 'Test provider description.'
   #@doc = 'Test provider.'

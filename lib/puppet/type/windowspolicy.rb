@@ -1,3 +1,4 @@
+# Test type
 Puppet::Type.newtype(:windowspolicy) do
   @doc = 'Test type.'
 
