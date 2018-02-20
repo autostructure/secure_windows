@@ -7,6 +7,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
+  mk_resource_methods
+  
   confine :kernel => :windows
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
