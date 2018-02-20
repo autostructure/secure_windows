@@ -14,22 +14,23 @@ Puppet::Type.newtype(:applockerpolicy) do
 
   newproperty(:rule_type) do
     desc 'The type of AppLocker rule [file, hash, publisher].'
-    #newvalues(:file, :hash, :publisher)
+    defaultto :file
+    newvalues(:file, :hash, :publisher)
   end
 
   newproperty(:type) do
     desc 'The type of AppLocker collection [Appx, Dll, Exe, Msi, Script].'
-    #newvalues(:Appx, :Dll, :Exe, :Msi, :Script)
+    newvalues(:Appx, :Dll, :Exe, :Msi, :Script)
   end
 
   newproperty(:enforcementmode) do
     desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    #newvalues(:Enabled, :Disabled, :NotConfigured)
+    newvalues(:Enabled, :Disabled, :NotConfigured)
   end
 
   newproperty(:action) do
     desc 'The AppLocker action [Allow, Deny].'
-    #newvalues(:Allow, :Deny)
+    newvalues(:Allow, :Deny)
   end
 
   newproperty(:id) do

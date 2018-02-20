@@ -88,6 +88,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
+    Puppet.debug 'powershell.rb::create test_xml='
+    Puppet.debug test_xml
+    Puppet.debug 'powershell.rb::create creating temp file => c:\windows\temp\applockerpolicy.xml'
     testfile = File.open('c:\windows\temp\applockerpolicy.xml', 'w')
     testfile.puts test_xml
     testfile.close
@@ -97,6 +100,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
     # testfile.unlink
     File.unlink('c:\windows\temp\applockerpolicy.xml')
+    Puppet.debug 'deleted c:\windows\temp\applockerpolicy.xml'
   end
 
   def destroy
