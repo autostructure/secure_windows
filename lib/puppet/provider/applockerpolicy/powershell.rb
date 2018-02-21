@@ -43,9 +43,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def self.instances
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
-    # xmlstr = ps("Get-AppLockerPolicy -Domain -XML -Ldap \'LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io\'")
-    # xmlstr = File.read './examples/applocker.xml'
-    # xmlstr = File.read 'C:/Windows/Temp/applocker.xml'
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
@@ -72,7 +69,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         }
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
-        # push to policy array after xml tree loaded
+        # push new Puppet::Provider object into an array after property hash created.
         Puppet.debug rule
         provider_array.push(self.new(rule))
       end
@@ -82,7 +79,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     Puppet.debug 'powershell.rb::create called.'
-    # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     xml_create = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
     <FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
@@ -95,11 +91,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::create xml_create='
     Puppet.debug xml_create
     Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
+    # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testfile = File.open(tempfile, 'w')
     testfile.puts xml_create
     testfile.close
-    #
-    # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
     # NOTE: Used Set-AppLockerPolicy because New-AppLockerPolicy had an unusual interface.
     # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
     ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
