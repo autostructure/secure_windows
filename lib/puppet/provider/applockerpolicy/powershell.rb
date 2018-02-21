@@ -44,7 +44,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml_doc = Document.new xml_string
+    xml_doc = Nokogiri::XML(xml_string)
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     Puppet.debug 'rules...'
@@ -145,18 +145,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     # build set xml
-    xml_sub = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
+    xml_should = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
       <Conditions>
         <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
       </Conditions>
     </FilePathRule>"
-    xml_set = xml_all_policies
     # replace xml tag
-    Puppet.debug 'powershell.rb::set xml_set='
-    Puppet.debug xml_set
+    xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
+    Puppet.debug 'powershell.rb::set (is) xml_is='
+    Puppet.debug xml_is
+    xml_is.content = xml_should
+    Puppet.debug 'powershell.rb::set (should) xml_is='
+    Puppet.debug xml_is
+    Puppet.debug 'powershell.rb::set (should) xml_all_policies='
+    Puppet.debug xml_all_policies
     Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
     xmlfile = File.open(tempfile, 'w')
-    xmlfile.puts xml_set
+    xmlfile.puts xml_all_policies
     xmlfile.close
     # Set-AppLockerPolicy (no merge)
     # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
