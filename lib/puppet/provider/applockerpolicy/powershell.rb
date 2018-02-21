@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'nokogiri'
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
