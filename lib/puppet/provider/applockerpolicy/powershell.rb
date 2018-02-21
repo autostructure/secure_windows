@@ -12,6 +12,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
 
+  tempfile = 'c:\windows\temp\applockerpolicy.xml.tmp'
+
   def initialize(value = {})
     super(value)
     @property_flush = {}
@@ -79,7 +81,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def create
     Puppet.debug 'powershell.rb::create called.'
     # Write a test xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
-    test_xml = "<AppLockerPolicy Version='1'>
+    xml_create = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
     <FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
       <Conditions>
@@ -88,19 +90,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
-    Puppet.debug 'powershell.rb::create test_xml='
-    Puppet.debug test_xml
-    Puppet.debug 'powershell.rb::create creating temp file => c:\windows\temp\applockerpolicy.xml'
-    testfile = File.open('c:\windows\temp\applockerpolicy.xml', 'w')
-    testfile.puts test_xml
+    Puppet.debug 'powershell.rb::create xml_create='
+    Puppet.debug xml_create
+    Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
+    testfile = File.open(tempfile, 'w')
+    testfile.puts xml_create
     testfile.close
     #
     # Set-AppLockerPolicy -Merge -XMLPolicy C:\applockerpolicy.xml -LDAP "LDAP://WIN-HEMGTARNJON.AUTOSTRUCTURE.IO/CN={78E10B45-DBC6-4880-9123-D78BF6F72C0E},CN=Policies,CN=System,DC=autostructure,DC=io"
     # NOTE: Used Set-AppLockerPolicy because New-AppLockerPolicy had an unusual interface.
     # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
-    ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
-    File.unlink('c:\windows\temp\applockerpolicy.xml')
-    Puppet.debug 'deleted c:\windows\temp\applockerpolicy.xml'
+    ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
+    File.unlink(tempfile)
+    Puppet.debug "deleted #{tempfile}"
   end
 
   def destroy
@@ -143,7 +145,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
-    set_xml = "<AppLockerPolicy Version='1'>
+    # read all xml
+    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
+    # build set xml
+    # replace xml tag
+    # set-applockerpolicy (no merge)
+    xml_set = "<AppLockerPolicy Version='1'>
   <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
     <FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
       <Conditions>
@@ -152,20 +159,22 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     </FilePathRule>
  </RuleCollection>
 </AppLockerPolicy>"
-    Puppet.debug 'powershell.rb::set set_xml='
-    Puppet.debug set_xml
-    Puppet.debug 'powershell.rb::set creating temp file => c:\windows\temp\applockerpolicy.xml'
-    xmlfile = File.open('c:\windows\temp\applockerpolicy.xml', 'w')
-    xmlfile.puts set_xml
+    Puppet.debug 'powershell.rb::set xml_set='
+    Puppet.debug xml_set
+    Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
+    xmlfile = File.open(tempfile, 'w')
+    xmlfile.puts xml_set
     xmlfile.close
-    # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
-    ps('Set-AppLockerPolicy -Merge -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
-    File.unlink('c:\windows\temp\applockerpolicy.xml')
+    # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
+    ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
+    File.unlink(tempfile)
+    Puppet.debug "deleted #{tempfile}"
   end
 
   def clear
     Puppet.debug 'powershell.rb::clear'
     xml_clear_all_rules = "<AppLockerPolicy Version=\"1\">
+  <RuleCollection Type=\"Appx\" EnforcementMode=\"NotConfigured\" />
   <RuleCollection Type=\"Exe\" EnforcementMode=\"NotConfigured\" />
   <RuleCollection Type=\"Msi\" EnforcementMode=\"NotConfigured\" />
   <RuleCollection Type=\"Script\" EnforcementMode=\"NotConfigured\" />
