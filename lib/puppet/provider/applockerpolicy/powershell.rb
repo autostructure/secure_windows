@@ -23,6 +23,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     'c:\windows\temp\applockerpolicy.xml.tmp'
   end
 
+  def mergeLDAPPolicies
+  end
+
+  def xml_policy_passthrough
+    # create param => xml_policy_filepath 
+  end
+
+
   # This method exists to map the dscl values to the correct Puppet
   # properties. This stays relatively consistent, but who knows what
   # Apple will do next year...
