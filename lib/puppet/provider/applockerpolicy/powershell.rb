@@ -52,7 +52,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml_doc = Nokogiri::XML(xml_string)
+    xml_doc = Document.new xml_string
     Puppet.debug 'powershell.rb::self.instances::xml_string:'
     Puppet.debug xml_string
     Puppet.debug 'rules...'
