@@ -166,9 +166,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # xml_is = XPath.match(xml_all_policies, '//FilePathRule', {}, 'Id' => @resource[:id])
     # xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
 
-    parser = XPathParser.new
-    parser.variables = { 'Id' => @resource[:id] }
-    xml_is = parser.parse('//FilePathRule', xml_all_policies)
+    # parser = XPathParser.new
+    # parser.variables = { 'Id' => @resource[:id] }
+    # xml_is = parser.parse('//FilePathRule', xml_all_policies)
+
+    xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
 
     Puppet.debug 'powershell.rb::set (is) xml_is='
     Puppet.debug xml_is
