@@ -151,7 +151,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def set
     Puppet.debug 'powershell.rb::set'
     # read all xml
-    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml').strip
+    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     Puppet.debug 'powershell.rb::set (is) xml_all_policies='
     Puppet.debug xml_all_policies
     # build set xml
@@ -170,8 +170,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # parser.variables = { 'Id' => @resource[:id] }
     # xml_is = parser.parse('//FilePathRule', xml_all_policies)
 
-    begin
-      xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
+    # begin
+
+      begin
+        xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
+      rescue
+        Puppet.debug "No FilePathRule XML elements were found in xml_all_policies = #{xml_all_policies}"
+      end
 
       Puppet.debug 'powershell.rb::set (is) xml_is='
       Puppet.debug xml_is
@@ -189,7 +194,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
       File.unlink(tempfile)
       Puppet.debug "deleted #{tempfile}"
-    end unless xml_all_policies == "<AppLockerPolicy Version=\"1\" />"
+    # end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
   end
 
   def clear
