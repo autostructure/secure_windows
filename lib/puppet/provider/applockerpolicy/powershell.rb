@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'nokogiri'
 require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
@@ -27,7 +25,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def xml_policy_passthrough
-    # create param => xml_policy_filepath 
+    # create param => xml_policy_filepath
   end
 
 
