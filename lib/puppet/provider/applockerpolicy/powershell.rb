@@ -159,7 +159,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       </Conditions>
     </FilePathRule>"
     # replace xml tag
-    xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
+    # XPath.each( doc, "//price") { |element| puts element.text }
+    xml_is = XPath.match(doc, '//FilePathRule', {}, 'Id' => @resource[:id])
+    # xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
     Puppet.debug 'powershell.rb::set (is) xml_is='
     Puppet.debug xml_is
     xml_is.content = xml_should
