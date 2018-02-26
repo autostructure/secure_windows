@@ -152,12 +152,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set'
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
+    Puppet.debug 'powershell.rb::set (is) xml_all_policies='
+    Puppet.debug xml_all_policies
     # build set xml
     xml_should = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
       <Conditions>
         <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
       </Conditions>
     </FilePathRule>"
+    Puppet.debug 'powershell.rb::set (should) xml_should='
+    Puppet.debug xml_should
     # replace xml tag
     # XPath.each( doc, "//price") { |element| puts element.text }
     xml_is = XPath.match(xml_all_policies, '//FilePathRule', {}, 'Id' => @resource[:id])
