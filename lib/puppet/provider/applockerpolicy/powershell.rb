@@ -170,24 +170,26 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # parser.variables = { 'Id' => @resource[:id] }
     # xml_is = parser.parse('//FilePathRule', xml_all_policies)
 
-    xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
+    begin
+      xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
 
-    Puppet.debug 'powershell.rb::set (is) xml_is='
-    Puppet.debug xml_is
-    xml_is.content = xml_should
-    Puppet.debug 'powershell.rb::set (should) xml_is='
-    Puppet.debug xml_is
-    Puppet.debug 'powershell.rb::set (should) xml_all_policies='
-    Puppet.debug xml_all_policies
-    Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
-    xmlfile = File.open(tempfile, 'w')
-    xmlfile.puts xml_all_policies
-    xmlfile.close
-    # Set-AppLockerPolicy (no merge)
-    # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
-    ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-    File.unlink(tempfile)
-    Puppet.debug "deleted #{tempfile}"
+      Puppet.debug 'powershell.rb::set (is) xml_is='
+      Puppet.debug xml_is
+      xml_is.content = xml_should
+      Puppet.debug 'powershell.rb::set (should) xml_is='
+      Puppet.debug xml_is
+      Puppet.debug 'powershell.rb::set (should) xml_all_policies='
+      Puppet.debug xml_all_policies
+      Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
+      xmlfile = File.open(tempfile, 'w')
+      xmlfile.puts xml_all_policies
+      xmlfile.close
+      # Set-AppLockerPolicy (no merge)
+      # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
+      ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
+      File.unlink(tempfile)
+      Puppet.debug "deleted #{tempfile}"
+    end unless xml_all_policies == "<AppLockerPolicy Version=\"1\" />"
   end
 
   def clear
