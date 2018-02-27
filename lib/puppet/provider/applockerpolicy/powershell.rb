@@ -203,37 +203,34 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
       begin
         xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
+        Puppet.debug 'powershell.rb::set (is) xml_is='
+        Puppet.debug xml_is
+        Puppet.debug 'powershell.rb::set (is) xml_is.empty?='
+        Puppet.debug xml_is.empty?
       rescue
         Puppet.debug "No FilePathRule XML elements were found in xml_all_policies = #{xml_all_policies.strip}"
       end
 
-      Puppet.debug 'powershell.rb::set (is) xml_is='
-      Puppet.debug xml_is
-      Puppet.debug 'powershell.rb::set (is) xml_is.empty?='
-      Puppet.debug xml_is.empty?
-
-      xml_doc.root.each_element('//FilePathRule') do |element|
+      xml_doc_is.root.each_element('//FilePathRule') do |element|
         element = Element.new(xml_should) if element.get_attribute('Id') == @resource[:id]
       end
 
-      if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
-        xml_is.content = xml_should
-        Puppet.debug 'powershell.rb::set (should) xml_is='
-        Puppet.debug xml_is
-        Puppet.debug 'powershell.rb::set (should) xml_all_policies='
-        Puppet.debug xml_all_policies
+      Puppet.debug 'powershell.rb::set (is) xml_doc_is='
+      Puppet.debug xml_doc_is
+
+      # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
         Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
         xmlfile = File.open(tempfile, 'w')
-        xmlfile.puts xml_all_policies
+        xmlfile.puts xml_doc_is
         xmlfile.close
         # Set-AppLockerPolicy (no merge)
         # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
         ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
         File.unlink(tempfile)
         Puppet.debug "deleted #{tempfile}"
-      else # no xml found with Id == @resource[:id], create a new rule.
+      # else # no xml found with Id == @resource[:id], create a new rule.
 
-      end
+      # end
 
 
     # end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
