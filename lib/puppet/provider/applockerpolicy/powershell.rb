@@ -197,7 +197,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # rc.elements << el3
       begin
         puts 'powershell.rb b4 delete_element'
-        x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
+        # x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
+        x = "//filepathrule[@id='#{@property_hash[:id]}']"
         puts x
         test = xml_doc_should.get_elements x
         puts test
