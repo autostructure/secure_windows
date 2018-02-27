@@ -190,6 +190,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc_change = Document.new xml_change
     xml_doc_should = Document.new xml_all_policies
 
+    Puppet.debug 'powershell.rb::set (is) b4 changing xml_doc_should.root() ='
+    Puppet.debug xml_doc_should.root()
+
     # begin
 
       begin
@@ -218,7 +221,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       #   element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
       # end
 
-      Puppet.debug 'powershell.rb::set (should) xml_doc_should ='
+      Puppet.debug 'powershell.rb::set (should) after changing xml_doc_should.root() ='
       Puppet.debug xml_doc_should.root()
 
       # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
