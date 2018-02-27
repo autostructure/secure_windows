@@ -187,10 +187,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
     xml_doc_is = Document.new xml_all_policies
     xml_doc_should = Document.new xml_should
-
-    Puppet.debug 'xml_doc_is='
-    Puppet.debug xml_doc
-
+    
     # replace xml tag
     # xml_is = XPath.match(xml_all_policies, '//FilePathRule', {}, 'Id' => @resource[:id])
     # xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
