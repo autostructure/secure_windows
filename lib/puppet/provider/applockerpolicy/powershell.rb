@@ -192,16 +192,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
     # begin
 
+      # must loop through rule collections to find node to attach
+      # fpr = Element.new "FilePathRule", {:id => , :rule_type => ,}
+      # rc.elements << el3
       begin
         puts 'powershell.rb b4 delete_element'
-        x = "/FilePathRule[@Id='#{@resource[:id]}']"
-        y = "/FilePathRule[@Id='#{@property_hash[:id]}']"
+        x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
         puts x
-        puts y
         test = xml_doc_should.get_elements x
         puts test
         # xml_doc_should.get_elements "/[@Id='#{@resource[:id]}']"
-        xml_doc_should.delete_element "/FilePathRule[@Id='#{@resource[:id]}']"
+        xml_doc_should.delete_element x
       rescue
         Puppet.debug 'powershell.rb::set problem deleting element.'
       end
