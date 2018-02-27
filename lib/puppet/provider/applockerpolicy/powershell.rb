@@ -160,8 +160,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def filepathrule2xml
     ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
-    any_conditions = @resource[:conditions].!empty?
-    any_exceptions = @resource[:exceptions].!empty?
+    any_conditions = !@resource[:conditions].empty?
+    any_exceptions = !@resource[:exceptions].empty?
     ret_xml.concat('<Conditions>') if any_conditions
     @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
     ret_xml.concat('</Conditions>') if any_conditions
