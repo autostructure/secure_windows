@@ -76,6 +76,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
           id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
           user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          conditions:        '',
+          exceptions:        '',
         }
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
@@ -146,8 +148,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # at the end of flush, update the @property_hash from the 'is' to 'should' values.
   def flush
     Puppet.debug 'powershell.rb::flush called.'
-    # self.set
-    self.create
+    self.set
+    # self.create
     # update @property_hash
     # set @property_hash = @property_hash[]
   end
