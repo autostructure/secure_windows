@@ -165,10 +165,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml.concat('<Conditions>') if any_conditions
     ret_xml.concat("<FilePathCondition Path=\"#{@resource[:conditions]}\" />") if any_conditions
     # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
     ret_xml.concat('</Conditions>') if any_conditions
     ret_xml.concat('<Exceptions>') if any_exceptions
     ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
     # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
+    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
     ret_xml.concat('</Exceptions>') if any_exceptions
     ret_xml.concat('</FilePathRule>')
     ret_xml
@@ -186,39 +188,43 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug xml_should
 
     xml_doc_is = Document.new xml_all_policies
-    xml_doc_should = Document.new xml_should
-
-    # replace xml tag
-    # xml_is = XPath.match(xml_all_policies, '//FilePathRule', {}, 'Id' => @resource[:id])
-    # xml_is = xml_all_policies.xpath('//FilePathRule', 'Id' => @resource[:id])
-
-    # parser = XPathParser.new
-    # parser.variables = { 'Id' => @resource[:id] }
-    # xml_is = parser.parse('//FilePathRule', xml_all_policies)
+    xml_doc_should = Document.new xml_all_policies
 
     # begin
 
       begin
-        xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
-        Puppet.debug 'powershell.rb::set (is) xml_is='
-        Puppet.debug xml_is
-        Puppet.debug 'powershell.rb::set (is) xml_is.empty?='
-        Puppet.debug xml_is.empty?
+        xml_doc_should.delete_element "/FilePathRule[@id='#{@resource[:id]}']"
       rescue
-        Puppet.debug "No FilePathRule XML elements were found in xml_all_policies = #{xml_all_policies.strip}"
+        Puppet.debug 'powershell.rb::set problem deleting element.'
       end
 
-      xml_doc_is.root.each_element('//FilePathRule') do |element|
-        element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
+      begin
+        xml_doc_should.add_element xml_should
+      rescue
+        Puppet.debug 'powershell.rb::set problem adding element.'
       end
 
-      Puppet.debug 'powershell.rb::set (is) xml_doc_is='
-      Puppet.debug xml_doc_is
+      # begin
+      #   xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
+      #   Puppet.debug 'powershell.rb::set (is) xml_is='
+      #   Puppet.debug xml_is
+      #   Puppet.debug 'powershell.rb::set (is) xml_is.empty?='
+      #   Puppet.debug xml_is.empty?
+      # rescue
+      #   Puppet.debug "No FilePathRule XML elements were found in xml_all_policies string:\n#{xml_all_policies.strip}"
+      # end
+
+      # xml_doc_is.root.each_element('//FilePathRule') do |element|
+      #   element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
+      # end
+
+      Puppet.debug 'powershell.rb::set (is) xml_doc_should='
+      Puppet.debug xml_doc_should
 
       # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
         Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
         xmlfile = File.open(tempfile, 'w')
-        xmlfile.puts xml_doc_is
+        xmlfile.puts xml_doc_should
         xmlfile.close
         # Set-AppLockerPolicy (no merge)
         # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
