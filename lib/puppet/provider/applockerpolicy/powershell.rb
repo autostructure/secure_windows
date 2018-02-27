@@ -232,7 +232,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         # Set-AppLockerPolicy (no merge)
         # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
         ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-        File.unlink(tempfile)
+        # File.unlink(tempfile)
         Puppet.debug "deleted #{tempfile}"
       # else # no xml found with Id == @resource[:id], create a new rule.
 
