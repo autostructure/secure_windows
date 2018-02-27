@@ -2,6 +2,8 @@ require 'rexml/document'
 include REXML
 Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
+  # For the AppLockerPolicy to be enforced on a computer, the Application Identity service must be running.
+
   # @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
   # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
@@ -130,7 +132,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # takes time and front-loads your Puppet run.
   def self.prefetch(resources)
     Puppet.debug 'powershell.rb::prefetch called.'
-    # the resources object that contains all resources in the catalog.
+    # the resources object contains all resources in the catalog.
+    # the instances method below returns an array of provider objects.
     instances.each do |provider_instance|
       if resource = resources[provider_instance.name]
         resource.provider = provider_instance
@@ -149,6 +152,24 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # set @property_hash = @property_hash[]
   end
 
+
+  def instances2xml
+  end
+
+  def filepathrule2xml
+    ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    any_conditions = @resource[:conditions].!empty?
+    any_exceptions = @resource[:exceptions].!empty?
+    ret_xml.concat('<Conditions>') if any_conditions
+    @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    ret_xml.concat('</Conditions>') if any_conditions
+    ret_xml.concat('<Exceptions>') if any_exceptions
+    @resource[:exceptions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    ret_xml.concat('</Exceptions>') if any_exceptions
+    ret_xml.concat('</FilePathRule>')
+    ret_xml
+  end
+
   def set
     Puppet.debug 'powershell.rb::set'
     # read all xml
@@ -156,11 +177,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set (is) xml_all_policies='
     Puppet.debug xml_all_policies
     # build set xml
-    xml_should = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
-      <Conditions>
-        <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
-      </Conditions>
-    </FilePathRule>"
+    xml_should = filepathrule2xml
     Puppet.debug 'powershell.rb::set (should) xml_should='
     Puppet.debug xml_should
 
