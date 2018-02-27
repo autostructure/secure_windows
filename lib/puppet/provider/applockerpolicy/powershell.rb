@@ -190,15 +190,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc_change = Document.new xml_change
     xml_doc_should = Document.new xml_all_policies
 
-    Puppet.debug 'powershell.rb::set (is) b4 changing xml_doc_should.root() ='
-    Puppet.debug xml_doc_should.root()
-
     # begin
 
       begin
         puts 'powershell.rb b4 delete_element'
-        puts xml_doc_should.get_elements "/FilePathRule[@Id='#{@resource[:id]}']"
-        puts xml_doc_should.get_elements "/[@Id='#{@resource[:id]}']"
+        x = "/FilePathRule[@Id='#{@resource[:id]}']"
+        y = "/FilePathRule[@Id='#{@property_hash[:id]}']"
+        puts x
+        puts y
+        test = xml_doc_should.get_elements x
+        puts test
+        # xml_doc_should.get_elements "/[@Id='#{@resource[:id]}']"
         xml_doc_should.delete_element "/FilePathRule[@Id='#{@resource[:id]}']"
       rescue
         Puppet.debug 'powershell.rb::set problem deleting element.'
