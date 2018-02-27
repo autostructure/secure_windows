@@ -199,9 +199,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts 'powershell.rb b4 delete_element'
         x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
         puts x
+        puts 'parent='
+        puts x.parent.to_s
         e = xml_doc_should.get_elements x
+        puts 'get_elements e='
+        e.attributes['Description'] = 'TEST POWERSHELL SET' # = @property_hash['Description']
         puts e
-        # xml_doc_should.get_elements "/[@Id='#{@resource[:id]}']"
+        puts 'xml_doc_should='
+        puts xml_doc_should.root()
         xml_doc_should.delete_element e
       rescue
         Puppet.debug 'powershell.rb::set problem deleting element.'
