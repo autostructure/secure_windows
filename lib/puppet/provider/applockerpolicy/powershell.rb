@@ -163,11 +163,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_conditions = !@resource[:conditions].empty?
     any_exceptions = !@resource[:exceptions].empty?
     ret_xml.concat('<Conditions>') if any_conditions
-    ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") if any_conditions
+    ret_xml.concat("<FilePathCondition Path=\"#{@resource[:conditions]}\" />") if any_conditions
     # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
     ret_xml.concat('</Conditions>') if any_conditions
     ret_xml.concat('<Exceptions>') if any_exceptions
-    ret_xml.concat("<FilePathException Path=\"#{path}\" />") if any_exceptions
+    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
     # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
     ret_xml.concat('</Exceptions>') if any_exceptions
     ret_xml.concat('</FilePathRule>')
