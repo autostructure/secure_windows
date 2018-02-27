@@ -183,11 +183,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set (is) xml_all_policies='
     Puppet.debug xml_all_policies
     # build set xml
-    xml_should = filepathrule2xml
-    Puppet.debug 'powershell.rb::set (should) xml_should='
-    Puppet.debug xml_should
+    xml_change = filepathrule2xml
+    Puppet.debug 'powershell.rb::set (should) xml_change='
+    Puppet.debug xml_change
 
-    xml_doc_is = Document.new xml_all_policies
+    xml_doc_change = Document.new xml_change
     xml_doc_should = Document.new xml_all_policies
 
     # begin
@@ -199,7 +199,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       end
 
       begin
-        xml_doc_should.add_element xml_should
+        xml_doc_should.add_element xml_doc_change.root()
       rescue
         Puppet.debug 'powershell.rb::set problem adding element.'
       end
@@ -218,8 +218,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       #   element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
       # end
 
-      Puppet.debug 'powershell.rb::set (is) xml_doc_should='
-      Puppet.debug xml_doc_should
+      Puppet.debug 'powershell.rb::set (should) xml_doc_should ='
+      Puppet.debug xml_doc_should.root()
 
       # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
         Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
