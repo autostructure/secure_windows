@@ -228,19 +228,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         if a.first == nil
           create
         else
+          puts '1'
           # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
           e = a.first
-          e.attributes['Name'] = @property_hash['Name']
-          e.attributes['Description'] = @property_hash['Description']
-          e.attributes['Id'] = @property_hash['Id']
-          e.attributes['UserOrGroupSid'] = @property_hash['UserOrGroupSid']
-          e.attributes['Action'] = @property_hash['Action']
+          puts '2'
+          e.attributes['Name'] = @property_hash[:name]
+          puts '3'
+          e.attributes['Description'] = @property_hash[:description]
+          e.attributes['Id'] = @property_hash[:id]
+          e.attributes['UserOrGroupSid'] = @property_hash[:user_or_group_sid]
+          e.attributes['Action'] = @property_hash[:action]
           # ensure, rule_type, rule_collection_type, rule_collection_enforcementmode,
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
+          puts '4'
           e.elements.delete_all
-
+          puts '5'
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
           Puppet.debug xml_doc_should.root()
