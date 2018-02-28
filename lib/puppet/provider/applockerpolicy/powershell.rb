@@ -239,15 +239,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'case...'
     Puppet.debug 'c.class...'
     Puppet.debug c.class
-    node.add_element 'FilePathCondition', { 'Path' => @resource[:conditions].to_s }
-    case c.class
-    when Array
-      puts 'Array in case'  # c.each { |path| node.add_element 'FilePathCondition', 'Path' => path.to_s }
-    when String
-      puts 'String in case'  # node.add_element 'FilePathCondition', 'Path' => @resource[:conditions].to_s
-    else
-      Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
-    end
+    new_node = Element.new 'FilePathCondition'
+    new_node.add_attribute 'Path', @resource[:conditions]
+    node.add_element new_node
+    #case c.class
+    #when Array
+    #  puts 'Array in case'  # c.each { |path| node.add_element 'FilePathCondition', 'Path' => path.to_s }
+    #when String
+    #  puts 'String in case'  # node.add_element 'FilePathCondition', 'Path' => @resource[:conditions].to_s
+    #else
+    #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    #end
     node.add_element '</Conditions>' if any_conditions
     Puppet.debug 'set_filepaths, completed node:'
     Puppet.debug node
