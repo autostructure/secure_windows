@@ -81,19 +81,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
-
-    # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
-    # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-    ret_xml.concat('</Conditions>') if any_conditions
-    ret_xml.concat('<Exceptions>') if any_exceptions
-    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
-    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
-    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-    ret_xml.concat('</Exceptions>') if any_exceptions
-    ret_xml.concat('</FilePathRule>')
-    ret_xml
-  end
-
   # This method exists to map the dscl values to the correct Puppet
   # properties. This stays relatively consistent, but who knows what
   # Apple will do next year...
