@@ -245,7 +245,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #else
     #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
-    node.add_element '</Conditions>' if any_conditions
+    node.add_element '/Conditions' if any_conditions
     # FilePathExceptions...
     Puppet.debug 'set_filepaths, completed node:'
     Puppet.debug node
@@ -281,6 +281,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           Puppet.debug 'e...'
           Puppet.debug e
           update_filepaths e
+          Puppet.debug 'e after fileaths update...'
           Puppet.debug e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() after update_filepaths b4 powershell...'
