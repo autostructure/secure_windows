@@ -30,6 +30,69 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # create param => xml_policy_filepath
   end
 
+  def filepathrule2xml
+    ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    any_conditions = !@resource[:conditions].empty?
+    any_exceptions = !@resource[:exceptions].empty?
+    ret_xml.concat('<Conditions>') if any_conditions
+    ret_xml.concat("<FilePathCondition Path=\"#{@resource[:conditions]}\" />") if any_conditions
+    # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
+    ret_xml.concat('</Conditions>') if any_conditions
+    ret_xml.concat('<Exceptions>') if any_exceptions
+    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
+    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
+    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    ret_xml.concat('</Exceptions>') if any_exceptions
+    ret_xml.concat('</FilePathRule>')
+    ret_xml
+  end
+
+  def paths2xml
+    ret_xml = ''
+    c = @resource[:conditions]
+    e = @resource[:exceptions]
+    any_conditions = !c.empty?
+    any_exceptions = !e.empty?
+    # FilePathConditions...
+    ret_xml << '<Conditions>' if any_conditions
+    case c.kind_of?
+      when Array
+        c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
+      when String
+        ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
+      else
+        Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+      end
+      ret_xml << '</Conditions>' if any_conditions
+      # FilePathExceptions...
+      ret_xml << '<Exceptions>' if any_exceptions
+      case e.kind_of?
+      when Array
+        e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+      when String
+        ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
+      else
+        Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+      end
+      ret_xml << '</Exceptions>' if any_exceptions
+      Puppet.debug 'paths2xml='
+      Puppet.debug ret_xml
+      ret_xml
+    end
+
+
+    # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
+    ret_xml.concat('</Conditions>') if any_conditions
+    ret_xml.concat('<Exceptions>') if any_exceptions
+    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
+    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
+    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    ret_xml.concat('</Exceptions>') if any_exceptions
+    ret_xml.concat('</FilePathRule>')
+    ret_xml
+  end
 
   # This method exists to map the dscl values to the correct Puppet
   # properties. This stays relatively consistent, but who knows what
@@ -116,6 +179,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def destroy
     Puppet.debug 'powershell.rb::destroy called.'
+    # read all xml
+    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
+    xml_doc_should = Document.new xml_all_policies
+    x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
+    a = xml_doc_should.root.get_elements x
+    if a.first != nil
+      xml_doc_should.root.delete_elements a.first
+    end
   end
 
   def exists?
@@ -148,32 +219,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # at the end of flush, update the @property_hash from the 'is' to 'should' values.
   def flush
     Puppet.debug 'powershell.rb::flush called.'
-    self.set
-    # self.create
+    # set calls create method if necessary (if rule's Id not found).
+    set
     # update @property_hash
     # set @property_hash = @property_hash[]
-  end
-
-
-  def instances2xml
-  end
-
-  def filepathrule2xml
-    ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
-    any_conditions = !@resource[:conditions].empty?
-    any_exceptions = !@resource[:exceptions].empty?
-    ret_xml.concat('<Conditions>') if any_conditions
-    ret_xml.concat("<FilePathCondition Path=\"#{@resource[:conditions]}\" />") if any_conditions
-    # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
-    # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-    ret_xml.concat('</Conditions>') if any_conditions
-    ret_xml.concat('<Exceptions>') if any_exceptions
-    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
-    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
-    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-    ret_xml.concat('</Exceptions>') if any_exceptions
-    ret_xml.concat('</FilePathRule>')
-    ret_xml
   end
 
   def set
@@ -182,85 +231,47 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     Puppet.debug 'powershell.rb::set (is) xml_all_policies='
     Puppet.debug xml_all_policies
-    # build set xml
-    xml_change = filepathrule2xml
-    Puppet.debug 'powershell.rb::set (should) xml_change='
-    Puppet.debug xml_change
-
-    xml_doc_change = Document.new xml_change
     xml_doc_should = Document.new xml_all_policies
 
     begin
-
-      # must loop through rule collections to find node to attach
-      # fpr = Element.new "FilePathRule", {:id => , :rule_type => ,}
-      # rc.elements << el3
       begin
-        puts 'powershell.rb b4 delete_element'
         x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
-        puts x
-        e = xml_doc_should.root.get_elements x
-        puts 'get_elements e ='
-        puts e
+        a = xml_doc_should.root.get_elements x
+        # set attributes if xpath found the element, create element if not found.
+        if a.first == nil
+          create
+        else
+          # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
+          e = a.first
+          e.attributes['Name'] = @property_hash['Name']
+          e.attributes['Description'] = @property_hash['Description']
+          e.attributes['Id'] = @property_hash['Id']
+          e.attributes['UserOrGroupSid'] = @property_hash['UserOrGroupSid']
+          e.attributes['Action'] = @property_hash['Action']
+          # ensure, rule_type, rule_collection_type, rule_collection_enforcementmode,
+          # conditions, exceptions
+          # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
+          # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
+          e.elements.delete_all
 
-        y = "//FilePathRule[@Id='nonexistent']"
-        puts y
-        f = xml_doc_should.root.get_elements y
-        puts f.class
-        puts 'get_elements f ='
-        puts f.class
-        puts f.first
-        puts f.first.class
-
-        puts 'classes...'
-        puts e.class
-        puts e.first.class
-        puts 'change attribute: Description = TEST POWERSHELL SET'
-        # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
-        puts e.first.attributes['Description']
-        e.first.attributes['Description']='TEST POWERSHELL SET' # = @property_hash['Description']
-        puts e
-        puts 'xml_doc_should.root() just b4 delete ='
-        puts xml_doc_should.root()
-        puts 'e.first.parent ='
-        puts e.first.parent
-        xml_doc_should.delete_element e
-        puts 'xml_doc_should after delete'
-        puts xml_doc_should.root()
+          # apply change...
+          Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
+          Puppet.debug xml_doc_should.root()
+          Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
+          xmlfile = File.open(tempfile, 'w')
+          xmlfile.puts xml_doc_should
+          xmlfile.close
+          # Set-AppLockerPolicy (no merge)
+          # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
+          #       Since I have to leave off -Merge to update, I have to set all the policies.
+          #       The -Merge option discards any attribute changes to existing rules.
+          ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
+          File.unlink(tempfile)
+          Puppet.debug "deleted #{tempfile}"
+        end
       rescue
-        Puppet.debug 'powershell.rb::set problem deleting element.'
+        Puppet.debug 'powershell.rb::set problem setting element attributes (or creating rule).'
       end
-
-      # begin
-      #   xml_is = XPath.first(xml_all_policies, '//FilePathRule', {}, {'Id' => @resource[:id]})
-      #   Puppet.debug 'powershell.rb::set (is) xml_is='
-      #   Puppet.debug xml_is
-      #   Puppet.debug 'powershell.rb::set (is) xml_is.empty?='
-      #   Puppet.debug xml_is.empty?
-      # rescue
-      #   Puppet.debug "No FilePathRule XML elements were found in xml_all_policies string:\n#{xml_all_policies.strip}"
-      # end
-
-      # xml_doc_is.root.each_element('//FilePathRule') do |element|
-      #   element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
-      # end
-
-      Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
-      Puppet.debug xml_doc_should.root()
-
-      # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
-        Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
-        xmlfile = File.open(tempfile, 'w')
-        xmlfile.puts xml_doc_should
-        xmlfile.close
-        # Set-AppLockerPolicy (no merge)
-        # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
-        ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-        # File.unlink(tempfile)
-        Puppet.debug "deleted #{tempfile}"
-      # else # no xml found with Id == @resource[:id], create a new rule.
-
-      # end
     end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
   end
 
