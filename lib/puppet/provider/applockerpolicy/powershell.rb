@@ -230,10 +230,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
     # FilePathConditions...
+    Puppet.debug 'FilePathConditions...'
     node.add_element '<Conditions>' if any_conditions
-    case node.kind_of?
+    Puppet.debug 'case...'
+    Puppet.debug 'c.kind_of?...'
+    Puppet.debug c.kind_of?
+    case c.kind_of?
       when Array
-        node.each { |path| node.add_element "<FilePathCondition Path=\"#{path}\" />" }
+        c.each { |path| node.add_element "<FilePathCondition Path=\"#{path}\" />" }
       when String
         node.add_element "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
       else
