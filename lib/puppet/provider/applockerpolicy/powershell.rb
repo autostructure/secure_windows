@@ -247,7 +247,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
     # FilePathExceptions...
-    Puppet.debug 'set_filepaths, completed node:'
+    Puppet.debug 'set_filepaths, completed node.  node ='
     Puppet.debug node
     node
   end
@@ -295,7 +295,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           #       Since I have to leave off -Merge to update, I have to set all the policies.
           #       The -Merge option discards any attribute changes to existing rules.
           ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-          File.unlink(tempfile)
+          #File.unlink(tempfile)
           Puppet.debug "deleted #{tempfile}"
         end
       rescue
