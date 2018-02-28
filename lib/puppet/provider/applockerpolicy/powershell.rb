@@ -200,12 +200,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
         puts x
         e = xml_doc_should.root.get_elements x
-        puts 'get_elements e='
+        puts 'get_elements e ='
         puts e
+        puts e.class
         puts 'change attribute: Description = TEST POWERSHELL SET'
-        e.attributes['Description'] = 'TEST POWERSHELL SET' # = @property_hash['Description']
+        puts e.attributes['Description']
+        e.attributes['Description']='TEST POWERSHELL SET' # = @property_hash['Description']
         puts e
-        puts 'e.parent='
+        puts 'e.parent ='
         puts e.parent
         puts 'xml_doc_should.root() just b4 delete ='
         puts xml_doc_should.root()
