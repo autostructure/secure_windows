@@ -63,23 +63,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
       else
         Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
-      end
-      ret_xml << '</Conditions>' if any_conditions
-      # FilePathExceptions...
-      ret_xml << '<Exceptions>' if any_exceptions
-      case e.kind_of?
-      when Array
-        e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-      when String
-        ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
-      else
-        Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
-      end
-      ret_xml << '</Exceptions>' if any_exceptions
-      Puppet.debug 'paths2xml='
-      Puppet.debug ret_xml
-      ret_xml
     end
+    ret_xml << '</Conditions>' if any_conditions
+    # FilePathExceptions...
+    ret_xml << '<Exceptions>' if any_exceptions
+    case e.kind_of?
+    when Array
+      e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    when String
+      ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
+    else
+      Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    end
+    ret_xml << '</Exceptions>' if any_exceptions
+    Puppet.debug 'paths2xml='
+    Puppet.debug ret_xml
+    ret_xml
+  end
 
 
     # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
