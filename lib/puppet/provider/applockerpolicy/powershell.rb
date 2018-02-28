@@ -227,15 +227,17 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug node
     c = @resource[:conditions]
     e = @resource[:exceptions]
+    Puppet.debug c.class
+    Puppet.debug e.class
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
     # FilePathConditions...
     Puppet.debug 'FilePathConditions...'
     node.add_element '<Conditions>' if any_conditions
     Puppet.debug 'case...'
-    Puppet.debug 'c.to_a...'
-    Puppet.debug c.to_a
-    case c.to_a
+    Puppet.debug 'c.class...'
+    Puppet.debug c.class
+    case c.class
       when Array
         c.each { |path| node.add_element "<FilePathCondition Path=\"#{path}\" />" }
       when String
@@ -253,8 +255,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set'
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
-    Puppet.debug 'powershell.rb::set (is) xml_all_policies='
-    Puppet.debug xml_all_policies
+    Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (btw, applied String.strip)...'
+    Puppet.debug xml_all_policies.strip
     xml_doc_should = Document.new xml_all_policies
     begin
       begin
