@@ -215,22 +215,24 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def update_filepaths(node)
-    Puppet.debug "paths2xml: @resource[:conditions] = #{@resource[:conditions]}"
-    Puppet.debug "paths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
-
-    Puppet.debug 'powershell.rb::set_filepaths: b4 delete_all...'
-    Puppet.debug node
-    # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
-    node.elements.delete_all './*'
-    Puppet.debug 'powershell.rb::set_filepaths: after delete_all...'
-    Puppet.debug node.class
-    Puppet.debug node
+    Puppet.debug "update_filepaths: @resource[:conditions] = #{@resource[:conditions]}"
+    Puppet.debug "update_filepaths: @resource[:exceptions] = #{@resource[:exceptions]}"
     c = @resource[:conditions]
     e = @resource[:exceptions]
     Puppet.debug c.class
     Puppet.debug e.class
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
+    Puppet.debug any_conditions
+    Puppet.debug any_exceptions
+    Puppet.debug 'powershell.rb::set_filepaths: b4 delete_all...'
+    Puppet.debug node
+    # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
+    node.elements.delete_all './*'
+    Puppet.debug 'powershell.rb::set_filepaths: after delete_all...'
+    Puppet.debug 'node.class & node...'
+    Puppet.debug node.class
+    Puppet.debug node
     # FilePathConditions...
     Puppet.debug 'FilePathConditions...'
     node.add_element '<Conditions>' if any_conditions
