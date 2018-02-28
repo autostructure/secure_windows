@@ -150,8 +150,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::create xml_create='
     Puppet.debug xml_create
     Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
-    # Add FilePathConditions and FilePathException xml...
-
     # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testfile = File.open(tempfile, 'w')
     testfile.puts xml_create
@@ -232,7 +230,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug node
     # FilePathConditions...
     Puppet.debug 'FilePathConditions...'
-    node.add_element '<Conditions>' if any_conditions
+    node.add_element 'Conditions' if any_conditions
     Puppet.debug 'case...'
     Puppet.debug 'c.class...'
     Puppet.debug c.class
@@ -280,9 +278,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
+          Puppet.debug 'e...'
+          Puppet.debug e
           update_filepaths e
+          Puppet.debug e
           # apply change...
-          Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
+          Puppet.debug 'powershell.rb::set xml_doc_should.root() after update_filepaths b4 powershell...'
           Puppet.debug xml_doc_should.root()
           Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
           xmlfile = File.open(tempfile, 'w')
