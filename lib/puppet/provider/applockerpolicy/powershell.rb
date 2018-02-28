@@ -210,10 +210,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts e.first.attributes['Description']
         e.first.attributes['Description']='TEST POWERSHELL SET' # = @property_hash['Description']
         puts e
-        puts 'e.parent ='
-        puts e.parent
         puts 'xml_doc_should.root() just b4 delete ='
         puts xml_doc_should.root()
+        puts 'e.first.parent ='
+        puts e.first.parent
         xml_doc_should.delete_element e
         puts 'xml_doc_should after delete'
         puts xml_doc_should.root()
