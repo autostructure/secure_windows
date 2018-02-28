@@ -202,10 +202,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         e = xml_doc_should.root.get_elements x
         puts 'get_elements e ='
         puts e
+        puts 'classes...'
         puts e.class
+        puts e.first.class
         puts 'change attribute: Description = TEST POWERSHELL SET'
-        puts e.attributes['Description']
-        e.attributes['Description']='TEST POWERSHELL SET' # = @property_hash['Description']
+        # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
+        puts e.first.attributes['Description']
+        e.first.attributes['Description']='TEST POWERSHELL SET' # = @property_hash['Description']
         puts e
         puts 'e.parent ='
         puts e.parent
