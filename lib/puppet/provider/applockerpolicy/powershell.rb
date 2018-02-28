@@ -208,7 +208,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         f = xml_doc_should.root.get_elements y
         puts f.class
         puts 'get_elements f ='
-        puts f
+        puts f.class
         puts f.first
         puts f.first.class
 
@@ -229,12 +229,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts xml_doc_should.root()
       rescue
         Puppet.debug 'powershell.rb::set problem deleting element.'
-      end
-
-      begin
-        xml_doc_should.add_element xml_doc_change.root()
-      rescue
-        Puppet.debug 'powershell.rb::set problem adding element.'
       end
 
       # begin
