@@ -253,8 +253,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     node
   end
 
-#node.add_element "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
-
   def set
     Puppet.debug 'powershell.rb::set'
     # read all xml
