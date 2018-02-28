@@ -30,6 +30,25 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # create param => xml_policy_filepath
   end
 
+  # This method exists to map the dscl values to the correct Puppet
+  # properties. This stays relatively consistent, but who knows what
+  # Apple will do next year...
+  def self.xml2resource_attribute_map
+    {
+      'Type'            => :type,
+      'EnforcementMode' => :enforcementmode,
+      'Name'            => :name,
+      'Description'     => :description,
+      'Id'              => :id,
+      'UserOrGroupSid'  => :user_or_group_sid,
+      'Action'          => :action,
+    }
+  end
+
+  def self.resource2xml_attribute_map
+    @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
+  end
+
   def filepathrule2xml
     ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
     any_conditions = !@resource[:conditions].empty?
@@ -83,25 +102,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
-  # This method exists to map the dscl values to the correct Puppet
-  # properties. This stays relatively consistent, but who knows what
-  # Apple will do next year...
-  def self.xml2resource_attribute_map
-    {
-      'Type'            => :type,
-      'EnforcementMode' => :enforcementmode,
-      'Name'            => :name,
-      'Description'     => :description,
-      'Id'              => :id,
-      'UserOrGroupSid'  => :user_or_group_sid,
-      'Action'          => :action,
-    }
-  end
-
-  def self.resource2xml_attribute_map
-    @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
-  end
-
   def self.instances
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
@@ -143,18 +143,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     Puppet.debug 'powershell.rb::create called.'
-    xml_create = "<AppLockerPolicy Version='1'>
-  <RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>
-    <FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>
-      <Conditions>
-        <FilePathCondition Path='%WINDIR%\\Temp\\*'/>
-      </Conditions>
-    </FilePathRule>
- </RuleCollection>
-</AppLockerPolicy>"
+    xml_create = "<AppLockerPolicy Version='1'><RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>"
+    xml_create << "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    xml_create << paths2xml
+    xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
     Puppet.debug 'powershell.rb::create xml_create='
     Puppet.debug xml_create
     Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
+    # Add FilePathConditions and FilePathException xml...
+
     # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testfile = File.open(tempfile, 'w')
     testfile.puts xml_create
@@ -251,6 +248,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
     node.add_element '</Conditions>' if any_conditions
+    # FilePathExceptions...
     Puppet.debug 'set_filepaths, completed node:'
     Puppet.debug node
     node
