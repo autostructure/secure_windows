@@ -214,6 +214,37 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # set @property_hash = @property_hash[]
   end
 
+
+  def set_filepaths(node)
+    Puppet.debug "paths2xml: @resource[:conditions] = #{@resource[:conditions]}"
+    Puppet.debug "paths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
+
+    Puppet.debug 'powershell.rb::set_filepaths: b4 delete_all...'
+    Puppet.debug node
+    # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
+    node.elements.delete_all './*'
+    Puppet.debug 'powershell.rb::set_filepaths: after delete_all...'
+    Puppet.debug e
+    c = @resource[:conditions]
+    e = @resource[:exceptions]
+    any_conditions = !c.empty?
+    any_exceptions = !e.empty?
+    # FilePathConditions...
+    node.add_element '<Conditions>' if any_conditions
+    case node.kind_of?
+      when Array
+        node.each { |path| node.add_element "<FilePathCondition Path=\"#{path}\" />" }
+      when String
+        node.add_element "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
+      else
+        Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    end
+    node.add_element '</Conditions>' if any_conditions
+    Puppet.debug 'set_filepaths, completed node:'
+    Puppet.debug node
+    node
+  end
+
   def set
     Puppet.debug 'powershell.rb::set'
     # read all xml
@@ -221,7 +252,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set (is) xml_all_policies='
     Puppet.debug xml_all_policies
     xml_doc_should = Document.new xml_all_policies
-
     begin
       begin
         x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
@@ -230,12 +260,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         if a.first == nil
           create
         else
-          puts '1'
           # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
           e = a.first
-          puts '2'
           e.attributes['Name'] = @property_hash[:name]
-          puts '3'
           e.attributes['Description'] = @property_hash[:description]
           e.attributes['Id'] = @property_hash[:id]
           e.attributes['UserOrGroupSid'] = @property_hash[:user_or_group_sid]
@@ -244,11 +271,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
-          Puppet.debug 'b4 delete_all'
-          Puppet.debug e
-          e.elements.delete_all './*'
-          Puppet.debug 'after delete_all'
-          Puppet.debug e
+          set_filepaths e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
           Puppet.debug xml_doc_should.root()
