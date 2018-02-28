@@ -107,8 +107,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     provider_array = []
     xml_string = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc = Document.new xml_string
-    Puppet.debug 'powershell.rb::self.instances::xml_string:'
-    Puppet.debug xml_string
+    Puppet.debug 'powershell.rb::self.instances::xml_string.strip:'
+    Puppet.debug xml_string.strip
     Puppet.debug 'rules...'
     xml_doc.root.each_element('RuleCollection') do |rc|
       # REXML Attributes are returned with the attribute and its value, including delimiters.
@@ -233,9 +233,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'FilePathConditions...'
     node.add_element '<Conditions>' if any_conditions
     Puppet.debug 'case...'
-    Puppet.debug 'c.kind_of?...'
-    Puppet.debug c.kind_of?
-    case c.kind_of?
+    Puppet.debug 'c.to_a...'
+    Puppet.debug c.to_a
+    case c.to_a
       when Array
         c.each { |path| node.add_element "<FilePathCondition Path=\"#{path}\" />" }
       when String
