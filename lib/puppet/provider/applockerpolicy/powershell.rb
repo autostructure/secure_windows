@@ -50,6 +50,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def paths2xml
     ret_xml = ''
+    Puppet.debug "paths2xml: @resource[:conditions] = #{@resource[:conditions]}"
+    Puppet.debug "paths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
     c = @resource[:conditions]
     e = @resource[:exceptions]
     any_conditions = !c.empty?
@@ -68,12 +70,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # FilePathExceptions...
     ret_xml << '<Exceptions>' if any_exceptions
     case e.kind_of?
-    when Array
-      e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-    when String
-      ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
-    else
-      Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+      when Array
+        e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+      when String
+        ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
+      else
+        Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Exceptions>' if any_exceptions
     Puppet.debug 'paths2xml='
@@ -242,10 +244,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
-          puts '4'
+          Puppet.debug 'b4 delete_all'
+          Puppet.debug e
           e.elements.delete_all './*'
-          # e.elements.delete_all './/*'
-          puts '5'
+          Puppet.debug 'after delete_all'
+          Puppet.debug e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
           Puppet.debug xml_doc_should.root()
