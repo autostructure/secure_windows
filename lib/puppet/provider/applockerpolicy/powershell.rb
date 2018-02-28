@@ -190,7 +190,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc_change = Document.new xml_change
     xml_doc_should = Document.new xml_all_policies
 
-    # begin
+    begin
 
       # must loop through rule collections to find node to attach
       # fpr = Element.new "FilePathRule", {:id => , :rule_type => ,}
@@ -202,6 +202,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         e = xml_doc_should.root.get_elements x
         puts 'get_elements e ='
         puts e
+
+        y = "//FilePathRule[@Id='nonexistent']"
+        puts x
+        f = xml_doc_should.root.get_elements x
+        puts f.class
+        puts 'get_elements f ='
+        puts f
+        puts f.first
+        puts f.first.class
+
         puts 'classes...'
         puts e.class
         puts e.first.class
@@ -241,7 +251,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       #   element = Element.new(xml_should) if element.attributes['Id'] == @resource[:id]
       # end
 
-      Puppet.debug 'powershell.rb::set (should) after changing xml_doc_should.root() ='
+      Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
       Puppet.debug xml_doc_should.root()
 
       # if xml_is.has_elements?   # xpath found the rule exists (found a FilePathRule element with Id == @resource[:id])
@@ -257,9 +267,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # else # no xml found with Id == @resource[:id], create a new rule.
 
       # end
-
-
-    # end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
+    end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
   end
 
   def clear
