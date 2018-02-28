@@ -243,7 +243,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
           puts '4'
-          e.elements.delete_all
+          e.elements.delete_all './*'
+          # e.elements.delete_all './/*'
           puts '5'
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
