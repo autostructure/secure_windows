@@ -214,8 +214,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # set @property_hash = @property_hash[]
   end
 
-
-  def set_filepaths(node)
+  def update_filepaths(node)
     Puppet.debug "paths2xml: @resource[:conditions] = #{@resource[:conditions]}"
     Puppet.debug "paths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
 
@@ -224,7 +223,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
     node.elements.delete_all './*'
     Puppet.debug 'powershell.rb::set_filepaths: after delete_all...'
-    Puppet.debug e
+    Puppet.debug node.class
+    Puppet.debug node
     c = @resource[:conditions]
     e = @resource[:exceptions]
     any_conditions = !c.empty?
@@ -271,7 +271,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
           # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
-          set_filepaths e
+          update_filepaths e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() b4 calling powershell...'
           Puppet.debug xml_doc_should.root()
