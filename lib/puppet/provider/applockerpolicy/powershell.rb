@@ -204,8 +204,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         puts e
 
         y = "//FilePathRule[@Id='nonexistent']"
-        puts x
-        f = xml_doc_should.root.get_elements x
+        puts y
+        f = xml_doc_should.root.get_elements y
         puts f.class
         puts 'get_elements f ='
         puts f
