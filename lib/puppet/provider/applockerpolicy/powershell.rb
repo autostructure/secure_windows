@@ -289,6 +289,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       begin
         x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
         a = xml_doc_should.root.get_elements x
+        Puppet.debug 'set after get_elements...'
+        Puppet.debug a
+        Puppet.debug a.class
         # set attributes if xpath found the element, create element if not found.
         if a.first == nil
           create
