@@ -125,8 +125,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def create
     Puppet.debug 'powershell.rb::create called.'
-    xml_create = "<AppLockerPolicy Version='1'><RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>"
-    xml_create << "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    xml_create = "<AppLockerPolicy Version=\"1\"><RuleCollection Type=\"#{@resource[:type]}\" EnforcementMode=\"#{@resource[:enforcementmode]}\">"
+    xml_create << "<FilePathRule Id=\"#{@resource[:id]}\" Name=\"#{@resource[:name]}\" Description=\"#{@resource[:description]}\" UserOrGroupSid=\"#{@resource[:user_or_group_sid]}\" Action=\"#{@resource[:action]}\">"
     xml_create << convert_filepaths2xml
     xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
     Puppet.debug 'powershell.rb::create xml_create='
@@ -138,7 +138,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     testfile.close
     # NOTE: Used Set-AppLockerPolicy because New-AppLockerPolicy had an unusual interface.
     # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
+    Puppet.debug 'powershell.rb::create ps...'
     ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
+    Puppet.debug 'powershell.rb::create unlink file...'
     File.unlink(tempfile)
     Puppet.debug "deleted #{tempfile}"
   end
