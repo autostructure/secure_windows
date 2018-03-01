@@ -237,12 +237,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "update_filepaths: @resource[:exceptions] = #{@resource[:exceptions]}"
     Puppet.debug "update_filepaths: @property_hash[:conditions] = #{@property_hash[:conditions]}"
     Puppet.debug "update_filepaths: @property_hash[:exceptions] = #{@property_hash[:exceptions]}"
-    Puppet.debug 'a,b='
+    Puppet.debug 'update_filepaths: a,b='
     a = @property_hash[:conditions]
     b = @property_hash[:conditions]
     Puppet.debug a.class
     Puppet.debug b.class
-    Puppet.debug 'c,e='
+    Puppet.debug 'update_filepaths: c,e='
     c = @resource[:conditions]
     e = @resource[:exceptions]
     Puppet.debug c.class
@@ -251,20 +251,20 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_exceptions = !e.empty?
     Puppet.debug any_conditions
     Puppet.debug any_exceptions
-    Puppet.debug 'powershell.rb::set_filepaths: b4 delete_all...'
+    Puppet.debug 'update_filepaths: b4 delete_all...'
     Puppet.debug node
     # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
     node.elements.delete_all './*'
-    Puppet.debug 'powershell.rb::set_filepaths: after delete_all...'
-    Puppet.debug 'node.class & node...'
+    Puppet.debug 'update_filepaths: after delete_all...'
+    Puppet.debug 'update_filepaths: node.class & node...'
     Puppet.debug node.class
     Puppet.debug node
     # FilePathConditions...
-    Puppet.debug 'FilePathConditions...'
+    Puppet.debug 'update_filepaths: FilePathConditions...'
     node_conditions = Element.new 'Conditions'
     node.add_element node_conditions if any_conditions
-    Puppet.debug 'case...'
-    Puppet.debug 'c.class...'
+    Puppet.debug 'update_filepaths: case...'
+    Puppet.debug 'update_filepaths: c.class...'
     Puppet.debug c.class
     node_filepath = Element.new 'FilePathCondition'
     node_filepath.add_attribute 'Path', @resource[:conditions]
@@ -278,7 +278,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
     # FilePathExceptions...
-    Puppet.debug 'set_filepaths, completed node: node ='
+    Puppet.debug 'update_filepaths: completed node: node ='
     Puppet.debug node
     node
   end
@@ -300,7 +300,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         Puppet.debug a
         Puppet.debug a.class
         # set attributes if xpath found the element, create element if not found.
-        if a.first == nil
+        if a.first.nil?
           create
         else
           # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
@@ -321,7 +321,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           Puppet.debug e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() after update_filepaths b4 powershell...'
-          Puppet.debug xml_doc_should.root()
+          Puppet.debug xml_doc_should.root
           Puppet.debug "powershell.rb::set creating temp file => #{tempfile}"
           xmlfile = File.open(tempfile, 'w')
           xmlfile.puts xml_doc_should
@@ -331,12 +331,13 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           #       Since I have to leave off -Merge to update, I have to set all the policies.
           #       The -Merge option discards any attribute changes to existing rules.
           ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-          #File.unlink(tempfile)
+          File.unlink(tempfile)
           Puppet.debug "deleted #{tempfile}"
         end
-      rescue
-        Puppet.debug 'powershell.rb::set problem setting element attributes (or creating rule).'
+      rescue err
+        Puppet.debug "powershell.rb::set problem setting element attributes (or creating rule): Error=#{err}"
       end
-    end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
+      # empty applocker query returns this string (after removing whitespaces)...
+    end unless xml_all_policies.strip == '<AppLockerPolicy Version="1" />'
   end
 end
