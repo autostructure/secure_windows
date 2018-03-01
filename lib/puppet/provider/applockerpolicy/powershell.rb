@@ -84,11 +84,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
-  def conditions2array node
+  def conditions2array(node)
     ['c:\Windows\Temp\*', 'c:\Users\Public']
   end
 
-  def exceptions2array node
+  def exceptions2array(node)
     ['c:\Windows', 'c:\Users']
   end
 
