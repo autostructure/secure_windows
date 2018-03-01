@@ -105,7 +105,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
         Puppet.debug 'bye'
       else
-        Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+        Puppet.debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Conditions>' if any_conditions
     Puppet.debug 'convert_filepaths2xml: conditions done.'
@@ -117,7 +117,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       when String
         ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
       else
-        Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+        Puppet.debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Exceptions>' if any_exceptions
     Puppet.debug 'convert_filepaths2xml='
