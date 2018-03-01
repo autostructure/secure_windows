@@ -92,6 +92,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
+  # Reads the resource hash and generates the AppLocker policy XML returned as a String.
+  #
+  # @return [Puppet::String] AppLocker policy XML as a String.
+  # @todo Need to handle property Array
   def convert_filepaths2xml
     # TODO: this method is untested.
     ret_xml = ''
