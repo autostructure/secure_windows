@@ -285,8 +285,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
-    Puppet.debug 'convert_filepaths2xml = '
-    Puppet.debug convert_filepaths2xml
+    Puppet.debug 'convert_filepaths2xml...'
+    s = convert_filepaths2xml
+    Puppet.debug 'xml= '
+    Puppet.debug s
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (with String.strip applied)...'
