@@ -49,6 +49,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
   end
 
+  def self.conditions2array(node)
+    ['c:\Windows\Temp\*', 'c:\Users\Public']
+  end
+
+  def self.exceptions2array(node)
+    ['c:\Windows', 'c:\Users']
+  end
+
   def clear
     Puppet.debug 'powershell.rb::clear'
     xml_clear_all_rules = '<AppLockerPolicy Version="1">'
@@ -84,14 +92,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
-  def self.conditions2array(node)
-    ['c:\Windows\Temp\*', 'c:\Users\Public']
-  end
-
-  def self.exceptions2array(node)
-    ['c:\Windows', 'c:\Users']
-  end
-
   def convert_filepaths2xml
     # TODO: this method is untested.
     ret_xml = ''
@@ -107,10 +107,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'c.inspect...'
     Puppet.debug c.inspect
     ret_xml << '<Conditions>' if any_conditions
-    case [c]
-    when [Array]
+    case c.class
+    when 'Array'
       c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-    when [String]
+    when 'String'
       Puppet.debug 'hi'
       ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
       Puppet.debug 'bye'
