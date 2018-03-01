@@ -84,11 +84,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_xml
   end
 
-  def conditions2array e
+  def conditions2array node
     ['c:\Windows\Temp\*', 'c:\Users\Public']
   end
 
-  def exceptions2array e
+  def exceptions2array node
     ['c:\Windows', 'c:\Users']
   end
 
@@ -198,8 +198,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
           id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
           user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          conditions:        conditions2array fpr,
-          exceptions:        exceptions2array fpr,
+          conditions:        conditions2array(fpr),
+          exceptions:        exceptions2array(fpr),
         }
         # then loop thru conditions exceptions
         # TODO: conditions/exceptions coding
