@@ -94,16 +94,21 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
     # FilePathConditions...
+    Puppet.debug 'convert_filepaths2xml: conditions started - c.class='
+    Puppet.debug c.class
     ret_xml << '<Conditions>' if any_conditions
-    case c.kind_of?
+    case c.class
       when Array
         c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
       when String
+        Puppet.debug 'hi'
         ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
+        Puppet.debug 'bye'
       else
         Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Conditions>' if any_conditions
+    Puppet.debug 'convert_filepaths2xml: conditions done.'
     # FilePathExceptions...
     ret_xml << '<Exceptions>' if any_exceptions
     case e.kind_of?
@@ -118,6 +123,43 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'convert_filepaths2xml='
     Puppet.debug ret_xml
     ret_xml
+  end
+
+  def create
+    Puppet.debug 'powershell.rb::create called.'
+    xml_create = "<AppLockerPolicy Version='1'><RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>"
+    xml_create << "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    xml_create << convert_filepaths2xml
+    xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
+    Puppet.debug 'powershell.rb::create xml_create='
+    Puppet.debug xml_create
+    Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
+    # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
+    testfile = File.open(tempfile, 'w')
+    testfile.puts xml_create
+    testfile.close
+    # NOTE: Used Set-AppLockerPolicy because New-AppLockerPolicy had an unusual interface.
+    # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
+    ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
+    File.unlink(tempfile)
+    Puppet.debug "deleted #{tempfile}"
+  end
+
+  def destroy
+    Puppet.debug 'powershell.rb::destroy called.'
+    # read all xml
+    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
+    xml_doc_should = Document.new xml_all_policies
+    x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
+    a = xml_doc_should.root.get_elements x
+    if a.first != nil
+      xml_doc_should.root.delete_elements a.first
+    end
+  end
+
+  def exists?
+    Puppet.debug 'powershell.rb::exists?'
+    @property_hash[:ensure] = :present
   end
 
   def self.instances
@@ -157,43 +199,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       end
     end
     provider_array
-  end
-
-  def create
-    Puppet.debug 'powershell.rb::create called.'
-    xml_create = "<AppLockerPolicy Version='1'><RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>"
-    xml_create << "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
-    xml_create << convert_filepaths2xml
-    xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
-    Puppet.debug 'powershell.rb::create xml_create='
-    Puppet.debug xml_create
-    Puppet.debug "powershell.rb::create creating temp file => #{tempfile}"
-    # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
-    testfile = File.open(tempfile, 'w')
-    testfile.puts xml_create
-    testfile.close
-    # NOTE: Used Set-AppLockerPolicy because New-AppLockerPolicy had an unusual interface.
-    # NOTE: The '-Merge' option is very important, use it or it will purge any rules not defined in the Xml.
-    ps("Set-AppLockerPolicy -Merge -XMLPolicy #{tempfile}")
-    File.unlink(tempfile)
-    Puppet.debug "deleted #{tempfile}"
-  end
-
-  def destroy
-    Puppet.debug 'powershell.rb::destroy called.'
-    # read all xml
-    xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
-    xml_doc_should = Document.new xml_all_policies
-    x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
-    a = xml_doc_should.root.get_elements x
-    if a.first != nil
-      xml_doc_should.root.delete_elements a.first
-    end
-  end
-
-  def exists?
-    Puppet.debug 'powershell.rb::exists?'
-    @property_hash[:ensure] = :present
   end
 
   # Prefetching is necessary to use @property_hash inside any setter methods.
@@ -273,13 +278,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
     # FilePathExceptions...
-    Puppet.debug 'set_filepaths, completed node.  node ='
+    Puppet.debug 'set_filepaths, completed node: node ='
     Puppet.debug node
     node
   end
 
   def set
     Puppet.debug 'powershell.rb::set'
+    Puppet.debug 'convert_filepaths2xml = '
+    Puppet.debug convert_filepaths2xml
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (with String.strip applied)...'
