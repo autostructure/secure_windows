@@ -272,18 +272,18 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'update_filepaths: case...'
     Puppet.debug 'update_filepaths: c.class...'
     Puppet.debug c.class
-    node_filepath = Element.new 'FilePathCondition'
-    node_filepath.add_attribute 'Path', @resource[:conditions]
-    node_conditions.add_element node_filepath
-    #case c.class
-    #when Array
-    #  puts 'Array in case'  # c.each { |path| node.add_element 'FilePathCondition', 'Path' => path.to_s }
-    #when String
-    #  puts 'String in case'  # node.add_element 'FilePathCondition', 'Path' => @resource[:conditions].to_s
-    #else
-    #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions].class}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
-    #end
+    node_fpc = Element.new 'FilePathCondition'
+    c.each { |path| node_fpc.add_attribute 'Path', path }
+    node_conditions.add_element node_fpc if any_conditions
     # FilePathExceptions...
+    Puppet.debug 'update_filepaths: FilePathExceptions...'
+    node_exceptions = Element.new 'Exceptions'
+    node.add_element node_exceptions if any_exceptions
+    node_fpe = Element.new 'FilePathException'
+    e.each { |path| node_fpe.add_attribute 'Path', path }
+    node_exceptions.add_element node_fpe if any_exceptions
+    # node_filepath.add_attribute 'Path', @resource[:conditions]
+    # done
     Puppet.debug 'update_filepaths: completed node: node ='
     Puppet.debug node
     node
