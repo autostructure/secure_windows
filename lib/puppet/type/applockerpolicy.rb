@@ -48,14 +48,4 @@ Puppet::Type.newtype(:applockerpolicy) do
   newproperty(:exceptions) do
     desc 'The AppLocker rule exceptions, like a hash of file paths listing files not affected by the rule.'
   end
-
-  #newproperty(:user) do
-  #  puts 'applockerpolicy.rb::user'
-    # desc 'The o/s user that will set the AppLocker policy rule.'
-  #end
-
-  #newproperty(:prefix) do
-  #  puts 'applockerpolicy.rb::prefix'
-    # desc 'A prefix to prepend to the AppLocker rule.'
-  #end
 end
