@@ -41,7 +41,7 @@ Puppet::Type.newtype(:applockerpolicy) do
     desc 'The AppLocker user or group system identifier.'
   end
 
-  newproperty(:conditions, :array_matching => :all, :parent => Puppet::Parameter::Array) do
+  newproperty(:conditions, :array_matching => :all) do
     desc 'The AppLocker rule conditions, like a hash of file paths applied to a file path rule.'
   end
 
