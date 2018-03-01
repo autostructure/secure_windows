@@ -98,29 +98,29 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug c.class
     ret_xml << '<Conditions>' if any_conditions
     case c.class
-      when Array
-        c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-      when String
-        Puppet.debug 'hi'
-        ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
-        Puppet.debug 'bye'
-      else
-        Puppet.debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    when Array
+      c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
+    when String
+      Puppet.debug 'hi'
+      ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
+      Puppet.debug 'bye'
+    else
+      Puppet.debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Conditions>' if any_conditions
     Puppet.debug 'convert_filepaths2xml: conditions done.'
     # FilePathExceptions...
     ret_xml << '<Exceptions>' if any_exceptions
-    case e.kind_of?
-      when Array
-        e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-      when String
-        ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
-      else
-        Puppet.debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    case e.class
+    when Array
+      e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    when String
+      ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
+    else
+      Puppet.debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Exceptions>' if any_exceptions
-    Puppet.debug 'convert_filepaths2xml='
+    Puppet.debug 'convert_filepaths2xml: xml='
     Puppet.debug ret_xml
     ret_xml
   end
