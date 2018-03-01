@@ -230,6 +230,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   def update_filepaths(node)
     Puppet.debug "update_filepaths: @resource[:conditions] = #{@resource[:conditions]}"
     Puppet.debug "update_filepaths: @resource[:exceptions] = #{@resource[:exceptions]}"
+    Puppet.debug "update_filepaths: @property_hash[:conditions] = #{@property_hash[:conditions]}"
+    Puppet.debug "update_filepaths: @property_hash[:exceptions] = #{@property_hash[:exceptions]}"
+    Puppet.debug 'a,b='
+    a = @property_hash[:conditions]
+    b = @property_hash[:conditions]
+    Puppet.debug a.class
+    Puppet.debug b.class
+    Puppet.debug 'c,e='
     c = @resource[:conditions]
     e = @resource[:exceptions]
     Puppet.debug c.class
