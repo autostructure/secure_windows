@@ -1,5 +1,5 @@
 Puppet::Type.newtype(:applockerpolicy) do
-  @doc = 'Manage the Windows O/S AppLocker policies.'
+  @doc = 'Manage the Windows O/S AppLocker policies.  For more information see: https://docs.microsoft.com/en-us/windows/security/threat-protection/applocker/applocker-overview'
 
   ensurable
 

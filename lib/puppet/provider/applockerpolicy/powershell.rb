@@ -49,28 +49,46 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
   end
 
+  def clear
+    Puppet.debug 'powershell.rb::clear'
+    xml_clear_all_rules = '<AppLockerPolicy Version="1">'
+    xml_clear_all_rules << '<RuleCollection Type="Appx" EnforcementMode="NotConfigured" />'
+    xml_clear_all_rules << '<RuleCollection Type="Exe" EnforcementMode="NotConfigured" />'
+    xml_clear_all_rules << '<RuleCollection Type="Msi" EnforcementMode="NotConfigured" />'
+    xml_clear_all_rules << '<RuleCollection Type="Script" EnforcementMode="NotConfigured" />'
+    xml_clear_all_rules << '<RuleCollection Type="Dll" EnforcementMode="NotConfigured" />'
+    xml_clear_all_rules << '</AppLockerPolicy>'
+    clearfile = File.open(tempfile, 'w')
+    clearfile.puts xml_clear_all_rules
+    clearfile.close
+    ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
+    File.unlink(tempfile)
+  end
+
   def filepathrule2xml
-    ret_xml = "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
+    ret_xml = "<FilePathRule Id=\"#{@resource[:id]}\" Name=\"#{@resource[:name]}\" "
+    ret_xml << "Description=\"#{@resource[:description]}\" UserOrGroupSid=\"#{@resource[:user_or_group_sid]}\" Action=\"#{@resource[:action]}\">"
     any_conditions = !@resource[:conditions].empty?
     any_exceptions = !@resource[:exceptions].empty?
-    ret_xml.concat('<Conditions>') if any_conditions
-    ret_xml.concat("<FilePathCondition Path=\"#{@resource[:conditions]}\" />") if any_conditions
+    ret_xml << '<Conditions>' if any_conditions
+    ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />" if any_conditions
     # @resource[:conditions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
     # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-    ret_xml.concat('</Conditions>') if any_conditions
-    ret_xml.concat('<Exceptions>') if any_exceptions
-    ret_xml.concat("<FilePathException Path=\"#{@resource[:exceptions]}\" />") if any_exceptions
+    ret_xml << '</Conditions>' if any_conditions
+    ret_xml << '<Exceptions>' if any_exceptions
+    ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />" if any_exceptions
     # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
     # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
-    ret_xml.concat('</Exceptions>') if any_exceptions
-    ret_xml.concat('</FilePathRule>')
+    ret_xml << '</Exceptions>' if any_exceptions
+    ret_xml << '</FilePathRule>'
     ret_xml
   end
 
-  def paths2xml
+  def convert_filepaths2xml
+    # TODO: this method is untested.
     ret_xml = ''
-    Puppet.debug "paths2xml: @resource[:conditions] = #{@resource[:conditions]}"
-    Puppet.debug "paths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
+    Puppet.debug "convert_filepaths2xml: @resource[:conditions] = #{@resource[:conditions]}"
+    Puppet.debug "convert_filepaths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
     c = @resource[:conditions]
     e = @resource[:exceptions]
     any_conditions = !c.empty?
@@ -97,7 +115,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         Puppet.Debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Exceptions>' if any_exceptions
-    Puppet.debug 'paths2xml='
+    Puppet.debug 'convert_filepaths2xml='
     Puppet.debug ret_xml
     ret_xml
   end
@@ -145,7 +163,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::create called.'
     xml_create = "<AppLockerPolicy Version='1'><RuleCollection Type='#{@resource[:type]}' EnforcementMode='#{@resource[:enforcementmode]}'>"
     xml_create << "<FilePathRule Id='#{@resource[:id]}' Name='#{@resource[:name]}' Description='#{@resource[:description]}' UserOrGroupSid='#{@resource[:user_or_group_sid]}' Action='#{@resource[:action]}'>"
-    xml_create << paths2xml
+    xml_create << convert_filepaths2xml
     xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
     Puppet.debug 'powershell.rb::create xml_create='
     Puppet.debug xml_create
@@ -256,7 +274,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set'
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
-    Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (btw, applied String.strip)...'
+    Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (with String.strip applied)...'
     Puppet.debug xml_all_policies.strip
     xml_doc_should = Document.new xml_all_policies
     begin
@@ -281,7 +299,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           Puppet.debug 'e...'
           Puppet.debug e
           update_filepaths e
-          Puppet.debug 'e after fileaths update...'
+          Puppet.debug 'e after filepaths update...'
           Puppet.debug e
           # apply change...
           Puppet.debug 'powershell.rb::set xml_doc_should.root() after update_filepaths b4 powershell...'
@@ -302,21 +320,5 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         Puppet.debug 'powershell.rb::set problem setting element attributes (or creating rule).'
       end
     end unless xml_all_policies.strip == "<AppLockerPolicy Version=\"1\" />"  # empty applocker query returns this string (after removing whitespace)
-  end
-
-  def clear
-    Puppet.debug 'powershell.rb::clear'
-    xml_clear_all_rules = "<AppLockerPolicy Version=\"1\">
-  <RuleCollection Type=\"Appx\" EnforcementMode=\"NotConfigured\" />
-  <RuleCollection Type=\"Exe\" EnforcementMode=\"NotConfigured\" />
-  <RuleCollection Type=\"Msi\" EnforcementMode=\"NotConfigured\" />
-  <RuleCollection Type=\"Script\" EnforcementMode=\"NotConfigured\" />
-  <RuleCollection Type=\"Dll\" EnforcementMode=\"NotConfigured\" />
-</AppLockerPolicy>"
-    clearfile = File.open('c:\windows\temp\applockerpolicy.xml', 'w')
-    clearfile.puts xml_clear_all_rules
-    clearfile.close
-    ps('Set-AppLockerPolicy -XMLPolicy C:\Windows\Temp\applockerpolicy.xml')
-    File.unlink('c:\windows\temp\applockerpolicy.xml')
   end
 end
