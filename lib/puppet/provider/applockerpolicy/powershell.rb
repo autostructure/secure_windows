@@ -105,7 +105,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
       Puppet.debug 'bye'
     else
-      Puppet.debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+      Puppet.debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions].class}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Conditions>' if any_conditions
     Puppet.debug 'convert_filepaths2xml: conditions done.'
@@ -117,7 +117,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     when String
       ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />"
     else
-      Puppet.debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+      Puppet.debug "AppLockerPolicy property, 'exceptions' <#{@resource[:exceptions].class}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     end
     ret_xml << '</Exceptions>' if any_exceptions
     Puppet.debug 'convert_filepaths2xml: xml='
@@ -237,14 +237,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "update_filepaths: @resource[:exceptions] = #{@resource[:exceptions]}"
     Puppet.debug "update_filepaths: @property_hash[:conditions] = #{@property_hash[:conditions]}"
     Puppet.debug "update_filepaths: @property_hash[:exceptions] = #{@property_hash[:exceptions]}"
-    Puppet.debug 'update_filepaths: a,b='
+    Puppet.debug 'update_filepaths: a,b (property_hash)='
     a = @property_hash[:conditions]
-    b = @property_hash[:conditions]
+    b = @property_hash[:exceptions]
     Puppet.debug a.class
     Puppet.debug b.class
-    Puppet.debug 'update_filepaths: c,e='
+    Puppet.debug 'update_filepaths: m,n (property_flush)='
+    m = @property_flush[:conditions]
+    n = @property_flush[:exceptions]
+    Puppet.debug 'update_filepaths: c,e (resource)='
     c = @resource[:conditions]
     e = @resource[:exceptions]
+    Puppet.debug m.class
+    Puppet.debug n.class
     Puppet.debug c.class
     Puppet.debug e.class
     any_conditions = !c.empty?
@@ -275,7 +280,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     #when String
     #  puts 'String in case'  # node.add_element 'FilePathCondition', 'Path' => @resource[:conditions].to_s
     #else
-    #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions]}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
+    #  Puppet.Debug "AppLockerPolicy property, 'conditions' <#{@resource[:conditions].class}>, is not a String or Array.  See resource with rule id = #{@resource[:id]}"
     #end
     # FilePathExceptions...
     Puppet.debug 'update_filepaths: completed node: node ='
