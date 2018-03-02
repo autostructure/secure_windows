@@ -288,7 +288,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'update_filepaths: c.class...'
     Puppet.debug c.class
     node_fpc = Element.new 'FilePathCondition'
-    c.each { |path| node_fpc.add_attribute 'Path', path }
+    node_fpc.add_attribute 'Path', @resource[:conditions]
     node_conditions.add_element node_fpc if any_conditions
     # Exceptions...
     Puppet.debug 'update_filepaths: Exceptions...'
