@@ -161,6 +161,15 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @property_hash[:ensure] = :present
   end
 
+  def self.conditions2string(node)
+    path = ''
+    e = node.get_elements('./FilePathCondition')
+    path = e.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
+    Puppet.debug "conditions path = #{path}"
+    Puppet.debug e.attribute('Path')
+    path
+  end
+
   def self.instances
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
@@ -187,7 +196,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
           id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
           user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          conditions:        fpr.attribute('conditions').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          conditions:        conditions2string(fpr),
           exceptions:        exceptions2array(fpr),
         }
         # then loop thru conditions exceptions
