@@ -50,12 +50,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
   end
 
-  def self.conditions2array(node)
-    ['c:\Windows\Temp\*', 'c:\Users\Public']
-  end
-
   def self.exceptions2array(node)
-    ['c:\Windows', 'c:\Users']
+    ['c:\Windows\Temp\*', 'c:\Users\Public\*']
   end
 
   def clear
@@ -191,7 +187,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
           id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
           user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          conditions:        conditions2array(fpr),
+          conditions:        fpr.attribute('conditions').to_string.slice(/=['|"]*(.*)['|"]/,1),
           exceptions:        exceptions2array(fpr),
         }
         # then loop thru conditions exceptions
