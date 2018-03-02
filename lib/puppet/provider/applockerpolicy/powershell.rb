@@ -269,6 +269,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_exceptions = !e.empty?
 puts 'update_filepaths Exceptions ERROR data...'
 puts "update_filepaths !e.empty? = #{!e.empty?}"
+puts "update_filepaths !e.first.empty? = #{!e.empty?}"
+puts "update_filepaths !e.first.empty? && e.length != 1 = #{!e.first.empty? && e.length != 1}"
 puts "update_filepaths e.class = #{e.class}"
 puts "update_filepaths e.first.class = #{e.first.class}"
     Puppet.debug 'update_filepaths: any_conditions/exceptions...'
