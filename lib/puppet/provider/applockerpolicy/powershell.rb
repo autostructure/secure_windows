@@ -343,7 +343,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           Puppet.debug "deleted #{tempfile}"
         end
       rescue err
-        Puppet.debug "powershell.rb::set problem setting element attributes (or creating rule): Error=#{err}"
+        Puppet.debug "powershell.rb::set problem setting element attributes (or creating rule): Error = #{err}"
       end
       # empty applocker query returns this string (after removing whitespaces)...
     end unless xml_all_policies.strip == '<AppLockerPolicy Version="1" />'
