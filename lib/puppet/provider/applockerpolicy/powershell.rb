@@ -163,6 +163,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def self.conditions2string(node)
     Puppet.debug 'conditions2string...'
+    Puppet.debug node
     path = ''
     e = node.get_elements('./FilePathCondition')
     Puppet.debug e
