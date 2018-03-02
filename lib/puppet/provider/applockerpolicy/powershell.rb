@@ -107,12 +107,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
     # Conditions...
+    # NOTE: The <Conditions> tag only allows 1 FilePathCondition.
+    #       The <Exceptions> tag allows many FilePathConditions.
     Puppet.debug 'convert_filepaths2xml: conditions started - c.class='
     Puppet.debug c.class
     Puppet.debug 'c.inspect...'
     Puppet.debug c.inspect
     ret_xml << '<Conditions>' if any_conditions
-    c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
+    ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
     ret_xml << '</Conditions>' if any_conditions
     Puppet.debug 'convert_filepaths2xml: conditions done.'
     # Exceptions...
@@ -267,6 +269,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug node.class
     Puppet.debug node
     # Conditions...
+    # NOTE: The <Conditions> tag only allows 1 FilePathCondition.
+    #       The <Exceptions> tag allows many FilePathConditions.
     Puppet.debug 'update_filepaths: Conditions...'
     node_conditions = Element.new 'Conditions'
     node.add_element node_conditions if any_conditions
