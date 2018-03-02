@@ -222,6 +222,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
   def self.prefetch(resources)
+    puts '****************************** powershell.rb ******************************'
     Puppet.debug 'powershell.rb::prefetch called.'
     # the resources object contains all resources in the catalog.
     # the instances method below returns an array of provider objects.
