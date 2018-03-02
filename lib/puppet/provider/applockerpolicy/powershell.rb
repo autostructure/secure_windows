@@ -295,7 +295,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     node_exceptions = Element.new 'Exceptions'
     node.add_element node_exceptions if any_exceptions
     node_fpe = Element.new 'FilePathCondition'
-    e.each { |path| node_fpe.add_attribute 'Path', path }
+    # powershell didn't like empty path: <FilePathCondition Path=''/>
+    e.each { |path| node_fpe.add_attribute('Path', path) if path.strip.!isempty? }
     node_exceptions.add_element node_fpe if any_exceptions
     # node_filepath.add_attribute 'Path', @resource[:conditions]
     # done
