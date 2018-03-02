@@ -24,6 +24,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def mergeLDAPPolicies
+    # set-applockerpolicy -Merge to interface w/LDAP
   end
 
   def xml_policy_passthrough
@@ -84,9 +85,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # @resource[:conditions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
     ret_xml << '</Conditions>' if any_conditions
     ret_xml << '<Exceptions>' if any_exceptions
-    ret_xml << "<FilePathException Path=\"#{@resource[:exceptions]}\" />" if any_exceptions
-    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathException Path=\"#{path}\" />") }
-    # @resource[:exceptions].each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    ret_xml << "<FilePathCondition Path=\"#{@resource[:exceptions]}\" />" if any_exceptions
+    # @resource[:exceptions].each { |path| ret_xml.concat("<FilePathCondition Path=\"#{path}\" />") }
+    # @resource[:exceptions].each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
     ret_xml << '</Exceptions>' if any_exceptions
     ret_xml << '</FilePathRule>'
     ret_xml
@@ -105,7 +106,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     e = @resource[:exceptions]
     any_conditions = !c.empty?
     any_exceptions = !e.empty?
-    # FilePathConditions...
+    # Conditions...
     Puppet.debug 'convert_filepaths2xml: conditions started - c.class='
     Puppet.debug c.class
     Puppet.debug 'c.inspect...'
@@ -114,9 +115,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     c.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
     ret_xml << '</Conditions>' if any_conditions
     Puppet.debug 'convert_filepaths2xml: conditions done.'
-    # FilePathExceptions...
+    # Exceptions...
     ret_xml << '<Exceptions>' if any_exceptions
-    e.each { |path| ret_xml << "<FilePathException Path=\"#{path}\" />" }
+    e.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
     ret_xml << '</Exceptions>' if any_exceptions
     Puppet.debug 'convert_filepaths2xml: xml='
     Puppet.debug ret_xml
@@ -259,14 +260,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug any_exceptions
     Puppet.debug 'update_filepaths: b4 delete_all...'
     Puppet.debug node
-    # delete all FilePathRule's children, which are FilePathCondition and FilePathException elements.
+    # delete all FilePathRule's children, which are Condition and Exception elements.
     node.elements.delete_all './*'
     Puppet.debug 'update_filepaths: after delete_all...'
     Puppet.debug 'update_filepaths: node.class & node...'
     Puppet.debug node.class
     Puppet.debug node
-    # FilePathConditions...
-    Puppet.debug 'update_filepaths: FilePathConditions...'
+    # Conditions...
+    Puppet.debug 'update_filepaths: Conditions...'
     node_conditions = Element.new 'Conditions'
     node.add_element node_conditions if any_conditions
     Puppet.debug 'update_filepaths: case...'
@@ -275,11 +276,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     node_fpc = Element.new 'FilePathCondition'
     c.each { |path| node_fpc.add_attribute 'Path', path }
     node_conditions.add_element node_fpc if any_conditions
-    # FilePathExceptions...
-    Puppet.debug 'update_filepaths: FilePathExceptions...'
+    # Exceptions...
+    Puppet.debug 'update_filepaths: Exceptions...'
     node_exceptions = Element.new 'Exceptions'
     node.add_element node_exceptions if any_exceptions
-    node_fpe = Element.new 'FilePathException'
+    node_fpe = Element.new 'FilePathCondition'
     e.each { |path| node_fpe.add_attribute 'Path', path }
     node_exceptions.add_element node_fpe if any_exceptions
     # node_filepath.add_attribute 'Path', @resource[:conditions]
@@ -321,7 +322,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           # ensure, rule_type, rule_collection_type, rule_collection_enforcementmode,
           # conditions, exceptions
           # use e.first.child to access conditions (or exceptions...probably array of children accessed as elements?)
-          # or prune all children and rebuild (via add_element) the FilePathCondition/FilePathException tree.
+          # or prune all children and rebuild (via add_element) the FilePathRule Condition/Exception tree.
           Puppet.debug 'e...'
           Puppet.debug e
           update_filepaths e
