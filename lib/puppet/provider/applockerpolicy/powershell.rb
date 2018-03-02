@@ -162,11 +162,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def self.conditions2string(node)
+    Puppet.debug 'conditions2string...'
     path = ''
     e = node.get_elements('./FilePathCondition')
-    path = e.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
-    Puppet.debug "conditions path = #{path}"
+    Puppet.debug e
     Puppet.debug e.attribute('Path')
+    path = e.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
+    Puppet.debug path
+    Puppet.debug "conditions path = #{path}"
     path
   end
 
