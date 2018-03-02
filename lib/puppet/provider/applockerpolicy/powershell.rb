@@ -158,6 +158,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def exists?
     Puppet.debug 'powershell.rb::exists?'
+    puts '************************** powershell.rb exists? **************************'
     @property_hash[:ensure] = :present
   end
 
