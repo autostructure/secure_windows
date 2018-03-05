@@ -274,6 +274,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
+    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     begin
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
