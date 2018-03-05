@@ -139,7 +139,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_doc_should = Document.new xml_all_policies
     x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
     a = xml_doc_should.root.get_elements x
-    if a.first != nil
+    Puppet.debug 'powershell.rb::destroy: XML from XPath (a.first)...'
+    Puppet.debug a.first
+    if !a.first.nil?
       xml_doc_should.root.delete_element a.first
     end
     Puppet.debug 'powershell.rb::destroy: modified XML...'
