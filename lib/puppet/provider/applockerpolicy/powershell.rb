@@ -259,7 +259,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     e = @resource[:exceptions]
     # Test for condition/exeption values of '' and [''], respectively...
     any_conditions = !c.strip.empty?
-    any_exceptions = !e.empty? && !e.first.strip.empty? && e.length != 1
+    any_exceptions = !e.empty? && !e.first.strip.empty?
+    # && e.length != 1
+    Puppet.debug "any_exceptions: !e.empty? = #{!e.empty?}"
+    Puppet.debug "any_exceptions: !e.first.strip.empty? = #{!e.first.strip.empty?}"
+    Puppet.debug "any_exceptions: !e.length = #{e.length}"
     Puppet.debug "update_filepaths: any_conditions, any_exceptions: #{any_conditions}, #{any_exceptions}"
     Puppet.debug 'update_filepaths: node b4 delete_all...'
     Puppet.debug node
