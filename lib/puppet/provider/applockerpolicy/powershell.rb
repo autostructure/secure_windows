@@ -177,11 +177,11 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'exceptions2string...'
     ret_array = []
     e = node.get_elements('.//Exceptions/FilePathCondition')
-    any_exceptions = !e.empty? && !e.first.strip.empty?
+    any_exceptions = !e.empty?
     Puppet.debug "exceptions2array: any_exceptions: #{any_exceptions}"
     if any_exceptions
       # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
-      e.each { |path| ret_array << path if !path.strip.empty? }
+      e.each { |xml| ret_array << xml.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1) }
     end
     Puppet.debug "exceptions2array: ret_array = #{ret_array}"
     ret_array
