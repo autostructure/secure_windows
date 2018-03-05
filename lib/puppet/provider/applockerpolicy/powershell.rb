@@ -142,7 +142,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "powershell.rb::destroy: XML from XPath (a.first <#{a.first.class}>)..."
     Puppet.debug a.first
     if !a.first.nil?
-      del_node = xml_doc_should.root.delete_element a.first
+      del_node = xml_doc_should.root.delete_element x
+      # del_node = xml_doc_should.root.delete_element a.first
       Puppet.debug "delete_element = #{del_node}"
     end
     Puppet.debug 'powershell.rb::destroy: modified XML...'
