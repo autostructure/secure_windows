@@ -156,8 +156,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def exists?
+    Puppet.debug '********************************************************************************'
     Puppet.debug 'powershell.rb::exists?'
-    puts '************************** powershell.rb exists? **************************'
     @property_hash[:ensure] = :present
   end
 
@@ -236,7 +236,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # populating this instance variable for every resource on the system
   # takes time and front-loads your Puppet run.
   def self.prefetch(resources)
-    puts '****************************** powershell.rb ******************************'
+    Puppet.debug '****************************** powershell.rb ******************************'
     Puppet.debug 'powershell.rb::prefetch called.'
     # the resources object contains all resources in the catalog.
     # the instances method below returns an array of provider objects.
@@ -307,10 +307,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
-    Puppet.debug 'convert_filepaths2xml...'
-    s = convert_filepaths2xml
-    Puppet.debug 'xml= '
-    Puppet.debug s
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     Puppet.debug 'powershell.rb::set powershell Get-AppLockerPolicy returns (with String.strip applied)...'
