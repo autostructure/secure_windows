@@ -1,5 +1,5 @@
 Puppet::Type.newtype(:applockerpolicy) do
-  @doc = 'Manage the Windows O/S AppLocker policies.'
+  @doc = 'Manage the Windows O/S AppLocker policies.  For more information see: https://docs.microsoft.com/en-us/windows/security/threat-protection/applocker/applocker-overview'
 
   ensurable
 
@@ -42,20 +42,10 @@ Puppet::Type.newtype(:applockerpolicy) do
   end
 
   newproperty(:conditions) do
-    desc 'The AppLocker rule conditions, like a hash of file paths applied to a file path rule.'
+    desc 'The AppLocker rule conditions.  Only one condition is allowed <String>.'
   end
 
-  newproperty(:exceptions) do
-    desc 'The AppLocker rule exceptions, like a hash of file paths listing files not affected by the rule.'
+  newproperty(:exceptions, array_matching: :all) do
+    desc 'The AppLocker rule exceptions, an array of file paths listing files not affected by the rule.'
   end
-
-  #newproperty(:user) do
-  #  puts 'applockerpolicy.rb::user'
-    # desc 'The o/s user that will set the AppLocker policy rule.'
-  #end
-
-  #newproperty(:prefix) do
-  #  puts 'applockerpolicy.rb::prefix'
-    # desc 'A prefix to prepend to the AppLocker rule.'
-  #end
 end
