@@ -142,23 +142,28 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     if a.first != nil
       xml_doc_should.root.delete_elements a.first
     end
+    Puppet.debug 'powershell.rb::destroy: modified XML...'
+    Puppet.debug xml_doc_should.root
+    xmlfile = File.open(tempfile, 'w')
+    xmlfile.puts xml_doc_should
+    xmlfile.close
+    # Set-AppLockerPolicy (no merge). Leave off -Merge to update, XML should have all remaining policies.
+    ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
+    File.unlink(tempfile)
   end
 
   def exists?
-    Puppet.debug '*************************************************************************'
     Puppet.debug 'powershell.rb::exists?'
     @property_hash[:ensure] = :present
   end
 
   def self.conditions2string(node)
-    Puppet.debug 'powershell.rb::conditions2string(node)'
     c = node.get_elements('.//Conditions/FilePathCondition')
     path = c.first.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
     path
   end
 
   def self.exceptions2array(node)
-    Puppet.debug 'powershell.rb::exceptions2string(node)'
     ret_array = []
     e = node.get_elements('.//Exceptions/FilePathCondition')
     any_exceptions = !e.empty?
@@ -235,7 +240,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def update_filepaths(node)
-    Puppet.debug 'powershell.rb::update_filepaths(node)'
     c = @resource[:conditions]
     e = @resource[:exceptions]
     # Test for condition/exeption values of '' and [''], respectively...
