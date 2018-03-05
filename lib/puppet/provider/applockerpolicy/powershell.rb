@@ -50,10 +50,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     @resource2xml_attribute_map ||= xml2resource_attribute_map.invert
   end
 
-  def self.exceptions2array(node)
-    ['c:\Windows\Temp\*', 'c:\Users\Public\*']
-  end
-
   def clear
     Puppet.debug 'powershell.rb::clear'
     xml_clear_all_rules = '<AppLockerPolicy Version="1">'
@@ -101,7 +97,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     c = @resource[:conditions]
     e = @resource[:exceptions]
     any_conditions = !c.strip.empty?
-    any_exceptions = !e.empty? && !e.first.strip.empty? && e.length != 1
+    any_exceptions = !e.empty? && !e.first.strip.empty?
     Puppet.debug "convert_filepaths2xml: any_conditions, any_exceptions: #{any_conditions}, #{any_exceptions}"
     # Conditions...
     # NOTE: The <Conditions> tag only allows 1 FilePathCondition.
@@ -169,13 +165,44 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'conditions2string...'
     Puppet.debug 'powershell.rb::conditions2string(node): node parameter ='
     Puppet.debug node
-    e = node.get_elements('.//FilePathCondition')
+    c = node.get_elements('.//Conditions/FilePathCondition')
     Puppet.debug 'powershell.rb::conditions2string: FilePathCondition...'
-    Puppet.debug e
-    path = e.first.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
+    Puppet.debug c
+    path = c.first.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
     Puppet.debug "powershell.rb::conditions2string: Conditions Path = #{path}"
     path
   end
+
+  def self.exceptions2array(node)
+    Puppet.debug 'exceptions2string...'
+    ret_array = []
+    e = node.get_elements('.//Exceptions/FilePathCondition')
+    any_exceptions = !e.empty? && !e.first.strip.empty?
+    Puppet.debug "exceptions2array: any_exceptions: #{any_exceptions}"
+    if any_exceptions
+      # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
+      e.each { |path| ret_array << path if !path.strip.empty? }
+    end
+    Puppet.debug "exceptions2array: ret_array = #{ret_array}"
+    ret_array
+  end
+
+
+  # Exceptions...
+  if any_exceptions
+    ret_array << '['
+    # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
+    e.each do |path|
+      delim = ''
+      if !path.strip.empty?
+        ret_array << "#{delim}" if !delim.strip.empty?
+        ret_array << "'#{path}'"
+        delim = ', '
+      end
+    end
+    ret_array << ']'
+  end
+
 
   def self.instances
     Puppet.debug 'powershell.rb::instances called.'
@@ -260,7 +287,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # Test for condition/exeption values of '' and [''], respectively...
     any_conditions = !c.strip.empty?
     any_exceptions = !e.empty? && !e.first.strip.empty?
-    # && e.length != 1
     Puppet.debug "any_exceptions: !e.empty? = #{!e.empty?}"
     Puppet.debug "any_exceptions: !e.first.strip.empty? = #{!e.first.strip.empty?}"
     Puppet.debug "any_exceptions: !e.length = #{e.length}"
