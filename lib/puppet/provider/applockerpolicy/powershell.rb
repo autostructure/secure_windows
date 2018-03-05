@@ -134,6 +134,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def destroy
     Puppet.debug 'powershell.rb::destroy'
+    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
+    Puppet.debug "@property_hash = #{@property_hash}"
+    Puppet.debug "@property_flush = #{@property_flush}"
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc_should = Document.new xml_all_policies
@@ -155,6 +158,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
     File.unlink(tempfile)
     Puppet.debug 'powershell.rb::destroy: completed.'
+    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
+    Puppet.debug "@property_hash = #{@property_hash}"
+    Puppet.debug "@property_flush = #{@property_flush}"
   end
 
   def exists?
@@ -276,6 +282,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set'
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     Puppet.debug "@property_hash = #{@property_hash}"
+    Puppet.debug "@property_flush = #{@property_flush}"
     begin
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
