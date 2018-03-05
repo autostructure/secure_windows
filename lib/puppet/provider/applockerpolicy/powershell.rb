@@ -187,23 +187,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     ret_array
   end
 
-
-  # Exceptions...
-  if any_exceptions
-    ret_array << '['
-    # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
-    e.each do |path|
-      delim = ''
-      if !path.strip.empty?
-        ret_array << "#{delim}" if !delim.strip.empty?
-        ret_array << "'#{path}'"
-        delim = ', '
-      end
-    end
-    ret_array << ']'
-  end
-
-
   def self.instances
     Puppet.debug 'powershell.rb::instances called.'
     provider_array = []
