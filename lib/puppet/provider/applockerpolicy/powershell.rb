@@ -140,7 +140,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
     a = xml_doc_should.root.get_elements x
     if a.first != nil
-      xml_doc_should.root.delete_elements a.first
+      xml_doc_should.root.delete_element a.first
     end
     Puppet.debug 'powershell.rb::destroy: modified XML...'
     Puppet.debug xml_doc_should.root
@@ -150,6 +150,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # Set-AppLockerPolicy (no merge). Leave off -Merge to update, XML should have all remaining policies.
     ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
     File.unlink(tempfile)
+    Puppet.debug 'powershell.rb::destroy: completed.'
   end
 
   def exists?
