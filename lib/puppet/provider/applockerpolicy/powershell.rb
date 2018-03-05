@@ -133,6 +133,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def destroy
+    @property_flush[:ensure] = :absent
     Puppet.debug 'powershell.rb::destroy'
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     Puppet.debug "@property_hash = #{@property_hash}"
@@ -157,7 +158,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     # Set-AppLockerPolicy (no merge). Leave off -Merge to update, XML should have all remaining policies.
     ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
     File.unlink(tempfile)
-    @property_flush[:ensure] = :absent
     Puppet.debug 'powershell.rb::destroy: completed.'
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     Puppet.debug "@property_hash = #{@property_hash}"
