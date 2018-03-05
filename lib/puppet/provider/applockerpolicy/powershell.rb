@@ -266,13 +266,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug c.class
     Puppet.debug e.class
     any_conditions = !c.empty?
-    any_exceptions = !e.empty?
-puts 'update_filepaths Exceptions ERROR data...'
-puts "update_filepaths !e.empty? = #{!e.empty?}"
-puts "update_filepaths !e.first.strip.empty? = #{!e.first.strip.empty?}"
-puts "update_filepaths !e.first.strip.empty? && e.length != 1 = #{!e.first.strip.empty? && e.length != 1}"
-puts "update_filepaths e.class = #{e.class}"
-puts "update_filepaths e.first.class = #{e.first.class}"
+    any_exceptions = !e.empty? && !e.first.strip.empty? && e.length != 1
+    # any_exceptions = !e.empty?
     Puppet.debug 'update_filepaths: any_conditions/exceptions...'
     Puppet.debug any_conditions
     Puppet.debug any_exceptions
@@ -298,14 +293,16 @@ puts "update_filepaths e.first.class = #{e.first.class}"
     node_conditions.add_element node_fpc if any_conditions
     # Exceptions...
     Puppet.debug 'update_filepaths: Exceptions...'
+    Puppet.debug "update_filepaths !e.first.strip.empty? && e.length != 1 = #{!e.first.strip.empty? && e.length != 1}"
     # First test for value != ['']
-    if !e.first.strip.empty? && e.length != 1
+    if any_exceptions
       node_exceptions = Element.new 'Exceptions'
-      node.add_element node_exceptions if any_exceptions
-      node_fpe = Element.new 'FilePathCondition'
-      # powershell didn't like empty path: <FilePathCondition Path=''/>
-      e.each { |path| node_fpe.add_attribute('Path', path) if !path.strip.empty? }
-      node_exceptions.add_element node_fpe if any_exceptions
+      node.add_element node_exceptions
+      # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
+      e.each do |path|
+        node_exceptions.add_element Element.new('FilePathCondition').add_attribute('Path', path) if !path.strip.empty?
+      end
+
     end
     # node_filepath.add_attribute 'Path', @resource[:conditions]
     # done
