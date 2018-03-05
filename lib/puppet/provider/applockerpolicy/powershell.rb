@@ -100,23 +100,26 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "convert_filepaths2xml: @resource[:exceptions] = #{@resource[:exceptions]}"
     c = @resource[:conditions]
     e = @resource[:exceptions]
-    any_conditions = !c.empty?
-    any_exceptions = !e.empty?
+    any_conditions = !c.strip.empty?
+    any_exceptions = !e.empty? && !e.first.strip.empty? && e.length != 1
+    Puppet.debug "convert_filepaths2xml: any_conditions, any_exceptions: #{any_conditions}, #{any_exceptions}"
     # Conditions...
     # NOTE: The <Conditions> tag only allows 1 FilePathCondition.
     #       The <Exceptions> tag allows many FilePathConditions.
-    Puppet.debug 'convert_filepaths2xml: conditions started - c.class='
-    Puppet.debug c.class
-    Puppet.debug 'c.inspect...'
-    Puppet.debug c.inspect
-    ret_xml << '<Conditions>' if any_conditions
-    ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
-    ret_xml << '</Conditions>' if any_conditions
-    Puppet.debug 'convert_filepaths2xml: conditions done.'
+    if any_conditions
+      ret_xml << '<Conditions>'
+      ret_xml << "<FilePathCondition Path=\"#{@resource[:conditions]}\" />"
+      ret_xml << '</Conditions>'
+    end
     # Exceptions...
-    ret_xml << '<Exceptions>' if any_exceptions
-    e.each { |path| ret_xml << "<FilePathCondition Path=\"#{path}\" />" }
-    ret_xml << '</Exceptions>' if any_exceptions
+    if any_exceptions
+      ret_xml << '<Exceptions>'
+      # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
+      e.each do |path|
+        ret_xml << "<FilePathCondition Path=\"#{path}\" />" if !path.strip.empty?
+      end
+      ret_xml << '</Exceptions>'
+    end
     Puppet.debug 'convert_filepaths2xml: xml='
     Puppet.debug ret_xml
     ret_xml
@@ -250,50 +253,31 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "update_filepaths: @resource[:exceptions] = #{@resource[:exceptions]}"
     Puppet.debug "update_filepaths: @property_hash[:conditions] = #{@property_hash[:conditions]}"
     Puppet.debug "update_filepaths: @property_hash[:exceptions] = #{@property_hash[:exceptions]}"
-    Puppet.debug 'update_filepaths: a,b (property_hash)='
-    a = @property_hash[:conditions]
-    b = @property_hash[:exceptions]
-    Puppet.debug a.class
-    Puppet.debug b.class
-    Puppet.debug 'update_filepaths: m,n (property_flush)='
-    m = @property_flush[:conditions]
-    n = @property_flush[:exceptions]
-    Puppet.debug m.class
-    Puppet.debug n.class
-    Puppet.debug 'update_filepaths: c,e (resource)='
+    Puppet.debug "update_filepaths: @property_flush[:conditions] = #{@property_flush[:conditions]}"
+    Puppet.debug "update_filepaths: @property_flush[:exceptions] = #{@property_flush[:exceptions]}"
     c = @resource[:conditions]
     e = @resource[:exceptions]
-    Puppet.debug c.class
-    Puppet.debug e.class
-    any_conditions = !c.empty?
+    # Test for condition/exeption values of '' and [''], respectively...
+    any_conditions = !c.strip.empty?
     any_exceptions = !e.empty? && !e.first.strip.empty? && e.length != 1
-    # any_exceptions = !e.empty?
-    Puppet.debug 'update_filepaths: any_conditions/exceptions...'
-    Puppet.debug any_conditions
-    Puppet.debug any_exceptions
-    Puppet.debug 'update_filepaths: b4 delete_all...'
+    Puppet.debug "update_filepaths: any_conditions, any_exceptions: #{any_conditions}, #{any_exceptions}"
+    Puppet.debug 'update_filepaths: node b4 delete_all...'
     Puppet.debug node
     # delete all FilePathRule's children, which are Condition and Exception elements.
     node.elements.delete_all './*'
-    Puppet.debug 'update_filepaths: after delete_all...'
-    Puppet.debug 'update_filepaths: node.class & node...'
-    Puppet.debug node.class
+    Puppet.debug 'update_filepaths: node after delete_all...'
     Puppet.debug node
     # Conditions...
     # NOTE: The <Conditions> tag only allows 1 FilePathCondition.
     #       The <Exceptions> tag allows many FilePathConditions.
     Puppet.debug 'update_filepaths: Conditions...'
-    node_conditions = Element.new 'Conditions'
-    node.add_element node_conditions if any_conditions
-    Puppet.debug 'update_filepaths: case...'
-    Puppet.debug 'update_filepaths: c.class...'
-    Puppet.debug c.class
-    node_fpc = Element.new 'FilePathCondition'
-    node_fpc.add_attribute 'Path', @resource[:conditions]
-    node_conditions.add_element node_fpc if any_conditions
+    if any_conditions
+      node_conditions = Element.new 'Conditions'
+      node_conditions.add_element('FilePathCondition', 'Path' => @resource[:conditions])
+      node.add_element node_conditions
+    end
     # Exceptions...
     Puppet.debug 'update_filepaths: Exceptions...'
-    # First test for value != ['']
     if any_exceptions
       node_exceptions = Element.new 'Exceptions'
       node.add_element node_exceptions
@@ -301,9 +285,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       e.each do |path|
         node_exceptions.add_element('FilePathCondition', 'Path' => path) if !path.strip.empty?
       end
-      # node_exceptions.add_element(Element.new('FilePathCondition').add_attribute('Path', path) if !path.strip.empty?
     end
-
     # done
     Puppet.debug 'update_filepaths: completed node: node ='
     Puppet.debug node
