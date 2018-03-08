@@ -285,10 +285,12 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::set'
     Puppet.debug "@property_hash[:name] = #{@property_hash[:name]}"
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
+    Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
     Puppet.debug "@property_hash = #{@property_hash}"
     Puppet.debug "@property_flush = #{@property_flush}"
-    Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
-    unless @property_flush[:ensure] == :absent
+    # Avoid calling create after a destroy, or a 2nd create call after being created.
+    # The property hash is empty when item is created (is it practical to update hash in create?)
+    unless @property_flush[:ensure] == :absent || @property_hash.empty?
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
       xml_doc_should = Document.new xml_all_policies
