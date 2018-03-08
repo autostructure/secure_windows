@@ -247,8 +247,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::flush'
     # set calls create method if necessary (if rule's Id not found).
     set
-    # update @property_hash
-    # set @property_hash = @property_hash[]
+    # Collect the resources again once they've been changed (that way `puppet
+    # resource` will show the correct values after changes have been made).
+    @property_hash = self.class.get_proxy_properties(resource[:name])
   end
 
   def update_filepaths(node)
