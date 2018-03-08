@@ -288,7 +288,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "@property_hash = #{@property_hash}"
     Puppet.debug "@property_flush = #{@property_flush}"
     Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
-    unless @property_hash[:ensure] == :absent
+    unless @property_flush[:ensure] == :absent
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
       xml_doc_should = Document.new xml_all_policies
