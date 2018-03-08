@@ -283,40 +283,44 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
+    Puppet.debug "@property_hash[:name] = #{@property_hash[:name]}"
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     Puppet.debug "@property_hash = #{@property_hash}"
     Puppet.debug "@property_flush = #{@property_flush}"
+    Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
     begin
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
       xml_doc_should = Document.new xml_all_policies
       begin
         begin
-          x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
-          a = xml_doc_should.root.get_elements x
-          # set attributes if xpath found the element, create element if not found.
-          if a.first.nil?
-            create
-          else
-            # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
-            e = a.first
-            e.attributes['Name'] = @property_hash[:name]
-            e.attributes['Description'] = @property_hash[:description]
-            e.attributes['Id'] = @property_hash[:id]
-            e.attributes['UserOrGroupSid'] = @property_hash[:user_or_group_sid]
-            e.attributes['Action'] = @property_hash[:action]
-            # conditions & exceptions are handled by update_filepaths...
-            update_filepaths e
-            xmlfile = File.open(tempfile, 'w')
-            xmlfile.puts xml_doc_should
-            xmlfile.close
-            # Set-AppLockerPolicy (no merge)
-            # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
-            #       Since I have to leave off -Merge to update, I have to set all the policies.
-            #       The -Merge option discards any attribute changes to existing rules.
-            ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
-            File.unlink(tempfile)
-          end
+          begin
+            x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
+            a = xml_doc_should.root.get_elements x
+            # set attributes if xpath found the element, create element if not found.
+            if a.first.nil?
+              create
+            else
+              # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
+              e = a.first
+              e.attributes['Name'] = @property_hash[:name]
+              e.attributes['Description'] = @property_hash[:description]
+              e.attributes['Id'] = @property_hash[:id]
+              e.attributes['UserOrGroupSid'] = @property_hash[:user_or_group_sid]
+              e.attributes['Action'] = @property_hash[:action]
+              # conditions & exceptions are handled by update_filepaths...
+              update_filepaths e
+              xmlfile = File.open(tempfile, 'w')
+              xmlfile.puts xml_doc_should
+              xmlfile.close
+              # Set-AppLockerPolicy (no merge)
+              # NOTE: The Set-AppLockerPolicy powershell command would not work with the '-Merge' option.
+              #       Since I have to leave off -Merge to update, I have to set all the policies.
+              #       The -Merge option discards any attribute changes to existing rules.
+              ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
+              File.unlink(tempfile)
+            end
+          unless @property_flush[:ensure] == :absent
         rescue err
           Puppet.debug "powershell.rb::set problem setting element attributes (or creating rule): Error = #{err}"
         end
