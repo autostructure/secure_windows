@@ -286,8 +286,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug "@property_hash[:name] = #{@property_hash[:name]}"
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
     Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
-    Puppet.debug "@property_hash = #{@property_hash}"
     Puppet.debug "@property_flush = #{@property_flush}"
+    Puppet.debug "@property_hash = #{@property_hash}"
     # Avoid calling create after a destroy, or a 2nd create call after being created.
     # The property hash is empty when item is created (is it practical to update hash in create?)
     unless @property_flush[:ensure] == :absent || @property_hash.empty?
