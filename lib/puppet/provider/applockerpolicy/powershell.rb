@@ -166,7 +166,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def exists?
     Puppet.debug 'powershell.rb::exists?'
-    @property_hash[:ensure] = :present
+    @property_hash[:ensure] == :present
   end
 
   def self.conditions2string(node)
@@ -249,7 +249,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     set
     # Collect the resources again once they've been changed (that way `puppet
     # resource` will show the correct values after changes have been made).
-    @property_hash = self.class.get_proxy_properties(resource[:name])
+    # See: http://garylarizza.com/blog/2013/12/15/seriously-what-is-this-provider-doing/
+    # @property_hash = self.class.get_properties(resource[:id])
   end
 
   def update_filepaths(node)
