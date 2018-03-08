@@ -6,7 +6,7 @@ Facter.add('database_log_files') do
 
     begin
       database_log_files_dir = Facter.value(:ntds_parameters)['DSA Working Directory']
-      database_log_files_dir_array = Dir["#{database_log_files_dir}/*"]
+      database_log_files_dir_array = database_log_files_dir.empty? ? '' : Dir["#{database_log_files_dir}/*"]
     rescue
       Puppet.debug 'Facter: database_log_files.rb error occurred.'
     end
