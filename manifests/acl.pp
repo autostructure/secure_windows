@@ -93,22 +93,22 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
