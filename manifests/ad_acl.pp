@@ -110,13 +110,13 @@ class secure_windows::ad_acl {
       },
       {
         'ad_rights'        => 'ExtendedRight',
-        'identity'         => 'AccountDomainUsersSid',
+        'identity'         => 'Domain Users',
         'audit_flags'      => 'Success',
         'inheritance_type' => 'None',
       },
       {
         'ad_rights'        => 'ExtendedRight',
-        'identity'         => 'BuiltinAdministratorsSid',
+        'identity'         => 'Administrators',
         'audit_flags'      => 'Success',
         'inheritance_type' => 'None',
       },
