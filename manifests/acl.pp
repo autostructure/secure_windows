@@ -184,16 +184,14 @@ class secure_windows::acl {
     owner                      => 'S-1-5-32-544',
     permissions                => [
       {
-        'identity'     => 'NT AUTHORITY\\SYSTEM',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true
+        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'rights'   => ['full'],
+        'affects'  => 'self_only'
       },
       {
-        'identity'     => 'BUILTIN\\Administrators',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['full'],
+        'affects'  => 'self_only'
       }
     ],
   }
