@@ -11,7 +11,7 @@ class secure_windows::acl {
     inherit_parent_permissions => false,
     permissions                => [
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full']
       },
       {
@@ -58,12 +58,12 @@ class secure_windows::acl {
         'affects'     => 'children_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['modify'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -93,31 +93,33 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
     ],
   }
 
-  acl { [ '%SystemRoot%\\System32\\winevt\\Logs\\Application.evtx',
-          '%SystemRoot%\\System32\\winevt\\Logs\\Security.evtx',
-          '%SystemRoot%\\System32\\winevt\\Logs\\System.evtx'
+  $system_root = $facts['os']['windows']['system32']
+
+  acl { [ "${system_root}\\winevt\\Logs\\Application.evtx",
+          "${system_root}\\winevt\\Logs\\Security.evtx",
+          "${system_root}\\winevt\\Logs\\System.evtx"
         ]:
     inherit_parent_permissions => false,
     permissions                => [
@@ -127,7 +129,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'self_only',
       },
@@ -153,7 +155,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
@@ -163,12 +165,12 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       }
@@ -184,22 +186,20 @@ class secure_windows::acl {
     owner                      => 'S-1-5-32-544',
     permissions                => [
       {
-        'identity'     => 'NT AUTHORITY\\SYSTEM',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true
+        'identity' => 'S-1-5-18',
+        'rights'   => ['full'],
+        'affects'  => 'self_only'
       },
       {
-        'identity'     => 'BUILTIN\\Administrators',
-        'rights'       => ['full'],
-        'affects'      => 'self_only',
-        'is_inherited' => true
+        'identity' => 'BUILTIN\\Administrators',
+        'rights'   => ['full'],
+        'affects'  => 'self_only'
       }
     ],
   }
 
   # V-73371 The Active Directory SYSVOL directory must have the proper access control permissions.
-  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '(\S+SYSVOL)', '\1')
+  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
 
   acl { $sysvol_mount:
     group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
@@ -238,12 +238,12 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -254,7 +254,7 @@ class secure_windows::acl {
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'CREATOR OWNER',
+        'identity' => 'S-1-3-0',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       }

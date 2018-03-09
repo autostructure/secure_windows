@@ -8,7 +8,7 @@
 #
 class secure_windows::registry_editor {
 
-  ::secure_windows::log { 'Begin editing registry...': }
+  # ::secure_windows::log { 'Begin editing registry...': }
 
   # V-73487
   registry::value { 'v73487':
@@ -821,6 +821,6 @@ Deviations are not permitted except as authorized by the Deputy Assistant Secret
     data  => '1',
   }
 
-  ::secure_windows::log {'Registry editing complete.': }
+  # ::secure_windows::log {'Registry editing complete.': }
 
 }
