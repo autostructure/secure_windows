@@ -199,7 +199,7 @@ class secure_windows::acl {
   }
 
   # V-73371 The Active Directory SYSVOL directory must have the proper access control permissions.
-  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '(\S+SYSVOL)', '\1')
+  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
 
   acl { $sysvol_mount:
     group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
