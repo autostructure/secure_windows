@@ -1,6 +1,5 @@
 Facter.add('database_log_files') do
-  confine kernel: 'windows'
-
+  confine operatingsystem: :windows
   setcode do
     database_log_files_dir = Facter.value(:ntds_parameters)['DSA Working Directory']
 
