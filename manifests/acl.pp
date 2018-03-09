@@ -115,9 +115,11 @@ class secure_windows::acl {
     ],
   }
 
-  acl { [ '%SystemRoot%\\System32\\winevt\\Logs\\Application.evtx',
-          '%SystemRoot%\\System32\\winevt\\Logs\\Security.evtx',
-          '%SystemRoot%\\System32\\winevt\\Logs\\System.evtx'
+  $system_root = $facts['os']['windows']['system32']
+
+  acl { [ "${system_root}\\System32\\winevt\\Logs\\Application.evtx",
+          "${system_root}\\System32\\winevt\\Logs\\Security.evtx",
+          "${system_root}\\System32\\winevt\\Logs\\System.evtx"
         ]:
     inherit_parent_permissions => false,
     permissions                => [
@@ -163,12 +165,12 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'APPLICATION PACKAGE AUTHORITY\\ALL RESTRICTED APPLICATION PACKAGES',
+        'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       }
