@@ -11,7 +11,7 @@ class secure_windows::acl {
     inherit_parent_permissions => false,
     permissions                => [
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full']
       },
       {
@@ -58,12 +58,12 @@ class secure_windows::acl {
         'affects'     => 'children_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['modify'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -129,7 +129,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'self_only',
       },
@@ -155,7 +155,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
@@ -186,7 +186,7 @@ class secure_windows::acl {
     owner                      => 'S-1-5-32-544',
     permissions                => [
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'self_only'
       },
@@ -238,12 +238,12 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\SYSTEM',
+        'identity' => 'S-1-5-18',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -254,7 +254,7 @@ class secure_windows::acl {
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'CREATOR OWNER',
+        'identity' => 'S-1-3-0',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       }
