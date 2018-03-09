@@ -7,7 +7,9 @@
 # @example
 #   include secure_windows::acl
 class secure_windows::ad_acl {
-  ad_acl { 'CN=RID Manager$,CN=System':
+  $root_domain = $facts['root_domain']
+
+  ad_acl { "CN=RID Manager$,CN=System,${root_domain}":
     audit_rules  => [
       {
         'ad_rights'        => 'WriteProperty, ExtendedRight',
@@ -24,7 +26,7 @@ class secure_windows::ad_acl {
     ],
   }
 
-  ad_acl { 'CN=Infrastructure':
+  ad_acl { "CN=Infrastructure,${root_domain}":
     audit_rules  => [
       {
         'ad_rights'        => 'WriteProperty, ExtendedRight',
@@ -41,7 +43,7 @@ class secure_windows::ad_acl {
     ],
   }
 
-  ad_acl { 'OU=Domain Controllers':
+  ad_acl { "OU=Domain Controllers,${root_domain}":
     audit_rules  => [
       {
         'ad_rights'        => 'WriteDacl',
@@ -64,7 +66,7 @@ class secure_windows::ad_acl {
     ],
   }
 
-  ad_acl { 'CN=AdminSDHolder,CN=System':
+  ad_acl { "CN=AdminSDHolder,CN=System,${root_domain}":
     audit_rules  => [
       {
         'ad_rights'        => 'WriteProperty, WriteDacl, WriteOwner',
@@ -81,7 +83,7 @@ class secure_windows::ad_acl {
     ],
   }
 
-  ad_acl { 'CN=Policies,CN=System':
+  ad_acl { "CN=Policies,CN=System,${root_domain}":
     audit_rules  => [
       {
         'ad_rights'        => 'WriteProperty, WriteDacl',
@@ -98,7 +100,7 @@ class secure_windows::ad_acl {
     ],
   }
 
-  ad_acl { '':
+  ad_acl { $root_domain:
     audit_rules  => [
       {
         'ad_rights'        => 'WriteProperty, WriteDacl, WriteOwner',
