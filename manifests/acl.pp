@@ -15,28 +15,28 @@ class secure_windows::acl {
         'rights'   => ['full']
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['full']
       },
       {
-        'identity' => 'BUILTIN\\Users',
+        'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute']
       },
       {
-        'identity'    => 'BUILTIN\\Users',
+        'identity'    => 'S-1-5-32-545',
         'rights'      => ['mask_specific'],
         'mask'        => '4',
         'child_types' => 'containers'
       },
       {
-        'identity'    => 'BUILTIN\\Users',
+        'identity'    => 'S-1-5-32-545',
         'rights'      => ['mask_specific'],
         'mask'        => '2',
         'child_types' => 'containers',
         'affects'     => 'children_only'
       },
       {
-        'identity' => 'CREATOR OWNER',
+        'identity' => 'S-1-3-0',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       }
@@ -68,27 +68,27 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['modify'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'BUILTIN\\Users',
+        'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'BUILTIN\\Users',
+        'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'CREATOR OWNER',
+        'identity' => 'S-1-3-0',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -134,7 +134,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
         'affects'  => 'self_only',
       }
@@ -150,7 +150,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
@@ -160,7 +160,7 @@ class secure_windows::acl {
         'affects'  => 'self_only',
       },
       {
-        'identity' => 'BUILTIN\\Users',
+        'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only',
       },
@@ -191,7 +191,7 @@ class secure_windows::acl {
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
         'affects'  => 'self_only'
       }
@@ -207,33 +207,33 @@ class secure_windows::acl {
     owner                      => 'S-1-5-32-544',
     permissions                => [
       {
-        'identity' => 'NT AUTHORITY\\Authenticated Users',
+        'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'NT AUTHORITY\\Authenticated Users',
+        'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'BUILTIN\\Server Operators',
+        'identity' => 'S-1-5-32-549',
         'rights'   => ['read', 'execute'],
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'BUILTIN\\Server Operators',
+        'identity' => 'S-1-5-32-549',
         'rights'   => ['read', 'execute'],
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['mask_specific'],
         'mask'     => '2032063',
         'affects'  => 'self_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
         'affects'  => 'children_only'
       },
@@ -248,7 +248,7 @@ class secure_windows::acl {
         'affects'  => 'children_only'
       },
       {
-        'identity' => 'BUILTIN\\Administrators',
+        'identity' => 'S-1-5-32-544',
         'rights'   => ['mask_specific'],
         'mask'     => '2032063',
         'affects'  => 'self_only'
