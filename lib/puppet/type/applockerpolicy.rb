@@ -25,7 +25,9 @@ Puppet::Type.newtype(:applockerpolicy) do
 
   newproperty(:enforcementmode) do
     desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    newvalues(:Enabled, :Disabled, :NotConfigured)
+    # Commented out value enforcement for this property.
+    # Can't set high level attribute like EnforcementMode at this time.
+    # newvalues(:Enabled, :Disabled, :NotConfigured)
   end
 
   newproperty(:action) do
