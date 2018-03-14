@@ -21,8 +21,8 @@ Puppet::Type.newtype(:group_policy_template) do
     end
   end
 
-  newparam(:name, :namevar => :true) do
-    desc "Group policy security template name"
+  newparam(:name, namevar: :true) do
+    desc 'Group policy security template name'
 
     validate do |value|
       raise ArgumentError, "You must supply a path to the template file ':'" if value.nil?
@@ -36,20 +36,20 @@ Puppet::Type.newtype(:group_policy_template) do
   end
 
   newparam(:sdb_filepath) do
-    desc "Path to the security database file"
+    desc 'Path to the security database file'
   end
 
   newparam(:load_template) do
-    desc "Path to the group policy template file (*.admx)"
+    desc 'Path to the group policy template file (*.admx)'
   end
 
   def pre_run_check
     if self[:sdb_filepath].nil?
-      raise Puppet::Error, "A path to the policy database is required!"
+      raise Puppet::Error, 'A path to the policy database is required!'
     end
 
     if self[:load_template].nil?
-      raise Puppet::Error, "A path to the group policy template file is required (*.admx)!"
+      raise Puppet::Error, 'A path to the group policy template file is required (*.admx)!'
     end
   end
 end

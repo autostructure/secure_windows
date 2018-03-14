@@ -2,7 +2,7 @@ Facter.add('ntds_parameters') do
   confine operatingsystem: :windows
   setcode do
     require 'win32/registry'
-	  ntds_hash = {}
+    ntds_hash = {}
 
     begin
       reg_values = Win32::Registry::HKEY_LOCAL_MACHINE.open 'SYSTEM\CurrentControlSet\Services\NTDS\Parameters', Win32::Registry::KEY_READ

@@ -1,20 +1,17 @@
 # gpedit.rb
 #
 Puppet::Type.type(:group_policy_template).provide(:gpedit) do
-  desc "Puppet custom type provider that loads Windows group policy templates."
+  desc 'Puppet custom type provider that loads Windows group policy templates.'
 
-  confine :osfamily => :windows
-  defaultfor :operatingsystem => :windows
-  commands :gpedit => "gpedit"
+  confine osfamily: :windows
+  defaultfor operatingsystem: :windows
+  commands gpedit: 'gpedit'
 
-  def read_admx_file
-  end
+  def read_admx_file; end
 
-  def read_adml_file
-  end
+  def read_adml_file; end
 
-  def generateRegistryKeys
-  end
+  def generateRegistryKeys; end
 
   def instances
     # parse template xml and output resource code to be used by puppetlabs

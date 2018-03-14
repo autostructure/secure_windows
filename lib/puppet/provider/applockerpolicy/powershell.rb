@@ -5,13 +5,14 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   # For the AppLockerPolicy to be enforced on a computer, the Application Identity service must be running.
 
   # @doc = 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
-  # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
+  # Error: /Stage[main]/Profile::Secure_server/Applockerpolicy[Test Policy 1]: Could not evaluate: undefined method
+  # `desc' for Applockerpolicy[Test Policy 1](provider=powershell):Puppet::Type::Applockerpolicy::ProviderPowershell
   # desc 'Use the Windows O/S powershell.exe tool to manage AppLocker policies.'
 
   mk_resource_methods
 
-  confine :kernel => :windows
-  commands :ps => File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
+  confine kernel: :windows
+  commands ps: File.exist?("#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe") ? "#{ENV['SYSTEMROOT']}\\system32\\windowspowershell\\v1.0\\powershell.exe" : 'powershell.exe'
   # commands :ps => 'c:\windows\system32\windowspowershell\v1.0\powershell.exe'
 
   def initialize(value = {})
@@ -109,7 +110,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       ret_xml << '<Exceptions>'
       # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
       e.each do |path|
-        ret_xml << "<FilePathCondition Path=\"#{path}\" />" if !path.strip.empty?
+        ret_xml << "<FilePathCondition Path=\"#{path}\" />" unless path.strip.empty?
       end
       ret_xml << '</Exceptions>'
     end
@@ -121,7 +122,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     xml_create = "<AppLockerPolicy Version=\"1\"><RuleCollection Type=\"#{@resource[:type]}\" EnforcementMode=\"#{@resource[:enforcementmode]}\">"
     xml_create << "<FilePathRule Id=\"#{@resource[:id]}\" Name=\"#{@resource[:name]}\" Description=\"#{@resource[:description]}\" UserOrGroupSid=\"#{@resource[:user_or_group_sid]}\" Action=\"#{@resource[:action]}\">"
     xml_create << convert_filepaths2xml
-    xml_create << "</FilePathRule></RuleCollection></AppLockerPolicy>"
+    xml_create << '</FilePathRule></RuleCollection></AppLockerPolicy>'
     # Write a temp xml file to windows temp dir to be used by powershell cmdlet (doesn't accept an xml string, only a file path).
     testfile = File.open(tempfile, 'w')
     testfile.puts xml_create
@@ -145,7 +146,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     a = xml_doc_should.root.get_elements x
     Puppet.debug "powershell.rb::destroy: XML from XPath (a.first <#{a.first.class}>)..."
     Puppet.debug a.first
-    if !a.first.nil?
+    unless a.first.nil?
       del_node = xml_doc_should.root.delete_element x
       # del_node = xml_doc_should.root.delete_element a.first
       Puppet.debug "delete_element = #{del_node}"
@@ -171,7 +172,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def self.conditions2string(node)
     c = node.get_elements('.//Conditions/FilePathCondition')
-    path = c.first.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1)
+    path = c.first.attribute('Path').to_string.slice(%r{=['|"]*(.*)['|"]}, 1)
     path
   end
 
@@ -181,7 +182,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     any_exceptions = !e.empty?
     if any_exceptions
       # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
-      e.each { |xml| ret_array << xml.attribute('Path').to_string.slice(/=['|"]*(.*)['|"]/,1) }
+      e.each { |xml| ret_array << xml.attribute('Path').to_string.slice(%r{=['|"]*(.*)['|"]}, 1) }
     end
     ret_array
   end
@@ -195,8 +196,8 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # REXML Attributes are returned with the attribute and its value, including delimiters.
       # e.g. <RuleCollection Type='Exe' ...> returns "Type='Exe'".
       # So, the value must be parsed using slice.
-      rule_collection_type = rc.attribute('Type').to_string.slice(/=['|"]*(.*)['|"]/,1)
-      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(/=['|"]*(.*)['|"]/,1)
+      rule_collection_type = rc.attribute('Type').to_string.slice(%r{=['|"]*(.*)['|"]}, 1)
+      rule_collection_enforcementmode = rc.attribute('EnforcementMode').to_string.slice(%r{=['|"]*(.*)['|"]}, 1)
       # must loop through each type of rule tag, I couldn't find how to grab tag name from REXML :/
       rc.each_element('FilePathRule') do |fpr|
         rule = {
@@ -204,16 +205,16 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
           rule_type:         :file,
           type:              rule_collection_type,
           enforcementmode:   rule_collection_enforcementmode,
-          action:            fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          name:              fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
-          user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          action:            fpr.attribute('Action').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          name:              fpr.attribute('Name').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          description:       fpr.attribute('Description').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          id:                fpr.attribute('Id').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
+          user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(%r{=['|"]*(.*)['|"]}, 1),
           conditions:        conditions2string(fpr),
           exceptions:        exceptions2array(fpr),
         }
         # push new Puppet::Provider object into an array after property hash created.
-        provider_array.push(self.new(rule))
+        provider_array.push(new(rule))
       end
     end
     provider_array
@@ -275,7 +276,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       node.add_element node_exceptions
       # check for !path.strip.empty? because powershell didn't like an empty path: <FilePathCondition Path=''/>
       e.each do |path|
-        node_exceptions.add_element('FilePathCondition', 'Path' => path) if !path.strip.empty?
+        node_exceptions.add_element('FilePathCondition', 'Path' => path) unless path.strip.empty?
       end
     end
     node
