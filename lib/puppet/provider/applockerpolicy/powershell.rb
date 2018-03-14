@@ -166,7 +166,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def exists?
     Puppet.debug 'powershell.rb::exists?'
-    @property_hash[:ensure] = :present
+    @property_hash[:ensure] == :present
   end
 
   def self.conditions2string(node)
@@ -247,8 +247,10 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
     Puppet.debug 'powershell.rb::flush'
     # set calls create method if necessary (if rule's Id not found).
     set
-    # update @property_hash
-    # set @property_hash = @property_hash[]
+    # Collect the resources again once they've been changed (that way `puppet
+    # resource` will show the correct values after changes have been made).
+    # See: http://garylarizza.com/blog/2013/12/15/seriously-what-is-this-provider-doing/
+    # @property_hash = self.class.get_properties(resource[:id])
   end
 
   def update_filepaths(node)
@@ -281,14 +283,19 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
+    Puppet.debug "@property_hash[:name] = #{@property_hash[:name]}"
     Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
-    Puppet.debug "@property_hash = #{@property_hash}"
+    Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
     Puppet.debug "@property_flush = #{@property_flush}"
-    begin
+    Puppet.debug "@property_hash = #{@property_hash}"
+    # Avoid calling create after a destroy, or a 2nd create call after being created.
+    # The property hash is empty when item is created (is it practical to update hash in create?)
+    unless @property_flush[:ensure] == :absent || @property_hash.empty?
       # read all xml
       xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
       xml_doc_should = Document.new xml_all_policies
-      begin
+      # an empty applocker query returns this string (after removing whitespaces)...
+      unless xml_all_policies.strip == '<AppLockerPolicy Version="1" />'
         begin
           x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
           a = xml_doc_should.root.get_elements x
@@ -318,8 +325,7 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         rescue err
           Puppet.debug "powershell.rb::set problem setting element attributes (or creating rule): Error = #{err}"
         end
-        # empty applocker query returns this string (after removing whitespaces)...
-      end unless xml_all_policies.strip == '<AppLockerPolicy Version="1" />'
-    end unless @property_hash[:ensure] == :absent
+      end
+    end
   end
 end

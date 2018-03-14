@@ -4,14 +4,17 @@ Facter.add('ntds_parameters') do
     require 'win32/registry'
 	  ntds_hash = {}
 
-    reg_values = Win32::Registry::HKEY_LOCAL_MACHINE.open 'SYSTEM\CurrentControlSet\Services\NTDS\Parameters', Win32::Registry::KEY_READ
-
-    reg_values.each do |key, _v|
-      ntds_hash[key] = if reg_values[key].is_a?(String)
-                         reg_values[key].tr('\\', '/')
-                       else
-                         reg_values[key]
-                       end
+    begin
+      reg_values = Win32::Registry::HKEY_LOCAL_MACHINE.open 'SYSTEM\CurrentControlSet\Services\NTDS\Parameters', Win32::Registry::KEY_READ
+      reg_values.each do |key, _v|
+        ntds_hash[key] = if reg_values[key].is_a?(String)
+                           reg_values[key].tr('\\', '/')
+                         else
+                           reg_values[key]
+                         end
+      end
+    rescue
+      Puppet.debug 'Facter: ntds_parameters.rb error occurred.'
     end
 
     ntds_hash

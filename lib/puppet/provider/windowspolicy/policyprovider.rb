@@ -1,4 +1,8 @@
 # Test Provider.
+# WindowsPolicy {'c:\windows\temp\windowspolicy.txt':
+#   ensure => present,
+#   name   => 'c:\windows\temp\windowspolicy.txt',
+# }
 Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
   desc 'Test provider description.'
   #@doc = 'Test provider.'
@@ -27,6 +31,7 @@ Puppet::Type.type(:windowspolicy).provide(:policyprovider) do
     provider_array.push(self.new(test_property_hash))
     provider_array
   end
+
 
   #def self.instances
   #  puts 'windowspolicy::policyprovider::instances'
