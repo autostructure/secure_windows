@@ -133,35 +133,23 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
   end
 
   def destroy
-    @property_flush[:ensure] = :absent
     Puppet.debug 'powershell.rb::destroy'
-    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
-    Puppet.debug "@property_hash = #{@property_hash}"
-    Puppet.debug "@property_flush = #{@property_flush}"
+    @property_flush[:ensure] = :absent
     # read all xml
     xml_all_policies = ps('Get-AppLockerPolicy -Effective -Xml')
     xml_doc_should = Document.new xml_all_policies
     x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
     a = xml_doc_should.root.get_elements x
-    Puppet.debug "powershell.rb::destroy: XML from XPath (a.first <#{a.first.class}>)..."
-    Puppet.debug a.first
     if !a.first.nil?
       del_node = xml_doc_should.root.delete_element x
-      # del_node = xml_doc_should.root.delete_element a.first
       Puppet.debug "delete_element = #{del_node}"
     end
-    Puppet.debug 'powershell.rb::destroy: modified XML...'
-    Puppet.debug xml_doc_should.root
     xmlfile = File.open(tempfile, 'w')
     xmlfile.puts xml_doc_should
     xmlfile.close
     # Set-AppLockerPolicy (no merge). Leave off -Merge to update, XML should have all remaining policies.
     ps("Set-AppLockerPolicy -XMLPolicy #{tempfile}")
     File.unlink(tempfile)
-    Puppet.debug 'powershell.rb::destroy: completed.'
-    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
-    Puppet.debug "@property_hash = #{@property_hash}"
-    Puppet.debug "@property_flush = #{@property_flush}"
   end
 
   def exists?
@@ -283,11 +271,6 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
 
   def set
     Puppet.debug 'powershell.rb::set'
-    Puppet.debug "@property_hash[:name] = #{@property_hash[:name]}"
-    Puppet.debug "@property_hash[:ensure] = #{@property_hash[:ensure]}"
-    Puppet.debug "@property_flush[:ensure] = #{@property_flush[:ensure]}"
-    Puppet.debug "@property_flush = #{@property_flush}"
-    Puppet.debug "@property_hash = #{@property_hash}"
     # Avoid calling create after a destroy, or a 2nd create call after being created.
     # The property hash is empty when item is created (is it practical to update hash in create?)
     unless @property_flush[:ensure] == :absent || @property_hash.empty?
@@ -297,12 +280,9 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
       # an empty applocker query returns this string (after removing whitespaces)...
       unless xml_all_policies.strip == '<AppLockerPolicy Version="1" />'
         begin
-          x = "//FilePathRule[@Id='#{@property_hash[:id]}']"
-          a = xml_doc_should.root.get_elements x
+          a = xml_doc_should.root.get_elements "//FilePathRule[@Id='#{@property_hash[:id]}']"
           # set attributes if xpath found the element, create element if not found.
-          if a.first.nil?
-            create
-          else
+          unless a.first.nil?
             # an Array of Elements is returned, so to set Element attributes we must get it from Array first.
             e = a.first
             e.attributes['Name'] = @property_hash[:name]
