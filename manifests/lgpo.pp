@@ -134,10 +134,10 @@ class secure_windows::lgpo {
   # V-73665
   # Anonymous SID/Name translation must not be allowed.
   local_security_policy { 'Network access: Allow anonymous SID/name translation':
-    ensure         => 'present',
-    policy_setting => 'LSAAnonymousNameLookup',
-    policy_type    => 'System Access',
-    policy_value   => '0',
+    ensure         => 'absent',
+    # policy_setting => 'LSAAnonymousNameLookup',
+    # policy_type    => 'System Access',
+    # policy_value   => '0',
   }
 
   # V-73689
@@ -297,7 +297,7 @@ class secure_windows::lgpo {
   else {
     # V-73759
     # The Deny access to this computer from the network user right on member servers must be configured to prevent
-    # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+    # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
     if($facts['windows_type'] =~ /(0|2)/) {
       #standalone
       local_security_policy { 'Deny access to this computer from the network':
@@ -320,7 +320,7 @@ class secure_windows::lgpo {
 
   # # V-73759
   # # The Deny access to this computer from the network user right on member servers must be configured to prevent
-  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
   # if($facts['windows_type'] =~ /(0|2)/) {
   #   #standalone
   #   local_security_policy { 'Deny access to this computer from the network':
