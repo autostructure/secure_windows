@@ -16,4 +16,7 @@ class secure_windows {
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
 
+  Class['::secure_windows::registry_editor']
+  -> Class['::secure_windows::lgpo']
+
 }
