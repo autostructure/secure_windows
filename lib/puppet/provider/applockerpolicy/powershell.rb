@@ -203,6 +203,43 @@ Puppet::Type.type(:applockerpolicy).provide(:powershell) do
         # push new Puppet::Provider object into an array after property hash created.
         provider_array.push(self.new(rule))
       end
+
+      rc.each_element('FilePublisherRule') do |fpr|
+        rule = {
+          ensure:            :present,
+          rule_type:         :publisher,
+          type:              rule_collection_type,
+          enforcementmode:   rule_collection_enforcementmode,
+          action:            fpr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          name:              fpr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          description:       fpr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          id:                fpr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          user_or_group_sid: fpr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          conditions:        conditions2string(fpr),
+          exceptions:        exceptions2array(fpr),
+        }
+        # push new Puppet::Provider object into an array after property hash created.
+        provider_array.push(self.new(rule))
+      end
+
+      rc.each_element('FileHashRule') do |fhr|
+        rule = {
+          ensure:            :present,
+          rule_type:         :hash,
+          type:              rule_collection_type,
+          enforcementmode:   rule_collection_enforcementmode,
+          action:            fhr.attribute('Action').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          name:              fhr.attribute('Name').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          description:       fhr.attribute('Description').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          id:                fhr.attribute('Id').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          user_or_group_sid: fhr.attribute('UserOrGroupSid').to_string.slice(/=['|"]*(.*)['|"]/,1),
+          conditions:        conditions2string(fhr),
+          exceptions:        exceptions2array(fhr),
+        }
+        # push new Puppet::Provider object into an array after property hash created.
+        provider_array.push(self.new(rule))
+      end
+
     end
     provider_array
   end
