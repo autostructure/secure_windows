@@ -536,4 +536,4 @@ class secure_windows::lgpo {
 #     policy_type    => 'System Access',
 #     policy_value   => '0',
 #   }
-# }
+}
