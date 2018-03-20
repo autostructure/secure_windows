@@ -1,43 +1,20 @@
 {
   "name": "autostructure-secure_windows",
   "version": "0.1.0",
-  "author": "Autostructure",
-  "summary": "Hardens Windows to DoD STIGs.",
+  "author": "Bryan Belanger",
+  "summary": "",
   "license": "Apache-2.0",
-  "source": "https://github.com/autostructure/secure_windows",
-  "project_page": "https://github.com/autostructure/secure_windows",
-  "issues_url": "https://github.com/autostructure/secure_windows/issues",
+  "source": "",
   "dependencies": [
-    {
-      "name": "ayohrling-local_security_policy",
-      "version_requirement": ">= 0.6.1 < 1.0.0"
-    },
-    {
-      "name": "jonono-auditpol",
-      "version_requirement": ">= 0.1.2 < 1.0.0"
-    },
-    {
-      "name": "puppetlabs-acl",
-      "version_requirement": ">= 2.0.1 < 3.0.0"
-    },
-    {
-      "name": "puppetlabs-registry",
-      "version_requirement": ">= 1.1.4 < 2.0.0"
-    },
-    {
-      "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 4.13.1 < 5.0.0"
-    },
-    {
-      "name": "puppet-windowsfeature",
-      "version_requirement": ">= 3.1.0 < 4.0.0"
-    }
+
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",
       "operatingsystemrelease": [
-        "2012"
+        "2008 R2",
+        "2012 R2",
+        "10"
       ]
     }
   ],
@@ -47,8 +24,7 @@
       "version_requirement": ">= 4.7.0 < 6.0.0"
     }
   ],
-  "description": "Module to Harden Windows to DoD STIGs",
-  "template-url": "file://C:/PROGRA~1/PUPPET~1/DevelopmentKit/share/cache/pdk-templates.git",
-  "data_provider": "hiera",
-  "template-ref": "1.3.2-0-g07678c8"
+  "pdk-version": "1.4.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.4.1-0-g52adbbb"
 }

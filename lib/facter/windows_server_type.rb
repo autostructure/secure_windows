@@ -1,5 +1,5 @@
 Facter.add(:windows_server_type) do
-  confine kernel: :windows
+  confine operatingsystem: :windows
   setcode do
     require 'win32/registry'
 
