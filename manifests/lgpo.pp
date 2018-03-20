@@ -8,14 +8,14 @@
 #
 class secure_windows::lgpo {
 
-  # # V-73309
-  # # Windows 2016 account lockout duration must be configured to 15 minutes or greater.
-  # local_security_policy { 'Account lockout duration':
-  #   ensure         => 'present',
-  #   policy_setting => 'LockoutDuration',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '15',
-  # }
+  # V-73309
+  # Windows 2016 account lockout duration must be configured to 15 minutes or greater.
+  local_security_policy { 'Account lockout duration':
+    ensure         => 'present',
+    policy_setting => 'LockoutDuration',
+    policy_type    => 'System Access',
+    policy_value   => '15',
+  }
   #
   # # V-73311
   # # The number of allowed bad logon attempts must be configured to three or less.
