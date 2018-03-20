@@ -137,7 +137,7 @@ class secure_windows::lgpo {
     ensure         => 'present',
     policy_setting => 'LSAAnonymousNameLookup',
     policy_type    => 'System Access',
-    policy_value   => '1',
+    policy_value   => '0',
   }
 
   # V-73689
