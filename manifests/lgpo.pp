@@ -34,61 +34,61 @@ class secure_windows::lgpo {
     policy_type    => 'System Access',
     policy_value   => '15',
   }
-  #
-  # # V-73315
-  # # The password history must be configured to 24 passwords remembered.
-  # local_security_policy { 'Enforce password history':
-  #   ensure         => 'present',
-  #   policy_setting => 'PasswordHistorySize',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '24',
-  # }
-  #
-  # # V-73317
-  # # The maximum password age must be configured to 60 days or less.
-  # local_security_policy { 'Maximum password age':
-  #   ensure         => 'present',
-  #   policy_setting => 'MaximumPasswordAge',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '60',
-  # }
-  #
-  # # V-73319
-  # # The minimum password age must be configured to at least one day.
-  # local_security_policy { 'Minimum password age':
-  #   ensure         => 'present',
-  #   policy_setting => 'MinimumPasswordAge',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '1',
-  # }
-  #
-  # # V-73321
-  # # The minimum password length must be configured to 14 characters.
-  # local_security_policy { 'Minimum password length':
-  #   ensure         => 'present',
-  #   policy_setting => 'MinimumPasswordLength',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '14',
-  # }
-  #
-  # # V-73323
-  # # The built-in Windows password complexity policy must be enabled.
-  # local_security_policy { 'Password must meet complexity requirements':
-  #   ensure         => 'present',
-  #   policy_setting => 'PasswordComplexity',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '1',
-  # }
-  #
-  # # V-73325
-  # # Reversible password encryption must be disabled.
-  # local_security_policy { 'Store passwords using reversible encryption':
-  #   ensure         => 'present',
-  #   policy_setting => 'ClearTextPassword',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '0',
-  # }
-  #
+
+  # V-73315
+  # The password history must be configured to 24 passwords remembered.
+  local_security_policy { 'Enforce password history':
+    ensure         => 'present',
+    policy_setting => 'PasswordHistorySize',
+    policy_type    => 'System Access',
+    policy_value   => '24',
+  }
+
+  # V-73317
+  # The maximum password age must be configured to 60 days or less.
+  local_security_policy { 'Maximum password age':
+    ensure         => 'present',
+    policy_setting => 'MaximumPasswordAge',
+    policy_type    => 'System Access',
+    policy_value   => '60',
+  }
+
+  # V-73319
+  # The minimum password age must be configured to at least one day.
+  local_security_policy { 'Minimum password age':
+    ensure         => 'present',
+    policy_setting => 'MinimumPasswordAge',
+    policy_type    => 'System Access',
+    policy_value   => '1',
+  }
+
+  # V-73321
+  # The minimum password length must be configured to 14 characters.
+  local_security_policy { 'Minimum password length':
+    ensure         => 'present',
+    policy_setting => 'MinimumPasswordLength',
+    policy_type    => 'System Access',
+    policy_value   => '14',
+  }
+
+  # V-73323
+  # The built-in Windows password complexity policy must be enabled.
+  local_security_policy { 'Password must meet complexity requirements':
+    ensure         => 'present',
+    policy_setting => 'PasswordComplexity',
+    policy_type    => 'System Access',
+    policy_value   => '1',
+  }
+
+  # V-73325
+  # Reversible password encryption must be disabled.
+  local_security_policy { 'Store passwords using reversible encryption':
+    ensure         => 'present',
+    policy_setting => 'ClearTextPassword',
+    policy_type    => 'System Access',
+    policy_value   => '0',
+  }
+
   # # V-73359
   # # Kerberos user logon restrictions must be enforced.
   #
