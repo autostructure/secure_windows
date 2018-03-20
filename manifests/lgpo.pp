@@ -134,10 +134,10 @@ class secure_windows::lgpo {
   # V-73665
   # Anonymous SID/Name translation must not be allowed.
   local_security_policy { 'Network access: Allow anonymous SID/name translation':
-    ensure         => 'absent',
-    # policy_setting => 'LSAAnonymousNameLookup',
-    # policy_type    => 'System Access',
-    # policy_value   => '0',
+    ensure         => 'present',
+    policy_setting => 'LSAAnonymousNameLookup',
+    policy_type    => 'System Access',
+    policy_value   => '1',
   }
 
   # V-73689
