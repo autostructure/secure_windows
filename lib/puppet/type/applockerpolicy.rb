@@ -24,8 +24,8 @@ Puppet::Type.newtype(:applockerpolicy) do
   end
 
   newproperty(:enforcementmode) do
-    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured]'
-    newvalues(:Enabled, :Disabled, :NotConfigured)
+    desc 'Is the rule enforced? [Enabled, Disabled, NotConfigured, AuditOnly]'
+    newvalues(:Enabled, :Disabled, :NotConfigured, :AuditOnly)
   end
 
   newproperty(:action) do
