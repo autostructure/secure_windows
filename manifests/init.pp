@@ -18,5 +18,6 @@ class secure_windows {
 
   Class['::secure_windows::registry_editor']
   -> Class['::secure_windows::lgpo']
+  -> Class['::secure_windows::features']
 
 }
