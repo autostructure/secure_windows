@@ -112,25 +112,25 @@ class secure_windows::lgpo {
   # # V-73369
   # # Permissions on the Active Directory data files must only allow System and Administrators access.
   #
-  #
-  # # V-73623
-  # # The built-in administrator account must be renamed.
-  # local_security_policy { 'Accounts: Rename administrator account':
-  #   ensure         => 'present',
-  #   policy_setting => 'NewAdministratorName',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '"adminaccount"',
-  # }
-  #
-  # # V-73625
-  # # The built-in guest account must be renamed.
-  # local_security_policy { 'Accounts: Rename guest account':
-  #   ensure         => 'present',
-  #   policy_setting => 'NewGuestName',
-  #   policy_type    => 'System Access',
-  #   policy_value   => '"guestaccount"',
-  # }
-  #
+
+  # V-73623
+  # The built-in administrator account must be renamed.
+  local_security_policy { 'Accounts: Rename administrator account':
+    ensure         => 'present',
+    policy_setting => 'NewAdministratorName',
+    policy_type    => 'System Access',
+    policy_value   => '"adminaccount"',
+  }
+
+  # V-73625
+  # The built-in guest account must be renamed.
+  local_security_policy { 'Accounts: Rename guest account':
+    ensure         => 'present',
+    policy_setting => 'NewGuestName',
+    policy_type    => 'System Access',
+    policy_value   => '"guestaccount"',
+  }
+
   # # V-73665
   # # Anonymous SID/Name translation must not be allowed.
   # local_security_policy { 'Network access: Allow anonymous SID/name translation':
