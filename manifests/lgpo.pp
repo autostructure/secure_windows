@@ -291,7 +291,7 @@ class secure_windows::lgpo {
       ensure         => 'present',
       policy_setting => 'SeDenyNetworkLogonRight',
       policy_type    => 'Privilege Rights',
-      policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546',
+      policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546,*S-1-5-114',
     }
   }
   else {
