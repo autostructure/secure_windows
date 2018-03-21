@@ -89,30 +89,6 @@ class secure_windows::lgpo {
     policy_value   => '0',
   }
 
-  # # V-73359
-  # # Kerberos user logon restrictions must be enforced.
-  #
-  #
-  # # V-73361
-  # # The Kerberos service ticket maximum lifetime must be limited to 600 minutes or less.
-  #
-  #
-  # # V-73363
-  # # The Kerberos user ticket lifetime must be limited to 10 hours or less.
-  #
-  #
-  # # V-73365
-  # # The Kerberos policy user ticket renewal maximum lifetime must be limited to seven days or less.
-  #
-  #
-  # # V-73367
-  # # The computer clock synchronization tolerance must be limited to 5 minutes or less.
-  #
-  #
-  # # V-73369
-  # # Permissions on the Active Directory data files must only allow System and Administrators access.
-  #
-
   # V-73623
   # The built-in administrator account must be renamed.
   local_security_policy { 'Accounts: Rename administrator account':
