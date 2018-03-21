@@ -3,7 +3,7 @@
 #
 # TODO:
 # - Unit Tests
-# - Member Server Network Access for Domain Servers
+# - Active Directory exemptions
 # - Kerberos stuff on Domain Controllers
 #
 class secure_windows::lgpo {
