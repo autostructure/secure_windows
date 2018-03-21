@@ -161,22 +161,22 @@ class secure_windows::lgpo {
   # V-73733
   # The Access this computer from the network user right must only be assigned to the Administrators and Authenticated Users groups
   # on member servers.
-  # if($facts['windows_server_type'] == 'windowsdc') {
-  #   local_security_policy { 'Access this computer from the network':
-  #     ensure         => 'present',
-  #     policy_setting => 'SeNetworkLogonRight',
-  #     policy_type    => 'Privilege Rights',
-  #     policy_value   => '*S-1-5-32-544,*S-1-5-11,*S-1-5-9',
-  #   }
-  # }
-  # else {
-  local_security_policy { 'Access this computer from the network':
-    ensure         => 'present',
-    policy_setting => 'SeNetworkLogonRight',
-    policy_type    => 'Privilege Rights',
-    policy_value   => '*S-1-5-32-544,*S-1-5-11',
+  if($facts['windows_server_type'] == 'windowsdc') {
+    local_security_policy { 'Access this computer from the network':
+      ensure         => 'present',
+      policy_setting => 'SeNetworkLogonRight',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544,*S-1-5-11,*S-1-5-9',
+    }
   }
-  # }
+  else {
+    local_security_policy { 'Access this computer from the network':
+      ensure         => 'present',
+      policy_setting => 'SeNetworkLogonRight',
+      policy_type    => 'Privilege Rights',
+      policy_value   => '*S-1-5-32-544,*S-1-5-11',
+    }
+  }
 
   # V-73735
   # The Act as part of the operating system user right must not be assigned to any groups or accounts.
