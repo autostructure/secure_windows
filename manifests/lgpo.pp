@@ -291,7 +291,7 @@ class secure_windows::lgpo {
       ensure         => 'present',
       policy_setting => 'SeDenyNetworkLogonRight',
       policy_type    => 'Privilege Rights',
-      policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546,*S-1-5-114',
+      policy_value   => '*S-1-5-32-546',
     }
   }
   else {
@@ -309,12 +309,11 @@ class secure_windows::lgpo {
     }
     elsif ($facts['windows_type'] =~ /(1|3)/) {
       #member server
-      #Need to add Enterprise Admins group, Domain Admins group, and "Local account"
       local_security_policy { 'Deny access to this computer from the network':
         ensure         => 'present',
         policy_setting => 'SeDenyNetworkLogonRight',
         policy_type    => 'Privilege Rights',
-        policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546',
+        policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546,*S-1-5-114',
       }
     }
   }
