@@ -318,30 +318,11 @@ class secure_windows::lgpo {
     }
   }
 
-  # # V-73759
-  # # The Deny access to this computer from the network user right on member servers must be configured to prevent
-  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
-  # if($facts['windows_type'] =~ /(0|2)/) {
-  #   #standalone
-  #   local_security_policy { 'Deny access to this computer from the network':
-  #     ensure         => 'present',
-  #     policy_setting => 'SeDenyNetworkLogonRight',
-  #     policy_type    => 'Privilege Rights',
-  #     policy_value   => '*S-1-5-32-546',
-  #   }
-  # }
-  # elsif ($facts['windows_type'] =~ /(1|3)/) {
-  #   #member server
-  #   local_security_policy { 'Deny access to this computer from the network':
-  #     ensure         => 'present',
-  #     policy_setting => 'SeDenyNetworkLogonRight',
-  #     policy_type    => 'Privilege Rights',
-  #     policy_value   => '*S-1-5-32-546',
-  #   }
-  # }
-
   # V-73761
   # The Deny log on as a batch job user right on domain controllers must be configured to prevent unauthenticated access.
+  # V-73763
+  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain
+  # accounts on domain systems and from unauthenticated access on all systems.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny log on as a batch job':
       ensure         => 'present',
@@ -350,27 +331,60 @@ class secure_windows::lgpo {
       policy_value   => '*S-1-5-32-546',
     }
   }
-
-  # V-73763
-  # The Deny log on as a batch job user right on member servers must be configured to prevent access from highly privileged domain
-  # accounts on domain systems and from unauthenticated access on all systems.
-
+  else {
+    if($facts['windows_type'] =~ /(0|2)/) {
+      #standalone
+      local_security_policy { 'Deny log on as a batch job':
+        ensure         => 'present',
+        policy_setting => 'SeDenyBatchLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => '*S-1-5-32-546',
+      }
+    }
+    elsif ($facts['windows_type'] =~ /(1|3)/) {
+      #member server
+      local_security_policy { 'Deny log on as a batch job':
+        ensure         => 'present',
+        policy_setting => 'SeDenyBatchLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546',
+      }
+    }
+  }
 
   # V-73765
   # The Deny log on as a service user right must be configured to include no accounts or groups (blank) on domain controllers.
+  # V-73767
+  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain
+  # accounts on domain systems. No other groups or accounts must be assigned this right.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny log on as a service':
       ensure         => 'absent',
     }
   }
-
-  # V-73767
-  # The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain
-  # accounts on domain systems. No other groups or accounts must be assigned this right.
-
+  else {
+    if($facts['windows_type'] =~ /(0|2)/) {
+      #standalone
+      local_security_policy { 'Deny log on as a service':
+        ensure         => 'absent',
+      }
+    }
+    elsif ($facts['windows_type'] =~ /(1|3)/) {
+      #member server
+      local_security_policy { 'Deny log on as a service':
+        ensure         => 'present',
+        policy_setting => 'SeDenyServiceLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => 'Domain Admins,Enterprise Admins',
+      }
+    }
+  }
 
   # V-73769
   # The Deny log on locally user right on domain controllers must be configured to prevent unauthenticated access.
+  # V-73771
+  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on
+  # domain systems and from unauthenticated access on all systems.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny log on locally':
       ensure         => 'present',
@@ -379,27 +393,62 @@ class secure_windows::lgpo {
       policy_value   => '*S-1-5-32-546',
     }
   }
-
-  # V-73771
-  # The Deny log on locally user right on member servers must be configured to prevent access from highly privileged domain accounts on
-  # domain systems and from unauthenticated access on all systems.
-
+  else {
+    if($facts['windows_type'] =~ /(0|2)/) {
+      #standalone
+      local_security_policy { 'Deny log on locally':
+        ensure         => 'present',
+        policy_setting => 'SeDenyInteractiveLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => '*S-1-5-32-546',
+      }
+    }
+    elsif ($facts['windows_type'] =~ /(1|3)/) {
+      #member server
+      #NOTE: Systems dedicated to the management of Active Directory are exempt from this :(
+      local_security_policy { 'Deny log on locally':
+        ensure         => 'present',
+        policy_setting => 'SeDenyInteractiveLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546',
+      }
+    }
+  }
 
   # V-73773
   # The Deny log on through Remote Desktop Services user right on domain controllers must be configured to prevent unauthenticated access.
+  # V-73775
+  # The Deny log on through Remote Desktop Services user right on member servers must be configured to prevent access from highly
+  # privileged domain accounts and all local accounts on domain systems and from unauthenticated access on all systems.
   if($facts['windows_server_type'] == 'windowsdc') {
     local_security_policy { 'Deny log on through Remote Desktop Services':
       ensure         => 'present',
       policy_setting => 'SeDenyRemoteInteractiveLogonRight',
       policy_type    => 'Privilege Rights',
-      policy_value   => '*S-1-5-32-546',
+      policy_value   => '*S-1-5-32-546,*S-1-5-113',
     }
   }
-
-  # V-73775
-  # The Deny log on through Remote Desktop Services user right on member servers must be configured to prevent access from highly
-  # privileged domain accounts and all local accounts on domain systems and from unauthenticated access on all systems.
-
+  else {
+    if($facts['windows_type'] =~ /(0|2)/) {
+      #standalone
+      local_security_policy { 'Deny log on through Remote Desktop Services':
+        ensure         => 'present',
+        policy_setting => 'SeDenyRemoteInteractiveLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => '*S-1-5-32-546',
+      }
+    }
+    elsif ($facts['windows_type'] =~ /(1|3)/) {
+      #member server
+      #NOTE: Systems dedicated to the management of Active Directory are exempt from this :(
+      local_security_policy { 'Deny log on through Remote Desktop Services':
+        ensure         => 'present',
+        policy_setting => 'SeDenyRemoteInteractiveLogonRight',
+        policy_type    => 'Privilege Rights',
+        policy_value   => 'Domain Admins,Enterprise Admins,*S-1-5-32-546,*S-1-5-113',
+      }
+    }
+  }
 
   # V-73777
   # The Enable computer and user accounts to be trusted for delegation user right must only be assigned to the Administrators group on
