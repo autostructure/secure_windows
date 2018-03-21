@@ -425,7 +425,7 @@ class secure_windows::lgpo {
       ensure         => 'present',
       policy_setting => 'SeDenyRemoteInteractiveLogonRight',
       policy_type    => 'Privilege Rights',
-      policy_value   => '*S-1-5-32-546,*S-1-5-113',
+      policy_value   => '*S-1-5-32-546',
     }
   }
   else {
