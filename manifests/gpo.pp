@@ -7,8 +7,14 @@ class secure_windows::gpo {
 
   # V-73361
   # The Kerberos service ticket maximum lifetime must be limited to 600 minutes or less.
-
-
+  if($facts['windows_server_type'] == 'windowsdc') {
+    file_line { 'serviceticketlifetime':
+      ensure => present,
+      path   => 'C:\\Windows\\SYSVOL\\sysvol\\example.com\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf',
+      match  => '^MaxTicketAge',
+      line   => 'MaxTicketAge = 11',
+    }
+  }
   # V-73363
   # The Kerberos user ticket lifetime must be limited to 10 hours or less.
 
