@@ -19,7 +19,13 @@ class secure_windows::gpo {
     file { 'C:\\Windows\\SYSVOL\\sysvol\\example.com\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf':
       ensure => file,
       source => 'puppet:///modules/secure_windows/GptTmpl.inf',
+      notify => Exec['refresh group policy'],
     }
+  }
+
+  exec { 'refresh group policy':
+    command     => 'gpupdate /force',
+    refreshonly => true,
   }
   # V-73363
   # The Kerberos user ticket lifetime must be limited to 10 hours or less.
