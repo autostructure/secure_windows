@@ -19,7 +19,6 @@ class secure_windows::gpo {
     file { 'C:\\Windows\\SYSVOL\\sysvol\\example.com\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf':
       ensure => file,
       source => 'puppet:///modules/secure_windows/GptTmpl.inf',
-      encoding => 'Unicode',
     }
   }
   # V-73363
