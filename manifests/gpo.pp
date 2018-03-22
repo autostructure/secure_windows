@@ -24,7 +24,7 @@ class secure_windows::gpo {
   }
 
   exec { 'refresh group policy':
-    command     => 'gpupdate /force',
+    command     => 'C:\\Windows\\System32\\gpupdate.exe /force',
     refreshonly => true,
   }
   # V-73363
