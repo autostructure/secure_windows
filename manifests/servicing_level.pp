@@ -4,9 +4,7 @@ class secure_windows::servicing_level {
   # V-73239
   # Systems must be maintained at a supported servicing level.
   if versioncmp($facts['kernelversion'], '10.0.14393') >= 0 {
-    notify { 'In compliance with V-73239':
-      message => 'In compliance with DoD STIG V-73239. System is at a supported servicing level.',
-    }
+    notice('In compliance with DoD STIG V-73239. System is at a supported servicing level.')
   }
   else {
     notify { 'Not in compliance with DoD STIG V-73239':
