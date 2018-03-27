@@ -17,5 +17,6 @@ class secure_windows {
   include ::secure_windows::lgpo
   include ::secure_windows::gpo
   include ::secure_windows::servicing_level
+  include ::secure_windows::ftp_servers
 
 }
