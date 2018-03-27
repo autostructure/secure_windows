@@ -11,7 +11,7 @@ class secure_windows::servicing_level {
   else {
     notify { 'Not in compliance with V-73239':
       message  => 'Not in compliance with V-73239. Please update the system to a supported servicing level.',
-      loglevel => fail,
+      loglevel => warning,
     }
   }
 }
