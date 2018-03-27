@@ -12,7 +12,7 @@ ForceLogoffWhenHourExpire = 0
 ClearTextPassword = 0
 LSAAnonymousNameLookup = 0
 [Kerberos Policy]
-MaxTicketAge = 10
+MaxTicketAge = 11
 MaxRenewAge = 7
 MaxServiceAge = 600
 MaxClockSkew = 5
