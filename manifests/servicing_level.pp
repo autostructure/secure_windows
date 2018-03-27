@@ -9,6 +9,6 @@ class secure_windows::servicing_level {
     }
   }
   else {
-    warning('Not in compliance with DoD STIG V-73239. Please update the system to a supported servicing level.')
+    fail('Not in compliance with DoD STIG V-73239. Please update the system to a supported servicing level.')
   }
 }
