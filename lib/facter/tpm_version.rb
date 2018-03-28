@@ -3,7 +3,7 @@
 #
 require 'facter'
 
-Facter.add(:windows_role) do
+Facter.add(:tpm_version) do
   confine operatingsystem: :windows
   setcode do
     roles = []
