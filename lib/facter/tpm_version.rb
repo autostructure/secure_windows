@@ -9,7 +9,7 @@ Facter.add(:tpm_version) do
     roles = []
 
     require 'win32ole'
-    wmi = WIN32OLE.connect('Win32_Tpm:\\\\.\\root\\cimv2\\Security\\MicrosoftTpm')
+    wmi = WIN32OLE.connect('Win32_Tpm:\\\\.\\root\\cimv2')
     wmi.ExecQuery('select SpecVersion from Win32_Tpm').each do |role|
       roles.push(role.SpecVersion)
     end
