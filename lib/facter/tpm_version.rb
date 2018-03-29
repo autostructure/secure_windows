@@ -1,6 +1,8 @@
 #
 # This fact returns the TPM version of the system
 #
+# NOTICE: THIS IS NOT DONE
+#
 require 'facter'
 
 Facter.add(:tpm_version) do
