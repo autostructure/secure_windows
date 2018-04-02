@@ -20,7 +20,7 @@ class secure_windows::ftp_servers {
     #       - This only works for servers who's FTP server site is the same as the FQDN. A server could
     #         create an IIS FTP Server at a different address and we would not know about it.
     exec { 'Set FTP anynymousAuthentication to Disabled':
-      command => "%systemroot%\\system32\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${facts['fqdn']}'].ftpServer.security.authentication.anonymousAuthentication.enabled:"False" /commit:apphost",
+      command => "%systemroot%\\system32\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${facts['fqdn']}'].ftpServer.security.authentication.anonymousAuthentication.enabled:\"False\" /commit:apphost",
     }
 
     # V-73305
