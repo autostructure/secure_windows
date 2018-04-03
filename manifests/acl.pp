@@ -134,17 +134,17 @@ class secure_windows::acl {
       {
         'identity' => 'NT SERVICE\\EventLog',
         'rights'   => ['full'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       }
     ],
   }
@@ -155,32 +155,32 @@ class secure_windows::acl {
       {
         'identity' => 'NT SERVICE\\TrustedInstaller',
         'rights'   => ['full'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only',
+        'affects'  => 'self_only',
       }
     ],
   }
@@ -196,12 +196,12 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        #'affects'  => 'self_only'
+        'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
-        #'affects'  => 'self_only'
+        'affects'  => 'self_only'
       }
     ],
   }
@@ -217,17 +217,17 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only'
+        'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'children_only'
+        'affects'  => 'children_only'
       },
       {
         'identity' => 'S-1-5-32-549',
         'rights'   => ['read', 'execute'],
-        #'affects'  => 'self_only'
+        'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-32-549',
@@ -248,7 +248,7 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        #'affects'  => 'self_only'
+        'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-18',
