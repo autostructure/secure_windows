@@ -26,7 +26,7 @@ class secure_windows::ftp_servers {
 
     # V-73305
     # FTP servers must be configured to prevent access to the system drive.
-    if $facts['ftp_root'] =~ /(^C:\$|^C:\Program Files|^C:\Windows|^C:\inetpub\ftproot)/ {
+    if $facts['ftp_root'] =~ /(^C:\\$|^C:\\Program Files|^C:\\Windows|^C:\\inetpub\\ftproot)/ {
       notify { 'Not in compliance with DoD STIG V-73305':
         message  => 'Not in compliance with DoD STIG V-73305. The FTP Server\'s root contains the system files.',
         loglevel => warning,
