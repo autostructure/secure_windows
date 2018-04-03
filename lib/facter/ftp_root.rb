@@ -4,7 +4,8 @@ Facter.add('ftp_root') do
   confine operatingsystem: :windows
   setcode do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
-    command = "[Void][Reflection.Assembly]::LoadWithPartialName(\"Microsoft.Web.Administration\"); write ((((New-Object Microsoft.Web.Administration.ServerManager).Sites | where { $_.Name -eq '#{Facter.value(:fqdntest)}' }).Applications | where { $_.Path -eq '/' }).VirtualDirectories | where { $_.Path -eq '/' }).PhysicalPath"
+    #[Void][Reflection.Assembly]::LoadWithPartialName(\"Microsoft.Web.Administration\"); 
+    command = "write ((((New-Object Microsoft.Web.Administration.ServerManager).Sites | where { $_.Name -eq '#{Facter.value(:fqdntest)}' }).Applications | where { $_.Path -eq '/' }).VirtualDirectories | where { $_.Path -eq '/' }).PhysicalPath"
     Facter::Core::Execution.execute("#{powershell} -command \"#{command}\"")
   end
 end
