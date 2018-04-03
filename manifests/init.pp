@@ -19,5 +19,6 @@ class secure_windows {
   include ::secure_windows::servicing_level
   include ::secure_windows::ftp_servers
   include ::secure_windows::ntp
+  include ::secure_windows::ldap_connections
 
 }
