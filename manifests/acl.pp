@@ -1,12 +1,10 @@
 # secure_windows::acl
 #
-# A description of what this class does
-#
-# @summary A short summary of the purpose of this class
-#
-# @example
-#   include secure_windows::acl
+# This class manages ACLs
 class secure_windows::acl {
+
+  # V-73249
+  # Permissions for the system drive root directory (usually C:\) must conform to minimum requirements.
   acl { 'C:\\':
     inherit_parent_permissions => false,
     permissions                => [
@@ -43,6 +41,10 @@ class secure_windows::acl {
     ],
   }
 
+  # V-73251
+  # Permissions for program file directories must conform to minimum requirements.
+  # V-73253
+  # Permissions for the Windows installation directory must conform to minimum requirements.
   acl { ['C:\\Program Files', 'C:\\Program Files (x86)', 'C:\\Windows']:
     inherit_parent_permissions => false,
     permissions                => [
@@ -115,6 +117,12 @@ class secure_windows::acl {
     ],
   }
 
+  # V-73405
+  # Permissions for the Application event log must prevent access by non-privileged accounts.
+  # V-73407
+  # Permissions for the Security event log must prevent access by non-privileged accounts.
+  # V-73409
+  # Permissions for the System event log must prevent access by non-privileged accounts.
   $system_root = $facts['os']['windows']['system32']
 
   acl { [ "${system_root}\\winevt\\Logs\\Application.evtx",
@@ -126,17 +134,17 @@ class secure_windows::acl {
       {
         'identity' => 'NT SERVICE\\EventLog',
         'rights'   => ['full'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       }
     ],
   }
@@ -147,32 +155,32 @@ class secure_windows::acl {
       {
         'identity' => 'NT SERVICE\\TrustedInstaller',
         'rights'   => ['full'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-5-32-545',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-15-2-1',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       },
       {
         'identity' => 'S-1-15-2-2',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only',
+        #'affects'  => 'self_only',
       }
     ],
   }
@@ -188,12 +196,12 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        'affects'  => 'self_only'
+        #'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-32-544',
         'rights'   => ['full'],
-        'affects'  => 'self_only'
+        #'affects'  => 'self_only'
       }
     ],
   }
@@ -209,17 +217,17 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only'
+        #'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-11',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'children_only'
+        #'affects'  => 'children_only'
       },
       {
         'identity' => 'S-1-5-32-549',
         'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only'
+        #'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-32-549',
@@ -240,7 +248,7 @@ class secure_windows::acl {
       {
         'identity' => 'S-1-5-18',
         'rights'   => ['full'],
-        'affects'  => 'self_only'
+        #'affects'  => 'self_only'
       },
       {
         'identity' => 'S-1-5-18',
