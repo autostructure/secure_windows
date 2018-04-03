@@ -7,6 +7,12 @@
 # @example
 #   include secure_windows::acl
 class secure_windows::ad_acl {
+
+  package { 'nokogiri':
+    ensure   => installed,
+    provider => 'gem',
+  }
+
   $root_domain = $facts['root_domain']
 
   ad_acl { "CN=RID Manager$,CN=System,${root_domain}":
