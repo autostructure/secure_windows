@@ -4,9 +4,6 @@ class secure_windows::stig::v73309 (
   Boolean $enforced = false,
 ) {
   if $enforced {
-    notify { 'message135':
-      message => 'enforced!',
-    }
     local_security_policy { 'Account lockout duration':
       ensure         => 'present',
       policy_setting => 'LockoutDuration',
