@@ -3,7 +3,7 @@
 class secure_windows::stig::v73263 {
   if $facts['windows_server_type'] == 'windowsdc' {
     if $facts['password_expire_dc'] != '' {
-      notify { 'Not in compliance with DoD STIG V-73261':
+      notify { 'Not in compliance with DoD STIG V-73263':
         message  => 'Not in compliance with DoD STIG V-73263.',
         loglevel => warning,
       }
@@ -11,7 +11,7 @@ class secure_windows::stig::v73263 {
   }
   else {
     if $facts['password_expire'] != '' {
-      notify { 'Not in compliance with DoD STIG V-73261':
+      notify { 'Not in compliance with DoD STIG V-73263':
         message  => 'Not in compliance with DoD STIG V-73263.',
         loglevel => warning,
       }
