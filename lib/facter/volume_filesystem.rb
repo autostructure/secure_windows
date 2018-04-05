@@ -14,6 +14,6 @@ Facter.add('volume_filesystem') do
         return false
       end
     end
-    #$filesystems.match(/MaxConnIdleTime=(\d*)/)[1]
+    return true
   end
 end
