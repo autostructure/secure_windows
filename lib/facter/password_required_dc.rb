@@ -1,5 +1,5 @@
 #
-# This fact returns true if AD accounts exist that do not require a password
+# This fact returns AD accounts that do not require a password
 #
 Facter.add('password_required_dc') do
   confine operatingsystem: :windows

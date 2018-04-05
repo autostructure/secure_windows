@@ -1,5 +1,5 @@
 #
-# This fact returns true if local accounts exist that do not require a password
+# This fact returns local accounts that do not require a password
 #
 Facter.add('password_required') do
   confine operatingsystem: :windows
