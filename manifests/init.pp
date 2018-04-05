@@ -44,6 +44,7 @@ class secure_windows (
     }
 
     '2016','2016 R2': {
+      class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73257': }
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
