@@ -24,43 +24,42 @@ class secure_windows (
   include ::secure_windows::ftp_servers
   include ::secure_windows::ntp
   include ::secure_windows::ldap_connections
-  #include ::secure_windows::v73223
 
   # Platform-specific defaults
-  case $fact['whatever_osfullversionstring_is'] {
+  case $fact['operatingsystemmajrelease'] {
 
-    'Windows Server 2012','Windows Server 2012 R2': {
-      class { 'secure_windows::STIG::v73605':
+    '2012','2012 R2': {
+      class { '::secure_windows::STIG::v73605':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { 'secure_windows::STIG::v73607':
+      class { '::secure_windows::STIG::v73607':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { 'secure_windows::STIG::v73609':
+      class { '::secure_windows::STIG::v73609':
         is_dod         => $is_dod,
         classification => $classification,
       }
     }
 
-    'Windows Server 2016','Windows Server 2016 R2': {
-      class { 'secure_windows::STIG::v73605':
+    '2016','2016 R2': {
+      class { '::secure_windows::STIG::v73605':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { 'secure_windows::STIG::v73607':
+      class { '::secure_windows::STIG::v73607':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { 'secure_windows::STIG::v73609':
+      class { '::secure_windows::STIG::v73609':
         is_dod         => $is_dod,
         classification => $classification,
       }
     }
 
     default: {
-      fail("Unsupported operating system ($fact['whatever_osfullversionstring_is']) detected.")
+      fail("Unsupported operating system (${fact['whatever_osfullversionstring_is']}) detected.")
     }
 
   }
