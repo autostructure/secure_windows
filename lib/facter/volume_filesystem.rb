@@ -10,7 +10,7 @@ Facter.add('volume_filesystem') do
     $filesystems2 = $filesystems.split("\r\n")
     $compliant = true
     $filesystems2.each do |filesystem|
-      if filesystem.match(/(NTFS|ReFS)/)
+      if filesystem.match(/(NTFS|ReFS|\s*)/)
       else
         $compliant = false
       end
