@@ -29,33 +29,33 @@ class secure_windows (
   case $facts['operatingsystemmajrelease'] {
 
     '2012','2012 R2': {
-      class { '::secure_windows::stig::v73605':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
-      class { '::secure_windows::stig::v73607':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
-      class { '::secure_windows::stig::v73609':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
+      # class { '::secure_windows::stig::v73605':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
+      # class { '::secure_windows::stig::v73607':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
+      # class { '::secure_windows::stig::v73609':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
     }
 
     '2016','2016 R2': {
-      class { '::secure_windows::stig::v73605':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
-      class { '::secure_windows::stig::v73607':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
-      class { '::secure_windows::stig::v73609':
-        is_dod         => $is_dod,
-        classification => $classification,
-      }
+      # class { '::secure_windows::stig::v73605':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
+      # class { '::secure_windows::stig::v73607':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
+      # class { '::secure_windows::stig::v73609':
+      #   is_dod         => $is_dod,
+      #   classification => $classification,
+      # }
     }
 
     default: {
