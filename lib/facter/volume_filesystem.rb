@@ -8,12 +8,13 @@ Facter.add('volume_filesystem') do
     command = 'Get-Volume | Select FileSystem | FT -HideTableHeaders'
     $filesystems = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
     $filesystems2 = $filesystems.split("\r\n")
+    $compliant = true
     $filesystems2.each do |filesystem|
       if filesystem.match(/(NTFS|ReFS)/)
       else
-        return false
+        $compliant = false
       end
     end
-    return true
+    $compliant
   end
 end
