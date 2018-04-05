@@ -9,8 +9,8 @@
 #
 
 class secure_windows (
-  [Optional]Boolean $is_dod,
-  [Optional]String $classification,
+  Optional[Boolean] $is_dod,
+  Optional[String] $classification,
 ) {
 
   #include ::secure_windows::acl
@@ -26,40 +26,41 @@ class secure_windows (
   include ::secure_windows::ldap_connections
 
   # Platform-specific defaults
-  case $fact['operatingsystemmajrelease'] {
+  case $facts['operatingsystemmajrelease'] {
 
     '2012','2012 R2': {
-      class { '::secure_windows::STIG::v73605':
+      class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { '::secure_windows::STIG::v73607':
+      class { '::secure_windows::stig::v73607':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { '::secure_windows::STIG::v73609':
+      class { '::secure_windows::stig::v73609':
         is_dod         => $is_dod,
         classification => $classification,
       }
     }
 
     '2016','2016 R2': {
-      class { '::secure_windows::STIG::v73605':
+      class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { '::secure_windows::STIG::v73607':
+      class { '::secure_windows::stig::v73607':
         is_dod         => $is_dod,
         classification => $classification,
       }
-      class { '::secure_windows::STIG::v73609':
+      class { '::secure_windows::stig::v73609':
         is_dod         => $is_dod,
         classification => $classification,
       }
     }
 
     default: {
-      fail("Unsupported operating system (${fact['whatever_osfullversionstring_is']}) detected.")
+      fail("Unsupported operating system (${facts['whatever_osfullversionstring_is']}) detected.")
     }
 
   }
+}
