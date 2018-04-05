@@ -7,7 +7,7 @@ Facter.add('volume_filesystem') do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
     command = 'Get-Volume | Select FileSystem | FT -HideTableHeaders'
     $filesystems = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
-    $filesystems.split("\n")
+    $filesystems.split("\r\n")
     $filesystems.each do |filesystem|
       if filesystem.match(/(NTFS|ReFS)/)
       else
