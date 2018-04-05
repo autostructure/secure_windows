@@ -12,13 +12,13 @@ class secure_windows::gpo {
   # The Kerberos user ticket lifetime must be limited to 10 hours or less.
   # V-73365
   # The Kerberos policy user ticket renewal maximum lifetime must be limited to seven days or less.
-  if($facts['windows_server_type'] == 'windowsdc') {
-    file { 'C:\\Windows\\SYSVOL\\sysvol\\example.com\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf':
-      ensure => file,
-      source => 'puppet:///modules/secure_windows/GptTmpl.inf',
-      #notify => Exec['refresh group policy'],
-    }
-  }
+  # if($facts['windows_server_type'] == 'windowsdc') {
+  #   file { 'C:\\Windows\\SYSVOL\\sysvol\\example.com\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf':
+  #     ensure => file,
+  #     source => 'puppet:///modules/secure_windows/GptTmpl.inf',
+  #     #notify => Exec['refresh group policy'],
+  #   }
+  # }
 
   # exec { 'refresh group policy':
   #   command     => 'C:\\Windows\\System32\\gpupdate.exe',

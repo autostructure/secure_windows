@@ -2,11 +2,11 @@
 Unicode=yes
 [System Access]
 MinimumPasswordAge = 1
-MaximumPasswordAge = 42
-MinimumPasswordLength = 7
+MaximumPasswordAge = 60
+MinimumPasswordLength = 14
 PasswordComplexity = 1
 PasswordHistorySize = 24
-LockoutBadCount = 0
+LockoutBadCount = 3
 RequireLogonToChangePassword = 0
 ForceLogoffWhenHourExpire = 0
 ClearTextPassword = 0
