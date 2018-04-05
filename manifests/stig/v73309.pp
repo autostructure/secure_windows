@@ -3,13 +3,15 @@
 class secure_windows::stig::v73309 (
   Boolean $enforced = false,
 ) {
-  notify { 'message135':
-    message => 'enforced!',
-  }
-  local_security_policy { 'Account lockout duration':
-    ensure         => 'present',
-    policy_setting => 'LockoutDuration',
-    policy_type    => 'System Access',
-    policy_value   => '15',
+  if $enforced {
+    notify { 'message135':
+      message => 'enforced!',
+    }
+    local_security_policy { 'Account lockout duration':
+      ensure         => 'present',
+      policy_setting => 'LockoutDuration',
+      policy_type    => 'System Access',
+      policy_value   => '15',
+    }
   }
 }
