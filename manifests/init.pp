@@ -9,8 +9,8 @@
 #
 class secure_windows {
 
-  include ::secure_windows::acl
-  include ::secure_windows::ad_acl
+  #include ::secure_windows::acl
+  #include ::secure_windows::ad_acl
   include ::secure_windows::auditpol
   include ::secure_windows::features
   include ::secure_windows::registry_editor
@@ -20,5 +20,6 @@ class secure_windows {
   include ::secure_windows::ftp_servers
   include ::secure_windows::ntp
   include ::secure_windows::ldap_connections
+  #include ::secure_windows::v73223
 
 }
