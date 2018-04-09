@@ -17,7 +17,7 @@ class secure_windows (
   #include ::secure_windows::ad_acl
   include ::secure_windows::auditpol
   include ::secure_windows::features
-  include ::secure_windows::reg_acl
+  #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
   include ::secure_windows::gpo
@@ -51,18 +51,18 @@ class secure_windows (
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
       class { '::secure_windows::stig::v73263': }
-      # class { '::secure_windows::stig::v73605':
-      #   is_dod         => $is_dod,
-      #   classification => $classification,
-      # }
-      # class { '::secure_windows::stig::v73607':
-      #   is_dod         => $is_dod,
-      #   classification => $classification,
-      # }
-      # class { '::secure_windows::stig::v73609':
-      #   is_dod         => $is_dod,
-      #   classification => $classification,
-      # }
+      class { '::secure_windows::stig::v73605':
+        is_dod         => $is_dod,
+        classification => $classification,
+      }
+      class { '::secure_windows::stig::v73607':
+        is_dod         => $is_dod,
+        classification => $classification,
+      }
+      class { '::secure_windows::stig::v73609':
+        is_dod         => $is_dod,
+        classification => $classification,
+      }
     }
 
     default: {
