@@ -13,7 +13,7 @@ class secure_windows (
   Optional[String] $classification,
 ) {
 
-  #include ::secure_windows::acl
+  include ::secure_windows::acl
   #include ::secure_windows::ad_acl
   include ::secure_windows::auditpol
   include ::secure_windows::features
