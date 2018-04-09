@@ -20,7 +20,6 @@ class secure_windows (
   #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
-  include ::secure_windows::gpo
 
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
@@ -42,14 +41,18 @@ class secure_windows (
 
     '2016','2016 R2': {
       class { '::secure_windows::stig::v73239': }
-      class { '::secure_windows::stig::v73303': }
-      class { '::secure_windows::stig::v73305': }
-      class { '::secure_windows::stig::v73309': }
       class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73257': }
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
       class { '::secure_windows::stig::v73263': }
+      class { '::secure_windows::stig::v73303': }
+      class { '::secure_windows::stig::v73305': }
+      class { '::secure_windows::stig::v73309': }
+      class { '::secure_windows::stig::v73359': }
+      class { '::secure_windows::stig::v73361': }
+      class { '::secure_windows::stig::v73363': }
+      class { '::secure_windows::stig::v73365': }
       class { '::secure_windows::stig::v73387': }
 
       class { '::secure_windows::stig::v73605':

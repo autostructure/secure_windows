@@ -10,6 +10,10 @@ secure_windows::stig::v73303::enforced: true
 secure_windows::stig::v73305::enforced: true
 secure_windows::stig::v73307::enforced: true
 secure_windows::stig::v73309::enforced: true
+secure_windows::stig::v73359::enforced: true
+secure_windows::stig::v73361::enforced: true
+secure_windows::stig::v73363::enforced: true
+secure_windows::stig::v73365::enforced: true
 secure_windows::stig::v73387::enforced: true
 secure_windows::stig::v73605::enforced: true
 secure_windows::stig::v73607::enforced: true
