@@ -210,65 +210,68 @@ class secure_windows::acl {
   }
 
   # V-73371 The Active Directory SYSVOL directory must have the proper access control permissions.
-  $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
+  if $facts['windows_server_type'] == 'windowsdc' {
+    $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
 
-  acl { $sysvol_mount:
-    group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
-    inherit_parent_permissions => false,
-    owner                      => 'S-1-5-32-544',
-    permissions                => [
-      {
-        'identity' => 'S-1-5-11',
-        'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only'
-      },
-      {
-        'identity' => 'S-1-5-11',
-        'rights'   => ['read', 'execute'],
-        'affects'  => 'children_only'
-      },
-      {
-        'identity' => 'S-1-5-32-549',
-        'rights'   => ['read', 'execute'],
-        'affects'  => 'self_only'
-      },
-      {
-        'identity' => 'S-1-5-32-549',
-        'rights'   => ['read', 'execute'],
-        'affects'  => 'children_only'
-      },
-      {
-        'identity' => 'S-1-5-32-544',
-        'rights'   => ['mask_specific'],
-        'mask'     => '2032063',
-        'affects'  => 'self_only'
-      },
-      {
-        'identity' => 'S-1-5-32-544',
-        'rights'   => ['full'],
-        'affects'  => 'children_only'
-      },
-      {
-        'identity' => 'S-1-5-18',
-        'rights'   => ['full'],
-        'affects'  => 'self_only'
-      },
-      {
-        'identity' => 'S-1-5-18',
-        'rights'   => ['full'],
-        'affects'  => 'children_only'
-      },
-      {
-        'identity' => 'S-1-5-32-544',
-        'rights'   => ['mask_specific'],
-        'mask'     => '2032063',
-        'affects'  => 'self_only'
-      },
-      {
-        'identity' => 'S-1-3-0',
-        'rights'   => ['full'],
-        'affects'  => 'children_only'
-      }
-    ],
+    acl { $sysvol_mount:
+      group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
+      inherit_parent_permissions => false,
+      owner                      => 'S-1-5-32-544',
+      permissions                => [
+        {
+          'identity' => 'S-1-5-11',
+          'rights'   => ['read', 'execute'],
+          'affects'  => 'self_only'
+        },
+        {
+          'identity' => 'S-1-5-11',
+          'rights'   => ['read', 'execute'],
+          'affects'  => 'children_only'
+        },
+        {
+          'identity' => 'S-1-5-32-549',
+          'rights'   => ['read', 'execute'],
+          'affects'  => 'self_only'
+        },
+        {
+          'identity' => 'S-1-5-32-549',
+          'rights'   => ['read', 'execute'],
+          'affects'  => 'children_only'
+        },
+        {
+          'identity' => 'S-1-5-32-544',
+          'rights'   => ['mask_specific'],
+          'mask'     => '2032063',
+          'affects'  => 'self_only'
+        },
+        {
+          'identity' => 'S-1-5-32-544',
+          'rights'   => ['full'],
+          'affects'  => 'children_only'
+        },
+        {
+          'identity' => 'S-1-5-18',
+          'rights'   => ['full'],
+          'affects'  => 'self_only'
+        },
+        {
+          'identity' => 'S-1-5-18',
+          'rights'   => ['full'],
+          'affects'  => 'children_only'
+        },
+        {
+          'identity' => 'S-1-5-32-544',
+          'rights'   => ['mask_specific'],
+          'mask'     => '2032063',
+          'affects'  => 'self_only'
+        },
+        {
+          'identity' => 'S-1-3-0',
+          'rights'   => ['full'],
+          'affects'  => 'children_only'
+        }
+      ],
+    }
   }
+
 }
