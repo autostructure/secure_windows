@@ -46,8 +46,8 @@ class secure_windows::stig::v73607 (
             before => Sslcertificate['Install-Certificate-DoD-Root-CA-4'],
           }
 
-          sslcertificate { 'Install-Certificate-DoD-Root-CA-2':
-            name       => 'DoD_Root_CA_2.cer',
+          sslcertificate { 'Install-Certificate-DoD_IRCA_1-to-ECA_Root_CA_2':
+            name       => 'DoD_IRCA_1-to-ECA_Root_CA_2.p7b',
             location   => 'c:/windows/temp',
             # NOTE: 'root' means 'Trusted Root Certification Authorities'
             store_dir  => 'root',
@@ -55,8 +55,8 @@ class secure_windows::stig::v73607 (
             thumbprint => '8C941B34EA1EA6ED9AE2BC54CF687252B4C9B561',
           }
 
-          sslcertificate { 'Install-Certificate-DoD-Root-CA-3':
-            name       => 'DoD_Root_CA_3.cer',
+          sslcertificate { 'Install-Certificate-DoD_IRCA_2-to-DoD_Root_CA_3':
+            name       => 'DoD_IRCA_2-to-DoD_Root_CA_3.p7b',
             location   => 'c:/windows/temp',
             # NOTE: 'root' means 'Trusted Root Certification Authorities'
             store_dir  => 'root',
@@ -64,8 +64,8 @@ class secure_windows::stig::v73607 (
             thumbprint => 'D73CA91102A2204A36459ED32213B467D7CE97FB',
           }
 
-          sslcertificate { 'Install-Certificate-DoD-Root-CA-4':
-            name       => 'DoD_Root_CA_4.cer',
+          sslcertificate { 'Install-Certificate-DoD_IRCA_2-to-ECA_Root_CA_4':
+            name       => 'DoD_IRCA_2-to-ECA_Root_CA_4.p7b',
             location   => 'c:/windows/temp',
             # NOTE: 'root' means 'Trusted Root Certification Authorities'
             store_dir  => 'root',
