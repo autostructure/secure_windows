@@ -12,7 +12,7 @@ class secure_windows::stig::v73609 (
           file { 'c:/windows/temp/DoD_CCEB_IRCA1-to-DoD_Root_CA_2.p7b':
             ensure => 'file',
             mode   => '0660',
-            group  => 'Administrators',
+            group  => 'BUILTIN\\Administrators',
             source => 'puppet:///modules/secure_windows/STIG/v73609/DoD_CCEB_IRCA1-to-DoD_Root_CA_2.p7b',
             before => Sslcertificate['Install-Certificate-DoD-CCEB-IRCA1'],
           }
