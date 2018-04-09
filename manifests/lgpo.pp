@@ -8,6 +8,14 @@
 #
 class secure_windows::lgpo {
 
+  # V-73223
+    local_security_policy { 'Maximum password age':
+    ensure         => 'present',
+    policy_setting => 'Maximum password age',
+    policy_type    => 'System Access',
+    policy_value   => '1',
+  }
+
   # V-73309
   # Windows 2016 account lockout duration must be configured to 15 minutes or greater.
   local_security_policy { 'Account lockout duration':
@@ -297,7 +305,7 @@ class secure_windows::lgpo {
   else {
     # V-73759
     # The Deny access to this computer from the network user right on member servers must be configured to prevent
-    # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+    # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
     if($facts['windows_type'] =~ /(0|2)/) {
       #standalone
       local_security_policy { 'Deny access to this computer from the network':
@@ -320,7 +328,7 @@ class secure_windows::lgpo {
 
   # # V-73759
   # # The Deny access to this computer from the network user right on member servers must be configured to prevent
-  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.  
+  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
   # if($facts['windows_type'] =~ /(0|2)/) {
   #   #standalone
   #   local_security_policy { 'Deny access to this computer from the network':
