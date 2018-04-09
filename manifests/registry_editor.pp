@@ -518,7 +518,7 @@ class secure_windows::registry_editor {
     data  => '0x00000384',
   }
 
-  $legalnoticetest = @("LEGALNOTICETEXT"/L)
+  $legalnoticetext = @("LEGALNOTICETEXT"/L)
     You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 
     By using this IS (which includes any device attached to this IS), you consent to the following conditions:
@@ -533,7 +533,6 @@ class secure_windows::registry_editor {
 
     -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details
   | LEGALNOTICETEXT
-
 #
 # Any OS versions that do not support the full text version must state the following:
 # \"I've read & consent to terms in IS user agreem't.\"
