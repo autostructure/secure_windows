@@ -86,84 +86,84 @@ class secure_windows::reg_acl {
       'PropagationFlags'  => 'None'
     }],
   }
-  #
-  # # System
-  # reg_acl { 'hklm:system\\':
-  #   inherit_from_parent => false,
-  #   owner               => 'S-1-5-32-544',
-  #   permissions         => [
-  #   {
-  #     'RegistryRights'    => 'GENERIC_ALL',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-3-0',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'ContainerInherit',
-  #     'PropagationFlags'  => 'InheritOnly'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'GENERIC_ALL',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-18',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'ContainerInherit',
-  #     'PropagationFlags'  => 'InheritOnly'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'FullControl',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-18',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'None',
-  #     'PropagationFlags'  => 'None'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'GENERIC_ALL',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-32-544',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'ContainerInherit',
-  #     'PropagationFlags'  => 'InheritOnly'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'FullControl',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-32-544',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'None',
-  #     'PropagationFlags'  => 'None'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'GENERIC_READ',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-32-545',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'ContainerInherit',
-  #     'PropagationFlags'  => 'InheritOnly'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'ReadKey',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-5-32-545',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'None',
-  #     'PropagationFlags'  => 'None'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'ReadKey',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-15-2-1',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'None',
-  #     'PropagationFlags'  => 'None'
-  #   },
-  #   {
-  #     'RegistryRights'    => 'GENERIC_READ',
-  #     'AccessControlType' => 'Allow',
-  #     'IdentityReference' => 'S-1-15-2-1',
-  #     'IsInherited'       => false,
-  #     'InheritanceFlags'  => 'ContainerInherit',
-  #     'PropagationFlags'  => 'InheritOnly'
-  #   }],
-  # }
+
+  # System
+  reg_acl { 'hklm:system\\':
+    inherit_from_parent => false,
+    owner               => 'S-1-5-32-544',
+    permissions         => [
+    {
+      'RegistryRights'    => 'GENERIC_ALL',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-3-0',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'ContainerInherit',
+      'PropagationFlags'  => 'InheritOnly'
+    },
+    {
+      'RegistryRights'    => 'GENERIC_ALL',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-18',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'ContainerInherit',
+      'PropagationFlags'  => 'InheritOnly'
+    },
+    {
+      'RegistryRights'    => 'FullControl',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-18',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'None',
+      'PropagationFlags'  => 'None'
+    },
+    {
+      'RegistryRights'    => 'GENERIC_ALL',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-32-544',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'ContainerInherit',
+      'PropagationFlags'  => 'InheritOnly'
+    },
+    {
+      'RegistryRights'    => 'FullControl',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-32-544',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'None',
+      'PropagationFlags'  => 'None'
+    },
+    {
+      'RegistryRights'    => 'GENERIC_READ',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-32-545',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'ContainerInherit',
+      'PropagationFlags'  => 'InheritOnly'
+    },
+    {
+      'RegistryRights'    => 'ReadKey',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-5-32-545',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'None',
+      'PropagationFlags'  => 'None'
+    },
+    {
+      'RegistryRights'    => 'ReadKey',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-15-2-1',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'None',
+      'PropagationFlags'  => 'None'
+    },
+    {
+      'RegistryRights'    => 'GENERIC_READ',
+      'AccessControlType' => 'Allow',
+      'IdentityReference' => 'S-1-15-2-1',
+      'IsInherited'       => false,
+      'InheritanceFlags'  => 'ContainerInherit',
+      'PropagationFlags'  => 'InheritOnly'
+    }],
+  }
 
 }
