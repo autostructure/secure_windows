@@ -14,7 +14,7 @@ class secure_windows::stig::v73609 (
             mode   => '0660',
             owner  => 'Administrator',
             group  => 'Administrators',
-            source => 'puppet:///modules/secure_windows/STIG/v73609/DoD_CCEB_IRCA1-to-DoD_Root_CA_2.p7b',
+            source => 'puppet:///modules/secure_windows/stig/v73609/DoD_CCEB_IRCA1-to-DoD_Root_CA_2.p7b',
             before => Sslcertificate['Install-Certificate-DoD-CCEB-IRCA1'],
           }
           sslcertificate { 'Install-Certificate-DoD-CCEB-IRCA1':
