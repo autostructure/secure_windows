@@ -21,9 +21,6 @@ class secure_windows (
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
   include ::secure_windows::gpo
-  include ::secure_windows::ftp_servers
-  include ::secure_windows::ntp
-  include ::secure_windows::ldap_connections
 
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
@@ -45,12 +42,16 @@ class secure_windows (
 
     '2016','2016 R2': {
       class { '::secure_windows::stig::v73239': }
+      class { '::secure_windows::stig::v73303': }
+      class { '::secure_windows::stig::v73305': }
       class { '::secure_windows::stig::v73309': }
       class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73257': }
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
       class { '::secure_windows::stig::v73263': }
+      class { '::secure_windows::stig::v73387': }
+
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
         classification => $classification,
