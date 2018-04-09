@@ -14,7 +14,7 @@ class secure_windows::stig::v73605 (
         mode   => '0660',
         owner  => 'Administrator',
         group  => 'Administrators',
-        source => 'puppet:///modules/secure_windows/stig/v73605/DoD_Root_CA_2.cer',
+        source => 'puppet:///modules/secure_windows/STIG/v73605/DoD_Root_CA_2.cer',
         before => Sslcertificate['Install-Certificate-DoD-Root-CA-2'],
       }
 
@@ -23,7 +23,7 @@ class secure_windows::stig::v73605 (
         mode   => '0660',
         owner  => 'Administrator',
         group  => 'Administrators',
-        source => 'puppet:///modules/secure_windows/stig/v73605/DoD_Root_CA_3.cer',
+        source => 'puppet:///modules/secure_windows/STIG/v73605/DoD_Root_CA_3.cer',
         before => Sslcertificate['Install-Certificate-DoD-Root-CA-3'],
       }
 
@@ -32,7 +32,7 @@ class secure_windows::stig::v73605 (
         mode   => '0660',
         owner  => 'Administrator',
         group  => 'Administrators',
-        source => 'puppet:///modules/secure_windows/stig/v73605/DoD_Root_CA_4.cer',
+        source => 'puppet:///modules/secure_windows/STIG/v73605/DoD_Root_CA_4.cer',
         before => Sslcertificate['Install-Certificate-DoD-Root-CA-4'],
       }
 
