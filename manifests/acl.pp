@@ -214,7 +214,7 @@ class secure_windows::acl {
     $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
 
     acl { $sysvol_mount:
-      #group                      => 'S-1-5-21-429241146-72105815-2897606901-513',
+      group                      => 'S-1-5-32-544',
       inherit_parent_permissions => false,
       owner                      => 'S-1-5-32-544',
       permissions                => [
