@@ -12,8 +12,8 @@ class secure_windows::registry_editor {
 
   # V-73223
   registry::value { 'v73223':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SeCEdit\Reg Values\MACHINE/System/CurrentControlSet/Services/Netlogon/Parameters/MaximumPasswordAge',
-    value => '',
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SeCEdit\Reg Values\MACHINE',
+    value => '/System/CurrentControlSet/Services/Netlogon/Parameters/MaximumPasswordAge',
     type  => 'string',
     data  => '60',
   }
