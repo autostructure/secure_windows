@@ -21,7 +21,6 @@ class secure_windows (
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
   include ::secure_windows::gpo
-  include ::secure_windows::servicing_level
   include ::secure_windows::ftp_servers
   include ::secure_windows::ntp
   include ::secure_windows::ldap_connections
@@ -45,6 +44,7 @@ class secure_windows (
     }
 
     '2016','2016 R2': {
+      class { '::secure_windows::stig::v73239': }
       class { '::secure_windows::stig::v73309': }
       class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73257': }
