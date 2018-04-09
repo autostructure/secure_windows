@@ -18,7 +18,7 @@ class secure_windows (
   include ::secure_windows::auditpol
   include ::secure_windows::features
   include ::secure_windows::registry_editor
-  include ::secure_windows::lgpo
+  #include ::secure_windows::lgpo
   include ::secure_windows::gpo
   include ::secure_windows::servicing_level
   include ::secure_windows::ftp_servers
