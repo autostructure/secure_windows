@@ -24,7 +24,7 @@ class secure_windows::stig::v73607 (
             mode   => '0660',
             owner  => 'Administrator',
             group  => 'Administrators',
-            source => 'puppet:///modules/secure_windows/STIG/73607/DoD_IRCA_1-to-ECA_Root_CA_2.p7b',
+            source => 'puppet:///modules/secure_windows/STIG/v73607/DoD_IRCA_1-to-ECA_Root_CA_2.p7b',
             before => Sslcertificate['Install-Certificate-DoD-Root-CA-2'],
           }
 
