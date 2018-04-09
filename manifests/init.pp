@@ -14,7 +14,7 @@ class secure_windows (
 ) {
 
   #include ::secure_windows::acl
-  #include ::secure_windows::ad_acl
+  include ::secure_windows::ad_acl
   include ::secure_windows::auditpol
   include ::secure_windows::features
   #include ::secure_windows::reg_acl
