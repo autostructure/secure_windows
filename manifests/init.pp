@@ -13,7 +13,6 @@ class secure_windows (
   Optional[String] $classification,
 ) {
 
-  include ::secure_windows::ad_acl
   # include ::secure_windows::applocker
   include ::secure_windows::registry_editor
 
