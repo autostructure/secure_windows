@@ -1,9 +1,7 @@
-require 'win32/registry'
-
 Facter.add('ntds_parameters') do
-  confine kernel: 'windows'
-
+  confine operatingsystem: :windows
   setcode do
+    require 'win32/registry'
     ntds_hash = {}
 
     begin

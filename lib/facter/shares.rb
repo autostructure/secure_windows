@@ -1,6 +1,5 @@
 Facter.add('shares') do
-  confine kernel: 'windows'
-
+  confine operatingsystem: :windows
   setcode do
     shares_hash = {}
 

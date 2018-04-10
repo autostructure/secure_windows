@@ -1,1 +1,1 @@
-include ::secure_windows::test
+include ::secure_windows::reg_acl
