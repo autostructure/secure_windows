@@ -18,7 +18,6 @@ class secure_windows (
   # include ::secure_windows::applocker
   #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
-  include ::secure_windows::lgpo
 
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
@@ -137,6 +136,20 @@ class secure_windows (
       class { '::secure_windows::stig::v73775': }
       class { '::secure_windows::stig::v73777': }
       class { '::secure_windows::stig::v73779': }
+      class { '::secure_windows::stig::v73781': }
+      class { '::secure_windows::stig::v73783': }
+      class { '::secure_windows::stig::v73785': }
+      class { '::secure_windows::stig::v73787': }
+      class { '::secure_windows::stig::v73789': }
+      class { '::secure_windows::stig::v73791': }
+      class { '::secure_windows::stig::v73793': }
+      class { '::secure_windows::stig::v73795': }
+      class { '::secure_windows::stig::v73797': }
+      class { '::secure_windows::stig::v73799': }
+      class { '::secure_windows::stig::v73801': }
+      class { '::secure_windows::stig::v73803': }
+      class { '::secure_windows::stig::v73809': }
+
 
 
       class { '::secure_windows::stig::v73605':

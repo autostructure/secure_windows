@@ -102,6 +102,19 @@ secure_windows::stig::v73773::enforced: true
 secure_windows::stig::v73775::enforced: true
 secure_windows::stig::v73777::enforced: true
 secure_windows::stig::v73779::enforced: true
+secure_windows::stig::v73781::enforced: true
+secure_windows::stig::v73783::enforced: true
+secure_windows::stig::v73785::enforced: true
+secure_windows::stig::v73787::enforced: true
+secure_windows::stig::v73789::enforced: true
+secure_windows::stig::v73791::enforced: true
+secure_windows::stig::v73793::enforced: true
+secure_windows::stig::v73795::enforced: true
+secure_windows::stig::v73797::enforced: true
+secure_windows::stig::v73799::enforced: true
+secure_windows::stig::v73801::enforced: true
+secure_windows::stig::v73803::enforced: true
+secure_windows::stig::v73809::enforced: true
 
 secure_windows::stig::v73605::enforced: true
 secure_windows::stig::v73607::enforced: true
