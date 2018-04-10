@@ -1,6 +1,6 @@
 # V-73507
 # Insecure logons to an SMB server must be disabled.
-class secure_windows::stig::v73505 (
+class secure_windows::stig::v73507 (
   Boolean $enforced = false,
 ) {
   if $enforced {

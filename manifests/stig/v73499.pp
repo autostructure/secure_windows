@@ -3,6 +3,7 @@
 class secure_windows::stig::v73499 (
   Boolean $enforced = false,
 ) {
+  if $enforced {
     # This policy setting requires the installation of the SecGuide custom templates
     # included with the STIG package. "SecGuide.admx" and " SecGuide.adml"
     # must be copied to the \Windows\PolicyDefinitions and
