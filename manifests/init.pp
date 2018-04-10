@@ -58,6 +58,14 @@ class secure_windows (
       class { '::secure_windows::stig::v73365': }
       class { '::secure_windows::stig::v73387': }
       class { '::secure_windows::stig::v73487': }
+      class { '::secure_windows::stig::v73493': }
+      class { '::secure_windows::stig::v73495': }
+      class { '::secure_windows::stig::v73497': }
+      class { '::secure_windows::stig::v73499': }
+      class { '::secure_windows::stig::v73501': }
+      class { '::secure_windows::stig::v73503': }
+      class { '::secure_windows::stig::v73505': }
+      class { '::secure_windows::stig::v73507': }
 
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
