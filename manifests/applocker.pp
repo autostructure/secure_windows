@@ -42,76 +42,6 @@ class secure_windows::applocker {
     user_or_group_sid => 'S-1-5-32-544',
   }
 
-
-  # V-73235
-  # Windows Server 2016 must employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs.
-  #
-  # Disabled denial of .exe's or instance is useless.
-  # Discuss what to enable after applying a deny-all policy.
-  #
-  # applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all executable files).':
-  #   ensure            => 'present',
-  #   action            => 'Deny',
-  #   conditions        => [
-  #   {
-  #     'path' => '*'
-  #   }],
-  #   description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all executable files).',
-  #   mode              => 'NotConfigured',
-  #   rule_type         => 'path',
-  #   type              => 'Exe',
-  #   user_or_group_sid => 'S-1-1-0',
-  # }
-
-  # V-73235
-  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all Windows Installer files).':
-    ensure            => 'present',
-    action            => 'Deny',
-    conditions        => [
-    {
-      'path' => '*.*'
-    }],
-    description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all Windows Installer files).',
-    mode              => 'NotConfigured',
-    rule_type         => 'path',
-    type              => 'Msi',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
-  # V-73235
-  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all scripts).':
-    ensure            => 'present',
-    action            => 'Allow',
-    conditions        => [
-    {
-      'path' => '*'
-    }],
-    description       => 'STIG Rule addressing vulnerability V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all scripts).',
-    mode              => 'NotConfigured',
-    rule_type         => 'path',
-    type              => 'Script',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
-  # V-73235
-  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all signed packaged apps).':
-    ensure            => 'present',
-    action            => 'Allow',
-    conditions        => [
-    {
-      'publisher'  => '*',
-      'product'    => '*',
-      'binaryname' => '*',
-      'hi_version' => '*',
-      'lo_version' => '0.0.0.0'
-    }],
-    description       => 'STIG Rule addressing vulnerability V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all signed packaged apps).',
-    mode              => 'NotConfigured',
-    rule_type         => 'publisher',
-    type              => 'Appx',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
   # Deny access to USB, DVD, etc.
   #
 
@@ -290,6 +220,9 @@ class secure_windows::applocker {
     user_or_group_sid => 'S-1-1-0',
   }
 
+  # V-73235
+  # AppLocker is deny-all inherently when the AppIDSvc is started.
+  #
   # AppLockerPolicy requires this service is running to enforce AppLocker policies.
   #
 
