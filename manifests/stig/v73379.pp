@@ -6,10 +6,10 @@ class secure_windows::stig::v73379 (
 ) {
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
-      $dsa_databse_file = $facts['ntds_parameters']['DSA Databse File']
-      $dsa_databse_partition = regsubst($dsa_databse_file, '^(.+)/Windows', '\1')
+      $dsa_database_file = $facts['ntds_parameters']['DSA Database File']
+      $dsa_database_partition = regsubst($dsa_database_file, '^(.+)/Windows', '\1')
       notify { 'message123455':
-        message => $dsa_databse_partition,
+        message => $dsa_database_partition,
       }
     }
   }
