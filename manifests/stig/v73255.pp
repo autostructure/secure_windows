@@ -88,7 +88,7 @@ class secure_windows::stig::v73255 (
 
     # System
     if $facts['windows_server_type'] == 'windowsdc' {
-      reg_acl { 'hklm:system':
+      reg_acl { 'hklm:system\\':
         inherit_from_parent => false,
         owner               => 'S-1-5-32-544',
         permissions         => [
