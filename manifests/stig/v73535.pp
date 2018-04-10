@@ -11,5 +11,5 @@ class secure_windows::stig::v73535 (
       type  => 'string',
       data  => '1000000000000',
     }
-
+  }
 }

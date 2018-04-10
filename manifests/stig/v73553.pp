@@ -11,5 +11,5 @@ class secure_windows::stig::v73553 (
       type  => 'dword',
       data  => '0x00008000',
     }
-
+  }
 }

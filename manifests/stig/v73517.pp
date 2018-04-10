@@ -1,6 +1,6 @@
-# V-73521
-# Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers identified as bad.
-class secure_windows::stig::v73521 (
+# V-73517
+# Virtualization-based protection of code integrity must be enabled on domain-joined systems.
+class secure_windows::stig::v73517 (
   Boolean $enforced = false,
 ) {
   if $enforced {
@@ -11,5 +11,5 @@ class secure_windows::stig::v73521 (
       type  => 'dword',
       data  => '0x00000001',
     }
-
+  }
 }
