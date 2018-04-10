@@ -3,7 +3,5 @@
 class secure_windows::stig::v73415 (
   Boolean $enforced = false,
 ) {
-  if $enforced {
-    # This vulnerability has been addressed in secure_windows::stig::v73413
-  }
+  # This vulnerability has been addressed in secure_windows::stig::v73413
 }
