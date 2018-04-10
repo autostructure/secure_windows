@@ -6,8 +6,8 @@ class secure_windows::stig::v73371 (
 ) {
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
-      $sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
-
+      #$sysvol_mount = regsubst($facts['shares']['SYSVOL'], '^(.+)/sysvol', '\1')
+      $sysvol_mount = 'C:\\Windows\\SYSVOL'
       acl { $sysvol_mount:
         group                      => 'S-1-5-32-544',
         inherit_parent_permissions => false,
