@@ -1,17 +1,5 @@
-#
-# This class manages local group policy objects with local_security_policy
-#
-# TODO:
-# - Unit Tests
-# - Active Directory exemptions
-# - Kerberos stuff on Domain Controllers
-#
+#docs
 class secure_windows::lgpo {
-  # V-73729
-  # The Access Credential Manager as a trusted caller user right must not be assigned to any groups or accounts.
-  local_security_policy { 'Access Credential Manager as a trusted caller':
-    ensure         => 'absent',
-  }
 
   # V-73731
   # The Access this computer from the network user right must only be assigned to the Administrators, Authenticated Users, and

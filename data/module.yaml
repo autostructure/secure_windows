@@ -76,7 +76,9 @@ secure_windows::stig::v73623::enforced: true
 secure_windows::stig::v73625::enforced: true
 secure_windows::stig::v73665::enforced: true
 secure_windows::stig::v73689::enforced: true
-
+secure_windows::stig::v73729::enforced: true
+secure_windows::stig::v73731::enforced: true
+secure_windows::stig::v73733::enforced: true
 
 secure_windows::stig::v73605::enforced: true
 secure_windows::stig::v73607::enforced: true
