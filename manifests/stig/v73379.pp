@@ -7,7 +7,7 @@ class secure_windows::stig::v73379 (
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
       $dsa_database_file = $facts['ntds_parameters']['DSA Database file']
-      $dsa_database_partition = regsubst($dsa_database_file, '^([^/]+)/', '\1')
+      $dsa_database_partition = regsubst($dsa_database_file, '^([^/]+)/', '\0')
       notify { 'message123455':
         message => $dsa_database_partition,
       }
