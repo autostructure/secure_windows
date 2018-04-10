@@ -15,8 +15,6 @@ class secure_windows (
 
   #include ::secure_windows::acl
   include ::secure_windows::ad_acl
-  include ::secure_windows::auditpol
-  include ::secure_windows::lgpo
   # include ::secure_windows::applocker
   #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
@@ -62,7 +60,45 @@ class secure_windows (
       class { '::secure_windows::stig::v73361': }
       class { '::secure_windows::stig::v73363': }
       class { '::secure_windows::stig::v73365': }
-      class { '::secure_windows::stig::v73387': }
+      class { '::secure_windows::stig::v73413': }
+      class { '::secure_windows::stig::v73415': }
+      class { '::secure_windows::stig::v73417': }
+      class { '::secure_windows::stig::v73419': }
+      class { '::secure_windows::stig::v73421': }
+      class { '::secure_windows::stig::v73423': }
+      class { '::secure_windows::stig::v73425': }
+      class { '::secure_windows::stig::v73427': }
+      class { '::secure_windows::stig::v73429': }
+      class { '::secure_windows::stig::v73431': }
+      class { '::secure_windows::stig::v73433': }
+      class { '::secure_windows::stig::v73435': }
+      class { '::secure_windows::stig::v73437': }
+      class { '::secure_windows::stig::v73439': }
+      class { '::secure_windows::stig::v73441': }
+      class { '::secure_windows::stig::v73443': }
+      class { '::secure_windows::stig::v73445': }
+      class { '::secure_windows::stig::v73447': }
+      class { '::secure_windows::stig::v73449': }
+      class { '::secure_windows::stig::v73451': }
+      class { '::secure_windows::stig::v73453': }
+      class { '::secure_windows::stig::v73455': }
+      class { '::secure_windows::stig::v73457': }
+      class { '::secure_windows::stig::v73459': }
+      class { '::secure_windows::stig::v73461': }
+      class { '::secure_windows::stig::v73463': }
+      class { '::secure_windows::stig::v73465': }
+      class { '::secure_windows::stig::v73467': }
+      class { '::secure_windows::stig::v73469': }
+      class { '::secure_windows::stig::v73471': }
+      class { '::secure_windows::stig::v73473': }
+      class { '::secure_windows::stig::v73475': }
+      class { '::secure_windows::stig::v73477': }
+      class { '::secure_windows::stig::v73479': }
+      class { '::secure_windows::stig::v73481': }
+      class { '::secure_windows::stig::v73483': }
+      class { '::secure_windows::stig::v73485': }
+      class { '::secure_windows::stig::v73489': }
+      class { '::secure_windows::stig::v73491': }
 
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
@@ -79,7 +115,7 @@ class secure_windows (
     }
 
     default: {
-      fail("Unsupported operating system (${facts['whatever_osfullversionstring_is']}) detected.")
+      fail("Unsupported operating system (${facts['operatingsystemmajrelease']}) detected.")
     }
 
   }
