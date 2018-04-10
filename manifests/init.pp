@@ -13,7 +13,6 @@ class secure_windows (
   Optional[String] $classification,
 ) {
 
-  #include ::secure_windows::acl
   include ::secure_windows::ad_acl
   # include ::secure_windows::applocker
   include ::secure_windows::registry_editor
@@ -40,6 +39,9 @@ class secure_windows (
       class { '::secure_windows::stig::v73223': }
       class { '::secure_windows::stig::v73239': }
       class { '::secure_windows::stig::v73247': }
+      class { '::secure_windows::stig::v73249': }
+      class { '::secure_windows::stig::v73251': }
+      class { '::secure_windows::stig::v73253': }
       class { '::secure_windows::stig::v73255': }
       class { '::secure_windows::stig::v73257': }
       class { '::secure_windows::stig::v73259': }
@@ -68,6 +70,12 @@ class secure_windows (
       class { '::secure_windows::stig::v73361': }
       class { '::secure_windows::stig::v73363': }
       class { '::secure_windows::stig::v73365': }
+      class { '::secure_windows::stig::v73369': }
+      class { '::secure_windows::stig::v73371': }
+      class { '::secure_windows::stig::v73405': }
+      class { '::secure_windows::stig::v73407': }
+      class { '::secure_windows::stig::v73409': }
+      class { '::secure_windows::stig::v73411': }
       class { '::secure_windows::stig::v73413': }
       class { '::secure_windows::stig::v73415': }
       class { '::secure_windows::stig::v73417': }

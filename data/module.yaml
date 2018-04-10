@@ -10,6 +10,9 @@ secure_windows::stig::v73289::is_ftp_server: false
 
 secure_windows::stig::v73223::enforced: true
 secure_windows::stig::v73239::enforced: true
+secure_windows::stig::v73249::enforced: true
+secure_windows::stig::v73251::enforced: true
+secure_windows::stig::v73253::enforced: true
 secure_windows::stig::v73255::enforced: true
 secure_windows::stig::v73287::enforced: true
 secure_windows::stig::v73289::enforced: true
@@ -35,7 +38,13 @@ secure_windows::stig::v73359::enforced: true
 secure_windows::stig::v73361::enforced: true
 secure_windows::stig::v73363::enforced: true
 secure_windows::stig::v73365::enforced: true
+secure_windows::stig::v73369::enforced: true
+secure_windows::stig::v73371::enforced: true
 secure_windows::stig::v73387::enforced: true
+secure_windows::stig::v73405::enforced: true
+secure_windows::stig::v73407::enforced: true
+secure_windows::stig::v73409::enforced: true
+secure_windows::stig::v73411::enforced: true
 secure_windows::stig::v73413::enforced: true
 secure_windows::stig::v73415::enforced: true
 secure_windows::stig::v73417::enforced: true
