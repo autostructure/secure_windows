@@ -370,152 +370,152 @@ class secure_windows::registry_editor {
   #  data  => '0x00000000',
   #}
 
-  registry::value { 'v73585':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
-    value => 'AlwaysInstallElevated',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73585':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  #  value => 'AlwaysInstallElevated',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73587':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
-    value => 'SafeForScripting',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73587':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  #  value => 'SafeForScripting',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73589':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'DisableAutomaticRestartSignOn',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73589':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'DisableAutomaticRestartSignOn',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73591':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging',
-    value => 'EnableScriptBlockLogging',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73591':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging',
+  #  value => 'EnableScriptBlockLogging',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73593':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
-    value => 'AllowBasic',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73593':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  #  value => 'AllowBasic',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73595':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
-    value => 'AllowUnencryptedTraffic',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73595':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  #  value => 'AllowUnencryptedTraffic',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73597':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
-    value => 'AllowDigest',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73597':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client',
+  #  value => 'AllowDigest',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73599':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
-    value => 'AllowBasic',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73599':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  #  value => 'AllowBasic',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73601':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
-    value => 'AllowUnencryptedTraffic',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73601':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  #  value => 'AllowUnencryptedTraffic',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73603':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
-    value => 'DisableRunAs',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73603':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service',
+  #  value => 'DisableRunAs',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73621':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'LimitBlankPasswordUse',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73621':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'LimitBlankPasswordUse',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73627':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'SCENoApplyLegacyAuditPolicy',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73627':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'SCENoApplyLegacyAuditPolicy',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73629':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters',
-    value => 'LDAPServerIntegrity',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73629':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters',
+  #  value => 'LDAPServerIntegrity',
+  #  type  => 'dword',
+  #  data  => '0x00000002',
+  #}
 
-  registry::value { 'v73631':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'RefusePasswordChange',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73631':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'RefusePasswordChange',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73633':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'RequireSignOrSeal',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73633':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'RequireSignOrSeal',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73635':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'SealSecureChannel',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73635':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'SealSecureChannel',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73637':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'SignSecureChannel',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73637':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'SignSecureChannel',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73639':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'DisablePasswordChange',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73639':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'DisablePasswordChange',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73641':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'MaximumPasswordAge',
-    type  => 'dword',
-    data  => '0x0000001e',
-  }
+  #registry::value { 'v73641':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'MaximumPasswordAge',
+  #  type  => 'dword',
+  #  data  => '0x0000001e',
+  #}
 
-  registry::value { 'v73643':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
-    value => 'RequireStrongKey',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73643':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters',
+  #  value => 'RequireStrongKey',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73645':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'InactivityTimeoutSecs',
-    type  => 'dword',
-    data  => '0x00000384',
-  }
+  #registry::value { 'v73645':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'InactivityTimeoutSecs',
+  #  type  => 'dword',
+  #  data  => '0x00000384',
+  #}
 
   $legalnoticetext = 'I\'ve read & consent to terms in IS user agreement.'
 
