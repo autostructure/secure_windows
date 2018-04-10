@@ -7,8 +7,13 @@ class secure_windows::stig::v73379 (
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
       $dsa_database_partition = regsubst($facts['ntds_parameters']['DSA Database file'], '^(.*:).*$', '\1')
+      $shares = $facts['shares']
+      $relevant_shares = $shares.filter |$items| { $items[0] =~ /(!NETLOGON)|(!SYSVOL)/ }
       notify { 'testestetughei':
-        message => $facts['shares'],
+        message => $shares,
+      }
+      notify { 'tesgeirughse':
+        message => $relevant_shares,
       }
     }
   }
