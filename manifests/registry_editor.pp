@@ -517,81 +517,80 @@ class secure_windows::registry_editor {
   #  data  => '0x00000384',
   #}
 
-  $legalnoticetext = 'I\'ve read & consent to terms in IS user agreement.'
+  # Any OS versions that do not support the full text version must state the following:
+  # \"I've read & consent to terms in IS user agreem't.\"
+  # Deviations are not permitted except as authorized by the
+  # Deputy Assistant Secretary of Defense for Information and Identity Assurance."
 
-  #$legalnoticetext = 'Test'
-#
-# Any OS versions that do not support the full text version must state the following:
-# \"I've read & consent to terms in IS user agreem't.\"
-#
-# Deviations are not permitted except as authorized by the Deputy Assistant Secretary of Defense for Information and Identity Assurance."
+  #$legalnoticetext = 'I\'ve read & consent to terms in IS user agreement.'
 
-  registry::value { 'v73647':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'LegalNoticeText',
-    type  => 'string',
-    data  => $legalnoticetext,
-  }
+  #registry::value { 'v73647':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'LegalNoticeText',
+  #  type  => 'string',
+  #  data  => $legalnoticetext,
+  #}
 
-  $legalnoticetitle = 'US Department of Defense Warning Statement'
   # Alternatively, the title below is also valid...
   # $legalnoticetitle = "DoD Notice and Consent Banner",
 
-  registry::value { 'v73649':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'LegalNoticeCaption',
-    type  => 'string',
-    data  => $legalnoticetitle,
-  }
+  #$legalnoticetitle = 'US Department of Defense Warning Statement'
 
-  registry::value { 'v73651':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
-    value => 'CachedLogonsCount',
-    type  => 'string',
-    data  => '4',
-  }
+  #registry::value { 'v73649':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'LegalNoticeCaption',
+  #  type  => 'string',
+  #  data  => $legalnoticetitle,
+  #}
 
-  registry::value { 'v73653':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
-    value => 'RequireSecuritySignature',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73651':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+  #  value => 'CachedLogonsCount',
+  #  type  => 'string',
+  #  data  => '4',
+  #}
 
-  registry::value { 'v73655':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
-    value => 'EnableSecuritySignature',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73653':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+  #  value => 'RequireSecuritySignature',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73657':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
-    value => 'EnablePlainTextPassword',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73655':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+  #  value => 'EnableSecuritySignature',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73659':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
-    value => 'autodisconnect',
-    type  => 'dword',
-    data  => '0x0000000f',
-  }
+  #registry::value { 'v73657':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters',
+  #  value => 'EnablePlainTextPassword',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73661':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
-    value => 'RequireSecuritySignature',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73659':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+  #  value => 'autodisconnect',
+  #  type  => 'dword',
+  #  data  => '0x0000000f',
+  #}
 
-  registry::value { 'v73663':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
-    value => 'EnableSecuritySignature',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73661':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+  #  value => 'RequireSecuritySignature',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
+
+  #registry::value { 'v73663':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters',
+  #  value => 'EnableSecuritySignature',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
   registry::value { 'v73667':
     key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
