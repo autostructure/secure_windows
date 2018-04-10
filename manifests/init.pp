@@ -18,7 +18,6 @@ class secure_windows (
   include ::secure_windows::auditpol
   include ::secure_windows::lgpo
   # include ::secure_windows::applocker
-  include ::secure_windows::features
   #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
   include ::secure_windows::lgpo
@@ -48,6 +47,14 @@ class secure_windows (
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
       class { '::secure_windows::stig::v73263': }
+      class { '::secure_windows::stig::v73287': }
+      class { '::secure_windows::stig::v73289': }
+      class { '::secure_windows::stig::v73291': }
+      class { '::secure_windows::stig::v73293': }
+      class { '::secure_windows::stig::v73295': }
+      class { '::secure_windows::stig::v73297': }
+      class { '::secure_windows::stig::v73299': }
+      class { '::secure_windows::stig::v73301': }
       class { '::secure_windows::stig::v73303': }
       class { '::secure_windows::stig::v73305': }
       class { '::secure_windows::stig::v73309': }

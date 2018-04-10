@@ -5,7 +5,17 @@ secure_windows::log::threatlevel: warning
 secure_windows::is_dod: true
 secure_windows::classification: 'unclassified'
 
+secure_windows::stig::v73289::is_ftp_server: false
+
 secure_windows::stig::v73239::enforced: true
+secure_windows::stig::v73287::enforced: true
+secure_windows::stig::v73289::enforced: true
+secure_windows::stig::v73291::enforced: true
+secure_windows::stig::v73293::enforced: true
+secure_windows::stig::v73295::enforced: true
+secure_windows::stig::v73297::enforced: true
+secure_windows::stig::v73299::enforced: true
+secure_windows::stig::v73301::enforced: true
 secure_windows::stig::v73303::enforced: true
 secure_windows::stig::v73305::enforced: true
 secure_windows::stig::v73307::enforced: true
