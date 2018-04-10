@@ -100,6 +100,8 @@ class secure_windows (
       class { '::secure_windows::stig::v73575': }
       class { '::secure_windows::stig::v73577': }
       class { '::secure_windows::stig::v73579': }
+      class { '::secure_windows::stig::v73581': }
+      class { '::secure_windows::stig::v73583': }
 
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,

@@ -356,19 +356,19 @@ class secure_windows::registry_editor {
   #  data  => '0x00000000',
   #}
 
-  registry::value { 'v73581':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
-    value => 'AllowIndexingEncryptedStoresOrItems',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73581':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
+  #  value => 'AllowIndexingEncryptedStoresOrItems',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73583':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
-    value => 'EnableUserControl',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73583':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  #  value => 'EnableUserControl',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
   registry::value { 'v73585':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
