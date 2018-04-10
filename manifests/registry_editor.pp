@@ -244,117 +244,117 @@ class secure_windows::registry_editor {
   #  data  => '0x00000001',
   #}
 
-  registry::value { 'v73549':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-    value => 'NoDriveTypeAutoRun',
-    type  => 'dword',
-    data  => '0x000000ff',
-  }
+  #registry::value { 'v73549':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+  #  value => 'NoDriveTypeAutoRun',
+  #  type  => 'dword',
+  #  data  => '0x000000ff',
+  #}
 
-  registry::value { 'v73551':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection',
-    value => 'AllowTelemetry',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73551':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection',
+  #  value => 'AllowTelemetry',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73553':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00008000',
-  }
+  #registry::value { 'v73553':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00008000',
+  #}
 
-  registry::value { 'v73555':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00030000',
-  }
+  #registry::value { 'v73555':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00030000',
+  #}
 
-  registry::value { 'v73557':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00008000',
-  }
+  #registry::value { 'v73557':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00008000',
+  #}
 
-  registry::value { 'v73559':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-    value => 'EnableSmartScreen',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73559':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  #  value => 'EnableSmartScreen',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73561':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-    value => 'NoDataExecutionPrevention',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73561':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  #  value => 'NoDataExecutionPrevention',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73563':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-    value => 'NoHeapTerminationOnCorruption',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73563':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  #  value => 'NoHeapTerminationOnCorruption',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73565':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-    value => 'PreXPSP2ShellProtocolBehavior',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73565':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+  #  value => 'PreXPSP2ShellProtocolBehavior',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73567':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'DisablePasswordSaving',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73567':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'DisablePasswordSaving',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73569':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fDisableCdm',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73569':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fDisableCdm',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73571':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fPromptForPassword',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73571':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fPromptForPassword',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73573':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fEncryptRPCTraffic',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73573':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fEncryptRPCTraffic',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73575':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'MinEncryptionLevel',
-    type  => 'dword',
-    data  => '0x00000003',
-  }
+  #registry::value { 'v73575':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'MinEncryptionLevel',
+  #  type  => 'dword',
+  #  data  => '0x00000003',
+  #}
 
-  registry::value { 'v73577':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
-    value => 'DisableEnclosureDownload',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #egistry::value { 'v73577':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+  #  value => 'DisableEnclosureDownload',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73579':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
-    value => 'AllowBasicAuthInClear',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73579':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+  #  value => 'AllowBasicAuthInClear',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
   registry::value { 'v73581':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
