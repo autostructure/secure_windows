@@ -46,50 +46,55 @@ class secure_windows::applocker {
   # V-73235
   # Windows Server 2016 must employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs.
   #
+  # Disabled denial of .exe's or instance is useless.
+  # Discuss what to enable after applying a deny-all policy.
+  #
+  # applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all executable files).':
+  #   ensure            => 'present',
+  #   action            => 'Deny',
+  #   conditions        => [
+  #   {
+  #     'path' => '*'
+  #   }],
+  #   description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all executable files).',
+  #   mode              => 'NotConfigured',
+  #   rule_type         => 'path',
+  #   type              => 'Exe',
+  #   user_or_group_sid => 'S-1-1-0',
+  # }
 
-  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (All executable files).':
-    ensure            => 'present',
-    action            => 'Deny',
-    conditions        => [
-    {
-      'path' => '*'
-    }],
-    description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (All executable files).',
-    mode              => 'NotConfigured',
-    rule_type         => 'path',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
-  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (All Windows Installer files).':
+  # V-73235
+  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all Windows Installer files).':
     ensure            => 'present',
     action            => 'Deny',
     conditions        => [
     {
       'path' => '*.*'
     }],
-    description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs..',
+    description       => 'STIG Rule addressing vulnerability V-73235: Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all Windows Installer files).',
     mode              => 'NotConfigured',
     rule_type         => 'path',
     type              => 'Msi',
     user_or_group_sid => 'S-1-1-0',
   }
 
-  applocker_rule { '(Default Rule) All scripts':
+  # V-73235
+  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all scripts).':
     ensure            => 'present',
     action            => 'Allow',
     conditions        => [
     {
       'path' => '*'
     }],
-    description       => 'Allows members of the local Administrators group to run all scripts.',
+    description       => 'STIG Rule addressing vulnerability V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all scripts).',
     mode              => 'NotConfigured',
     rule_type         => 'path',
     type              => 'Script',
     user_or_group_sid => 'S-1-1-0',
   }
 
-  applocker_rule { '(Default Rule) All signed packaged apps':
+  # V-73235
+  applocker_rule { '(STIG Rule) V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all signed packaged apps).':
     ensure            => 'present',
     action            => 'Allow',
     conditions        => [
@@ -100,7 +105,7 @@ class secure_windows::applocker {
       'hi_version' => '*',
       'lo_version' => '0.0.0.0'
     }],
-    description       => 'Allows members of the Everyone group to run packaged apps that are signed.',
+    description       => 'STIG Rule addressing vulnerability V-73235 - Employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs (all signed packaged apps).',
     mode              => 'NotConfigured',
     rule_type         => 'publisher',
     type              => 'Appx',
@@ -294,76 +299,4 @@ class secure_windows::applocker {
     enable => true,
   }
 
-  # Test section...
-  # Guest Group SID => S-1-5-32-546
-  #
-
-  applocker_rule {'(Sample Rule) Rule #1: Simple Path Rule':
-    ensure            => present,
-    action            => 'Allow',
-    filepath          => '%PROGRAMFILES%\Internet Explorer\iexplore.exe',
-    rule_type         => 'path',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
-
-  applocker_rule {'(Sample Rule) Rule #2: Complex Path Rule':
-    ensure            => present,
-    action            => 'Deny',
-    conditions        => [ { 'path' => '%WINDIR%\*' } ],
-    exceptions        => [ '%WINDIR%\Temp\*', '%WINDIR%\System32\*' ],
-    description       => 'Sample rule specifying conditions and exceptions, no filepath param.',
-    rule_type         => 'path',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
-
-  applocker_rule {'(Sample Rule) Rule #3: Simple Hash Rule':
-    ensure            => present,
-    action            => 'Allow',
-    filepath          => '%PROGRAMFILES%\Internet Explorer\iexplore.exe',
-    rule_type         => 'hash',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
-
-  applocker_rule {'(Sample Rule) Rule #4: Complex Hash Rule':
-    ensure            => present,
-    action            => 'Deny',
-    conditions        => [
-    {
-      'hash' => '0x9C352E488066F6319673B8F4ACF1DA3242CF1A68D9637EC54EF95EC5FDD4FDBF',
-      'file' => 'iexplore.exe',
-      'type' => 'SHA256',
-      'size' => '814768'
-    }],
-    rule_type         => 'hash',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
-
-  applocker_rule {'(Sample Rule) Rule #5: Simple Publisher Rule':
-    ensure            => present,
-    action            => 'Allow',
-    filepath          => '%PROGRAMFILES%\Internet Explorer\iexplore.exe',
-    rule_type         => 'publisher',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
-
-  applocker_rule {'(Sample Rule) Rule #6: Complex Publisher Rule':
-    ensure            => present,
-    action            => 'Deny',
-    conditions        => [
-    {
-      'publisher'  => 'O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US',
-      'product'    => 'INTERNET EXPLORER',
-      'binaryname' => '*',
-      'hi_version' => '*',
-      'lo_version' => '11.0.0.0'
-    }],
-    rule_type         => 'publisher',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-546',
-  }
 }

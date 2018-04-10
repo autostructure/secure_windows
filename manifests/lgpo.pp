@@ -11,11 +11,9 @@ class secure_windows::lgpo {
   # V-73223
   # By default, this setting is defined in the Default Domain Group Policy object (GPO)
   # and in the local security policy of workstations and servers with a value of 42.
-  local_security_policy { 'Password Policy':
-    ensure         => 'present',
-    policy_setting => 'Maximum password age',
-    policy_type    => 'System Access',
-    policy_value   => '1',
+  local_security_policy { 'Maximum password age':
+    ensure       => present,
+    policy_value => '60',
   }
 
   # V-73309
