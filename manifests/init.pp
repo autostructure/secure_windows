@@ -56,6 +56,14 @@ class secure_windows (
       class { '::secure_windows::stig::v73303': }
       class { '::secure_windows::stig::v73305': }
       class { '::secure_windows::stig::v73309': }
+      class { '::secure_windows::stig::v73311': }
+      class { '::secure_windows::stig::v73313': }
+      class { '::secure_windows::stig::v73315': }
+      class { '::secure_windows::stig::v73317': }
+      class { '::secure_windows::stig::v73319': }
+      class { '::secure_windows::stig::v73321': }
+      class { '::secure_windows::stig::v73323': }
+      class { '::secure_windows::stig::v73325': }
       class { '::secure_windows::stig::v73359': }
       class { '::secure_windows::stig::v73361': }
       class { '::secure_windows::stig::v73363': }
@@ -99,6 +107,10 @@ class secure_windows (
       class { '::secure_windows::stig::v73485': }
       class { '::secure_windows::stig::v73489': }
       class { '::secure_windows::stig::v73491': }
+      class { '::secure_windows::stig::v73623': }
+      class { '::secure_windows::stig::v73625': }
+      class { '::secure_windows::stig::v73665': }
+      class { '::secure_windows::stig::v73689': }
 
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
