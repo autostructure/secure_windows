@@ -16,6 +16,10 @@ class secure_windows (
   #include ::secure_windows::acl
   include ::secure_windows::ad_acl
   include ::secure_windows::auditpol
+<<<<<<< HEAD
+  include ::secure_windows::lgpo
+  # include ::secure_windows::applocker
+=======
   include ::secure_windows::features
   #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
@@ -72,6 +76,7 @@ class secure_windows (
     default: {
       fail("Unsupported operating system (${facts['whatever_osfullversionstring_is']}) detected.")
     }
+>>>>>>> 3071ee38e11979ce08d09d0de81bbdac81ad4125
 
   }
 }

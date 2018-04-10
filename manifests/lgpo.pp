@@ -8,6 +8,26 @@
 #
 class secure_windows::lgpo {
 
+<<<<<<< HEAD
+=======
+  # V-73223
+  # By default, this setting is defined in the Default Domain Group Policy object (GPO)
+  # and in the local security policy of workstations and servers with a value of 42.
+  local_security_policy { 'Maximum password age':
+    ensure       => present,
+    policy_value => '60',
+  }
+
+  # V-73309
+  # Windows 2016 account lockout duration must be configured to 15 minutes or greater.
+  local_security_policy { 'Account lockout duration':
+    ensure         => 'present',
+    policy_setting => 'LockoutDuration',
+    policy_type    => 'System Access',
+    policy_value   => '15',
+  }
+
+>>>>>>> master
   # V-73311
   # The number of allowed bad logon attempts must be configured to three or less.
   local_security_policy { 'Account lockout threshold':
@@ -285,6 +305,31 @@ class secure_windows::lgpo {
     }
   }
 
+<<<<<<< HEAD
+=======
+  # # V-73759
+  # # The Deny access to this computer from the network user right on member servers must be configured to prevent
+  # # access from highly privileged domain accounts and local accounts on domain systems, and from unauthenticated access on all systems.
+  # if($facts['windows_type'] =~ /(0|2)/) {
+  #   #standalone
+  #   local_security_policy { 'Deny access to this computer from the network':
+  #     ensure         => 'present',
+  #     policy_setting => 'SeDenyNetworkLogonRight',
+  #     policy_type    => 'Privilege Rights',
+  #     policy_value   => '*S-1-5-32-546',
+  #   }
+  # }
+  # elsif ($facts['windows_type'] =~ /(1|3)/) {
+  #   #member server
+  #   local_security_policy { 'Deny access to this computer from the network':
+  #     ensure         => 'present',
+  #     policy_setting => 'SeDenyNetworkLogonRight',
+  #     policy_type    => 'Privilege Rights',
+  #     policy_value   => '*S-1-5-32-546',
+  #   }
+  # }
+
+>>>>>>> master
   # V-73761
   # The Deny log on as a batch job user right on domain controllers must be configured to prevent unauthenticated access.
   # V-73763

@@ -10,6 +10,9 @@ class secure_windows::registry_editor {
 
   # ::secure_windows::log { 'Begin editing registry...': }
 
+  # V-73261
+  # V-73263
+
   # V-73487
   registry::value { 'v73487':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI',
