@@ -4,7 +4,7 @@
 class secure_windows::stig::v73379 (
   Boolean $enforced = false,
 ) {
-  if $enforced {
+  #if $enforced {
     # if $facts['windows_server_type'] == 'windowsdc' {
     #   $dsa_database_partition = regsubst($facts['ntds_parameters']['DSA Database file'], '^(.*:).*$', '\1')
     #   $shares = $facts['shares']
@@ -18,5 +18,5 @@ class secure_windows::stig::v73379 (
     # }
 
     # Check the 'shares' fact to verify this STIG
-  }
+  #}
 }
