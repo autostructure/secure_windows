@@ -7,9 +7,10 @@ secure_windows::classification: 'unclassified'
 
 
 secure_windows::stig::v73289::is_ftp_server: false
-secure_windows::stig::v73223::enforced: true
 
+secure_windows::stig::v73223::enforced: true
 secure_windows::stig::v73239::enforced: true
+secure_windows::stig::v73255::enforced: true
 secure_windows::stig::v73287::enforced: true
 secure_windows::stig::v73289::enforced: true
 secure_windows::stig::v73291::enforced: true

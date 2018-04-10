@@ -16,7 +16,6 @@ class secure_windows (
   #include ::secure_windows::acl
   include ::secure_windows::ad_acl
   # include ::secure_windows::applocker
-  #include ::secure_windows::reg_acl
   include ::secure_windows::registry_editor
 
   # Platform-specific defaults
@@ -41,6 +40,7 @@ class secure_windows (
       class { '::secure_windows::stig::v73223': }
       class { '::secure_windows::stig::v73239': }
       class { '::secure_windows::stig::v73247': }
+      class { '::secure_windows::stig::v73255': }
       class { '::secure_windows::stig::v73257': }
       class { '::secure_windows::stig::v73259': }
       class { '::secure_windows::stig::v73261': }
