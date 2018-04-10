@@ -3,6 +3,7 @@
 class secure_windows::stig::v73551 (
   Boolean $enforced = false,
 ) {
+
   if $enforced {
 
     registry::value { 'v73551':
@@ -11,5 +12,7 @@ class secure_windows::stig::v73551 (
       type  => 'dword',
       data  => '0x00000000',
     }
+
+  }
 
 }
