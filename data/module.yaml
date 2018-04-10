@@ -5,6 +5,7 @@ secure_windows::log::threatlevel: warning
 secure_windows::is_dod: true
 secure_windows::classification: 'unclassified'
 
+secure_windows::stig::v73223::enforced: true
 secure_windows::stig::v73239::enforced: true
 secure_windows::stig::v73303::enforced: true
 secure_windows::stig::v73305::enforced: true
@@ -15,6 +16,7 @@ secure_windows::stig::v73361::enforced: true
 secure_windows::stig::v73363::enforced: true
 secure_windows::stig::v73365::enforced: true
 secure_windows::stig::v73387::enforced: true
+secure_windows::stig::v73487::enforced: true
 secure_windows::stig::v73605::enforced: true
 secure_windows::stig::v73607::enforced: true
 secure_windows::stig::v73609::enforced: true

@@ -42,6 +42,7 @@ class secure_windows (
     }
 
     '2016','2016 R2': {
+      class { '::secure_windows::stig::v73223': }
       class { '::secure_windows::stig::v73239': }
       class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73257': }
@@ -56,6 +57,7 @@ class secure_windows (
       class { '::secure_windows::stig::v73363': }
       class { '::secure_windows::stig::v73365': }
       class { '::secure_windows::stig::v73387': }
+      class { '::secure_windows::stig::v73487': }
 
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
