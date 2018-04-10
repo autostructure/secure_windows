@@ -10,48 +10,45 @@ class secure_windows::registry_editor {
 
   # ::secure_windows::log { 'Begin editing registry...': }
 
-  # V-73261
-  # V-73263
-
   # V-73487
-  registry::value { 'v73487':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI',
-    value => 'EnumerateAdministrators',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73487':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI',
+  #  value => 'EnumerateAdministrators',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73493':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization',
-    value => 'NoLockScreenSlideshow',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73493':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization',
+  #  value => 'NoLockScreenSlideshow',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73495':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'LocalAccountTokenFilterPolicy',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73495':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'LocalAccountTokenFilterPolicy',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
   # This policy setting requires the installation of the SecGuide custom templates
   # included with the STIG package. "SecGuide.admx" and " SecGuide.adml"
   # must be copied to the \Windows\PolicyDefinitions and
   # \Windows\PolicyDefinitions\en-US directories respectively.
-  registry::value { 'v73497':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\Wdigest',
-    value => 'UseLogonCredential',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73497':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\Wdigest',
+  #  value => 'UseLogonCredential',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73499':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters',
-    value => 'DisableIPSourceRouting',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73499':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters',
+  #  value => 'DisableIPSourceRouting',
+  #  type  => 'dword',
+  #  data  => '0x00000002',
+  #}
 
   # TODO: Install the MSS-Legacy custom templates included in the STIG package.
   # This policy setting requires the installation of the
@@ -59,34 +56,33 @@ class secure_windows::registry_editor {
   # "MSS-Legacy.admx" and "MSS-Legacy.adml" must be copied to the
   # \Windows\PolicyDefinitions and \Windows\PolicyDefinitions\en-US
   # directories respectively.
-  registry::value { 'v73501':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
-    value => 'DisableIPSourceRouting',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73501':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
+  #  value => 'DisableIPSourceRouting',
+  #  data  => '0x00000002',
+  #}
 
   # TODO: Install the MSS-Legacy custom templates included in the STIG package.
-  registry::value { 'v73503':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
-    value => 'EnableICMPRedirect',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73503':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters',
+  #  value => 'EnableICMPRedirect',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73505':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netbt\Parameters',
-    value => 'NoNameReleaseOnDemand',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73505':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netbt\Parameters',
+  #  value => 'NoNameReleaseOnDemand',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73507':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation',
-    value => 'AllowInsecureGuestAuth',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73507':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation',
+  #  value => 'AllowInsecureGuestAuth',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
   # These two registry entries were added via command-line.
   # The values contained characters that the registry value resource
@@ -109,270 +105,270 @@ class secure_windows::registry_editor {
   # C:\Windows\system32\cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f
   # NOTE: %ERRORLEVEL% returns 0 if match found and 1 if no match
   #       So, using unless instead of onlyif as a test.
-  exec { 'v73509_netlogon':
-    path    => 'C:\Windows\system32',
-    command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
-    unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON"',
-  }
+  #exec { 'v73509_netlogon':
+  #  path    => 'C:\Windows\system32',
+  #  command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+  #  unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\NETLOGON"',
+  #}
 
-  exec { 'v73509_sysvol':
-    path    => 'C:\Windows\system32',
-    command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
-    unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL"',
-  }
+  #exec { 'v73509_sysvol':
+  #  path    => 'C:\Windows\system32',
+  #  command => 'cmd.exe /C reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL" /d "RequireMutualAuthentication=1, RequireIntegrity=1" /t REG_SZ /f',
+  #  unless  => 'cmd.exe /C reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths /v "\\*\SYSVOL"',
+  #}
 
-  registry::value { 'v73511':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit',
-    value => 'ProcessCreationIncludeCmdLine_Enabled',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73511':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit',
+  #  value => 'ProcessCreationIncludeCmdLine_Enabled',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
   # TODO: other steps to complete.
-  registry::value { 'v73513-1':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
-    value => 'EnableVirtualizationBasedSecurity',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73513-1':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
+  #  value => 'EnableVirtualizationBasedSecurity',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73513-2':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
-    value => 'RequirePlatformSecurityFeatures',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73513-2':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
+  #  value => 'RequirePlatformSecurityFeatures',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73515':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
-    value => 'LsaCfgFlags',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73515':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
+  #  value => 'LsaCfgFlags',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73517':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
-    value => 'HypervisorEnforcedCodeIntegrity',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73517':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard',
+  #  value => 'HypervisorEnforcedCodeIntegrity',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73521':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Policies\EarlyLaunch',
-    value => 'DriverLoadPolicy',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73521':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Policies\EarlyLaunch',
+  #  value => 'DriverLoadPolicy',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73525':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}',
-    value => 'NoGPOListChanges',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73525':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}',
+  #  value => 'NoGPOListChanges',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73527':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
-    value => 'DisableWebPnPDownload',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73527':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+  #  value => 'DisableWebPnPDownload',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73529':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
-    value => 'DisableHTTPPrinting',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73529':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
+  #  value => 'DisableHTTPPrinting',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73531':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-    value => 'DontDisplayNetworkSelectionUI',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73531':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  #  value => 'DontDisplayNetworkSelectionUI',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73533':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-    value => 'EnumerateLocalUsers',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73533':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  #  value => 'EnumerateLocalUsers',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73535':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOption',
-    value => 'MitigationOptions_FontBocking',
-    type  => 'string',
-    data  => '1000000000000',
-  }
+  #registry::value { 'v73535':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOption',
+  #  value => 'MitigationOptions_FontBocking',
+  #  type  => 'string',
+  #  data  => '1000000000000',
+  #}
 
-  registry::value { 'v73537':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
-    value => 'DCSettingIndex',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73537':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+  #  value => 'DCSettingIndex',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73539':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
-    value => 'ACSettingIndex',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73539':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51',
+  #  value => 'ACSettingIndex',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73541':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc',
-    value => 'RestrictRemoteClients',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73541':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc',
+  #  value => 'RestrictRemoteClients',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73543':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat',
-    value => 'DisableInventory',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73543':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat',
+  #  value => 'DisableInventory',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73545':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-    value => 'NoAutoplayfornonVolume',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73545':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  #  value => 'NoAutoplayfornonVolume',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73547':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-    value => 'NoAutorun',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73547':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+  #  value => 'NoAutorun',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73549':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-    value => 'NoDriveTypeAutoRun',
-    type  => 'dword',
-    data  => '0x000000ff',
-  }
+  #registry::value { 'v73549':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+  #  value => 'NoDriveTypeAutoRun',
+  #  type  => 'dword',
+  #  data  => '0x000000ff',
+  #}
 
-  registry::value { 'v73551':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection',
-    value => 'AllowTelemetry',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73551':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection',
+  #  value => 'AllowTelemetry',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73553':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00008000',
-  }
+  #registry::value { 'v73553':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00008000',
+  #}
 
-  registry::value { 'v73555':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00030000',
-  }
+  #registry::value { 'v73555':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00030000',
+  #}
 
-  registry::value { 'v73557':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
-    value => 'MaxSize',
-    type  => 'dword',
-    data  => '0x00008000',
-  }
+  #registry::value { 'v73557':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System',
+  #  value => 'MaxSize',
+  #  type  => 'dword',
+  #  data  => '0x00008000',
+  #}
 
-  registry::value { 'v73559':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-    value => 'EnableSmartScreen',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73559':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+  #  value => 'EnableSmartScreen',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73561':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-    value => 'NoDataExecutionPrevention',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73561':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  #  value => 'NoDataExecutionPrevention',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73563':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-    value => 'NoHeapTerminationOnCorruption',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73563':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
+  #  value => 'NoHeapTerminationOnCorruption',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73565':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-    value => 'PreXPSP2ShellProtocolBehavior',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73565':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
+  #  value => 'PreXPSP2ShellProtocolBehavior',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73567':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'DisablePasswordSaving',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73567':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'DisablePasswordSaving',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73569':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fDisableCdm',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73569':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fDisableCdm',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73571':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fPromptForPassword',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73571':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fPromptForPassword',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73573':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'fEncryptRPCTraffic',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73573':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'fEncryptRPCTraffic',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73575':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
-    value => 'MinEncryptionLevel',
-    type  => 'dword',
-    data  => '0x00000003',
-  }
+  #registry::value { 'v73575':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services',
+  #  value => 'MinEncryptionLevel',
+  #  type  => 'dword',
+  #  data  => '0x00000003',
+  #}
 
-  registry::value { 'v73577':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
-    value => 'DisableEnclosureDownload',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #egistry::value { 'v73577':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+  #  value => 'DisableEnclosureDownload',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73579':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
-    value => 'AllowBasicAuthInClear',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73579':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds',
+  #  value => 'AllowBasicAuthInClear',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73581':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
-    value => 'AllowIndexingEncryptedStoresOrItems',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73581':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search',
+  #  value => 'AllowIndexingEncryptedStoresOrItems',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73583':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
-    value => 'EnableUserControl',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73583':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
+  #  value => 'EnableUserControl',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
   registry::value { 'v73585':
     key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer',
