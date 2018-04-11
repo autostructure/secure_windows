@@ -15,7 +15,7 @@ class secure_windows::administrative_template_installation {
   file { 'c:\Windows\PolicyDefinitions\MSS-Legacy.admx':
     ensure => 'file',
     mode   => '0777',
-    source => 'puppet://192.168.5.62/modules/secure_windows/stig/v73495/MSS-Legacy.admx',
+    source => 'puppet:///modules/secure_windows/stig/v73495/MSS-Legacy.admx',
   }
   #  source => 'puppet:///modules/secure_windows/MSS-Legacy.admx',
 
