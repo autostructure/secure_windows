@@ -16,10 +16,10 @@ Facter.add('unused_accounts') do
     $lastLogin = 'Never'
     }
     if ($enabled -eq 'True') {
-    if ($lastLogin -gt $laterdate) {
+    if ($lastLogin -gt (Get-Date)) {
     Write-Host $user.Name
     }
-    } 
+    }
     }
     HEREDOC
     Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
