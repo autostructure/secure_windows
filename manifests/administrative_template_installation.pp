@@ -23,14 +23,14 @@ class secure_windows::administrative_template_installation {
     ensure => 'file',
     mode   => '0660',
     group  => 'BUILTIN\\Administrators',
-    source => 'puppet:///modules/secure_windows/stig/v73495/SecGuide.admx',
+    source => 'puppet:///modules/secure_windows/stig/v73499/SecGuide.admx',
   }
 
   file { 'c:\Windows\PolicyDefinitions\SecGuide.adml':
     ensure => 'file',
     mode   => '0660',
     group  => 'BUILTIN\\Administrators',
-    source => 'puppet:///modules/secure_windows/stig/v73495/SecGuide.adml',
+    source => 'puppet:///modules/secure_windows/stig/v73499/SecGuide.adml',
   }
 
 }
