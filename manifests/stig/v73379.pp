@@ -25,6 +25,7 @@ class secure_windows::stig::v73379 (
         }
         elsif $name =~ /^.{1}\$/ {
           notify { 'erguh4':
+            name    => $name,
             message => 'There is a C$ or D$ share',
           }
         }
