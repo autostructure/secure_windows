@@ -9,7 +9,7 @@ class secure_windows::administrative_template_installation {
     ensure => 'file',
     mode   => '0660',
     group  => 'BUILTIN\\Administrators',
-    source => 'puppet:///modules/secure_windows/STIG/v73495/MSS-Legacy.admx',
+    source => 'https://192.168.5.62/modules/secure_windows/STIG/v73495/MSS-Legacy.admx',
   }
 
   #file { 'c:\Windows\PolicyDefinitions\en-US\MSS-Legacy.adml':
