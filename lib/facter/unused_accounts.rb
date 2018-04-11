@@ -13,15 +13,15 @@ Facter.add('unused_accounts') do
     $enabled = ($user.Properties.UserFlags.Value -band 0x2) -ne 0x2
     $laterdate = (Get-Date).AddDays(35)
     if ($lastLogin -eq $null) {
-    $lastLogin = 'Never'
+      $lastLogin = 'Never'
     }
     if ($enabled -eq 'True') {
-    if ($lastLogin -gt (Get-Date)) {
-    Write-Host $user.Name
-    }
+      if ($lastLogin -gt (Get-Date)) {
+        Write-Host $user.Name
+      }
     }
     }
     HEREDOC
-    Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
+    Facter::Core::Execution.exec("#{powershell} -command \"#{command}\"")
   end
 end
