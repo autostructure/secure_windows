@@ -48,15 +48,15 @@ class secure_windows::stig::v73379 (
 
 
 
-      $dsa_database_partition = regsubst($facts['ntds_parameters']['DSA Database file'], '^(.*:).*$', '\1')
-      $shares = $facts['shares']
-      $relevant_shares = $shares.filter |$items| { $items[0] =~ /!SYSVOL/ }
-      notify { 'testestetughei':
-        message => $shares,
-      }
-      notify { 'tesgeirughse':
-        message => $relevant_shares,
-      }
+      # $dsa_database_partition = regsubst($facts['ntds_parameters']['DSA Database file'], '^(.*:).*$', '\1')
+      # $shares = $facts['shares']
+      # $relevant_shares = $shares.filter |$items| { $items[0] =~ /!SYSVOL/ }
+      # notify { 'testestetughei':
+      #   message => $shares,
+      # }
+      # notify { 'tesgeirughse':
+      #   message => $relevant_shares,
+      # }
     }
 
     # Check the 'shares' fact to verify this STIG
