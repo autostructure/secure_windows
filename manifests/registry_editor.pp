@@ -592,222 +592,222 @@ class secure_windows::registry_editor {
   #  data  => '0x00000001',
   #}
 
-  registry::value { 'v73667':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'RestrictAnonymousSAM',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73667':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'RestrictAnonymousSAM',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73669':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'RestrictAnonymous',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73669':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'RestrictAnonymous',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73671':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'DisableDomainCreds',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73671':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'DisableDomainCreds',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73673':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'EveryoneIncludesAnonymous',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73673':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'EveryoneIncludesAnonymous',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73675':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameter',
-    value => 'RestrictNullSessAccess',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73675':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameter',
+  #  value => 'RestrictNullSessAccess',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73677':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'RestrictRemoteSAM',
-    type  => 'string',
-    data  => 'O:BAG:BAD:(A;;RC;;;BA)',
-  }
+  #registry::value { 'v73677':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'RestrictRemoteSAM',
+  #  type  => 'string',
+  #  data  => 'O:BAG:BAD:(A;;RC;;;BA)',
+  #}
 
-  registry::value { 'v73679':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'UseMachineId',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73679':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'UseMachineId',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73681':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
-    value => 'allownullsessionfallback',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73681':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  #  value => 'allownullsessionfallback',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73683':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\pku2u',
-    value => 'AllowOnlineID',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73683':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\pku2u',
+  #  value => 'AllowOnlineID',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73685':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters',
-    value => 'SupportedEncryptionTypes',
-    type  => 'dword',
-    data  => '0x7ffffff8',
-  }
+  #registry::value { 'v73685':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters',
+  #  value => 'SupportedEncryptionTypes',
+  #  type  => 'dword',
+  #  data  => '0x7ffffff8',
+  #}
 
-  registry::value { 'v73687':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'NoLMHash',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73687':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'NoLMHash',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73691':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-    value => 'LmCompatibilityLevel',
-    type  => 'dword',
-    data  => '0x00000005',
-  }
+  #registry::value { 'v73691':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
+  #  value => 'LmCompatibilityLevel',
+  #  type  => 'dword',
+  #  data  => '0x00000005',
+  #}
 
-  registry::value { 'v73693':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LDAP',
-    value => 'LDAPClientIntegrity',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73693':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LDAP',
+  #  value => 'LDAPClientIntegrity',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73695':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
-    value => 'NTLMMinClientSec',
-    type  => 'dword',
-    data  => '0x20080000',
-  }
+  #registry::value { 'v73695':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  #  value => 'NTLMMinClientSec',
+  #  type  => 'dword',
+  #  data  => '0x20080000',
+  #}
 
-  registry::value { 'v73697':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
-    value => 'NTLMMinServerSec',
-    type  => 'dword',
-    data  => '0x20080000',
-  }
+  #registry::value { 'v73697':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
+  #  value => 'NTLMMinServerSec',
+  #  type  => 'dword',
+  #  data  => '0x20080000',
+  #}
 
-  registry::value { 'v73699':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Cryptography',
-    value => 'ForceKeyProtection',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73699':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Cryptography',
+  #  value => 'ForceKeyProtection',
+  #  type  => 'dword',
+  #  data  => '0x00000002',
+  #}
 
-  registry::value { 'v73701':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy',
-    value => 'Enabled',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73701':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy',
+  #  value => 'Enabled',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73703':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel',
-    value => 'ObCaseInsensitive',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73703':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel',
+  #  value => 'ObCaseInsensitive',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73705':
-    key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager',
-    value => 'ProtectionMode',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73705':
+  #  key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager',
+  #  value => 'ProtectionMode',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73707':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'FilterAdministratorToken',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73707':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'FilterAdministratorToken',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73709':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'EnableUIADesktopToggle',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73709':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'EnableUIADesktopToggle',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73711':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'ConsentPromptBehaviorAdmin',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73711':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'ConsentPromptBehaviorAdmin',
+  #  type  => 'dword',
+  #  data  => '0x00000002',
+  #}
 
-  registry::value { 'v73713':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'ConsentPromptBehaviorUser',
-    type  => 'dword',
-    data  => '0x00000000',
-  }
+  #registry::value { 'v73713':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'ConsentPromptBehaviorUser',
+  #  type  => 'dword',
+  #  data  => '0x00000000',
+  #}
 
-  registry::value { 'v73715':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'EnableInstallerDetection',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73715':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'EnableInstallerDetection',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73717':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'EnableSecureUIAPaths',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73717':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'EnableSecureUIAPaths',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73719':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'EnableLUA',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73719':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'EnableLUA',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73721':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'EnableVirtualization',
-    type  => 'dword',
-    data  => '0x00000001',
-  }
+  #registry::value { 'v73721':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+  #  value => 'EnableVirtualization',
+  #  type  => 'dword',
+  #  data  => '0x00000001',
+  #}
 
-  registry::value { 'v73723':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop',
-    value => 'ScreenSaveActive',
-    type  => 'string',
-    data  => '1',
-  }
+  #registry::value { 'v73723':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop',
+  #  value => 'ScreenSaveActive',
+  #  type  => 'string',
+  #  data  => '1',
+  #}
 
-  registry::value { 'v73725':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop',
-    value => 'ScreenSaverIsSecure',
-    type  => 'string',
-    data  => '1',
-  }
+  #registry::value { 'v73725':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop',
+  #  value => 'ScreenSaverIsSecure',
+  #  type  => 'string',
+  #  data  => '1',
+  #}
 
-  registry::value { 'v73727':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments',
-    value => 'SaveZoneInformation',
-    type  => 'dword',
-    data  => '0x00000002',
-  }
+  #registry::value { 'v73727':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments',
+  #  value => 'SaveZoneInformation',
+  #  type  => 'dword',
+  #  data  => '0x00000002',
+  #}
 
-  registry::value { 'v73807':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
-    value => 'scremoveoption',
-    type  => 'string',
-    data  => '1',
-  }
+  #registry::value { 'v73807':
+  #  key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+  #  value => 'scremoveoption',
+  #  type  => 'string',
+  #  data  => '1',
+  #}
 
   # ::secure_windows::log {'Registry editing complete.': }
 
