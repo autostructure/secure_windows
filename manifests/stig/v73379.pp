@@ -24,7 +24,8 @@ class secure_windows::stig::v73379 (
         else {
           if $path =~ $dsa_database_partition {
             notify { "Share ${path} violates V-73379":
-              message => "Not in compliance with DoD STIG V-73379. Share ${path} is a user drive on the same partition as ${facts['ntds_parameters']['DSA Database file']}",
+              message  => "Not in compliance with DoD STIG V-73379. Share ${path} is a user drive on the same partition as ${facts['ntds_parameters']['DSA Database file']}",
+              loglevel => warning,
             }
           }
         }
