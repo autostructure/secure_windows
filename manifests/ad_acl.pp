@@ -46,7 +46,7 @@ class secure_windows::ad_acl {
           'identity'         => 'S-1-1-0',
           'audit_flags'      => 'Failure',
           'inheritance_type' => 'None',
-        }
+        },
       ],
     }
 
@@ -69,7 +69,7 @@ class secure_windows::ad_acl {
           'identity'         => 'S-1-1-0',
           'audit_flags'      => 'Failure',
           'inheritance_type' => 'None',
-        }
+        },
       ],
     }
 
@@ -86,7 +86,7 @@ class secure_windows::ad_acl {
           'identity'         => 'S-1-1-0',
           'audit_flags'      => 'Failure',
           'inheritance_type' => 'None',
-        }
+        },
       ],
     }
 
@@ -103,7 +103,7 @@ class secure_windows::ad_acl {
           'identity'         => 'S-1-1-0',
           'audit_flags'      => 'Failure',
           'inheritance_type' => 'None',
-        }
+        },
       ],
     }
 
@@ -132,7 +132,7 @@ class secure_windows::ad_acl {
           'identity'         => 'S-1-1-0',
           'audit_flags'      => 'Failure',
           'inheritance_type' => 'None',
-        }
+        },
       ],
     }
 
