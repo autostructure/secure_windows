@@ -38,13 +38,13 @@ class secure_windows::stig::v73389 (
           'inheritance_type'    => 'None'
         },
         {
-          'identity'            => 'S-1-5-21-2537783290-4083596532-1772155507-512',
+          'identity'            => "${facts['domain_sid']}-512",
           'ad_rights'           => 'CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner',
           'access_control_type' => 'Allow',
           'inheritance_type'    => 'None'
         },
         {
-          'identity'            => 'S-1-5-21-2537783290-4083596532-1772155507-520',
+          'identity'            => "${facts['domain_sid']}-520",
           'ad_rights'           => 'CreateChild',
           'access_control_type' => 'Allow',
           'inheritance_type'    => 'None'
