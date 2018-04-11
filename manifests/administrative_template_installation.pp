@@ -7,28 +7,24 @@ define secure_windows::administrative_template_installation {
 
   file { 'c:\Windows\PolicyDefinitions\MSS-Legacy.admx':
     ensure => 'file'
-    mode   => '0660',
     group  => ' BUILTIN\\Administrators',
     source => 'puppet:///modules/secure_windows/STIG/v73495/MSS-Legacy.admx',
   }
 
   file { 'c:\Windows\PolicyDefinitions\en-US\MSS-Legacy.adml':
     ensure => 'file'
-    mode   => '0660',
     group  => ' BUILTIN\\Administrators',
     source => 'puppet:///modules/secure_windows/STIG/v73495/MSS-Legacy.adml',
   }
 
   file { 'c:\Windows\PolicyDefinitions\SecGuide.admx':
     ensure => 'file'
-    mode   => '0660',
     group  => ' BUILTIN\\Administrators',
     source => 'puppet:///modules/secure_windows/STIG/v73495/SecGuide.admx',
   }
 
   file { 'c:\Windows\PolicyDefinitions\SecGuide.adml':
     ensure => 'file'
-    mode   => '0660',
     group  => ' BUILTIN\\Administrators',
     source => 'puppet:///modules/secure_windows/STIG/v73495/SecGuide.adml',
   }
