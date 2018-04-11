@@ -6,6 +6,7 @@ class secure_windows::stig::v73379 (
 ) {
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
+      $dsa_database_partition = regsubst($facts['ntds_parameters']['DSA Database file'], '^(.*:).*$', '\1')
       $hash_of_shares = $facts['shares']
       $hash_of_shares.each |$name,$path| {
         if $name =~ /^SYSVOL/ {
@@ -29,11 +30,9 @@ class secure_windows::stig::v73379 (
           }
         }
         else {
-          notify { 'erguh5':
-            message => 'There is a user share',
-          }
-          notify { 'erguh6':
-            message => "${name} ${path}",
+          if $path =~ /$dsa_database_partition/ {
+            notify { 'eirughseirgh':
+              message => "${path} matches ${dsa_database_partition}"}
           }
         }
       }
