@@ -30,11 +30,11 @@ class secure_windows::stig::v73379 (
           }
         }
         else {
-          #if $path =~ /$dsa_database_partition/ {
-          notify { 'eirughseirgh':
-            message => "${path} matches ${dsa_database_partition}",
+          if $path =~ $dsa_database_partition {
+            notify { 'eirughseirgh':
+              message => "${path} matches ${dsa_database_partition}",
+            }
           }
-          #}
         }
       }
 
