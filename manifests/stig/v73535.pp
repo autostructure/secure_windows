@@ -3,6 +3,7 @@
 class secure_windows::stig::v73535 (
   Boolean $enforced = false,
 ) {
+
   if $enforced {
 
     registry::value { 'v73535':
@@ -11,5 +12,7 @@ class secure_windows::stig::v73535 (
       type  => 'string',
       data  => '1000000000000',
     }
+
   }
+
 }

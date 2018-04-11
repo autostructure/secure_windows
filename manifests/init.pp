@@ -13,8 +13,7 @@ class secure_windows (
   Optional[String] $classification,
 ) {
 
-  # include ::secure_windows::applocker
-  include ::secure_windows::registry_editor
+
 
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
@@ -36,6 +35,8 @@ class secure_windows (
 
     '2016','2016 R2': {
       class { '::secure_windows::stig::v73223': }
+      class { '::secure_windows::stig::v73225': }
+      class { '::secure_windows::stig::v73235': }
       class { '::secure_windows::stig::v73239': }
       class { '::secure_windows::stig::v73247': }
       class { '::secure_windows::stig::v73249': }
@@ -167,6 +168,16 @@ class secure_windows (
       class { '::secure_windows::stig::v73579': }
       class { '::secure_windows::stig::v73581': }
       class { '::secure_windows::stig::v73583': }
+      class { '::secure_windows::stig::v73585': }
+      class { '::secure_windows::stig::v73587': }
+      class { '::secure_windows::stig::v73589': }
+      class { '::secure_windows::stig::v73591': }
+      class { '::secure_windows::stig::v73593': }
+      class { '::secure_windows::stig::v73595': }
+      class { '::secure_windows::stig::v73597': }
+      class { '::secure_windows::stig::v73599': }
+      class { '::secure_windows::stig::v73601': }
+      class { '::secure_windows::stig::v73603': }
       class { '::secure_windows::stig::v73623': }
       class { '::secure_windows::stig::v73625': }
       class { '::secure_windows::stig::v73665': }
@@ -211,6 +222,7 @@ class secure_windows (
       class { '::secure_windows::stig::v73803': }
       class { '::secure_windows::stig::v73809': }
 
+
       class { '::secure_windows::stig::v73605':
         is_dod         => $is_dod,
         classification => $classification,
@@ -223,6 +235,59 @@ class secure_windows (
         is_dod         => $is_dod,
         classification => $classification,
       }
+
+      class { '::secure_windows::stig::v73621': }
+      class { '::secure_windows::stig::v73627': }
+      class { '::secure_windows::stig::v73629': }
+      class { '::secure_windows::stig::v73631': }
+      class { '::secure_windows::stig::v73633': }
+      class { '::secure_windows::stig::v73635': }
+      class { '::secure_windows::stig::v73637': }
+      class { '::secure_windows::stig::v73639': }
+      class { '::secure_windows::stig::v73641': }
+      class { '::secure_windows::stig::v73643': }
+      class { '::secure_windows::stig::v73645': }
+      class { '::secure_windows::stig::v73647': }
+      class { '::secure_windows::stig::v73649': }
+      class { '::secure_windows::stig::v73651': }
+      class { '::secure_windows::stig::v73653': }
+      class { '::secure_windows::stig::v73655': }
+      class { '::secure_windows::stig::v73657': }
+      class { '::secure_windows::stig::v73659': }
+      class { '::secure_windows::stig::v73661': }
+      class { '::secure_windows::stig::v73663': }
+      class { '::secure_windows::stig::v73667': }
+      class { '::secure_windows::stig::v73669': }
+      class { '::secure_windows::stig::v73671': }
+      class { '::secure_windows::stig::v73673': }
+      class { '::secure_windows::stig::v73675': }
+      class { '::secure_windows::stig::v73677': }
+      class { '::secure_windows::stig::v73679': }
+      class { '::secure_windows::stig::v73681': }
+      class { '::secure_windows::stig::v73683': }
+      class { '::secure_windows::stig::v73685': }
+      class { '::secure_windows::stig::v73687': }
+      class { '::secure_windows::stig::v73691': }
+      class { '::secure_windows::stig::v73693': }
+      class { '::secure_windows::stig::v73695': }
+      class { '::secure_windows::stig::v73697': }
+      class { '::secure_windows::stig::v73699': }
+      class { '::secure_windows::stig::v73701': }
+      class { '::secure_windows::stig::v73703': }
+      class { '::secure_windows::stig::v73705': }
+      class { '::secure_windows::stig::v73707': }
+      class { '::secure_windows::stig::v73709': }
+      class { '::secure_windows::stig::v73711': }
+      class { '::secure_windows::stig::v73713': }
+      class { '::secure_windows::stig::v73715': }
+      class { '::secure_windows::stig::v73717': }
+      class { '::secure_windows::stig::v73719': }
+      class { '::secure_windows::stig::v73721': }
+      class { '::secure_windows::stig::v73723': }
+      class { '::secure_windows::stig::v73725': }
+      class { '::secure_windows::stig::v73727': }
+      class { '::secure_windows::stig::v73807': }
+
     }
 
     default: {

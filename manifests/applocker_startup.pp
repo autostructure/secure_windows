@@ -1,7 +1,7 @@
 # Profile class for AppLocker configuration.
 #
 
-class secure_windows::applocker {
+class secure_windows::applocker_startup {
 
   # Must enable access to powershell.exe since it is used by the applocker_rule provider to enforce rules.
   #
@@ -19,55 +19,6 @@ class secure_windows::applocker {
     type              => 'Exe',
     user_or_group_sid => 'S-1-5-32-544',
   }
-
-  # V-73225
-  # Administrative accounts must not be used with applications that access the Internet, such as web browsers, or with potential Internet sources, such as email.
-  #
-
-  applocker_rule { '(STIG Rule) V-73225 - Disable IE for Administrators':
-    ensure            => 'present',
-    action            => 'Deny',
-    conditions        => [
-    {
-      'publisher'  => 'O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US',
-      'product'    => 'INTERNET EXPLORER',
-      'binaryname' => '*',
-      'hi_version' => '*',
-      'lo_version' => '11.0.0.0'
-    }],
-    description       => 'STIG Rule addressing vulnerability V-73225: Administrative accounts must not be used with applications that access the Internet, such as web browsers, or with potential Internet sources, such as email.',
-    mode              => 'NotConfigured',
-    rule_type         => 'publisher',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-5-32-544',
-  }
-
-  # Deny access to USB, DVD, etc.
-  #
-
-  applocker_rule {'(Puppet Rule) Lock down removable storage device (for example, USB flash drive)':
-    ensure            => present,
-    action            => 'Deny',
-    conditions        => [ { 'path' => '%HOT%\*' } ],
-    description       => 'Lock down removable storage device (for example, USB flash drive)',
-    mode              => 'NotConfigured',
-    rule_type         => 'path',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
-  applocker_rule {'(Puppet Rule) Lock down Removable media (for example, CD or DVD)':
-    ensure            => present,
-    action            => 'Deny',
-    conditions        => [ { 'path' => '%REMOVABLE%\*' } ],
-    description       => 'Lock down removable media (for example, CD or DVD)',
-    mode              => 'NotConfigured',
-    rule_type         => 'path',
-    type              => 'Exe',
-    user_or_group_sid => 'S-1-1-0',
-  }
-
-
 
   # Create AppLocker "Default Rules" before starting the AppIDSvc service.
   #
