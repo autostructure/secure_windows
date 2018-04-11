@@ -6,6 +6,8 @@ secure_windows::is_dod: true
 secure_windows::classification: 'unclassified'
 
 secure_windows::stig::v73223::enforced: true
+secure_windows::stig::v73225::enforced: true
+secure_windows::stig::v73235::enforced: true
 secure_windows::stig::v73239::enforced: true
 secure_windows::stig::v73303::enforced: true
 secure_windows::stig::v73305::enforced: true
