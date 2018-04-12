@@ -22,7 +22,7 @@ class secure_windows::stig::v73607 (
           file { 'c:/windows/temp/DoD_IRCA_1-to-ECA_Root_CA_2.p7b':
             ensure => 'file',
             mode   => '0660',
-            group  => ' BUILTIN\\Administrators',
+            group  => 'BUILTIN\\Administrators',
             source => 'puppet:///modules/secure_windows/STIG/v73607/DoD_IRCA_1-to-ECA_Root_CA_2.p7b',
             before => Sslcertificate['Install-Certificate-DoD-Root-CA-2'],
           }

@@ -4,7 +4,8 @@
   "author": "Bryan Belanger",
   "summary": "",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/autostructure/secure_windows",
+  "project_page": "https://github.com/autostructure/secure_windows",
   "dependencies": [
     {
       "name": "ayohrling-local_security_policy",
@@ -32,7 +33,7 @@
     },
     {
       "name": "autostructure-applocker",
-      "version_requirement": "0.x"
+      "version_requirement": ">= 0.0.0"
     }
   ],
   "operatingsystem_support": [
