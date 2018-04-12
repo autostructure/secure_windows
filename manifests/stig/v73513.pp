@@ -51,17 +51,17 @@ class secure_windows::stig::v73513 (
       test1 = $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
 
       notify {"facts['credential_guard_requiredsecurityproperties'] = ${facts['credential_guard_requiredsecurityproperties']}": }
-      notify {"'2' in $facts['credential_guard_requiredsecurityproperties'] = ${test1}": }
+      notify {"'2' in ${facts}['credential_guard_requiredsecurityproperties'] = ${test1}": }
 
       notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] = ${facts['credential_guard_credential_guard_virtualizationbasedsecuritystatus']}": }
       notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] == '2' = ${test2}": }
 
-        if '2' in $facts['credential_guard_requiredsecurityproperties'] && $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
+        if '2' in $facts['credential_guard_requiredsecurityproperties'] and $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
           # good
-          notify {"Credential Guard Check Okay.": }
+          notify {'Credential Guard Check Okay.': }
         } else {
           # bad
-          notify {"Credential Guard Check Fail.": }
+          notify {'Credential Guard Check Fail.': }
         }
 
 
