@@ -1,3 +1,13 @@
+#
+# This fact returns a number for the type of server
+#
+# 0: Standalone Workstation
+# 1: Member Workstation
+# 2: Standalone Server
+# 3: Member Server
+# 4: Backup Domain Controller
+# 5: Primary Domain Controller
+#
 require 'facter'
 
 Facter.add(:windows_type) do
