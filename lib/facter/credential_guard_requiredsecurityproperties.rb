@@ -13,7 +13,7 @@ Facter.add(:credential_guard_requiredsecurityproperties) do
 
     unless requiredsecurityproperties.empty?
 
-      case @resource[:rule_type]
+      case requiredsecurityproperties
       when /2, 3/
         'secure boot'
       when /2/
