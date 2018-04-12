@@ -22,6 +22,6 @@ Facter.add('unused_accounts') do
       }
     }
     HEREDOC
-    Facter::Core::Execution.exec("#{powershell} #{command})
+    Facter::Core::Execution.exec("#{powershell} #{command}")
   end
 end
