@@ -12,7 +12,7 @@ class secure_windows::administrative_template_secguide_installer {
     source => 'puppet:///modules/secure_windows/stig/v73499/SecGuide.admx',
   }
 
-  file { 'c:\Windows\PolicyDefinitions\SecGuide.adml':
+  file { 'c:\Windows\PolicyDefinitions\en-US\SecGuide.adml':
     ensure => 'file',
     mode   => '0660',
     group  => 'BUILTIN\\Administrators',
