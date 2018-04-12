@@ -47,10 +47,14 @@ class secure_windows::stig::v73513 (
 
     if $facts['operatingsystemmajrelease'] in ['2016','2016 R2'] {
 
+      test1 = $facts['credential_guard_requiredsecurityproperties'].include? '2'
+      test1 = $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
+
       notify {"facts['credential_guard_requiredsecurityproperties'] = ${facts['credential_guard_requiredsecurityproperties']}": }
-      notify {"facts['credential_guard_requiredsecurityproperties'].include? '2' = ${facts['credential_guard_requiredsecurityproperties'].include? '2'}": }
+      notify {"facts['credential_guard_requiredsecurityproperties'].include? '2' = ${test1}": }
+
       notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] = ${facts['credential_guard_credential_guard_virtualizationbasedsecuritystatus']}": }
-      notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] == '2' = ${facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'}": }
+      notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] == '2' = ${test2}": }
 
         if $facts['credential_guard_requiredsecurityproperties'].include? '2'  && $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
           # good
