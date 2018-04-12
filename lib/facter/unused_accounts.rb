@@ -13,7 +13,7 @@ Facter.add('unused_accounts') do
       users = []
       wmi = WIN32OLE.connect("winmgmts:\\\\.\\root\\cimv2")
       wmi.ExecQuery("SELECT * FROM Win32_UserAccount").each do |user|
-        if user.Disabled == False
+        if user.Disabled == FALSE
           users.push(user.Name)
         end
       end
