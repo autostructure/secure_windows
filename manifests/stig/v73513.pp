@@ -22,12 +22,6 @@ class secure_windows::stig::v73513 (
         default   => false,
       }
 
-      notify {"facts['credential_guard_requiredsecurityproperties'] = ${facts['credential_guard_requiredsecurityproperties']}": }
-      notify {"passed_test_1 => ${passed_test_1}": }
-
-      notify {"facts['credential_guard_virtualizationbasedsecuritystatus'] = ${facts['credential_guard_virtualizationbasedsecuritystatus']}": }
-      notify {"passed_test_2 => ${passed_test_2}": }
-
       if $passed_test_1 and $passed_test_2 {
         notify {'STIG vulnerability V-73513: Windows Credential Guard is running.': }
       } else {
