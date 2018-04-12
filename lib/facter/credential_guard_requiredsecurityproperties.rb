@@ -11,8 +11,6 @@ Facter.add(:credential_guard_requiredsecurityproperties) do
 
     requiredsecurityproperties = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
 
-    unless requiredsecurityproperties.empty?
-
       case requiredsecurityproperties
       when /2, 3/
         'secure boot'
@@ -22,6 +20,5 @@ Facter.add(:credential_guard_requiredsecurityproperties) do
         'unconfigured'
       end
 
-    end
   end
 end
