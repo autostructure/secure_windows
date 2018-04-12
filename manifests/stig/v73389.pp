@@ -1,4 +1,6 @@
 # This class manages:
+# V-73373
+# Active Directory Group Policy objects must have proper access control permissions.
 # V-73389
 # Active Directory Group Policy objects must be configured with proper audit settings.
 class secure_windows::stig::v73389 (
@@ -22,6 +24,31 @@ class secure_windows::stig::v73389 (
             'inheritance_type' => 'None',
           },
         ],
+        access_rules => [
+        {
+          'identity'            => 'S-1-5-11',
+          'ad_rights'           => 'GenericRead',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => 'S-1-5-18',
+          'ad_rights'           => 'GenericAll',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => "${facts['domain_sid']}-512",
+          'ad_rights'           => 'CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => "${facts['domain_sid']}-520",
+          'ad_rights'           => 'CreateChild',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        }],
       }
     }
   }

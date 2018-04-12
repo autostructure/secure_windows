@@ -1,4 +1,6 @@
 # This class manages:
+# V-73375
+# The Active Directory Domain Controllers Organizational Unit (OU) object must have the proper access control permissions.
 # V-73395
 # The Active Directory Domain Controllers Organizational Unit (OU) object must be configured with proper audit settings.
 class secure_windows::stig::v73395 (
@@ -29,6 +31,31 @@ class secure_windows::stig::v73395 (
             'inheritance_type' => 'None',
           },
         ],
+        access_rules => [
+        {
+          'identity'            => 'S-1-5-9',
+          'ad_rights'           => 'GenericRead',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => 'S-1-5-11',
+          'ad_rights'           => 'GenericRead',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => 'S-1-5-18',
+          'ad_rights'           => 'GenericAll',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        },
+        {
+          'identity'            => "${facts['domain_sid']}-512",
+          'ad_rights'           => 'CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner',
+          'access_control_type' => 'Allow',
+          'inheritance_type'    => 'None'
+        }],
       }
     }
   }

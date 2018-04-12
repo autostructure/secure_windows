@@ -21,6 +21,9 @@ class secure_windows::stig::v73379 (
         elsif $name =~ /^.{1}\$/ {
 
         }
+        elsif $name =~ /^print\$/ {
+
+        }
         else {
           if $path =~ $dsa_database_partition {
             notify { "Share ${path} violates V-73379":
