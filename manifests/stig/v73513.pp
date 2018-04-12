@@ -4,21 +4,6 @@ class secure_windows::stig::v73513 (
   Boolean $enforced = false,
 ) {
 
-  # powershell fact commands...
-  # Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard | select RequiredSecurityProperties | FT -HideTableHeaders
-  # Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard | select VirtualizationBasedSecurityStatus | FT -HideTableHeaders
-
-  # TODO: other steps to complete.
-  # For more information on Credential Guard, see:
-  # https://technet.microsoft.com/itpro/windows/keep-secure/credential-guard
-
-  # Fix Text
-  # ========
-  # Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Device Guard >> "Turn On Virtualization Based Security" to "Enabled" with "Secure Boot" or "Secure Boot and DMA Protection" selected.
-  #
-  # A Microsoft TechNet article on Credential Guard, including system requirement details, can be found at the following link:
-  # https://technet.microsoft.com/itpro/windows/keep-secure/credential-guard
-
   # Check Content
   # =============
   # For standalone systems, this is NA.
@@ -52,31 +37,6 @@ class secure_windows::stig::v73513 (
   #
   # If "VirtualizationBasedSecurityStatus" is not a value of "2" indicating "Running", this is a finding.
   #
-  # Alternately:
-  # ------------
-  # Run "System Information".
-  #
-  # Under "System Summary", verify the following:
-  #
-  # If "Device Guard Virtualization based security" does not display "Running", this is finding.
-  #
-  # If "Device Guard Required Security Properties" does not display "Base Virtualization Support, Secure Boot", this is finding.
-  #
-  # If "Secure Boot and DMA Protection" is configured, "DMA Protection" will also be displayed (e.g., "Base Virtualization Support, Secure Boot, DMA Protection").
-  #
-  # The policy settings referenced in the Fix section will configure the following registry values. However, due to hardware requirements, the registry values alone do not ensure proper function.
-  #
-  # Registry Hive: HKEY_LOCAL_MACHINE
-  # Registry Path: \SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\
-  #
-  # Value Name: EnableVirtualizationBasedSecurity
-  # Value Type: REG_DWORD
-  # Value: 0x00000001 (1)
-  #
-  # Value Name: RequirePlatformSecurityFeatures
-  # Value Type: REG_DWORD
-  # Value: 0x00000001 (1) (Secure Boot only) or 0x00000003 (3) (Secure Boot and DMA Protection)
-  #
   # A Microsoft TechNet article on Credential Guard, including system requirement details, can be found at the following link:
   # https://technet.microsoft.com/itpro/windows/keep-secure/credential-guard
 
@@ -94,10 +54,10 @@ class secure_windows::stig::v73513 (
 
         if $facts['credential_guard_requiredsecurityproperties'].include? '2'  && $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
           # good
-          notify {"Credential Guard Okay.": }
+          notify {"Credential Guard Check Okay.": }
         } else {
           # bad
-          notify {"Credential Guard Fail.": }
+          notify {"Credential Guard Check Fail.": }
         }
 
 
