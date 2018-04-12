@@ -48,7 +48,7 @@ class secure_windows::stig::v73513 (
     if $facts['operatingsystemmajrelease'] in ['2016','2016 R2'] {
 
       test1 = '2' in $facts['credential_guard_requiredsecurityproperties']
-      test1 = $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
+      test2 = $facts['credential_guard_virtualizationbasedsecuritystatus'] == '2'
 
       notify {"facts['credential_guard_requiredsecurityproperties'] = ${facts['credential_guard_requiredsecurityproperties']}": }
       notify {"'2' in ${facts}['credential_guard_requiredsecurityproperties'] = ${test1}": }
