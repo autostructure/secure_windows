@@ -17,6 +17,8 @@ class secure_windows::stig::v73513 (
       }
 
       notify {"facts['credential_guard_requiredsecurityproperties'] = ${facts['credential_guard_requiredsecurityproperties']}": }
+      notify {"2 in ${facts}['credential_guard_requiredsecurityproperties'] = ${test1}": }
+
     } else {
       notify {"secure_windows: skipping v-73513, only relevant on Windows Server 2016, operating system (${facts['operatingsystemmajrelease']}) detected.": }
     }
