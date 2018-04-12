@@ -14,11 +14,18 @@ class secure_windows::stig::v73647 (
 
     #$legalnoticetext = 'I\'ve read & consent to terms in IS user agreement.'
 
-    registry::value { 'v73647':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-      value => 'LegalNoticeText',
-      type  => 'string',
-      data  => $legalnoticetext,
+    # registry::value { 'v73647':
+    #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
+    #   value => 'LegalNoticeText',
+    #   type  => 'string',
+    #   data  => $legalnoticetext,
+    # }
+
+    local_security_policy { 'Interactive logon: Message text for users attempting to log on':
+      ensure         => 'present',
+      policy_setting => 'MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText',
+      policy_type    => 'Registry Values',
+      policy_value   => "7,${legalnoticetext}",
     }
 
   }
