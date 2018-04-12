@@ -20,7 +20,7 @@ Facter.add('unused_accounts') do
       # users
       powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
       #command = 'Search-ADAccount -AccountInactive -UsersOnly -TimeSpan 35.00::00::00 | Where-Object { $_.Enabled -eq $true } | FT SamAccountName -HideTableHeaders'
-      command = "([ADSI]('WinNT://{0}' -f $env:COMPUTERNAME)).Children | Where { $_.SchemaClassName -eq 'user' } | ForEach { if ((($user.Properties.UserFlags.Value -band 0x2) -ne 0x2) -eq 'True') { if (($user.Properties.LastLogin.Value) -gt (Get-Date)) {Write-Host $user.Name} } }"
+      command = "([ADSI]('WinNT://{0}' -f $env:COMPUTERNAME)).Children | Where { $_.SchemaClassName -eq 'user' } | ForEach { if ((($user.Properties.UserFlags.Value -band 0x2) -ne 0x2) -eq 'True') { if (($user.Properties.LastLogin.Value) -lt (Get-Date)) {Write-Host $user.Name} } }"
       #   $user = ([ADSI]$_.Path)
       #   $lastLogin = $user.Properties.LastLogin.Value
       #   $enabled = ($user.Properties.UserFlags.Value -band 0x2) -ne 0x2
