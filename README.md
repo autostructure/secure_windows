@@ -5,15 +5,24 @@ This module hardens Member, Standalone, and Domain Controller servers for Window
 
 ## Setup 
 The Puppet software, invoked by the single line of code shown below, will automatically identify which server is being used and configure it according to the user's pre-defined preferance.
-[INSERT CODE HERE]
+
+```puppet
+include ::secure_windows
+```
 
 ## Usage 
 There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. 
-[INSERT CODE HERE] 
+
+```yaml
+secure_windows::stig::v73379::enforced: false
+```
 
 ### No-Op Mode 
 It is possible to run the module in "No-Op Mode", which identifies detected Configuration Drifts without implementing any actual changes
-[INSERT CODE HERE] 
+
+```
+puppet agent -t --noop
+```
 
 ## Exemptions 
 Below is a list of vunerabilities that are either **reported on but cannot be changed** or are **Non-Applicable to the system**
