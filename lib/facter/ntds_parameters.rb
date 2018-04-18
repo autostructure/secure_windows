@@ -13,8 +13,8 @@ Facter.add('ntds_parameters') do
                            reg_values[key]
                          end
       end
-    rescue
-      Puppet.debug 'Facter: ntds_parameters.rb error occurred.'
+    rescue StandardError => e
+      Puppet.debug "Facter: ntds_parameters.rb error occurred: #{e}"
     end
 
     ntds_hash

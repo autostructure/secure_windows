@@ -13,7 +13,7 @@ class secure_windows::stig::v73405 (
 
     acl { [ "${system_root}\\winevt\\Logs\\Application.evtx",
             "${system_root}\\winevt\\Logs\\Security.evtx",
-            "${system_root}\\winevt\\Logs\\System.evtx"
+            "${system_root}\\winevt\\Logs\\System.evtx",
           ]:
       inherit_parent_permissions => false,
       permissions                => [
