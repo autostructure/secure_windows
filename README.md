@@ -1,4 +1,29 @@
 # secure_windows
+
+## Module Description 
+This module hardens Member, Standalone, and Domain Controller servers for Windows 2012 (Release 2) and 2016 (Release 11) according to DoD STIG specifications. The benchmark dates for the 2012 and 2016 STIGS are 1/26/18 and 7/28/17, respectively. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the additional information.  
+
+## Setup 
+The Puppet software, invoked by the single line of code shown below, will automatically identify which server is being used and configure it according to the user's pre-defined preferance.
+[INSERT CODE HERE]
+
+## Usage 
+There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. 
+[INSERT CODE HERE] 
+
+### No-Op Mode 
+It is possible to run the module in "No-Op Mode", which identifies detected Configuration Drifts without implementing any actual changes
+[INSERT CODE HERE] 
+
+## Exemptions 
+Below is a list of vunerabilities that are either **reported on but cannot be changed** or are **Non-Applicable to the system**
+
+## NIST 800 53 Controls 
+Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems 
+
+
+
+
 | Low                 | Covered (x) | Moderate                       | Covered (x)          | High                                   | Covered (x)                  | 
 |---------------------|-------------|--------------------------------|----------------------|----------------------------------------|------------------------------| 
 | AC-1                |             | AC-1                           |                      | AC-1                                   |                              | 
