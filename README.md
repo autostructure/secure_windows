@@ -11,9 +11,10 @@ include ::secure_windows
 ```
 
 ## Usage 
-There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. 
+There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
 
 ```yaml
+# hieradata/common.yaml
 secure_windows::stig::v73379::enforced: false
 ```
 
