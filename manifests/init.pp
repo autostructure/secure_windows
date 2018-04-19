@@ -66,30 +66,30 @@ class secure_windows (
       # class { '::secure_windows::stig::v73395': }
       # class { '::secure_windows::stig::v73397': }
       # class { '::secure_windows::stig::v73399': }
-      class { '::secure_windows::stig::v73405': }
-      class { '::secure_windows::stig::v73407': }
-      class { '::secure_windows::stig::v73409': }
-      class { '::secure_windows::stig::v73411': }
-      class { '::secure_windows::stig::v73413': }
-      class { '::secure_windows::stig::v73415': }
-      class { '::secure_windows::stig::v73417': }
-      class { '::secure_windows::stig::v73419': }
-      class { '::secure_windows::stig::v73421': }
-      class { '::secure_windows::stig::v73423': }
-      class { '::secure_windows::stig::v73425': }
-      class { '::secure_windows::stig::v73427': }
-      class { '::secure_windows::stig::v73429': }
-      class { '::secure_windows::stig::v73431': }
-      class { '::secure_windows::stig::v73433': }
-      class { '::secure_windows::stig::v73435': }
-      class { '::secure_windows::stig::v73437': }
-      class { '::secure_windows::stig::v73439': }
-      class { '::secure_windows::stig::v73441': }
-      class { '::secure_windows::stig::v73443': }
-      class { '::secure_windows::stig::v73445': }
-      class { '::secure_windows::stig::v73447': }
-      class { '::secure_windows::stig::v73449': }
-      class { '::secure_windows::stig::v73451': }
+      # class { '::secure_windows::stig::v73405': }
+      # class { '::secure_windows::stig::v73407': }
+      # class { '::secure_windows::stig::v73409': }
+      # class { '::secure_windows::stig::v73411': }
+      # class { '::secure_windows::stig::v73413': }
+      # class { '::secure_windows::stig::v73415': }
+      # class { '::secure_windows::stig::v73417': }
+      # class { '::secure_windows::stig::v73419': }
+      # class { '::secure_windows::stig::v73421': }
+      # class { '::secure_windows::stig::v73423': }
+      # class { '::secure_windows::stig::v73425': }
+      # class { '::secure_windows::stig::v73427': }
+      # class { '::secure_windows::stig::v73429': }
+      # class { '::secure_windows::stig::v73431': }
+      # class { '::secure_windows::stig::v73433': }
+      # class { '::secure_windows::stig::v73435': }
+      # class { '::secure_windows::stig::v73437': }
+      # class { '::secure_windows::stig::v73439': }
+      # class { '::secure_windows::stig::v73441': }
+      # class { '::secure_windows::stig::v73443': }
+      # class { '::secure_windows::stig::v73445': }
+      # class { '::secure_windows::stig::v73447': }
+      # class { '::secure_windows::stig::v73449': }
+      # class { '::secure_windows::stig::v73451': }
       class { '::secure_windows::stig::v73453': }
       class { '::secure_windows::stig::v73455': }
       class { '::secure_windows::stig::v73457': }
