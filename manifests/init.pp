@@ -6,6 +6,9 @@ class secure_windows (
   Optional[String] $classification,
 ) {
 
+  notify { 'test14234':
+    message => 'Hello',
+  }
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
 
