@@ -54,7 +54,7 @@ product or service.
 
 ## Copyrights
 
-> All materials are copyright their respective owners unless otherwise noted.
+> All materials are copyright by their respective owners unless otherwise noted.
 >
 > Released under the [Apache License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.html).
 
