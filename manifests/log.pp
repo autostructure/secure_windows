@@ -1,15 +1,13 @@
 #
 # This class centralizes log formatting for the module.
 #
-# TODO:
-# - Add unit testing
-#
 define secure_windows::log (
   Boolean $enabled = true,
   Enum['alert', 'crit', 'debug', 'emerg', 'err', 'info', 'notice', 'warning'] $threatlevel = 'crit',
 ) {
 
   if $enabled {
+
     # puppetserver.log
     case $threatlevel {
       'alert':   { alert("${facts['fqdn']}: ${title}") }    # always visible
@@ -20,7 +18,7 @@ define secure_windows::log (
       'info':    { info("${facts['fqdn']}: ${title}") }     # visible only with -v or --verbose or -d or --debug
       'notice':  { notice("${facts['fqdn']}: ${title}") }   # always visible
       'warning': { warning("${facts['fqdn']}: ${title}") }  # always visible
-      default:   { warning("${facts['fqdn']}: ${title}") }  # always visible
+      default:   { notice("${facts['fqdn']}: ${title}") }   # always visible
     }
 
     # puppet agent logging
