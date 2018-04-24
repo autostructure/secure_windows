@@ -6,9 +6,14 @@
 # end
 
 Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
+  dispatch :summary_stats_vulnerabilities_ignored do
+    # no arguments
+  end
+
   def summary_stats_vulnerabilities_ignored
-    Puppet.debug 'summary_stats_vulnerabilites_ignored.rb ...'
     scope = closure_scope
+    testfact = scope['facts']['networking']['fqdn']
+    Puppet.debug "summary_stats_vulnerabilites_ignored: #{testfact}"
     HieraPuppet.lookup('secure_windows::is_dod', nil, scope, nil, :priority)
     #fqdn = scope['facts']['networking']['fqdn']
     # works...
