@@ -41,7 +41,7 @@
 # ******************************************************************************
 
 require 'hiera_puppet'
-include 'HieraPuppet'
+include HieraPuppet
 Facter.add(:summary_stats_vulnerabilites_ignored) do
   confine operatingsystem: :windows
 
