@@ -13,9 +13,10 @@ Facter.add(:summary_stats_vulnerabilites_ignored) do
   confine operatingsystem: :windows
 
   setcode do
-    hiera_backend = Hiera::Backend::Puppet_backend.initialize
-    # hiera_scope = Hiera::Scope.initialize(hiera_backend)
-    hiera_backend
+    Puppet.debug 'summary_stats_vulnerabilites_ignored.rb ...'
+    hiera_lookup_value = HieraPuppet.lookup('secure_windows::is_dod', false, [], nil, :priority)
+    Puppet.debug hiera_lookup_value
+    hiera_lookup_value
   end
 
 end
