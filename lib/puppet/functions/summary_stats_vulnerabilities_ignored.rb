@@ -5,7 +5,7 @@
 #   return_type 'String'
 # end
 
-Puppet::Functions.create_function(:'secure_windows::summary_stats_vulnerabilities_ignored') do
+Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
   def summary_stats_vulnerabilities_ignored
     Puppet.debug 'summary_stats_vulnerabilites_ignored.rb ...'
     # hiera_lookup_value2 = HieraPuppet.lookup('secure_windows::stig::', false, [], nil, :priority)
