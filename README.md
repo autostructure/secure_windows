@@ -25,41 +25,31 @@ It is possible to run the module in "No-Op Mode", which identifies detected Conf
 puppet agent -t --noop
 ```
 
-## Disclaimer
-
-> This Work is provided "as is." Any express or implied warranties,
-including but not limited to, the implied warranties of merchantability
-and fitness for a particular purpose are disclaimed. In no event shall
-the authors be liable for any direct, indirect,
-incidental, special, exemplary or consequential damages (including, but
-not limited to, procurement of substitute goods or services, loss of
-use, data or profits, or business interruption) however caused and on
-any theory of liability, whether in contract, strict liability, or tort
-(including negligence or otherwise) arising in any way out of the use of
-this Guidance, even if advised of the possibility of such damage.
->
-> The User of this Work agrees to hold harmless and indemnify Autostructure,
-its agents, parent company, and employees from every claim or liability
-(whether in tort or in contract), including attorneys' fees,
-court costs, and expenses, arising in direct consequence of Recipient's
-use of the item, including, but not limited to, claims or liabilities
-made for injury to or death of personnel of User or third parties,
-damage to or destruction of property of User or third parties, and
-infringement or other violations of intellectual property or technical
-data rights.
->
-> Nothing in this Work is intended to constitute an endorsement, explicit
-or implied, by Autostructure of any particular manufacturer's
-product or service.
-
-## Copyrights
-
-> All materials are copyright by their respective owners unless otherwise noted.
->
-> Released under the [Apache License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.html).
-
 ## Exemptions
 Below is a list of vunerabilities that are either **reported on but cannot be changed** or are **Non-Applicable to the system**
+
+```
+Insert chart of STIG coverage
+```
+
+Below is a list of vulnerabilities that require extra care and attention. By default, these vulnerabilities enforce proper user permissions on the machine. However, it is possible that an application might require one of these user rights. In that case, vendor documentation must support the requirement for having the user right and the requirement must be documented with the ISSO. In addition, you should disable this module from managing that right on that node, as it could break that application. Instead, manage that right in your own Puppet code.
+
+Vulnerability IDs:
+- V-73731
+- V-73733
+- V-73735
+- V-73739
+- V-73743
+- V-73747
+- V-73749
+- V-73755
+- V-73783
+- V-73785
+- V-73787
+- V-73791
+- V-73793
+- V-73801
+- V-73803
 
 ## NIST 800 53 Controls
 Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems
@@ -239,3 +229,37 @@ Each of the controls listed below are classified as either Low, Moderate, or Hig
 |                     |             | SI-11                          |                      | SI-11                                  |                              |
 | SI-12               |             | SI-12                          |                      | SI-12                                  |                              |
 |                     |             | SI-16                          | x                    | SI-16                                  | x                            |
+
+
+## Disclaimer
+
+> This Work is provided "as is." Any express or implied warranties,
+including but not limited to, the implied warranties of merchantability
+and fitness for a particular purpose are disclaimed. In no event shall
+the authors be liable for any direct, indirect,
+incidental, special, exemplary or consequential damages (including, but
+not limited to, procurement of substitute goods or services, loss of
+use, data or profits, or business interruption) however caused and on
+any theory of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use of
+this Guidance, even if advised of the possibility of such damage.
+>
+> The User of this Work agrees to hold harmless and indemnify Autostructure,
+its agents, parent company, and employees from every claim or liability
+(whether in tort or in contract), including attorneys' fees,
+court costs, and expenses, arising in direct consequence of Recipient's
+use of the item, including, but not limited to, claims or liabilities
+made for injury to or death of personnel of User or third parties,
+damage to or destruction of property of User or third parties, and
+infringement or other violations of intellectual property or technical
+data rights.
+>
+> Nothing in this Work is intended to constitute an endorsement, explicit
+or implied, by Autostructure of any particular manufacturer's
+product or service.
+
+## Copyrights
+
+> All materials are copyright by their respective owners unless otherwise noted.
+>
+> Released under the [Apache License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.html).
