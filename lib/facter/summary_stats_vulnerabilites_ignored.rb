@@ -7,13 +7,12 @@
 # gem 'hiera-puppet', '~> 1.0'
 # gem install hiera-puppet
 #
-#include REXML
 Facter.add(:summary_stats_vulnerabilites_ignored) do
   confine operatingsystem: :windows
 
   setcode do
     Puppet.debug 'summary_stats_vulnerabilites_ignored.rb ...'
-    hiera_lookup_value = HieraPuppet.lookup('secure_windows::is_dod', false, [], nil, :priority)
+    hiera_lookup_value = Hiera.lookup('secure_windows::is_dod', false, [], nil, :priority)
     Puppet.debug hiera_lookup_value
     hiera_lookup_value
   end
