@@ -40,9 +40,9 @@
 # Try puppet function (because hiera reside in an environment or module).
 # ******************************************************************************
 
-require 'hiera_puppet'
-include HieraPuppet
 Facter.add(:summary_stats_vulnerabilites_ignored) do
+  require 'hiera_puppet'
+  include HieraPuppet
   confine operatingsystem: :windows
 
   setcode do
