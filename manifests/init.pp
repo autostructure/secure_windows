@@ -287,7 +287,7 @@ Module Summary:
 270 Total Vulnerabilities
 "
 
-  notify {'summary_stats0':
+  notify {'summary_stats_output':
     message  => $summary_stats_msg,
     loglevel => notice,
     withpath => false,
