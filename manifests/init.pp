@@ -278,17 +278,18 @@ class secure_windows (
 
   $summary_stats_msg = "
 Module Summary:
------------------------------------------
+------------------------------------------------------
 252 Vulnerabilities Enforced
-  4 Unenforced Vulnerabilities (Errors)
- 14 Unenforced Vulnerabilities (Disabled)
-=========================================
+ 10 Vulnerability Warnings (Manual Intervention Req'd)
+  1 Unenforced Vulnerabilities (Errors)
+  7 Unenforced Vulnerabilities (Disabled)
+======================================================
 270 Total Vulnerabilities
 "
 
   notify {'summary_stats0':
     message  => $summary_stats_msg,
-    loglevel => alert,
+    loglevel => notice,
     withpath => false,
   }
 
