@@ -10,7 +10,7 @@ class secure_windows (
   case $facts['operatingsystemmajrelease'] {
 
     '2012','2012 R2': {
-      fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
+      #fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
     }
 
     '2016','2016 R2': {
@@ -275,4 +275,20 @@ class secure_windows (
     }
 
   }
+
+  $summary_stats_msg = "
+Module Summary:
+-----------------------------------------
+252 Vulnerabilities Enforced
+  4 Unenforced Vulnerabilities (Errors)
+ 14 Unenforced Vulnerabilities (Disabled)
+=========================================
+270 Total Vulnerabilities
+"
+
+  notify {'summary_stats':
+    message  => $summary_stats_msg,
+    loglevel => alert,
+  }
+
 }
