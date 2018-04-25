@@ -1,5 +1,4 @@
-# Custom fact displaying the state of Microsoft Defender Credential Guard property:
-# RequiredSecurityProperties
+# Fake fact
 #
 Facter.add(:summary_stats) do
   confine operatingsystem: :windows
