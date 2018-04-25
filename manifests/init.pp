@@ -286,9 +286,40 @@ Module Summary:
 270 Total Vulnerabilities
 "
 
-  notify {'summary_stats':
+  notify {'summary_stats0':
     message  => $summary_stats_msg,
     loglevel => alert,
+    withpath => false,
+  }
+
+  notify {'summary_stats1':
+    message  => $summary_stats_msg,
+    loglevel => crit,
+    withpath => false,
+  }
+
+  notify {'summary_stats2':
+    message  => $summary_stats_msg,
+    loglevel => emerg,
+    withpath => false,
+  }
+
+  notify {'summary_stats3':
+    message  => $summary_stats_msg,
+    loglevel => err,
+    withpath => false,
+  }
+
+  notify {'summary_stats4':
+    message  => $summary_stats_msg,
+    loglevel => notice,
+    withpath => false,
+  }
+
+  notify {'summary_stats5':
+    message  => $summary_stats_msg,
+    loglevel => warning,
+    withpath => false,
   }
 
 }
