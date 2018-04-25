@@ -11,8 +11,10 @@ Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
   end
 
   def summary_stats_vulnerabilities_ignored
-    # scope = closure_scope
-    scope = Puppet::Parser::Scope.enclosing_scope
+    Puppet.debug 'summary_stats_vulnerabilities_ignored: scopes...'
+    scope = closure_scope
+    Puppet.debug scope
+    Puppet.debug scope.enclosing_scope
     fqdn = scope['facts']['networking']['fqdn']
     Puppet.debug "summary_stats_vulnerabilites_ignored: #{fqdn}"
     fqdn
