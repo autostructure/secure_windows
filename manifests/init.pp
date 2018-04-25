@@ -280,9 +280,9 @@ class secure_windows (
 Module Summary:
 ------------------------------------------------------
 252 Vulnerabilities Enforced
- 10 Vulnerability Warnings (Manual Intervention Req'd)
-  1 Unenforced Vulnerabilities (Errors)
-  7 Unenforced Vulnerabilities (Disabled)
+ 10 Vulnerabilities Requiring Manual Intevention
+  7 Vulnerabilities Disabled in Configuration File
+  1 Error(s)
 ======================================================
 270 Total Vulnerabilities
 "
