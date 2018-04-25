@@ -26,12 +26,10 @@ puppet agent -t --noop
 ```
 
 ## Exemptions
-Below is a list of vunerabilities that are either **reported on but cannot be changed** or are **Non-Applicable to the system**
+Below are lists of vunerabilities that can **potentially break the client's application if the rights described in the listed vulnerability are essential to operation**, **are reported on but cannot be changed** or are **Non-Applicable to the system**
 
-```
-Insert chart of STIG coverage
-```
 
+### Potentially Application-Breaking Rights Privileges
 Below is a list of vulnerabilities that require extra care and attention. By default, these vulnerabilities enforce proper user permissions on the machine. However, it is possible that an application might require one of these user rights. In that case, vendor documentation must support the requirement for having the user right and the requirement must be documented with the ISSO. In addition, you should disable this module from managing that right on that node, as it could break that application. Instead, manage that right in your own Puppet code.
 
 Vulnerability IDs:
@@ -50,6 +48,38 @@ Vulnerability IDs:
 - V-73793
 - V-73801
 - V-73803
+
+### Non-Applicable to the System 
+- V-73217
+- V-73219
+- V-73221
+- V-73223
+- V-73227
+- V-73229
+- V-73231
+- V-73233
+- V-73241
+- V-73243
+- V-73245
+- V-73265
+- V-73267
+- V-73269
+- V-73271
+- V-73273
+- V-73275
+- V-73281
+- V-73283
+- V-73285
+- V-73383
+- V-73385
+- V-73401
+- V-73403
+- V-73613
+- V-73615
+- V-73617
+```
+Insert chart of STIG coverage
+```
 
 ## NIST 800 53 Controls
 Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems
