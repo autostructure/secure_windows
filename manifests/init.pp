@@ -276,21 +276,4 @@ class secure_windows (
 
   }
 
-  $summary_stats_msg = "
-Module Summary:
-------------------------------------------------------
-252 Vulnerabilities Enforced
- 10 Vulnerabilities Requiring Manual Intevention
-  7 Vulnerabilities Disabled in Configuration File
-  1 Error(s)
-======================================================
-270 Total Vulnerabilities
-"
-
-  notify {'summary_stats_output':
-    message  => $summary_stats_msg,
-    loglevel => notice,
-    withpath => false,
-  }
-
 }
