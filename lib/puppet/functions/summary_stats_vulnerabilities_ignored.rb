@@ -6,19 +6,27 @@
 # end
 
 Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
-  dispatch :summary_stats_vulnerabilities_ignored do
+  dispatch :no_scope do
     # no arguments
   end
 
-  def summary_stats_vulnerabilities_ignored
-    Puppet.debug 'summary_stats_vulnerabilities_ignored: scopes...'
-    scope = closure_scope
-    class_scope = scope.class_scope('secure_windows')
-    fqdn = scope['facts']['networking']['fqdn']
-    HieraPuppet.lookup('secure_windows::log::enabled', nil, class_scope, nil, :array)
-
-    # works...
-    # HieraPuppet.lookup('secure_windows::is_dod', nil, [], nil, :priority)
-    # test closure_scope...
+  dispatch :supplied_scope do
+    param 'Class', :scope
+    # return_type 'String'
   end
+
+  def no_scope
+    scope = closure_scope
+    HieraPuppet.lookup('secure_windows::log::enabled', nil, scope, nil, :priority)
+    scope['calling_class']
+    # class_scope = scope.class_scope('secure_windows')
+    # fqdn = scope['facts']['networking']['fqdn']
+    # HieraPuppet.lookup('secure_windows::is_dod', nil, [], nil, :priority)
+  end
+
+  def supplied_scope(scope)
+    hiera_scope = Hiera::Scope.new(scope)
+    HieraPuppet.lookup('secure_windows::log::enabled', nil, hiera_scope, nil, :priority)
+  end
+
 end
