@@ -19,6 +19,8 @@ Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
     scope = closure_scope
     #HieraPuppet.lookup('secure_windows::log::enabled', nil, scope, nil, :priority)
     scope['calling_module']
+    #scope['enabled']
+    #scope['is_dod']
     # class_scope = scope.class_scope('secure_windows')
     # fqdn = scope['facts']['networking']['fqdn']
     # HieraPuppet.lookup('secure_windows::is_dod', nil, [], nil, :priority)
