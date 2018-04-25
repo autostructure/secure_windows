@@ -10,7 +10,7 @@ class secure_windows (
   case $facts['operatingsystemmajrelease'] {
 
     '2012','2012 R2': {
-      #fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
+      fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
     }
 
     '2016','2016 R2': {
