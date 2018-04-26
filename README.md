@@ -86,9 +86,7 @@ Insert chart of STIG coverage
 
 Default value: '1'
 
-Acceptable values are 1 or 2.
-
-This corresponds to Force Logoff or Lock Workstation
+Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
 
 Used in STIG V-73807
 
