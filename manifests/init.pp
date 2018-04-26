@@ -281,7 +281,7 @@ class secure_windows (
     }
   }
 
-  $statistics_total_vulnerabilities = 0 + $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
+  $statistics_total_vulnerabilities = $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
 
     notify {'summary':
       message  => "{
