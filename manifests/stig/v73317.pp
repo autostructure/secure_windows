@@ -13,12 +13,12 @@ class secure_windows::stig::v73317 (
     }
 
     # also covers v73223
-    $secure_windows::statistics_vulnerabilities_enforced = $secure_windows::statistics_vulnerabilities_enforced + 1
-    $secure_windows::statistics_vulnerabilities_enforced = $secure_windows::statistics_vulnerabilities_enforced + 1
+    $secure_windows::statistics_vulnerabilities_enforced = 1
+    #$secure_windows::statistics_vulnerabilities_enforced = $secure_windows::statistics_vulnerabilities_enforced + 1
 
   } else {
     # also covers v73223
-    $secure_windows::statistics_vulnerabilities_disabled = $secure_windows::statistics_vulnerabilities_disabled + 1
-    $secure_windows::statistics_vulnerabilities_disabled = $secure_windows::statistics_vulnerabilities_disabled + 1
+    $secure_windows::statistics_vulnerabilities_disabled = 1
+    #$secure_windows::statistics_vulnerabilities_disabled = $secure_windows::statistics_vulnerabilities_disabled + 1
   }
 }
