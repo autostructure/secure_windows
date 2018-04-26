@@ -16,9 +16,12 @@ Puppet::Functions.create_function(:statistics_vulnerabilities_disabled) do
 
   def no_scope
     begin
-      scope = closure_scope
-      global_scope = scope.find_global_scope
-      HieraPuppet.lookup('secure_windows::log::enabled', nil, global_scope, nil, :priority)
+      get_scope = closure_scope
+      hiera = Hiera.new('/etc/puppetlabs/code/environments/jeffwin/modules/secure_windows/hiera.yaml')
+      scope = Hiera::Scope.new(get_scope)
+      hiera.lookup('secure_windows::log::enabled', nil, scope, nil, :priority)
+      # HieraPuppet.lookup('secure_windows::log::enabled', nil, global_scope, nil, :priority)
+      # global_scope = scope.find_global_scope
       # scope['is_dod']
       # class_scope = scope.class_scope('secure_windows')
       # fqdn = scope['facts']['networking']['fqdn']
@@ -30,8 +33,12 @@ Puppet::Functions.create_function(:statistics_vulnerabilities_disabled) do
 
   def key_value(key)
     begin
-      scope = closure_scope
-      HieraPuppet.lookup(key, nil, scope, nil, :priority)
+      # scope = closure_scope
+      # HieraPuppet.lookup(key, nil, scope, nil, :priority)
+      get_scope = closure_scope
+      hiera = Hiera.new('/etc/puppetlabs/code/environments/jeffwin/modules/secure_windows/hiera.yaml')
+      scope = Hiera::Scope.new(get_scope)
+      hiera.lookup(key, nil, scope, nil, :priority)
     rescue
       'Hiera lookup failed.'
     end
