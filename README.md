@@ -80,6 +80,14 @@ Vulnerability IDs:
 ```
 Insert chart of STIG coverage
 ```
+## Parameters
+
+'scremoveoption'
+
+Default value: '1'
+Acceptable values are 1 or 2. This corresponds to Force Logoff or Lock Workstation
+Used in STIG V-73807
+
 
 ## NIST 800 53 Controls
 Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems
