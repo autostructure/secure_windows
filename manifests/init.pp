@@ -17,6 +17,7 @@ class secure_windows (
 
     '2012','2012 R2': {
       #fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
+      class { '::secure_windows::stig::v73317': }
     }
 
     '2016','2016 R2': {
