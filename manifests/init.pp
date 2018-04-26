@@ -279,8 +279,9 @@ class secure_windows (
     default: {
       fail("Unsupported operating system (${facts['operatingsystemmajrelease']}) detected.")
     }
+  }
 
-    # $statistics_total_vulnerabilities = 0 + $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
+  $statistics_total_vulnerabilities = 0 + $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
 
     notify {'summary':
       message  => "{
@@ -288,9 +289,9 @@ class secure_windows (
   vulnerabilities_requiring_manual_intervention => ${statistics_vulnerabilities_manually_fixed},
   vulnerabilities_disabled_in_config_file => ${statistics_vulnerabilities_disabled},
   errors => ${statistics_vulnerability_errors},
-  total_vulnerabilities =>
+  total_vulnerabilities => ${statistics_total_vulnerabilities}
 }",
       loglevel => warning,
-    }
+
   }
 }
