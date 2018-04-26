@@ -5,7 +5,7 @@
 #   return_type 'String'
 # end
 
-Puppet::Functions.create_function(:summary_stats_vulnerabilities_ignored) do
+Puppet::Functions.create_function(:statistics_vulnerabilities_ignored) do
   dispatch :no_scope do
     # no arguments
   end
