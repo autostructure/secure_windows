@@ -5,14 +5,13 @@
 #   return_type 'String'
 # end
 
-Puppet::Functions.create_function(:statistics_vulnerabilities_ignored) do
+Puppet::Functions.create_function(:statistics_vulnerabilities_disabled) do
   dispatch :no_scope do
     # no arguments
   end
 
-  dispatch :supplied_scope do
-    param 'Class', :scope
-    # return_type 'String'
+  dispatch :key_value do
+    param 'String', :key
   end
 
   def no_scope
@@ -25,9 +24,19 @@ Puppet::Functions.create_function(:statistics_vulnerabilities_ignored) do
     # HieraPuppet.lookup('secure_windows::is_dod', nil, [], nil, :priority)
   end
 
-  def supplied_scope(scope)
-    hiera_scope = Hiera::Scope.new(scope)
-    HieraPuppet.lookup('secure_windows::log::enabled', nil, hiera_scope, nil, :priority)
+  def key_value(key)
+    scope = closure_scope
+    HieraPuppet.lookup(key, nil, scope, nil, :priority)
   end
+
+  # dispatch :supplied_scope do
+  #   param 'Class', :scope
+  #   # return_type 'String'
+  # end
+  #
+  # def supplied_scope(scope)
+  #   hiera_scope = Hiera::Scope.new(scope)
+  #   HieraPuppet.lookup('secure_windows::log::enabled', nil, hiera_scope, nil, :priority)
+  # end
 
 end
