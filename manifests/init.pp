@@ -2,15 +2,15 @@
 # This module secures windows
 #
 
-$statistics_vulnerabilities_disabled = 0
-$statistics_vulnerabilities_enforced = 0
-$statistics_vulnerabilities_manually_fixed = 0
-$statistics_vulnerability_errors = 0
-
 class secure_windows (
   Optional[Boolean] $is_dod,
   Optional[String] $classification,
 ) {
+
+  $statistics_vulnerabilities_disabled = 0
+  $statistics_vulnerabilities_enforced = 0
+  $statistics_vulnerabilities_manually_fixed = 0
+  $statistics_vulnerability_errors = 0
 
   # Platform-specific defaults
   case $facts['operatingsystemmajrelease'] {
