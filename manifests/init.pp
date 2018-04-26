@@ -1,6 +1,12 @@
 #
 # This module secures windows
 #
+
+$statistics_vulnerabilities_disabled = 0
+$statistics_vulnerabilities_enforced = 0
+$statistics_vulnerabilities_manually_fixed = 0
+$statistics_vulnerability_errors = 0
+
 class secure_windows (
   Optional[Boolean] $is_dod,
   Optional[String] $classification,
@@ -274,5 +280,17 @@ class secure_windows (
       fail("Unsupported operating system (${facts['operatingsystemmajrelease']}) detected.")
     }
 
+    $statistics_total_vulnerabilities = $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
+
+    notify {'summary':
+      message  => "{
+  vulnerabilities_enforced => ${statistics_vulnerabilities_enforced},
+  vulnerabilities_requiring_manual_intervention => ${statistics_vulnerabilities_manually_fixed},
+  vulnerabilities_disabled_in_config_file => ${statistics_vulnerabilities_disabled},
+  errors => ${statistics_vulnerability_errors},
+  total_vulnerabilities =>
+}",
+      loglevel => warning,
+    }
   }
 }
