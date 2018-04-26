@@ -30,9 +30,7 @@ Below are lists of vunerabilities that can **potentially break the client's appl
 
 
 ### Potentially Application-Breaking Rights Privileges
-Below is a list of vulnerabilities that require extra care and attention. By default, these vulnerabilities enforce proper user permissions on the machine. However, it is possible that an application might require one of these user rights. In that case, vendor documentation must support the requirement for having the user right and the requirement must be documented with the ISSO. In addition, you should disable this module from managing that right on that node, as it could break that application. Instead, manage that right in your own Puppet code.
-
-Vulnerability IDs:
+Below is a list of vulnerabilities that require extra care and attention. By default, these vulnerabilities enforce proper user permissions on the machine. However, it is possible that an application might require one of these user rights. In that case, vendor documentation must support the requirement for having the user right and the requirement must be documented with the ISSO. In addition, you should disable this module from managing that right on that node, as it could break that application. Instead, manage that right in your own Puppet code:
 - V-73731
 - V-73733
 - V-73735
@@ -48,6 +46,14 @@ Vulnerability IDs:
 - V-73793
 - V-73801
 - V-73803
+
+
+### Exemptions for Systems Dedicated to the Management of Active Directory
+Below is a list of vulnerabilities that should not be applied to systems dedicated to the management of Active Directory. For such systems, do not enforce these vulnerabilities:
+- V-73759
+- V-73771
+- V-73775
+
 
 ### Non-Applicable to the System 
 - V-73217
