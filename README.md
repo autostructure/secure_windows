@@ -97,6 +97,15 @@ Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
 Used in STIG V-73807
 
 
+##### `time_server`
+
+Default value: 'tick.usno.navy.mil'
+
+This should be the appropriate time server for your organization.
+
+Used in STIG V-73307
+
+
 ## NIST 800 53 Controls
 Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems
 
