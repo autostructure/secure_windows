@@ -282,17 +282,29 @@ class secure_windows (
     }
   }
 
+  $curl_cmd = "curl -X POST -H 'Content-Type:application/json' -H 'Accept:application/json' -d '{\"certname\":\"win-jeff-007\",\"environment\":\"jeffwin\",\"values\":{\"credential_guard_requiredsecurityproperties\":\"hello\"},\"producer_timestamp\":\"2018-04-27\", \"producer\":\"master\"}' \"http://localhost:8080/pdb/cmd/v1?command=replace_facts&version=1&certname=win-jeff-007&secondsToWaitForCompletion=60\""
+
+  exec { 'replace_facts':
+    command => $curl_cmd,
+    path    => ['/usr/bin', '/usr/sbin',],
+  }
+
+  notify {'echo_fact':
+    loglevel => warning,
+    message  => $facts['credential_guard_requiredsecurityproperties'],
+  }
+
   $statistics_total_vulnerabilities = $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
 
-    notify {'summary':
-      message  => "{
-  vulnerabilities_enforced => ${statistics_vulnerabilities_enforced},
-  vulnerabilities_requiring_manual_intervention => ${statistics_vulnerabilities_manually_fixed},
-  vulnerabilities_disabled_in_config_file => ${statistics_vulnerabilities_disabled},
-  errors => ${statistics_vulnerability_errors},
-  total_vulnerabilities => ${statistics_total_vulnerabilities}
+  notify {'summary':
+    loglevel => warning,
+    message  => "{\n
+  vulnerabilities_enforced => ${statistics_vulnerabilities_enforced},\n
+  vulnerabilities_requiring_manual_intervention => ${statistics_vulnerabilities_manually_fixed},\n
+  vulnerabilities_disabled_in_config_file => ${statistics_vulnerabilities_disabled},\n
+  errors => ${statistics_vulnerability_errors},\n
+  total_vulnerabilities => ${statistics_total_vulnerabilities}\n
 }",
-      loglevel => warning,
-
   }
+
 }
