@@ -12,11 +12,10 @@ class secure_windows::stig::v73317 (
       policy_value   => '60',
     }
 
-    # also covers v73223
-    $secure_windows::statistics_vulnerabilities_enforced = 1
-    #$secure_windows::statistics_vulnerabilities_enforced = $secure_windows::statistics_vulnerabilities_enforced + 1
+    # v73317 also covers v73223
+    # +1 enforced
 
   } else {
-    $secure_windows::statistics_vulnerabilities_disabled = 1
+    # +1 disabled
   }
 }
