@@ -70,6 +70,13 @@ Applications requiring continuous, real-time screen display (e.g., network manag
 - V-73723
 
 
+### Audit Servers
+Systems that are configured to write events directly to an audit server can disable the following vulnerabilities:
+- V-73553
+- V-73555
+- V-73557
+
+
 ### Non-Applicable to the System 
 - V-73217
 - V-73219
