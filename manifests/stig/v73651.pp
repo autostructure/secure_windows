@@ -5,14 +5,14 @@ class secure_windows::stig::v73651 (
 ) {
 
   if $enforced {
-
-    registry::value { 'v73651':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
-      value => 'CachedLogonsCount',
-      type  => 'string',
-      data  => '4',
+    if($facts['windows_type'] =~ /(1|3)/) {
+      registry::value { 'v73651':
+        key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+        value => 'CachedLogonsCount',
+        type  => 'string',
+        data  => '4',
+      }
     }
-
   }
 
 }

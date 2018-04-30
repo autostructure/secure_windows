@@ -5,12 +5,13 @@ class secure_windows::stig::v73533 (
 ) {
 
   if $enforced {
-
-    registry::value { 'v73533':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-      value => 'EnumerateLocalUsers',
-      type  => 'dword',
-      data  => '0x00000000',
+    if($facts['windows_type'] =~ /(1|3)/) {
+      registry::value { 'v73533':
+        key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
+        value => 'EnumerateLocalUsers',
+        type  => 'dword',
+        data  => '0x00000000',
+      }
     }
 
   }

@@ -2,7 +2,7 @@
 secure_windows::log::enabled: false
 secure_windows::log::threatlevel: warning
 
-secure_windows::is_dod: true
+secure_windows::is_dod: false
 secure_windows::classification: 'unclassified'
 
 
@@ -19,12 +19,16 @@ secure_windows::stig::v73289::is_ftp_server: false
 secure_windows::stig::v73223::enforced: true
 secure_windows::stig::v73225::enforced: true
 secure_windows::stig::v73235::enforced: true
+secure_windows::stig::v73237::enforced: true
 secure_windows::stig::v73239::enforced: true
 secure_windows::stig::v73249::enforced: true
 secure_windows::stig::v73251::enforced: true
 secure_windows::stig::v73253::enforced: true
 secure_windows::stig::v73255::enforced: true
 secure_windows::stig::v73259::enforced: true
+secure_windows::stig::v73261::enforced: true
+secure_windows::stig::v73263::enforced: true
+secure_windows::stig::v73279::enforced: true
 secure_windows::stig::v73287::enforced: true
 secure_windows::stig::v73289::enforced: true
 secure_windows::stig::v73291::enforced: true
@@ -55,7 +59,7 @@ secure_windows::stig::v73373::enforced: true
 secure_windows::stig::v73375::enforced: true
 secure_windows::stig::v73377::enforced: true
 secure_windows::stig::v73379::enforced: true
-secure_windows::stig::v73387::enforced: false
+secure_windows::stig::v73387::enforced: true
 secure_windows::stig::v73389::enforced: true
 secure_windows::stig::v73391::enforced: true
 secure_windows::stig::v73393::enforced: true
@@ -163,6 +167,7 @@ secure_windows::stig::v73603::enforced: true
 secure_windows::stig::v73605::enforced: false
 secure_windows::stig::v73607::enforced: false
 secure_windows::stig::v73609::enforced: false
+secure_windows::stig::v73611::enforced: true
 secure_windows::stig::v73621::enforced: true
 secure_windows::stig::v73623::enforced: true
 secure_windows::stig::v73625::enforced: true

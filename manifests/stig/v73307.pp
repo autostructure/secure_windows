@@ -5,6 +5,7 @@
 # - Parameterize for time servers
 class secure_windows::stig::v73307 (
   Boolean $enforced = false,
+  String $time_server = 'tick.usno.navy.mil',
 ) {
 
   if $enforced {
@@ -23,7 +24,7 @@ class secure_windows::stig::v73307 (
           key    => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32time\Parameters',
           value  => 'NtpServer',
           type   => 'string',
-          data   => 'tick.usno.navy.mil',
+          data   => $time_server,
           notify => Service['w32time'],
         }
       }
@@ -51,7 +52,7 @@ class secure_windows::stig::v73307 (
         key    => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32time\Parameters',
         value  => 'NtpServer',
         type   => 'string',
-        data   => 'tick.usno.navy.mil',
+        data   => $time_server,
         notify => Service['w32time'],
       }
     }

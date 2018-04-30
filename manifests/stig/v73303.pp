@@ -2,6 +2,7 @@
 # FTP servers must be configured to prevent anonymous logons.
 class secure_windows::stig::v73303 (
   Boolean $enforced = false,
+  Array[String] $ftp_sites = [],
 ) {
 
   if $enforced {
@@ -10,14 +11,14 @@ class secure_windows::stig::v73303 (
     #   so that these resources only apply to FTP Servers
     if ($facts['windows_role'] and
         $facts['windows_role'] =~ /(^184|,184,|,184$)/) {
-
-      # NOTE: - This command does not have a corresponding 'get' command. I would have to parse an XML file.
-      #         For now, I will leave it to run this command every time since it is idempotent.
-      #       - Really should make this idempotent so it doesn't show an intentional change every 30 min
-      #       - This only works for servers who's FTP server site is the same as the FQDN. A server could
-      #         create an IIS FTP Server at a different address and we would not know about it.
-      exec { 'Set FTP anynymousAuthentication to Disabled':
-        command => "${facts['system32']}\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${facts['fqdn']}'].ftpServer.security.authentication.anonymousAuthentication.enabled:\"False\" /commit:apphost",
+      $ftp_sites.each |String $site| {
+        # NOTE: - This command does not have a corresponding 'get' command. I would have to parse an XML file.
+        #         For now, I will leave it to run this command every time since it is idempotent.
+        #       - Really should make this idempotent so it doesn't show an intentional change every 30 min
+        #       - This gets applied to each site in the list supplied
+        exec { "Set FTP anynymousAuthentication to Disabled on ${site}":
+          command => "${facts['system32']}\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${site}'].ftpServer.security.authentication.anonymousAuthentication.enabled:\"False\" /commit:apphost",
+        }
       }
     }
   }
