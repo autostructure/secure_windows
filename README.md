@@ -95,6 +95,7 @@ Systems that are configured to write events directly to an audit server can disa
 - V-73241
 - V-73243
 - V-73245
+- V-73257
 - V-73265
 - V-73267
 - V-73269
