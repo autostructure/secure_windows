@@ -11,7 +11,7 @@ Facter.add(:tpm_version) do
     require 'win32ole'
     wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
     v = ''
-    wmi.ExecQuery('select SpecVersion from Win32_Tpm').each do |version|
+    wmi.ExecQuery('select * from Win32_Tpm').each do |version|
       v = version.SpecVersion
     end
     v
