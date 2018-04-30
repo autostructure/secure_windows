@@ -13,6 +13,5 @@ Facter.add(:tpm_version) do
     wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
     version = wmi.ExecQuery('select SpecVersion from Win32_Tpm')
     version
-    end
   end
 end
