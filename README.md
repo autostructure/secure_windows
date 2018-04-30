@@ -60,6 +60,11 @@ Puppet cannot enforce the default permissions on HKLM:security\ because its defa
 - V-73255
 
 
+### FTP Servers
+The following will remove the FTP feature on all servers. This will break any server that is suppsosed to be an FTP server. Disable this vulnerability on FTP servers:
+- V-73289
+
+
 ### Non-Applicable to the System 
 - V-73217
 - V-73219
