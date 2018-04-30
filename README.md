@@ -10,6 +10,12 @@ The Puppet software, invoked by the single line of code shown below, will automa
 include ::secure_windows
 ```
 
+Domain Controllers must install the `nokogiri` gem due to a dependency with the ad_acl module.
+
+```
+gem install nokogiri
+```
+
 ## Usage
 There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
 
