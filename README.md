@@ -55,6 +55,11 @@ Below is a list of vulnerabilities that should not be applied to systems dedicat
 - V-73775
 
 
+### Registry Key ACLs
+Puppet cannot enforce the default permissions on HKLM:security\ because its default permissions are too restrivtive to allow Puppet to inspect them. We can enforce the permissions on all other keys. This affects:
+- V-73255
+
+
 ### Non-Applicable to the System 
 - V-73217
 - V-73219
