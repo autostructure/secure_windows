@@ -65,6 +65,11 @@ The following will remove the FTP feature on all servers. This will break any se
 - V-73289
 
 
+### Screen Savers
+Applications requiring continuous, real-time screen display (e.g., network management products) must disable the following vulnerability that requires a screen saver:
+- V-73723
+
+
 ### Non-Applicable to the System 
 - V-73217
 - V-73219
