@@ -8,14 +8,14 @@ require 'facter'
 Facter.add(:tpm_version) do
   confine operatingsystem: :windows
   setcode do
-    roles = []
 
     require 'win32ole'
     wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
-    wmi.ExecQuery('select SpecVersion from Win32_Tpm').each do |role|
-      roles.push(role.SpecVersion)
+    version = wmi.ExecQuery('select SpecVersion from Win32_Tpm')
+    if version == ''
+      version = 'TPM not enabled'
+    else
+      version
     end
-
-    roles.sort.join(',')
   end
 end
