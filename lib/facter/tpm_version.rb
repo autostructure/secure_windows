@@ -8,12 +8,8 @@ require 'facter'
 Facter.add(:tpm_version) do
   confine operatingsystem: :windows
   setcode do
-    require 'win32ole'
-    wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
-    v = ''
-    wmi.ExecQuery('select * from Win32_Tpm').each do |version|
-      v = version.SpecVersion
-    end
-    v
+    powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
+    command = 'Get-tpm'
+    Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
   end
 end
