@@ -14,6 +14,7 @@ Facter.add(:tpm_version) do
     version = wmi.ExecQuery('select SpecVersion from Win32_Tpm')
     if version == ''
       version = 'TPM not enabled'
+      version
     else
       version
     end
