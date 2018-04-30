@@ -12,11 +12,7 @@ Facter.add(:tpm_version) do
     require 'win32ole'
     wmi = WIN32OLE.connect('winmgmts:\\\\.\\root\\cimv2')
     version = wmi.ExecQuery('select SpecVersion from Win32_Tpm')
-    if version == ''
-      version = 'TPM not enabled'
-      version
-    else
-      version
+    version
     end
   end
 end
