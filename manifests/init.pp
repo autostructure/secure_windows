@@ -283,11 +283,10 @@ class secure_windows (
     }
   }
 
-  $curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
 
-  exec { 'replace_facts':
-    command => $curl_cmd,
-    path    => ['/usr/bin', '/usr/sbin',],
+  notify { 'summary_stats':
+    message  => statistics(),
+    withpath => false,
   }
 
 }
