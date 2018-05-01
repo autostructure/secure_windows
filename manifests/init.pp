@@ -18,6 +18,7 @@ class secure_windows (
     '2012','2012 R2': {
       #fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
       class { '::secure_windows::stig::v73317': }
+      class { '::secure_windows::stig::v73513': }
     }
 
     '2016','2016 R2': {
@@ -282,29 +283,11 @@ class secure_windows (
     }
   }
 
-  $curl_cmd = "curl -X POST -H 'Content-Type:application/json' -H 'Accept:application/json' -d '{\"certname\":\"win-jeff-007\",\"environment\":\"jeffwin\",\"values\":{\"credential_guard_requiredsecurityproperties\":\"hello\"},\"producer_timestamp\":\"2018-04-27\", \"producer\":\"master\"}' \"http://localhost:8080/pdb/cmd/v1?command=replace_facts&version=1&certname=win-jeff-007&secondsToWaitForCompletion=60\""
+  $curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
 
   exec { 'replace_facts':
     command => $curl_cmd,
     path    => ['/usr/bin', '/usr/sbin',],
-  }
-
-  notify {'echo_fact':
-    loglevel => warning,
-    message  => $facts['credential_guard_requiredsecurityproperties'],
-  }
-
-  $statistics_total_vulnerabilities = $statistics_vulnerabilities_disabled + $statistics_vulnerabilities_enforced + $statistics_vulnerabilities_manually_fixed + $statistics_vulnerability_errors
-
-  notify {'summary':
-    loglevel => warning,
-    message  => "{\n
-  vulnerabilities_enforced => ${statistics_vulnerabilities_enforced},\n
-  vulnerabilities_requiring_manual_intervention => ${statistics_vulnerabilities_manually_fixed},\n
-  vulnerabilities_disabled_in_config_file => ${statistics_vulnerabilities_disabled},\n
-  errors => ${statistics_vulnerability_errors},\n
-  total_vulnerabilities => ${statistics_total_vulnerabilities}\n
-}",
   }
 
 }
