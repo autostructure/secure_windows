@@ -25,16 +25,16 @@ Puppet::Functions.create_function(:statistics) do
         # classname['skipped'] =
       # end
       class_summary
-    rescue
-      'PuppetDB statistics query failed.'
+    rescue Exception => e
+      "PuppetDB statistics query failed, error message:\n#{e.message}\n#{e.backtrace.inspect}"
     end
   end
 
   def certname_param(key)
     begin
       #
-    rescue
-      'PuppetDB statistics query failed.'
+    rescue Exception => e
+      "PuppetDB statistics query failed, error message:\n#{e.message}\n#{e.backtrace.inspect}"
     end
   end
 
