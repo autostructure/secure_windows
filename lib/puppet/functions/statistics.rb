@@ -23,13 +23,15 @@ Puppet::Functions.create_function(:statistics) do
       #cmd_args << "--data-urlencode 'count_by=certname'"
       #curl_cmd = 'curl'
 
+      class_array = []
       cmd_args = {
         data-urlencode => "query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]",
       }
       curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname'
-      Puppet::Util::Execution.execute(curl_cmd, cmd_args)
+      class_array = Puppet::Util::Execution.execute(curl_cmd, cmd_args).split("}}")
 
-
+      class_array
+      
       #curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
       #Puppet::Util::Execution.execute(curl_cmd, {})
 
