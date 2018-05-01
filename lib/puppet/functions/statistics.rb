@@ -34,7 +34,7 @@ Puppet::Functions.create_function(:statistics) do
     begin
       #
     rescue Exception => e
-      "PuppetDB statistics query failed, error message:\n#{e.message}\n#{e.backtrace.inspect}"
+      "PuppetDB statistics query failed, error message: #{e.class.name}\n#{e.message}\n#{e.backtrace.inspect}"
     end
   end
 
