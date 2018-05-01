@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:statistics) do
   def no_args
     begin
       curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
-      Facter::Core::Execution.execute(curl_cmd,{})
+      Puppet::Util::Execution.execute(curl_cmd,{})
       # class_array = Facter::Core::Execution.exec(curl_cmd).split("\n")
       # class_array.each do |classname|
         # classname['success'] =
