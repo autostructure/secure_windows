@@ -16,8 +16,14 @@ Puppet::Functions.create_function(:statistics) do
 
   def no_args
     begin
-      curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
-      Puppet::Util::Execution.execute(curl_cmd,{})
+      cmd_args = []
+      cmd_args << "-G 'http://localhost:8080/pdb/query/v4/event-counts'"
+      cmd_args << "--data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]'"
+      cmd_args << "--data-urlencode 'summarize_by=containing_class'"
+      cmd_args << "--data-urlencode 'count_by=certname'"
+      #curl_cmd = "curl -G 'http://localhost:8080/pdb/query/v4/event-counts' --data-urlencode 'query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]' --data-urlencode 'summarize_by=containing_class' --data-urlencode 'count_by=certname'"
+      curl_cmd = 'curl'
+      Puppet::Util::Execution.execute(curl_cmd, cmd_args)
       # class_array = Facter::Core::Execution.exec(curl_cmd).split("\n")
       # class_array.each do |classname|
         # classname['success'] =
