@@ -28,8 +28,12 @@ Puppet::Functions.create_function(:statistics) do
       cmd_args = {
         "data-urlencode" => "query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]",
       }
-      curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname'
-      Puppet::Util::Execution.execute(curl_cmd, cmd_args).to_s
+      #curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname'
+      # Puppet::Util::Execution.execute(curl_cmd, cmd_args)
+      curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname&query%3D%5B%22~%22%2C%20%22containing_class%22%2C%20%22Secure_windows%3A%3AStig%3A%3A%5BvV%5D%5C%5Cd%7B5%7D%22%5D'
+      Puppet::Util::Execution.execute(curl_cmd, {})
+
+
       #.split("}}")
 
       #class_array
