@@ -23,7 +23,8 @@ Puppet::Functions.create_function(:statistics) do
       #cmd_args << "--data-urlencode 'count_by=certname'"
       #curl_cmd = 'curl'
 
-      class_array = []
+      #class_array = []
+      data = ''
       cmd_args = {
         data-urlencode => "query=[\"~\", \"containing_class\", \"Secure_windows::Stig::[vV]\\d{5}\"]",
       }
