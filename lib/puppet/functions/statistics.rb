@@ -37,7 +37,8 @@ Puppet::Functions.create_function(:statistics) do
 
       #curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname&query=%5B%22~%22%2C%20%22containing_class%22%2C%20%22Secure_windows%3A%3AStig%3A%3A%5BvV%5D.%7B5%7D%22%5D'
 
-      curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname&query=%5B%22~%22%2C%20%22certname%22%2C%20%22win-jeff-007%22%5D'
+      #curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname&query=%5B%22~%22%2C%20%22certname%22%2C%20%22win-jeff-007%22%5D'
+      curl_cmd = 'curl -G http://localhost:8080/pdb/query/v4/event-counts&summarize_by=containing_class&count_by=certname&query=%5B%22~%22%2C%20%22certname%22%2C%20%22master.autostructure.io%22%5D'
       Puppet::Util::Execution.execute(curl_cmd, {})
 
 
