@@ -1,5 +1,25 @@
 # secure_windows
 
+#### Table of Contents
+
+1. [Description](#module-description)
+2. [Setup - Getting you started with *secure_windows*](#setup)
+3. [Usage - Configuration options and additional functionality](#usage)
+    - [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#parameters)
+5. [Possible Limitations - Some security features may not work with certain system configurations](#Limitations)
+    - [Potentially Application-Breaking Rights Privileges](#potentially-application-breaking-rights-privileges)
+    - [Systems Dedicated to the Management of Active Directory](#Exemptions for Systems Dedicated to the Management of Active Directory)
+    - [Registry Key ACLs](#Registry Key ACLs)
+    - [FTP Servers](#FTP Servers)
+    - [Screen Savers](#Screen Savers)
+    - [Audit Servers](#Audit Servers)
+    - [Vulnerabilities Reported on but Not Changed](#Vulnerabilities Reported on but Not Changed)
+    - [Non-Applicable to the System](#Non-Applicable to the System)
+6. [Development - Guide for contributing to the module](#development)
+7. [Copyright](#copyrights)
+7. [Additional Info.](#NIST 800 53 Controls)
+
 ## Module Description
 This module hardens Member, Standalone, and Domain Controller servers for Windows 2012 (Release 2) and 2016 (Release 11) according to DoD STIG specifications. The benchmark dates for the 2012 and 2016 STIGS are 1/26/18 and 7/28/17, respectively. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the additional information.  
 
@@ -31,7 +51,7 @@ It is possible to run the module in "No-Op Mode", which identifies detected Conf
 puppet agent -t --noop
 ```
 
-## Exemptions
+## Limitations
 Below are lists of vunerabilities that can **potentially break the client's application if the rights described in the listed vulnerability are essential to operation**, **are reported on but cannot be changed** or are **Non-Applicable to the system**
 
 
@@ -62,7 +82,7 @@ Below is a list of vulnerabilities that should not be applied to systems dedicat
 
 
 ### Registry Key ACLs
-Puppet cannot enforce the default permissions on HKLM:security\ because its default permissions are too restrivtive to allow Puppet to inspect them. We can enforce the permissions on all other keys. This affects:
+Puppet cannot enforce the default permissions on HKLM:security\ because its default permissions are too restrictive to allow Puppet to inspect them. We can enforce the permissions on all other keys. This affects:
 - V-73255
 
 
@@ -82,8 +102,23 @@ Systems that are configured to write events directly to an audit server can disa
 - V-73555
 - V-73557
 
+### Vulnerabilities Reported on but Not Changed
+- V-73237
+- V-73239
+- V-73247
+- V-73259
+- V-73261
+- V-73263
+- V-73305
+- V-73379
+- V-73513
+- V-73611
 
-### Non-Applicable to the System 
+Message Input
+
+Message @jack
+
+### Non-Applicable to the System
 - V-73217
 - V-73219
 - V-73221
