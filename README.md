@@ -2,25 +2,25 @@
 
 #### Table of Contents
 
-1. [Description](#module-description)
+1. [Description](#description)
 2. [Setup - Getting you started with *secure_windows*](#setup)
 3. [Usage - Configuration options and additional functionality](#usage)
-    - [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
-4. [Reference - An under-the-hood peek at what the module is doing and how](#parameters)
-5. [Possible Limitations - Some security features may not work with certain system configurations](#Limitations)
-    - [Potentially Application-Breaking Rights Privileges](#potentially-application-breaking-rights-privileges)
-    - [Systems Dedicated to the Management of Active Directory](#Exemptions for Systems Dedicated to the Management of Active Directory)
-    - [Registry Key ACLs](#Registry Key ACLs)
-    - [FTP Servers](#FTP Servers)
-    - [Screen Savers](#Screen Savers)
-    - [Audit Servers](#Audit Servers)
-    - [Vulnerabilities Reported on but Not Changed](#Vulnerabilities Reported on but Not Changed)
-    - [Non-Applicable to the System](#Non-Applicable to the System)
+    * [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
+4. [Parameters - An under-the-hood peek at what the module is doing and how](#parameters)
+5. [Possible Limitations - Some security features may not work with certain system configurations](#possible-limitations)
+    * [Potentially Application-Breaking Rights Privileges](#potentially-application-breaking-rights-privileges)
+    * [Exemptions for Systems Dedicated to the Management of Active Directory](#exemptions-for-systems-dedicated-to-the-management-of-active-directory)
+    * [Registry Key ACLs](#registry-key-acls)
+    * [FTP Servers](#ftp-servers)
+    * [Screen Savers](#screen-savers)
+    * [Audit Servers](#audit-servers)
+    * [Vulnerabilities Reported on but Not Changed](#vulnerabilities-reported-on-but-not-changed)
+    * [Non-Applicable to the System](#non-applicable-to-the-system)
 6. [Development - Guide for contributing to the module](#development)
 7. [Copyright](#copyrights)
-7. [Additional Info.](#NIST 800 53 Controls)
+7. [Additional Info.](#nist-800-53-controls)
 
-## Module Description
+## Description
 This module hardens Member, Standalone, and Domain Controller servers for Windows 2012 (Release 2) and 2016 (Release 11) according to DoD STIG specifications. The benchmark dates for the 2012 and 2016 STIGS are 1/26/18 and 7/28/17, respectively. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the additional information.  
 
 ## Setup
@@ -51,7 +51,7 @@ It is possible to run the module in "No-Op Mode", which identifies detected Conf
 puppet agent -t --noop
 ```
 
-## Limitations
+## Possible Limitations
 Below are lists of vunerabilities that can **potentially break the client's application if the rights described in the listed vulnerability are essential to operation**, **are reported on but cannot be changed** or are **Non-Applicable to the system**
 
 
