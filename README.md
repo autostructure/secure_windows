@@ -5,54 +5,115 @@
 1. [Description](#description)
 2. [Setup - Getting you started with *secure_windows*](#setup)
 3. [Usage - Configuration options and additional functionality](#usage)
+    * [Enorcement](#enforcement)
     * [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
-4. [Parameters - An under-the-hood peek at what the module is doing and how](#parameters)
-5. [Possible Limitations - Some security features may not work with certain system configurations](#possible-limitations)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+    * [Parameters](#parameters)
+5. [Possible Limitations - Some features may not work with certain system configurations](#possible-limitations)
     * [Potentially Application-Breaking Rights Privileges](#potentially-application-breaking-rights-privileges)
     * [Exemptions for Systems Dedicated to the Management of Active Directory](#exemptions-for-systems-dedicated-to-the-management-of-active-directory)
     * [Registry Key ACLs](#registry-key-acls)
     * [FTP Servers](#ftp-servers)
     * [Screen Savers](#screen-savers)
     * [Audit Servers](#audit-servers)
+6. [Coverage](#coverage)
     * [Vulnerabilities Reported on but Not Changed](#vulnerabilities-reported-on-but-not-changed)
     * [Non-Applicable to the System](#non-applicable-to-the-system)
-6. [Development - Guide for contributing to the module](#development)
-7. [Copyright](#copyrights)
-7. [Additional Info.](#nist-800-53-controls)
+7. [Development - Guide for contributing to the module](#development)
+8. [Copyright](#copyrights)
+9. [Additional Info.](#nist-800-53-controls)
 
 ## Description
-This module hardens Member, Standalone, and Domain Controller servers for Windows 2012 (Release 2) and 2016 (Release 11) according to DoD STIG specifications. The benchmark dates for the 2012 and 2016 STIGS are 1/26/18 and 7/28/17, respectively. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the additional information.  
+This module hardens Member, Standalone, and Domain Controller Window Servers for Windows Server 2016 (Release 2) according to Department of Defense Secutiry Technical Implementation Guide (STIG) specifications, which can be found [here.](https://iase.disa.mil/stigs/os/windows/Pages/index.aspx)
+
+The benchmark dates for the Windows Server 2016 STIG is 7/28/17. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the [additional information](#nist-800-53-controls).
+
+This module covers most of the Windows Server 2016 STIG (Release 2) vulnerabilities. For a list of vulnerabilities we do not cover due to their nature, see [Non-Applicable to the System](#non-applicable-to-the-system). For a list of vulnerabilities that Puppet reports on, but does not enforce see [Vulnerabilities Reported on but Not Changed](#vulnerabilities-reported-on-but-not-changed).
 
 ## Setup
-The Puppet software, invoked by the single line of code shown below, will automatically identify which server is being used and configure it according to the user's pre-defined preferance.
+To have Puppet harden the server to DoD STIG compliance with default settings, declare the `secure_windows` class:
 
 ```puppet
-include ::secure_windows
+class { '::secure_windows': }
 ```
 
-Domain Controllers must install the `nokogiri` gem due to a dependency with the ad_acl module.
+When you declare this class with the default options, Puppet will enforce all STIG vulnerabilities that we cover and produce warnings for vulnerabilities that we report on (see [Coverage](#coverage)).
+
+This class applies the correct vulnerabilities for Standalone servers, Member servers, and Domain Controllers.
+
+**Domain Controllers** must install the `nokogiri` gem due to a dependency with the ad_acl module. Perform the following on each Domain Controller, or have Puppet install the gem.
 
 ```
 gem install nokogiri
 ```
 
+```puppet
+package { 'nokogiri':
+  ensure   => installed,
+  provider => gem,
+}
+```
+
 ## Usage
-There are 655 vulnerabilities incuded in both Windows STIGS, and each one can be turned ON or OFF, according to the user. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
+
+### Enforcement
+There are 277 vulnerabilities incuded in the Windows Server 2016 STIG, and each one can be turned ON or OFF, according to the needs of the system. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
 
 ```yaml
 # hieradata/common.yaml
 secure_windows::stig::v73379::enforced: false
 ```
 
+See [Possible Limitations](#possible-limitations) for a list of vulnerabilities that might not apply to certain systems.
+
+For example, FTP servers need to have the FTP role enabled, which V-73289 removes. On those systems, that vulnerability should be disabled:
+
+```yaml
+# hieradarta/role/ftp.yaml
+secure_windows::stig::v73289::enforced: false
+```
+
+See [Reference](#reference) for a list of parameters that are needed to customize your security configurations.
+
+For example, according to V-73307 systems should be synced to the appropriate time server. You can define that parameter in hiera:
+
+```yaml
+# hieradata/common.yaml
+secure_windows::stig::v73307::time_server: time.example.com
+```
+
 ### No-Op Mode
-It is possible to run the module in "No-Op Mode", which identifies detected Configuration Drifts without implementing any actual changes
+It is possible to run the module in "No-Op Mode", which identifies detected Configuration Drifts without implementing any actual changes. This is useful for auditing the state of your system without making any changes.
 
 ```
 puppet agent -t --noop
 ```
 
+
+## Reference
+
+### Parameters
+
+##### `scremoveoption`
+
+Default value: '1'
+
+Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
+
+Used in STIG V-73807
+
+
+##### `time_server`
+
+Default value: 'tick.usno.navy.mil'
+
+This should be the appropriate time server for your organization.
+
+Used in STIG V-73307
+
+
 ## Possible Limitations
-Below are lists of vunerabilities that can **potentially break the client's application if the rights described in the listed vulnerability are essential to operation**, **are reported on but cannot be changed** or are **Non-Applicable to the system**
+Below are lists of vunerabilities that can **potentially break the client's application if the rights described in the listed vulnerability are essential to operation**.
 
 
 ### Potentially Application-Breaking Rights Privileges
@@ -102,7 +163,11 @@ Systems that are configured to write events directly to an audit server can disa
 - V-73555
 - V-73557
 
+
+## Coverage
+
 ### Vulnerabilities Reported on but Not Changed
+The following vulnerabilities will be reported on, but not changed. If Puppet detects that the system is not compliant with these vulnerabilities it will produce a warning that shows in the node's report, but will not make the corrective change on the system. These vulnerabilities have been determined to need manual review before making corrective changes due to their disruptive nature.
 - V-73237
 - V-73239
 - V-73247
@@ -114,11 +179,9 @@ Systems that are configured to write events directly to an audit server can disa
 - V-73513
 - V-73611
 
-Message Input
-
-Message @jack
 
 ### Non-Applicable to the System
+The following vulnerabilities are not covered by secure_windows. This is due to them being process-oriented and not possible for Puppet to configure or report on.
 - V-73217
 - V-73219
 - V-73221
@@ -147,27 +210,55 @@ Message @jack
 - V-73613
 - V-73615
 - V-73617
-```
-Insert chart of STIG coverage
-```
-## Parameters
-
-##### `scremoveoption`
-
-Default value: '1'
-
-Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
-
-Used in STIG V-73807
 
 
-##### `time_server`
+## Development
 
-Default value: 'tick.usno.navy.mil'
+### How to Contribute
 
-This should be the appropriate time server for your organization.
+Create a pull request and we will review your change. Log issues in the issues tab.
 
-Used in STIG V-73307
+
+### Running Tests
+
+
+### Contributors
+
+This module is an open source project that was created and maintained by Autostructure. For a list of contributors, see the [list of contributors](https://github.com/autostructure/secure_windows/graphs/contributors).
+
+
+## Disclaimer
+
+> This Work is provided "as is." Any express or implied warranties,
+including but not limited to, the implied warranties of merchantability
+and fitness for a particular purpose are disclaimed. In no event shall
+the authors be liable for any direct, indirect,
+incidental, special, exemplary or consequential damages (including, but
+not limited to, procurement of substitute goods or services, loss of
+use, data or profits, or business interruption) however caused and on
+any theory of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use of
+this Guidance, even if advised of the possibility of such damage.
+>
+> The User of this Work agrees to hold harmless and indemnify Autostructure,
+its agents, parent company, and employees from every claim or liability
+(whether in tort or in contract), including attorneys' fees,
+court costs, and expenses, arising in direct consequence of Recipient's
+use of the item, including, but not limited to, claims or liabilities
+made for injury to or death of personnel of User or third parties,
+damage to or destruction of property of User or third parties, and
+infringement or other violations of intellectual property or technical
+data rights.
+>
+> Nothing in this Work is intended to constitute an endorsement, explicit
+or implied, by Autostructure of any particular manufacturer's
+product or service.
+
+## Copyrights
+
+> All materials are copyright by their respective owners unless otherwise noted.
+>
+> Released under the [Apache License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 
 ## NIST 800 53 Controls
@@ -348,37 +439,3 @@ Each of the controls listed below are classified as either Low, Moderate, or Hig
 |                     |             | SI-11                          |                      | SI-11                                  |                              |
 | SI-12               |             | SI-12                          |                      | SI-12                                  |                              |
 |                     |             | SI-16                          | x                    | SI-16                                  | x                            |
-
-
-## Disclaimer
-
-> This Work is provided "as is." Any express or implied warranties,
-including but not limited to, the implied warranties of merchantability
-and fitness for a particular purpose are disclaimed. In no event shall
-the authors be liable for any direct, indirect,
-incidental, special, exemplary or consequential damages (including, but
-not limited to, procurement of substitute goods or services, loss of
-use, data or profits, or business interruption) however caused and on
-any theory of liability, whether in contract, strict liability, or tort
-(including negligence or otherwise) arising in any way out of the use of
-this Guidance, even if advised of the possibility of such damage.
->
-> The User of this Work agrees to hold harmless and indemnify Autostructure,
-its agents, parent company, and employees from every claim or liability
-(whether in tort or in contract), including attorneys' fees,
-court costs, and expenses, arising in direct consequence of Recipient's
-use of the item, including, but not limited to, claims or liabilities
-made for injury to or death of personnel of User or third parties,
-damage to or destruction of property of User or third parties, and
-infringement or other violations of intellectual property or technical
-data rights.
->
-> Nothing in this Work is intended to constitute an endorsement, explicit
-or implied, by Autostructure of any particular manufacturer's
-product or service.
-
-## Copyrights
-
-> All materials are copyright by their respective owners unless otherwise noted.
->
-> Released under the [Apache License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.html).
