@@ -17,7 +17,7 @@ class secure_windows::stig::v73303 (
         #       - Really should make this idempotent so it doesn't show an intentional change every 30 min
         #       - This gets applied to each site in the list supplied
         exec { "Set FTP anynymousAuthentication to Disabled on ${site}":
-          command => "${facts['system32']}\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${site}'].ftpServer.security.authentication.anonymousAuthentication.enabled:\"False\" /commit:apphost",
+          command => "${facts['system32']}\\inetsrv\\AppCmd.exe set config -section:system.applicationHost/sites /[name='${site}'].ftpServer.security.authentication.anonymousAuthentication.enabled:\"False\" /commit:apphost", # lint:ignore:140chars
         }
       }
     }

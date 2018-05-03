@@ -44,7 +44,7 @@ class secure_windows::applocker_startup {
     {
       'path' => '%WINDIR%\Installer\*'
     }],
-    description       => 'Allows members of the Everyone group to run all Windows Installer files located in %systemdrive%\Windows\Installer.',
+    description       => 'Allows members of the Everyone group to run all Windows Installer files located in %systemdrive%\Windows\Installer.',# lint:ignore:140chars
     mode              => 'NotConfigured',
     rule_type         => 'path',
     type              => 'Msi',

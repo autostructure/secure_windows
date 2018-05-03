@@ -1,5 +1,6 @@
 # V-73513
-# Virtualization-based security must be enabled with the platform security level configured to Secure Boot or Secure Boot with DMA Protection.
+# Virtualization-based security must be enabled with the platform security level configured
+# to Secure Boot or Secure Boot with DMA Protection.
 #
 class secure_windows::stig::v73513 (
   Boolean $enforced = false,
@@ -25,14 +26,14 @@ class secure_windows::stig::v73513 (
         if $passed_test_1 and $passed_test_2 {
           notify {'STIG vulnerability V-73513: Windows Credential Guard is running.': }
         } else {
-          $msg = "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Device Guard >> 'Turn On Virtualization Based Security' to 'Enabled' with 'Secure Boot' or 'Secure Boot and DMA Protection' selected."
+          $msg = "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Device Guard >> 'Turn On Virtualization Based Security' to 'Enabled' with 'Secure Boot' or 'Secure Boot and DMA Protection' selected." # lint:ignore:140chars
           notify {"STIG finding for vulnerability V-73513: Windows Credential Guard is NOT running, fix instructions: ${msg}":
             loglevel => warning,
           }
         }
 
       } else {
-        notify {"secure_windows: skipping v-73513, only relevant on Windows Server 2016, operating system (${facts['operatingsystemmajrelease']}) detected.": }
+        notify {"secure_windows: skipping v-73513, only relevant on Windows Server 2016, operating system (${facts['operatingsystemmajrelease']}) detected.": } # lint:ignore:140chars
       }
     }
   }

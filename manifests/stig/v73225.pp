@@ -1,5 +1,6 @@
 # V-73225
-# Administrative accounts must not be used with applications that access the Internet, such as web browsers, or with potential Internet sources, such as email.
+# Administrative accounts must not be used with applications that access the Internet, such as web browsers,
+# or with potential Internet sources, such as email.
 class secure_windows::stig::v73225 (
   Boolean $enforced = false,
 ) {
@@ -19,7 +20,7 @@ class secure_windows::stig::v73225 (
         'hi_version' => '*',
         'lo_version' => '11.0.0.0'
       }],
-      description       => 'STIG Rule addressing vulnerability V-73225: Administrative accounts must not be used with applications that access the Internet, such as web browsers, or with potential Internet sources, such as email.',
+      description       => 'STIG Rule addressing vulnerability V-73225: Administrative accounts must not be used with applications that access the Internet, such as web browsers, or with potential Internet sources, such as email.', # lint:ignore:140chars
       mode              => 'NotConfigured',
       rule_type         => 'publisher',
       type              => 'Exe',

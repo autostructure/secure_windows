@@ -6,15 +6,15 @@ Facter.add('volume_filesystem') do
   setcode do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
     command = 'Get-Volume | Select FileSystem | FT -HideTableHeaders'
-    $filesystems = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
-    $filesystems2 = $filesystems.split("\r\n")
-    $compliant = true
-    $filesystems2.each do |filesystem|
-      if filesystem.match(/(NTFS|ReFS|\s*)/)
+    filesystems = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
+    filesystems2 = filesystems.split("\r\n")
+    compliant = true
+    filesystems2.each do |filesystem|
+      if filesystem =~ %r{(NTFS|ReFS|\s*)}
       else
-        $compliant = false
+        compliant = false
       end
     end
-    $compliant
+    compliant
   end
 end

@@ -1,9 +1,13 @@
 # This class manages V-73257
 # Non-administrative accounts or groups must only have print permissions on printer shares.
-class secure_windows::stig::v73257 {
+class secure_windows::stig::v73257 (
+  Boolean $enforced = false,
+) {
 
-  # PS C:\Users\Administrator> Get-Printer -full -Name "Microsoft XPS Document Writer" | select PermissionSDDL -ExpandProperty PermissionSDDL
-  # G:SYD:(A;OIIO;GA;;;CO)(A;OIIO;GA;;;AC)(A;;SWRC;;;WD)(A;CIIO;GX;;;WD)(A;;SWRC;;;AC)(A;CIIO;GX;;;AC)(A;;LCSWDTSDRCWDWO;;;BA)(A;OICIIO;GA;;;BA)
+  # PS C:\Users\Administrator> Get-Printer -full -Name "Microsoft XPS Document Writer" | select PermissionSDDL
+  # -ExpandProperty PermissionSDDL
+  # G:SYD:(A;OIIO;GA;;;CO)(A;OIIO;GA;;;AC)(A;;SWRC;;;WD)(A;CIIO;GX;;;WD)(A;;SWRC;;;AC)(A;CIIO;GX;;;AC)(A;;LCSWDTSDRCWDWO;;;BA)
+  #(A;OICIIO;GA;;;BA)
   # PS C:\Users\Administrator>
 
   # -PermissionSDDL

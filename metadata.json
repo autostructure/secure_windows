@@ -33,7 +33,7 @@
     },
     {
       "name": "autostructure-applocker",
-      "version_requirement": ">= 0.0.0"
+      "version_requirement": ">= 0.0.0 < 1.0.0"
     },
     {
       "name": "puppet-sslcertificate",
@@ -53,14 +53,14 @@
     },
     {
       "name": "autostructure-ad_acl",
-      "version_requirement": ">= 0.0.0"
+      "version_requirement": ">= 0.0.0 < 1.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",
       "operatingsystemrelease": [
-        "2016",
+        "2016"
       ]
     }
   ],

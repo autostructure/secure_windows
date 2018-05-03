@@ -1,5 +1,7 @@
 # secure_windows
 
+[![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
+
 #### Table of Contents
 
 1. [Description](#description)
