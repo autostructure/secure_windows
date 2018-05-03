@@ -21,7 +21,7 @@
     * [Non-Applicable to the System](#non-applicable-to-the-system)
 7. [Development - Guide for contributing to the module](#development)
 8. [Copyright](#copyrights)
-9. [Additional Info.](#nist-800-53-controls)
+9. [Additional Info](#nist-800-53-controls)
 
 ## Description
 This module hardens Member, Standalone, and Domain Controller Window Servers for Windows Server 2016 (Release 2) according to Department of Defense Secutiry Technical Implementation Guide (STIG) specifications, which can be found [here.](https://iase.disa.mil/stigs/os/windows/Pages/index.aspx)
