@@ -1,11 +1,12 @@
 {
   "name": "autostructure-secure_windows",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Bryan Belanger",
   "summary": "This module hardens Windows Servers to DoD STIG compliance.",
   "license": "Apache-2.0",
-  "source": "https://github.com/autostructure/secure_windows",
+  "source": "https://github.com/autostructure/secure_windows.git",
   "project_page": "https://github.com/autostructure/secure_windows",
+  "issues_url": "https://github.com/autostructure/secure_windows/issues",
   "dependencies": [
     {
       "name": "ayohrling-local_security_policy",
