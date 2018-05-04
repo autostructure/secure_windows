@@ -99,13 +99,13 @@ puppet agent -t --noop
 
 ### Parameters
 
-##### `scremoveoption`
+##### `ftp_sites`
 
-Default value: '1'
+Default value: []
 
-Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
+Acceptable values are an array of ftp sites. This parameter should be set for FTP servers and contain an array of FTP sites that are on the server.
 
-Used in STIG V-73807
+Used in STIG V-73303
 
 
 ##### `time_server`
@@ -115,6 +115,88 @@ Default value: 'tick.usno.navy.mil'
 This should be the appropriate time server for your organization.
 
 Used in STIG V-73307
+
+
+##### `lsacfgflags`
+
+Default value: 'lock'
+
+Acceptable values are 'lock' or 'no lock', which correspond to 'Enabled with UEFI lock' and 'Enabled without lock' respectively.
+
+Used in STIG V-73515
+
+
+##### `hypervisorenforcedcodeintegrity`
+
+Default value: 'lock'
+
+Acceptable values are 'lock' or 'no lock', which correspond to 'Enabled with UEFI lock' and 'Enabled without lock' respectively.
+
+Used in STIG V-73517
+
+
+##### `driverloadpolicy`
+
+Default value: '1'
+
+Acceptable values are '1', '3', or '8', which correspond to 'Good and unknown', 'Good, unknown and bad but critical', and 'Good only' respectively.
+
+Used in STIG V-73521
+
+
+##### `allowtelemetry`
+
+Default value: 'security'
+
+Acceptable values are 'security' and 'basic'.
+
+Used in STIG V-73551
+
+
+##### `admin_account_name`
+
+Default value: 'adminaccount'
+
+Acceptable values are any string. This is what Puppet will rename the Local Administrator account to.
+
+Used in STIG V-73623
+
+
+##### `guest_account_name`
+
+Default value: 'guestaccount'
+
+Acceptable values are any string. This is what Puppet will rename the built-in guest account to.
+
+Used in STIG V-73625
+
+
+##### `legalnoticetext`
+
+Default value: 'I\'ve read & consent to terms in IS user agreement.'
+
+Acceptable values are any string. This will be the legal notice displayed when users log in.
+
+Used in STIG V-73647
+
+
+##### `legalnoticetitle`
+
+Default value: 'US Department of Defense Warning Statement'
+
+Acceptable values are any string. This will be the legal notice title displayed when users log in.
+
+Used in STIG V-73649
+
+
+##### `scremoveoption`
+
+Default value: '1'
+
+Acceptable values are 1 (Lock Workstation) or 2 (Force Logoff).
+
+Used in STIG V-73807
+
 
 
 ## Possible Limitations
