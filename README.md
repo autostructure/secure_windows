@@ -1,31 +1,40 @@
 # secure_windows
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
 [![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
+
+[![GitHub release](https://img.shields.io/github/release/autostructure/secure_windows.svg)](https://github.com/autostructure/secure_windows/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/autostructure/secure_windows/total.svg)](https://github.com/autostructure/secure_windows/releases)
+
+[![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+[![Puppet Forge Score](https://img.shields.io/puppetforge/f/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+[![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+
+[![Puppet Forge Modules](https://img.shields.io/puppetforge/mc/autostructure.svg)](https://forge.puppetlabs.com/autostructure)
+[![Puppet Forge Releases](https://img.shields.io/puppetforge/rc/autostructure.svg)](https://forge.puppetlabs.com/autostructure)
 
 #### Table of Contents
 
 1. [Description](#description)
-2. [Setup - Getting you started with *secure_windows*](#setup)
-3. [Usage - Configuration options and additional functionality](#usage)
-    * [Enorcement](#enforcement)
+1. [Setup - Getting you started with *secure_windows*](#setup)
+1. [Usage - Configuration options and additional functionality](#usage)
+    * [Disabling Vulnerabilities with Hiera](#disabling-vulnerabilities-with-hiera)
     * [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
-4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Parameters](#parameters)
-5. [Possible Limitations - Some features may not work with certain system configurations](#possible-limitations)
+1. [Possible Limitations - Some features may not work with certain system configurations](#possible-limitations)
     * [Potentially Application-Breaking Rights Privileges](#potentially-application-breaking-rights-privileges)
     * [Exemptions for Systems Dedicated to the Management of Active Directory](#exemptions-for-systems-dedicated-to-the-management-of-active-directory)
     * [Registry Key ACLs](#registry-key-acls)
     * [FTP Servers](#ftp-servers)
     * [Screen Savers](#screen-savers)
     * [Audit Servers](#audit-servers)
-6. [Coverage](#coverage)
+1. [Coverage](#coverage)
     * [Vulnerabilities Reported on but Not Changed](#vulnerabilities-reported-on-but-not-changed)
     * [Non-Applicable to the System](#non-applicable-to-the-system)
-7. [Development - Guide for contributing to the module](#development)
-8. [Copyright](#copyrights)
-9. [Additional Info](#nist-800-53-controls)
+1. [Development - Guide for contributing to the module](#development)
+1. [Copyright](#copyrights)
+1. [Additional Info](#nist-800-53-controls)
 
 ## Description
 This module hardens Member, Standalone, and Domain Controller Window Servers for Windows Server 2016 (Release 2) according to Department of Defense Secutiry Technical Implementation Guide (STIG) specifications, which can be found [here.](https://iase.disa.mil/stigs/os/windows/Pages/index.aspx)
@@ -45,7 +54,7 @@ When you declare this class with the default options, Puppet will enforce all ST
 
 This class applies the correct vulnerabilities for Standalone servers, Member servers, and Domain Controllers.
 
-**Domain Controllers** must install the `nokogiri` gem due to a dependency with the ad_acl module. Perform the following on each Domain Controller, or have Puppet install the gem.
+**Domain Controllers** must install the `nokogiri` gem due to a dependency with the [ad_acl](https://github.com/autostructure/ad_acl) module. Perform the following on each Domain Controller, or have Puppet install the gem.
 
 ```
 gem install nokogiri
@@ -60,8 +69,8 @@ package { 'nokogiri':
 
 ## Usage
 
-### Enforcement
-There are 277 vulnerabilities incuded in the Windows Server 2016 STIG, and each one can be turned ON or OFF, according to the needs of the system. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
+### Disabling Vulnerabilities with Hiera
+There are 277 vulnerabilities included in the Windows Server 2016 STIG, and each one can be turned ON or OFF, according to the needs of the system. By default, all vulnerabilities are turned ON to ensure maximum security out-of-box. This is how you would turn off a vulnerablity using your company's Hiera configuration.
 
 ```yaml
 # hieradata/common.yaml
