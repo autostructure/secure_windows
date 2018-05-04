@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-<<<<<<< HEAD
-[![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
 [![GitHub release](https://img.shields.io/github/release/autostructure/secure_windows.svg)](https://github.com/autostructure/secure_windows/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/autostructure/secure_windows/total.svg)](https://github.com/autostructure/secure_windows/releases)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
@@ -12,23 +10,13 @@
 [![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
 [![Puppet Forge Modules](https://img.shields.io/puppetforge/mc/autostructure.svg)](https://forge.puppetlabs.com/autostructure)
 [![Puppet Forge Releases](https://img.shields.io/puppetforge/rc/autostructure.svg)](https://forge.puppetlabs.com/autostructure)
-=======
-[![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
->>>>>>> 7d17ccecf184fe1d5fd4d93689b213ec02d86718
 
 #### Table of Contents
 
 1. [Description](#description)
-<<<<<<< HEAD
 1. [Setup - Getting you started with *secure_windows*](#setup)
 1. [Usage - Configuration options and additional functionality](#usage)
     * [Disabling Vulnerabilities with Hiera](#disabling-vulnerabilities-with-hiera)
-=======
-2. [Setup - Getting you started with *secure_windows*](#setup)
-3. [Usage - Configuration options and additional functionality](#usage)
-    * [Enforcement](#enforcement)
->>>>>>> 7d17ccecf184fe1d5fd4d93689b213ec02d86718
     * [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Parameters](#parameters)
@@ -64,11 +52,7 @@ When you declare this class with the default options, Puppet will enforce all ST
 
 This class applies the correct vulnerabilities for Standalone servers, Member servers, and Domain Controllers.
 
-<<<<<<< HEAD
 **Domain Controllers** must install the `nokogiri` gem due to a dependency with the [ad_acl](https://github.com/autostructure/ad_acl) module. Perform the following on each Domain Controller, or have Puppet install the gem.
-=======
-**Domain Controllers** must install the `nokogiri` gem due to a dependency with the `ad_acl` module. Perform the following on each Domain Controller, or have Puppet install the gem.
->>>>>>> 7d17ccecf184fe1d5fd4d93689b213ec02d86718
 
 ```
 gem install nokogiri
