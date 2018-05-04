@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
 [![Puppet Forge Score](https://img.shields.io/puppetforge/f/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
-[![Puppet Forge Downloads](https://img.shields.io/puppetforge/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
 
 #### Table of Contents
 
