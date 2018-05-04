@@ -1,7 +1,5 @@
 # secure_windows
-[![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/autostructure/secure_windows.svg)](https://forge.puppetlabs.com/autostructure/secure_windows)
+
 [![Build Status](https://travis-ci.org/autostructure/secure_windows.svg?branch=master)](https://travis-ci.org/autostructure/secure_windows)
 
 #### Table of Contents
@@ -9,7 +7,7 @@
 1. [Description](#description)
 2. [Setup - Getting you started with *secure_windows*](#setup)
 3. [Usage - Configuration options and additional functionality](#usage)
-    * [Enorcement](#enforcement)
+    * [Enforcement](#enforcement)
     * [No-Op Mode - Running the Puppet Agent without implementing any changes](#no-op-mode)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Parameters](#parameters)
@@ -28,7 +26,7 @@
 9. [Additional Info](#nist-800-53-controls)
 
 ## Description
-This module hardens Member, Standalone, and Domain Controller Window Servers for Windows Server 2016 (Release 2) according to Department of Defense Secutiry Technical Implementation Guide (STIG) specifications, which can be found [here.](https://iase.disa.mil/stigs/os/windows/Pages/index.aspx)
+This module hardens Member, Standalone, and Domain Controller Window Servers for Windows Server 2016 (Release 2) Department of Defense Security Technical Implementation Guide (STIG) specifications, which can be found [here.](https://iase.disa.mil/stigs/os/windows/Pages/index.aspx)
 
 The benchmark dates for the Windows Server 2016 STIG is 7/28/17. The STIG vulnerabilities have been cross-referenced with the National Institute of Security and Technology 800 53 Controls, for users who desire the [additional information](#nist-800-53-controls).
 
@@ -45,7 +43,7 @@ When you declare this class with the default options, Puppet will enforce all ST
 
 This class applies the correct vulnerabilities for Standalone servers, Member servers, and Domain Controllers.
 
-**Domain Controllers** must install the `nokogiri` gem due to a dependency with the ad_acl module. Perform the following on each Domain Controller, or have Puppet install the gem.
+**Domain Controllers** must install the `nokogiri` gem due to a dependency with the `ad_acl` module. Perform the following on each Domain Controller, or have Puppet install the gem.
 
 ```
 gem install nokogiri
@@ -185,7 +183,7 @@ The following vulnerabilities will be reported on, but not changed. If Puppet de
 
 
 ### Non-Applicable to the System
-The following vulnerabilities are not covered by secure_windows. This is due to them being process-oriented and not possible for Puppet to configure or report on.
+The following vulnerabilities are not covered by `secure_windows`. This is due to them being process-oriented and not possible for Puppet to configure or report on.
 - V-73217
 - V-73219
 - V-73221
@@ -225,6 +223,23 @@ Create a pull request and we will review your change. Log issues in the issues t
 
 ### Running Tests
 
+
+This module is built on PDK, which can be used for testing. Download PDK and run the following commands:
+
+```
+pdk validate
+pdk test unit
+```
+
+Alternatively, you can run the following to test the module:
+
+```
+bundle install
+bundle exec rake rubocop
+bundle exec rake syntax lint
+bundle exec rake metadata_lint
+bundle exec rake spec
+```
 
 ### Contributors
 
@@ -266,7 +281,7 @@ product or service.
 
 
 ## NIST 800 53 Controls
-Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems
+Each of the controls listed below are classified as either Low, Moderate, or High, based on the potential impact a security breach could have on an organization's systems. This is based on the Windows Server 2012 and 2016 STIGs.
 
 
 
