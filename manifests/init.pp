@@ -10,7 +10,12 @@ class secure_windows (
   case $facts['operatingsystemmajrelease'] {
 
     '2012','2012 R2': {
-      fail("Windows Server ${facts['operatingsystemmajrelease']} not yet supported.")
+      class { '::secure_windows::stig::v1073': }
+      class { '::secure_windows::stig::v1075': }
+      class { '::secure_windows::stig::v1081': }
+      class { '::secure_windows::stig::v1089': }
+      class { '::secure_windows::stig::v1093': }
+      class { '::secure_windows::stig::v1097': }
     }
 
     '2016','2016 R2': {
