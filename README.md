@@ -94,6 +94,30 @@ It is possible to run the module in "No-Op Mode", which identifies detected Conf
 puppet agent -t --noop
 ```
 
+### Troubleshooting
+
+__Problem:__    
+You encounter a "_Duplicate declaration: Class[Windows_firewall]_" error during the puppet agent run:
+
+```puppet
+Error: Could not retrieve catalog from remote server: Error 500 on SERVER: Server Error: Evaluation Error: Error while evaluating a Resource Statement, Evaluation Error: Error while evaluating a Resource Statement, Duplicate declaration: Class[Windows_firewall] is already declared in file <your-filename-that-contains-windows-firewall-declaration>; cannot redeclare at /etc/puppetlabs/code/environments/production/modules/secure_windows/manifests/stig/v73279.pp:7 ...
+```
+
+__Reason:__  
+This occurs because the "_puppet-windows_firewall_" module requires a Class statement to run the firewall (shown below), which conflicts with any declarations you might have if you use the module.  If you receive this error, the declaration below likely exists in one of your manifests:
+```
+class{ '::windows_firewall':
+    ensure => 'running',
+  }
+```
+
+__Fix:__  
+Simply disable vulnerability v73279 in hiera:
+
+```yaml
+# hieradata/common.yaml
+secure_windows::stig::v73279::enforced: false
+```
 
 ## Reference
 
