@@ -2,7 +2,7 @@
 #The built-in guest account must be renamed.
 class secure_windows::stig::v1114 (
   Boolean $enforced = true,
-  String = $guest_account_name = 'guestaccount',
+  String $guest_account_name = 'guestaccount',
 ) {
   if $enforced {
     local_security_policy { 'Accounts: Rename guest account':
