@@ -4,7 +4,7 @@ class secure_windows::stig::v40178 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    acl { 'C:\':
+    acl { 'C:\\':
       inherit_parent_permissions => false,
       permissions                => [
         {
