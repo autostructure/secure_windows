@@ -14,9 +14,9 @@ class secure_windows::stig::v43241 (
   #   }
   # }
   # Known bug that has been submitted to Puppet with no fix
-  registry_key { 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System':
-    ensure => present,
-  }
+  # registry_key { 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System':
+  #   ensure => present,
+  # }
   registry_value { 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\MSAOptional':
     ensure => present,
     type   => dword,
