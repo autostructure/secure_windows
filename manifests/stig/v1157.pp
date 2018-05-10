@@ -2,7 +2,7 @@
 #The Smart Card removal option must be configured to Force Logoff or Lock Workstation.
 class secure_windows::stig::v1157 (
   Boolean $enforced = true,
-  Enum ['1','2'] $scremoveoption = '1',
+  Enum['1','2'] $scremoveoption = '1',
 ) {
   if $enforced {
     registry::value { 'v1157':
