@@ -54,12 +54,12 @@ class secure_windows::stig::v40179 (
           'affects'  => 'children_only'
         },
         {
-          'identity' => 'APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES',
+          'identity' => 'ALL APPLICATION PACKAGES',
           'rights'   => ['read', 'execute'],
           'affects'  => 'self_only'
         },
         {
-          'identity' => 'APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES',
+          'identity' => 'ALL APPLICATION PACKAGES',
           'rights'   => ['read', 'execute'],
           'affects'  => 'children_only'
         }
