@@ -17,7 +17,7 @@ secure_windows::stig::v73289::is_ftp_server: false
 #   -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details."
 
 secure_windows::stig::v1152::enforced: false
-secure_windows::stig::v1152::enforced: false
+secure_windows::stig::v1157::enforced: false
 
 secure_windows::stig::v73223::enforced: true
 secure_windows::stig::v73225::enforced: true
