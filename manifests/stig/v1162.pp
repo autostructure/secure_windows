@@ -1,6 +1,6 @@
 #This class manages V-1162
 #The Windows SMB server must perform SMB packet signing when possible.
-class secure_windows::stig:v1162 (
+class secure_windows::stig::v1162 (
   Boolean $enforced = true,
 ) {
   if $enforced {
