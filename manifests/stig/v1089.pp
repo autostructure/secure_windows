@@ -7,7 +7,7 @@ class secure_windows::stig::v1089 (
 
   if $enforced {
 
-    registry::value { 'v73647':
+    registry::value { 'v1089':
       key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
       value => 'LegalNoticeText',
       type  => 'string',
