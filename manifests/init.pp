@@ -53,7 +53,7 @@ class secure_windows (
       class { '::secure_windows::stig::v40206': }
       class { '::secure_windows::stig::v42420': }
       class { '::secure_windows::stig::v43238': }
-      # class { '::secure_windows::stig::v43239': }
+      class { '::secure_windows::stig::v43239': }
       # class { '::secure_windows::stig::v43240': }
       # class { '::secure_windows::stig::v43241': }
       # class { '::secure_windows::stig::v43245': }
