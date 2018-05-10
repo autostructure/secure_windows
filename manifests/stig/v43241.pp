@@ -7,7 +7,7 @@ class secure_windows::stig::v43241 (
     if $facts['operatingsystemmajrelease'] == '2012 R2' {
       registry::value { 'v43241':
         key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-        value => 'MSAOptional',
+        value => 'test',
         type  => 'dword',
         data  => '0x00000001',
       }
