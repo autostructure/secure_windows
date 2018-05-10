@@ -1,6 +1,6 @@
 # This class manages V-36708
 # The location feature must be turned off.
-class secure_windows:stig::v36708 (
+class secure_windows::stig::v36708 (
   Boolean $enforced = true,
 ) {
   if $enforced {
