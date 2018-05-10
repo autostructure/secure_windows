@@ -5,11 +5,10 @@ class secure_windows::stig::v43245 (
 ) {
   if $enforced {
     if $facts['operatingsystemmajrelease'] == '2012 R2' {
-      registry::value { 'v43245':
-        key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-        value => 'DisableAutomaticRestartSignOn',
-        type  => 'dword',
-        data  => '0x00000001',
+      registry_value { 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\DisableAutomaticRestartSignOn':
+        ensure => present,
+        type   => dword,
+        data   => '0x00000001',
       }
     }
   }
