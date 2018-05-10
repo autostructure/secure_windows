@@ -5,8 +5,8 @@ class secure_windows::stig::v40206 (
 ) {
   if $enforced {
     service { 'SCPolicySvc':
-      ensure  => running,
-      enabled => true,
+      ensure => running,
+      enable => true,
     }
   }
 }
