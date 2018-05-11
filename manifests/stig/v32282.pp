@@ -17,7 +17,7 @@ class secure_windows::stig::v32282 (
         'PropagationFlags'  => 'None'
       },
       {
-        'RegistryRights'    => 'GENERIC_READ',
+        'RegistryRights'    => 'ReadKey',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-545',
         'IsInherited'       => false,
@@ -33,7 +33,7 @@ class secure_windows::stig::v32282 (
         'PropagationFlags'  => 'None'
       },
       {
-        'RegistryRights'    => 'GENERIC_ALL',
+        'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-544',
         'IsInherited'       => false,
@@ -49,7 +49,7 @@ class secure_windows::stig::v32282 (
         'PropagationFlags'  => 'None'
       },
       {
-        'RegistryRights'    => 'GENERIC_ALL',
+        'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-18',
         'IsInherited'       => false,
@@ -57,7 +57,7 @@ class secure_windows::stig::v32282 (
         'PropagationFlags'  => 'InheritOnly'
       },
       {
-        'RegistryRights'    => 'GENERIC_ALL',
+        'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-3-0',
         'IsInherited'       => false,
