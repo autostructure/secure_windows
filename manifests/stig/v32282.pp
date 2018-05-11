@@ -63,23 +63,23 @@ class secure_windows::stig::v32282 (
         'IsInherited'       => false,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
-      },
-      {
-        'RegistryRights'    => 'ReadKey',
-        'AccessControlType' => 'Allow',
-        'IdentityReference' => 'S-1-15-2-1',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'None',
-        'PropagationFlags'  => 'None'
-      },
-      {
-        'RegistryRights'    => 'GENERIC_READ',
-        'AccessControlType' => 'Allow',
-        'IdentityReference' => 'S-1-15-2-1',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'ContainerInherit',
-        'PropagationFlags'  => 'InheritOnly'
       }],
+      # {
+      #   'RegistryRights'    => 'ReadKey',
+      #   'AccessControlType' => 'Allow',
+      #   'IdentityReference' => 'S-1-15-2-1',
+      #   'IsInherited'       => false,
+      #   'InheritanceFlags'  => 'None',
+      #   'PropagationFlags'  => 'None'
+      # },
+      # {
+      #   'RegistryRights'    => 'GENERIC_READ',
+      #   'AccessControlType' => 'Allow',
+      #   'IdentityReference' => 'S-1-15-2-1',
+      #   'IsInherited'       => false,
+      #   'InheritanceFlags'  => 'ContainerInherit',
+      #   'PropagationFlags'  => 'InheritOnly'
+      # }],
     }
   }
 }
