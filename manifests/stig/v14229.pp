@@ -4,7 +4,7 @@ class auto_structure::stig::v14229 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { '14229':
+    registry::value { 'v14229':
       key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa',
       value => 'FullPrivilegeAuditing',
       type  => 'binary',
