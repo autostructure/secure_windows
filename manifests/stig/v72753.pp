@@ -6,7 +6,7 @@ class secure_windows::stig::v72753 (
   if $enforced {
     include ::secure_windows::administrative_template_secguide_installer
 
-    registry::value { 'v73519':
+    registry::value { 'v72753':
       key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\Wdigest',
       value => 'UseLogonCredential',
       type  => 'dword',
