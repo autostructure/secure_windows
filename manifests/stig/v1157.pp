@@ -5,11 +5,16 @@ class secure_windows::stig::v1157 (
   Enum['1','2'] $scremoveoption = '1',
 ) {
   if $enforced {
-    registry::value { 'v1157':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
-      value => 'scremoveoption',
-      type  => 'string',
-      data  => $scremoveoption,
+    # registry::value { 'v1157':
+    #   key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
+    #   value => 'scremoveoption',
+    #   type  => 'string',
+    #   data  => $scremoveoption,
+    # }
+    registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\scremoveoption':
+      ensure => present,
+      type   => string,
+      data   => $scremoveoption,
     }
 
   }

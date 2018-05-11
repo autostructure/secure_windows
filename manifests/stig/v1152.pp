@@ -4,7 +4,7 @@ class secure_windows::stig::v1152 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    reg_acl { 'hklm:SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg':
+    reg_acl { 'hklm:SYSTEM\\CurrentControlSet\\Control\\SecurePipeServers\\winreg':
       inherit_from_parent => false,
       owner               => 'S-1-5-18',
       permissions         => [
