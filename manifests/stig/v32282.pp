@@ -5,13 +5,14 @@ class secure_windows::stig::v32282 (
 ) {
   if $enforced {
     reg_acl { ['hklm:software\\microsoft\\active setup\\installed components','hklm:software\\Wow6432Node\\microsoft\\active setup\\installed components']:
-      inherit_from_parent => true,
+      inherit_from_parent => false,
       owner               => 'S-1-5-18',
       permissions         => [
       {
         'RegistryRights'    => 'ReadKey',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-545',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
       },
@@ -19,6 +20,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'GENERIC_READ',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-545',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
       },
@@ -26,6 +28,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-544',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
       },
@@ -33,6 +36,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'GENERIC_ALL',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-544',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
       },
@@ -40,6 +44,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-18',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
       },
@@ -47,6 +52,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'GENERIC_ALL',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-18',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
       },
@@ -54,6 +60,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'GENERIC_ALL',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-3-0',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
       },
@@ -61,6 +68,7 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'ReadKey',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-15-2-1',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
       },
@@ -68,9 +76,9 @@ class secure_windows::stig::v32282 (
         'RegistryRights'    => 'GENERIC_READ',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-15-2-1',
+        'IsInherited'       => true,
         'InheritanceFlags'  => 'ContainerInherit',
         'PropagationFlags'  => 'InheritOnly'
       }],
     }
   }
-}
