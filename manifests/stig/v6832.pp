@@ -10,7 +10,7 @@ class secure_windows::stig::v6832 (
     #   type  => 'dword',
     #   data  => '0x00000001',
     # }
-    registry_value { 'HKLM\SOFTWARE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\RequireSecuritySignature':
+    registry_value { 'HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters\RequireSecuritySignature':
       ensure => present,
       type   => dword,
       data   => '0x00000001',
