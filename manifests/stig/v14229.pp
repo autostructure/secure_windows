@@ -1,6 +1,6 @@
 #This class manages V-14229
 #Auditing of Backup and Restore Privileges must be turned off
-class auto_structure::stig::v14229 (
+class secure_windows::stig::v14229 (
   Boolean $enforced = true,
 ) {
   if $enforced {
