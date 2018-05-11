@@ -82,3 +82,4 @@ class secure_windows::stig::v32282 (
       }],
     }
   }
+}
