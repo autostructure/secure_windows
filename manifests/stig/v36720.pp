@@ -8,7 +8,7 @@ class secure_windows::stig::v36720 (
       key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Service',
       value => 'DisableRunAs',
       type  => 'dword',
-      data  => '0x000000001',
+      data  => '0x00000001',
     }
   }
 }

@@ -8,7 +8,7 @@ class secure_windows::stig::v36773 (
       key   => 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System',
       value => 'InactivityTimeoutSecs',
       type  => 'dword',
-      data  => '0x000000384',
+      data  => '0x00000384',
     }
   }
 }

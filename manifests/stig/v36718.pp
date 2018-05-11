@@ -8,7 +8,7 @@ class secure_windows::stig::v36718 (
       key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Service',
       value => 'AllowBasic',
       type  => 'dword',
-      data  => '0x000000000',
+      data  => '0x00000000',
     }
   }
 }

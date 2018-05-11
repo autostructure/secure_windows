@@ -8,7 +8,7 @@ class secure_windows::stig::v36713 (
       key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Client',
       value => 'AllowUnencryptedTraffic',
       type  => 'dword',
-      data  => '0x000000000',
+      data  => '0x00000000',
     }
   }
 }
