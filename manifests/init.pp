@@ -33,14 +33,14 @@ class secure_windows (
       class { '::secure_windows::stig::v1152': }
       class { '::secure_windows::stig::v1154': }
       class { '::secure_windows::stig::v1155': }
-      class { '::secure_windows::stig::v1157': }
+  #    class { '::secure_windows::stig::v1157': }
       class { '::secure_windows::stig::v1162': }
       class { '::secure_windows::stig::v1163': }
       class { '::secure_windows::stig::v1164': }
       class { '::secure_windows::stig::v1165': }
       class { '::secure_windows::stig::v1166': }
-      class { '::secure_windows::stig::v1171': }
-      class { '::secure_windows::stig::v1172': }
+  #    class { '::secure_windows::stig::v1171': }
+  #    class { '::secure_windows::stig::v1172': }
       class { '::secure_windows::stig::v1173': }
       class { '::secure_windows::stig::v1174': }
       class { '::secure_windows::stig::v2372': }
