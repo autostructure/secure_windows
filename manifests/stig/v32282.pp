@@ -73,7 +73,7 @@ class secure_windows::stig::v32282 (
         'PropagationFlags'  => 'None'
       },
       {
-        'RegistryRights'    => 'GENERIC_READ',
+        'RegistryRights'    => 'ReadKey',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'ALL APPLICATION PACKAGES',
         'IsInherited'       => false,
