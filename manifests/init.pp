@@ -311,10 +311,10 @@ class secure_windows (
         classification => $classification,
       }
       class { '::secure_windows::stig::v73611': }
-#      class { '::secure_windows::stig::v73621': }
+      class { '::secure_windows::stig::v73621': }
       class { '::secure_windows::stig::v73623': }
       class { '::secure_windows::stig::v73625': }
-#      class { '::secure_windows::stig::v73627': }
+      class { '::secure_windows::stig::v73627': }
       class { '::secure_windows::stig::v73629': }
       class { '::secure_windows::stig::v73631': }
       class { '::secure_windows::stig::v73633': }
@@ -334,9 +334,9 @@ class secure_windows (
       class { '::secure_windows::stig::v73661': }
       class { '::secure_windows::stig::v73663': }
       class { '::secure_windows::stig::v73665': }
-#      class { '::secure_windows::stig::v73667': }
-#      class { '::secure_windows::stig::v73669': }
-#      class { '::secure_windows::stig::v73671': }
+      class { '::secure_windows::stig::v73667': }
+      class { '::secure_windows::stig::v73669': }
+      class { '::secure_windows::stig::v73671': }
 #      class { '::secure_windows::stig::v73673': }
       class { '::secure_windows::stig::v73675': }
 #      class { '::secure_windows::stig::v73677': }
