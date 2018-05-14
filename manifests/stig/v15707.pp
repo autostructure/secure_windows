@@ -5,11 +5,10 @@ class secure_windows::stig::v15707 (
 ) {
   if $enforced {
 
-    registry_value { 'v15707':
-      path  => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-      value => 'LoggingEnabled',
-      type  => 'dword',
-      data  => '0x00000001',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\LoggingEnabled':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
 
   }
