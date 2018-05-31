@@ -3,14 +3,12 @@
 class secure_windows::stig::v15674 (
   Boolean $enforced = true,
 ) {
-  if $enforced {
+if $enforced {
 
-    registry::value { 'v15674':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-      value => 'NoInternetOpenWith',
-      type  => 'dword',
-      data  => '0x00000001',
+  registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoInternetOpenWith':
+    ensure => present,
+    type   => 'dword',
+    data   => '0x00000001',
     }
-
   }
 }

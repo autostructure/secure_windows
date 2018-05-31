@@ -6,12 +6,10 @@ class secure_windows::stig::v15683 (
 ) {
   if $enforced {
 
-    registry::value { 'v15683':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-      value => 'PreXPSP2ShellProtocolBehavior',
-      type  => 'dword',
-      data  => '0x00000000',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\PreXPSP2ShellProtocolBehavior':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
+      }
     }
-
   }
-}

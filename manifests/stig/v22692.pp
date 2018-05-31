@@ -6,13 +6,10 @@ class secure_windows::stig::v22692 (
 
   if $enforced {
 
-    registry::value { 'v22692':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer',
-      value => 'NoAutorun',
-      type  => 'dword',
-      data  => '0x00000001',
+    registry_value { 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoAutorun':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
+      }
     }
-
   }
-
-}
