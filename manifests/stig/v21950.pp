@@ -5,12 +5,10 @@ class secure_windows::stig::v21950 (
 ) {
   if $enforced {
 
-    registry::value { 'v21950':
-      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanServer\Parameters',
-      value => 'SmbServerNameHardeningLevel',
-      type  => 'dword',
-      data  => '0',
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanServer\Parameters\SmbServerNameHardeningLevel':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
+      }
     }
-
   }
-}
