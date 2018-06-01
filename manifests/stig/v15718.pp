@@ -6,12 +6,10 @@ class secure_windows::stig::v15718 (
 ) {
   if $enforced {
 
-    registry::value { 'v15718':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer',
-      value => 'NoHeapTerminationOnCorruption',
-      type  => 'dword',
-      data  => '0x00000000',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoHeapTerminationOnCorruption':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
+      }
     }
-
   }
-}
