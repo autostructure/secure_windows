@@ -5,11 +5,11 @@ class secure_windows::stig::v21953 (
 ) {
 
   if $enforced {
-
-    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA\pku2u\AllowOnlineID':
-      ensure => present,
-      type   => 'dword',
-      data   => '0',
-      }
+    registry::value { 'v21953':
+      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA\pku2u\AllowOnlineID',
+      value => 'AllowOnlineID',
+      type  => 'dword',
+      data  => '0',
     }
   }
+}
