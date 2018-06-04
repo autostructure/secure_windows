@@ -6,13 +6,10 @@ class secure_windows::stig::v16000 (
 
   if $enforced {
 
-    registry::value { 'v16000':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-      value => 'fEnableSmartCard',
-      type  => 'dword',
-      data  => '1',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\fEnableSmartCard':
+      ensure => present,
+      type   => 'dword',
+      data   => '1',
+      }
     }
-
   }
-
-}
