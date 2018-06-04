@@ -6,13 +6,10 @@ class secure_windows::stig::v21952 (
 
   if $enforced {
 
-    registry::value { 'v21952':
-      key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0',
-      value => 'allownullsessionfallback',
-      type  => 'dword',
-      data  => '0x00000000',
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA\MSV1_0\allownullsessionfallback':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
+      }
     }
-
   }
-
-}
