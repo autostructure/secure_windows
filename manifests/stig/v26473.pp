@@ -18,7 +18,7 @@ class secure_windows::stig::v26473 (
     }
     else {
       if !($facts['windows_server_type'] == 'windowsdc') {
-        local_security_policy { 'Access this computer from the network':
+        local_security_policy { 'Allow log on through Remote Desktop Services':
           ensure         => 'present',
           policy_setting => 'SeRemoteInteractiveLogonRight',
           policy_type    => 'Privilege Rights',
