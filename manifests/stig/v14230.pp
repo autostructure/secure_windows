@@ -6,13 +6,10 @@ class secure_windows::stig::v14230 (
 
   if $enforced {
 
-    registry::value { 'v14230':
-      key   => 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa',
-      value => 'SCENoApplyLegacyAuditPolicy',
-      type  => 'dword',
-      data  => '0x00000001',
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\SCENoApplyLegacyAuditPolicy':
+      ensure => present,
+      type   => 'dword',
+      data   => '1',
+      }
     }
-
   }
-
-}
