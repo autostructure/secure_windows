@@ -7,7 +7,7 @@ class secure_windows::stig::v26501 (
   if $enforced {
     local_security_policy { 'Profile system performance':
       ensure         => 'present',
-      policy_setting => 'SeProfileSystemPrivilege',
+      policy_setting => 'SeSystemProfilePrivilege',
       policy_type    => 'Privilege Rights',
       policy_value   => '*S-1-5-32-544,*S-1-5-80',
     }
