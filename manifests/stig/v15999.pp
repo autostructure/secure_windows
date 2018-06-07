@@ -5,11 +5,10 @@ class secure_windows::stig::v15999 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v15999':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-      value => 'fDisablePNPRedir',
-      type  => 'dword',
-      data  => '1',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\fDisablePNPRedir':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
   }
 }
