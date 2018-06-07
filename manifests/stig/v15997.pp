@@ -6,11 +6,10 @@ class secure_windows::stig::v15997 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v15997':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-      value => 'fDisableCcm',
-      type  => 'dword',
-      data  => '1',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\fDisableCcm':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
   }
 }
