@@ -10,5 +10,6 @@ Facter.add('winver') do
     out.split("\s")
     out.each do |line|
       metric += line + '.'
+    end
   end
 end
