@@ -4,11 +4,11 @@ class secure_windows::stig::v40204 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v40204':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-      value => 'RedirectOnlyDefaultClientPrinter',
-      type  => 'dword',
-      data  => '0x00000001',
+
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\RedirectOnlyDefaultClientPrinter':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
   }
 }

@@ -5,11 +5,11 @@ class secure_windows::stig::v36707 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v36707':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System',
-      value => 'EnableSmartScreen',
-      type  => 'dword',
-      data  => '0x00000002',
+
+    registry_value { 'HKEY_LOCAL_MACHINE \SOFTWARE\Policies\Microsoft\Windows\System\EnableSmartScreen':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000002',
     }
   }
 }
