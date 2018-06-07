@@ -9,7 +9,7 @@ class secure_windows::stig::v26501 (
       ensure         => 'present',
       policy_setting => 'SeSystemProfilePrivilege',
       policy_type    => 'Privilege Rights',
-      policy_value   => '*S-1-5-32-544,*S-1-5-80',
+      policy_value   => '*S-1-5-32-544,*S-1-5-80-0',
     }
   }
 }
