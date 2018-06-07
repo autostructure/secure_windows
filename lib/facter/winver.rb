@@ -9,6 +9,6 @@ Facter.add('winver') do
     out = Facter::Core::Execution.execute("#{powershell} -command \"#{command}\"")
     out.split("\s")
     out.each do |line|
-      metric += out + '.'
+      metric += line + '.'
   end
 end
