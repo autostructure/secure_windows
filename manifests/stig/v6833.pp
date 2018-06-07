@@ -4,11 +4,11 @@ class secure_windows::stig::v6833 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v6833':
-      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-      value => 'RequireSecuritySignature',
-      type  => 'dword',
-      data  => '0x00000001',
+
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\RequireSecuritySignature':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
   }
 }

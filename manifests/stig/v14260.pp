@@ -6,13 +6,10 @@ class secure_windows::stig::v14260 (
 
   if $enforced {
 
-    registry::value { 'v14260':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers',
-      value => 'DisableWebPnPDownload',
-      type  => 'dword',
-      data  => '0x00000001',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\DisableWebPnPDownload':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
-
   }
-
 }
