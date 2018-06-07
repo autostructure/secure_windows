@@ -4,11 +4,11 @@ class secure_windows::stig::v36687 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v36687':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System',
-      value => 'DisableLockScreenAppNotifications',
-      type  => 'dword',
-      data  => '1',
+
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System\DisableLockScreenAppNotifications':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
     }
   }
 }
