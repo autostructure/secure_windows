@@ -6,13 +6,10 @@ class secure_windows::stig::v21963 (
 
   if $enforced {
 
-    registry::value { 'v21963':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers',
-      value => 'DoNotInstallCompatibleDriverFromWindowsUpdate',
-      type  => 'dword',
-      data  => '1',
+      registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\DoNotInstallCompatibleDriverFromWindowsUpdate':
+        ensure => present,
+        type   => 'dword',
+        data   => '0x00000001',
+      }
     }
-
   }
-
-}

@@ -6,13 +6,10 @@ class secure_windows::stig::v21973 (
 
   if $enforced {
 
-    registry::value { 'v21973':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-      value => 'NoAutoplayfornonVolume',
-      type  => 'dword',
-      data  => '0x00000001',
+      registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoAutoplayfornonVolume':
+        ensure => present,
+        type   => 'dword',
+        data   => '0x00000001',
+      }
     }
-
   }
-
-}

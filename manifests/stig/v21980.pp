@@ -6,13 +6,10 @@ class secure_windows::stig::v21980 (
 
   if $enforced {
 
-    registry::value { 'v21980':
-      key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer',
-      value => 'NoDataExecutionPrevention',
-      type  => 'dword',
-      data  => '0x00000000',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoDataExecutionPrevention':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
     }
-
   }
-
 }
