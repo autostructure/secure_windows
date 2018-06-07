@@ -8,8 +8,6 @@ Facter.add('winver') do
     command = "[environment]::OSVersion.Version | select Major, Minor, Build | FT -HideTableHeaders -AutoSize"
     out = Facter::Core::Execution.execute("#{powershell} -command \"#{command}\"")
     out.split("\s")
-    out.each do |line|
-      metric += line + '.'
-    end
+    metric = out[1] + '.' + out[2]
   end
 end
