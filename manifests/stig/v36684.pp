@@ -4,11 +4,11 @@ class secure_windows::stig::v36684 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v36684':
-      key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System',
-      value => 'EnumerateLocalUsers',
-      type  => 'dword',
-      data  => '0x00000000',
+
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System\EnumerateLocalUsers':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
     }
   }
 }

@@ -8,7 +8,7 @@ class secure_windows::stig::v36687 (
       key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System',
       value => 'DisableLockScreenAppNotifications',
       type  => 'dword',
-      data  => '0x00000000',
+      data  => '1',
     }
   }
 }
