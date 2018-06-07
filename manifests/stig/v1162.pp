@@ -4,12 +4,11 @@ class secure_windows::stig::v1162 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v1162':
-      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-      value => 'EnableSecuritySignature',
-      type  => 'dword',
-      data  => '1',
-    }
 
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableSecuritySignature':
+      ensure => present,
+      type   => 'dword',
+      data   => '0x00000001',
+    }
   }
 }
