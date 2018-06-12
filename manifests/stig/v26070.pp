@@ -6,7 +6,7 @@ class secure_windows::stig::v26070 (
 ) {
   if $enforced {
     $reg_acls = [
-      'hklm\software\microsoft\windows NT\currentversion\winlogon',
+      'hklm:software\\microsoft\\windows NT\\currentversion\\winlogon',
     ]
     reg_acl { $reg_acls:
       inherit_from_parent => true,
@@ -21,14 +21,6 @@ class secure_windows::stig::v26070 (
         'PropagationFlags'  => 'None'
       },
       {
-        'RegistryRights'    => 'ReadKey',
-        'AccessControlType' => 'Allow',
-        'IdentityReference' => 'S-1-5-32-545',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'ContainerInherit',
-        'PropagationFlags'  => 'InheritOnly'
-      },
-      {
         'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-544',
@@ -39,26 +31,10 @@ class secure_windows::stig::v26070 (
       {
         'RegistryRights'    => 'FullControl',
         'AccessControlType' => 'Allow',
-        'IdentityReference' => 'S-1-5-32-544',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'ContainerInherit',
-        'PropagationFlags'  => 'InheritOnly'
-      },
-      {
-        'RegistryRights'    => 'FullControl',
-        'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-18',
         'IsInherited'       => false,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
-      },
-      {
-        'RegistryRights'    => 'FullControl',
-        'AccessControlType' => 'Allow',
-        'IdentityReference' => 'S-1-5-18',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'ContainerInherit',
-        'PropagationFlags'  => 'InheritOnly'
       },
       {
         'RegistryRights'    => 'FullControl',
@@ -75,14 +51,6 @@ class secure_windows::stig::v26070 (
         'IsInherited'       => false,
         'InheritanceFlags'  => 'None',
         'PropagationFlags'  => 'None'
-      },
-      {
-        'RegistryRights'    => 'ReadKey',
-        'AccessControlType' => 'Allow',
-        'IdentityReference' => 'ALL APPLICATION PACKAGES',
-        'IsInherited'       => false,
-        'InheritanceFlags'  => 'ContainerInherit',
-        'PropagationFlags'  => 'InheritOnly'
       }],
     }
   }
