@@ -6,7 +6,7 @@ class secure_windows::stig::v26070 (
 ) {
   if $enforced {
 
-    reg_acl { $reg_acls:
+    reg_acl { 'vstriker':
       target              => 'hklm:software\microsoft\windows NT\currentversion\winlogon'
       inherit_from_parent => true,
       owner               => 'S-1-5-18',
