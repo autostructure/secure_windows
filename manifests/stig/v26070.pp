@@ -6,7 +6,7 @@ class secure_windows::stig::v26070 (
 ) {
   if $enforced {
     $reg_acls = [
-      'hklm:software\\microsoft\\windows NT\\currentversion\\winlogon',
+      "hklm:software\\microsoft\\windows NT\\currentversion\\winlogon",
     ]
     reg_acl { $reg_acls:
       inherit_from_parent => true,
