@@ -13,7 +13,7 @@ class secure_windows::stig::v26070 (
       permissions         => [
       {
         'RegistryRights'    => 'ReadKey',
-        'AccessControlType' => 'Deny',
+        'AccessControlType' => 'Allow',
         'IdentityReference' => 'S-1-5-32-545',
         'IsInherited'       => false,
         'InheritanceFlags'  => 'ContainerInherit',
