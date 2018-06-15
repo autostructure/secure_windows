@@ -139,7 +139,7 @@ class secure_windows (
       class { '::secure_windows::stig::v21973': }
       class { '::secure_windows::stig::v21980': }
       class { '::secure_windows::stig::v22692': }
-      class { '::secure_windows::stig::v26070': }
+      #class { '::secure_windows::stig::v26070': }
       class { '::secure_windows::stig::v26283': }
       class { '::secure_windows::stig::v26359': }
       class { '::secure_windows::stig::v26469': }
@@ -266,6 +266,7 @@ class secure_windows (
       class { '::secure_windows::stig::v57721': }
       class { '::secure_windows::stig::v72753': }
       class { '::secure_windows::stig::v73519': }
+      class { '::secure_windows::stig::v73523': }
       class { '::secure_windows::stig::v73805': }
       class { '::secure_windows::stig::v78057': }
       class { '::secure_windows::stig::v78061': }
