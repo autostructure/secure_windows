@@ -8,6 +8,9 @@ secure_windows::classification: 'unclassified'
 
 secure_windows::stig::v73289::is_ftp_server: false
 
+secure_windows::stig::v3472::ntp_server: time.nist.gov
+
+
 # secure_windows::stig::v73647::legalnoticetext: "You are accessing a U.S. Government (USG) Information System (IS) that is provider for USG-authorized use only.
 #   By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 #   -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
