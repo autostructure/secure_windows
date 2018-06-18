@@ -213,7 +213,7 @@ class secure_windows (
       class { '::secure_windows::stig::v26582': }
       class { '::secure_windows::stig::v28504': }
       class { '::secure_windows::stig::v30016': }
-      class { '::secure_windows::stig::v32282': }
+      #class { '::secure_windows::stig::v32282': }
       class { '::secure_windows::stig::v33663': }
       class { '::secure_windows::stig::v33665': }
       class { '::secure_windows::stig::v34974': }
