@@ -7,20 +7,19 @@ class secure_windows::stig::v3338 (
 {
   if $enforced {
     if($facts['windows_server_type'] == 'windowsdc') {
-#      registry::value { 'v3338':
-#        key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-#        value => 'NullSessionPipes',
-#        type  => 'string',
-#        data  => 'netlogon, samr, lsarpc',
-#      }
-    }
-    else {
       registry::value { 'v3338':
-      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-      value => 'NullSessionPipes',
-      type  => 'string',
-      data  => '',
+        key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
+        value => 'NullSessionPipes',
+        type  => 'string',
+        data  => 'netlogon, samr, lsarpc',
       }
     }
+#    else {
+#      registry::value { 'v3338':
+#      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
+#      value => 'NullSessionPipes',
+#      type  => 'string',
+#      data  => '',
+#      }
+    }
   }
-}
