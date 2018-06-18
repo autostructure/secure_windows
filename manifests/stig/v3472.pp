@@ -9,7 +9,7 @@ class secure_windows::stig::v3472 (
     registry::value { 'v3472':
       key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\W32time\Parameters',
       value => 'NTP',
-      type  => 'String',
+      type  => 'string',
       data  => $ntp_server,
     }
 
