@@ -5,7 +5,7 @@ class secure_windows::stig::v3373 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry_value { 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters':
+    registry_value { 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters\MaximumPasswordAge':
       ensure => present,
       type   => 'dword',
       data   => '30',
