@@ -14,12 +14,12 @@ class secure_windows::stig::v3338 (
         data  => 'netlogon, samr, lsarpc',
       }
     }
-#    else {
-#      registry::value { 'v3338':
-#      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-#      value => 'NullSessionPipes',
-#      type  => 'string',
-#      data  => '',
-#      }
+    else {
+      registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionPipes':
+        ensure => present,
+        type   => 'string',
+        data   => '',
+          }
+        }
+      }
     }
-  }
