@@ -5,11 +5,10 @@ class secure_windows::stig::v3374 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    registry::value { 'v3374':
-      key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters',
-      value => 'RequireStrongKey',
-      type  => 'dword',
-      data  => '1',
+    registry_value { 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters':
+      ensure => present,
+      type   => 'dword',
+      data   => '1',
     }
 
   }
