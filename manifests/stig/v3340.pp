@@ -6,11 +6,10 @@ class secure_windows::stig::v3340 (
 )
 {
   if $enforced {
-      registry::value { 'v3340':
-        key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters',
-        value => 'NullSessionShares',
-        type  => 'array',
-        data  => [''],
+    registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionShares':
+      ensure => present,
+      type   => 'array',
+      data   => [''],
+        }
       }
     }
-  }
