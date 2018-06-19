@@ -6,11 +6,11 @@ class secure_windows::stig::v3343 (
 )
 {
   if $enforced {
-      registry::value { 'v3343':
-        key   => 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services',
-        value => 'fAllowToGetHelp',
-        type  => 'dword',
-        data  => '0',
+    registry_value { 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services\fAllowToGetHelp':
+      ensure => present,
+      type   => 'dword',
+      data   => '0',
+        }
       }
     }
   }
