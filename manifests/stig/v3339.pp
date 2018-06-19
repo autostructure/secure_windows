@@ -1,7 +1,6 @@
 # This class manages V-3339
 # Unauthorized remotely accessible registry paths must not be configured.
 
-
 class secure_windows::stig::v3339 (
   Boolean $enforced = true,
 )
