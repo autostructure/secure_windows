@@ -13,4 +13,3 @@ class secure_windows::stig::v3343 (
         }
       }
     }
-  }
