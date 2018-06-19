@@ -18,7 +18,7 @@ class secure_windows::stig::v3338 (
       registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionPipes':
         ensure => present,
         type   => 'array',
-        data   => [''],
+        data   => [],
           }
         }
       }

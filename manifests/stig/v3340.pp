@@ -9,7 +9,7 @@ class secure_windows::stig::v3340 (
     registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionShares':
       ensure => present,
       type   => 'array',
-      data   => [''],
+      data   => [],
         }
       }
     }
