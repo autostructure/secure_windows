@@ -7,7 +7,12 @@ Facter.add('password_lastset') do
   setcode do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
     command = 'Net User adminaccount | Find /i "Password Last Set'
-    pwdlastset = Facter::Core::Execution.execute("#{powershell} -command \"#{command}\"")
+    puts "#{command}"
+    pwdlastset = Facter::Core::Execution.execute("#{command}")
 #    pwdlastset.match(/\S+\s\S+\s\S+$/)
   end
 end
+
+
+
+#    pwdlastset = Facter::Core::Execution.execute("#{powershell} -command \"#{command}\"")
