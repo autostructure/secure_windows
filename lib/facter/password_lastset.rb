@@ -35,7 +35,7 @@ Facter.add('password_lastset') do
     #pwdlastset = Date.parse(getdate.to_s)
 
     days = date1 - date2
-    days = days.match(/\d*/).to_s
+    days = days.to_i
     puts "days=#{days}"
     #puts Date.today.between?(date1, date2)
 
