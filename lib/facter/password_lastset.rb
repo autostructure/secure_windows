@@ -18,9 +18,7 @@ Facter.add('password_lastset') do
     currdate << mo1
     currdate << '-'
     currdate << dy1
-    puts "currdate string=#{currdate}"
     date1 = Date.parse(currdate.to_s)
-    puts "currdate date=#{date1}"
 
     command = "Net User adminaccount | Find /i \"Password Last Set\""
     getdate = Facter::Core::Execution.execute("#{command}")
@@ -33,12 +31,11 @@ Facter.add('password_lastset') do
     pwdlastset << mo1
     pwdlastset << '-'
     pwdlastset << dy1
-    puts "pwdlastesetdate match=#{pwdlastset}"
     date2 = Date.parse(pwdlastset.to_s)
-    puts "pwdlastesetdate date=#{date2}"
     #pwdlastset = Date.parse(getdate.to_s)
 
-    days = date2 - date1
+    days = date1 - date2
+    days = days.match(/\d*/).to_s
     puts "days=#{days}"
     #puts Date.today.between?(date1, date2)
 
