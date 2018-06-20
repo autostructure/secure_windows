@@ -11,8 +11,8 @@ Facter.add('password_lastset') do
     getdate = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
     currdate = getdate.match(/\d+\/\d+\/\d+/).to_s
     yr1 = currdate.match(/\d\d\d\d$/).to_s
-    mo1 = currdate.match(/\/\d+\//).to_s.match(/\d+/).to_s
-    dy1 = currdate.match(/^\d+/).to_s
+    dy1 = currdate.match(/\/\d+\//).to_s.match(/\d+/).to_s
+    mo1 = currdate.match(/^\d+/).to_s
     currdate = yr1
     currdate << '-'
     currdate << mo1
