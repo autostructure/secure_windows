@@ -7,7 +7,8 @@ class secure_windows::stig::v14225 (
 ) {
   if $enforced {
     if ['password_lastset'] > 365 {
-      $adminaccount.pwdLastSet = 0
+      objadminaccount.Put "pwdLastSet", 0,
+      objadminaccount.SetInfo,
     }
   }
 }
