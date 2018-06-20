@@ -1,5 +1,5 @@
 #
-# This fact returns the last date the password was changed
+# This fact returns the amount of days since the password was changed
 #
 require 'date'
 Facter.add('password_lastset') do

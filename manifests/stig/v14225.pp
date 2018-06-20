@@ -6,4 +6,8 @@ class secure_windows::stig::v14225 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    if 
+    if ['password_lastset'] > 365 {
+      $adminaccount.pwdLastSet = 0
+    }
+  }
+}
