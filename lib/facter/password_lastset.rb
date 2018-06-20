@@ -14,7 +14,7 @@ Facter.add('password_lastset') do
 
     command = "Net User adminaccount | Find /i \"Password Last Set\""
     getdate = Facter::Core::Execution.execute("#{command}")
-    pwdlastset = getdate.match(/\d+\/\d+\/\d+/)
+    pwdlastset = getdate.match(/\d+\/\d+\/\d+/).to_s
     puts "pwdlastesetdate match=#{pwdlastset}"
     pwdlastset = pwdlastset.to_d
     puts "pwdlastesetdate date=#{pwdlastset}"
