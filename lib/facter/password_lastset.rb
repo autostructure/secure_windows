@@ -9,15 +9,14 @@ Facter.add('password_lastset') do
 
     command = 'Get-Date -Format g'
     getdate = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
-    getdate = getdate.to_s.match(/\d+\/\d+\/\d+/)
-    puts "currdate string=#{getdate}"
-    currdate = Date.parse(getdate.to_s)
+    currdate = getdate.match(/\d+\/\d+\/\d+/).to_d
+    puts "currdate string=#{currdate}"
 
     command = "Net User adminaccount | Find /i \"Password Last Set\""
     getdate = Facter::Core::Execution.execute("#{command}")
-    getdate = getdate.to_s.match(/\d+\/\d+\/\d+/)
-    puts "pwdlastesetdate string=#{getdate}"
-    pwdlastset = Date.parse(getdate.to_s)
+    pwdlastset = getdate.to_s.match(/\d+\/\d+\/\d+/).to_d
+    puts "pwdlastesetdate string=#{pwdlastset}"
+    #pwdlastset = Date.parse(getdate.to_s)
 
     puts pwdlastset - currdate
     puts Date.today.between?(currdate, pwdlastset)
