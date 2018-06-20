@@ -36,8 +36,6 @@ Facter.add('password_lastset') do
 
     days = date1 - date2
     days = days.to_i
-    puts "days=#{days}"
-    #puts Date.today.between?(date1, date2)
 
     days
 
