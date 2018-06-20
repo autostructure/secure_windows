@@ -1,6 +1,6 @@
 # Echos the current date. Super complex.
 
-Facter.add('current_date_year') do
+Facter.add('current_date') do
   confine operatingsystem: :windows
   setcode do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
