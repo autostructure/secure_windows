@@ -7,7 +7,7 @@ class secure_windows::stig::v14225 (
 ) {
   if $enforced {
     if ['password_lastset'] > 365 {
-      changepasswordatlogon = true
-    }
+
+    } 
   }
 }
