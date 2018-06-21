@@ -9,10 +9,7 @@ class secure_windows::stig::v14225 (
     if $facts['password_lastset'] == 0 {
       exec { 'Reset the Password':
         command => "net user jack /logonpasswordchg:yes",
-<<<<<<< HEAD
-        path    => 'C:\windows\system32'
-=======
->>>>>>> cd1594ced472b8163d4985649ac7b8b7649d03af
+        path    => 'C:\windows\system32',
       }
     }
   }
