@@ -6,9 +6,9 @@ class secure_windows::stig::v14225 (
   Boolean $enforced = true,
 ) {
   if $enforced {
-    if $facts['password_lastset'] == 0 {
+    if $facts['password_lastset'] > 365 {
       exec { 'Reset the Password':
-        command => "net user jack /logonpasswordchg:yes",
+        command => "net user adminaccount /logonpasswordchg:yes",
         path    => 'C:\windows\system32',
       }
     }
