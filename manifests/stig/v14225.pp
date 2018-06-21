@@ -7,7 +7,9 @@ class secure_windows::stig::v14225 (
 ) {
   if $enforced {
     if ['password_lastset'] > 365 {
-
-    } 
+      exec { 'Reset the Password':
+        command => "net user adminaccount /logonpasswordchg:yes",
+      }
+    }
   }
 }
