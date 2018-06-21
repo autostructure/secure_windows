@@ -9,7 +9,7 @@ Facter.add('current_sid') do
     command = 'Add-Type -AssemblyName System.DirectoryServices.AccountManagement'
     Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
     command = 'return ([System.DirectoryServices.AccountManagement.UserPrincipal]::Current).SID.Value'
-    Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
+    sid = Facter::Core::Execution.execute("#{command}")
 
   end
 end
