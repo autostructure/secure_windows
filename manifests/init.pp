@@ -82,7 +82,7 @@ class secure_windows (
       class { '::secure_windows::stig::v14259': }
       class { '::secure_windows::stig::v14260': }
       class { '::secure_windows::stig::v14261': }
-# (CURRENT USER)      class { '::secure_windows::stig::v14268': }
+      class { '::secure_windows::stig::v14268': }
 # (CURRENT USER)      class { '::secure_windows::stig::v14269': }
       class { '::secure_windows::stig::v14831': }
       class { '::secure_windows::stig::v15666': }
