@@ -6,7 +6,7 @@ class secure_windows::stig::v14268 (
 
   if $enforced {
 
-    registry_value { "HKEY_USERS\${facts['current_sid']}\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\SaveZoneInformation":
+    registry_value { 'HKEY_USERS\${facts['current_sid']}\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\SaveZoneInformation':
       ensure => present,
       type   => 'dword',
       data   => '2',
