@@ -6,7 +6,7 @@ class secure_windows::stig::v14268 (
 
   if $enforced {
 
-    $key = "HKEY_USERS\\${facts['current_sid']}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments",
+    $key = "HKEY_USERS\\${facts['current_sid']}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments"
     ::secure_windows::log { "key=${key}": }
     registry::value { 'v14268':
       key   => $key,
