@@ -6,11 +6,18 @@ class secure_windows::stig::v14268 (
 
   if $enforced {
 
-    registry_value { "HKEY_USERS\$facts['current_sid']\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\SaveZoneInformation":
-      ensure => present,
-      type   => 'dword',
-      data   => '2',
-      }
+    registry::value { 'v14268':
+      key   => 'HKEY_USERS\${facts['current_sid']}\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments',
+      value => 'SaveZoneInformation',
+      type  => 'dword',
+      data  => '2',
+    }
+
+  #  registry_value { "HKEY_USERS\${facts['current_sid']}\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\SaveZoneInformation":
+  #    ensure => present,
+  #    type   => 'dword',
+  #    data   => '2',
+  #    }
 
   }
 }
