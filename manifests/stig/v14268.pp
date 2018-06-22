@@ -9,7 +9,7 @@ class secure_windows::stig::v14268 (
     #$key = "HKEY_USERS\\${facts['current_sid']}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments"
     #::secure_windows::log { "key=${key}": }
     registry::value { 'v14268':
-      key   => "HKEY_USERS\\${facts['current_sid']}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments"
+      key   => "HKEY_USERS\\${facts['current_sid']}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments",
       value => 'SaveZoneInformation',
       type  => 'dword',
       data  => '2',
