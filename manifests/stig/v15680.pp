@@ -7,11 +7,10 @@ class secure_windows::stig::v15680 (
   if $enforced {
     if !($facts['windows_server_type'] == 'windowsdc') {
 
-  registry::value { 'v15680':
-    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System',
-    value => 'LogonType',
-    type  => 'dword',
-    data  => '0',
+      registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LogonType':
+        ensure => present,
+        type   => 'dword',
+        data   => '0',
       }
     }
   }
