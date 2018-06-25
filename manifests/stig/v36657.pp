@@ -3,5 +3,10 @@
 class secure_windows::stig::v36657 (
   Boolean $enforced = true,
 ) {
-  # HKCU not enforced
+  registry::value { 'v36657':
+    key   => "HKEY_USERS\\${facts['current_sid']}\\Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop",
+    value => 'ScreenSaverIsSecure',
+    type  => 'string',
+    data  => '1',
+  }
 }
