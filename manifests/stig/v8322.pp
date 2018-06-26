@@ -5,12 +5,18 @@ class secure_windows::stig::v8322 (
 ) {
   if $enforced {
     if $facts['windows_server_type'] == 'windowsdc' {
-      registry::value { 'v8322-1':
-        key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient',
-        value => 'Enabled',
-        type  => 'dword',
-        data  => '0x00000001',
+      registry_value { 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient':
+        ensure => present,
+        type   => 'dword',
+        data   => '0x00000001',
       }
+
+      # registry::value { 'v8322-1':
+      #   key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient',
+      #   value => 'Enabled',
+      #   type  => 'dword',
+      #   data  => '0x00000001',
+      # }
       registry::value { 'v8322-2':
         key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\Parameters',
         value => 'Type',
