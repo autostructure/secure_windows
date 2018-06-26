@@ -9,11 +9,12 @@
 
 class secure_windows::stig::v2376 (
   Boolean $enforced = true,
+  $domain = $facts[‘networking’][‘domain’],
 ) {
 
   if $enforced {
     if($facts['windows_server_type'] == 'windowsdc') {
-      file { 'C:\\Windows\\SYSVOL\\sysvol\\test.local\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf': # lint:ignore:140chars
+      file { 'C:\\Windows\\SYSVOL\\sysvol\\$domain\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf': # lint:ignore:140chars
         ensure => file,
         source => 'puppet:///modules/secure_windows/stig/v2376/GptTmpl.inf',
       }
