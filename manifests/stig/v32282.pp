@@ -9,7 +9,8 @@ class secure_windows::stig::v32282 (
     #   'hklm:software\\Wow6432Node\\microsoft\\active setup\\installed components',
     # ]
     reg_acl { 'jstriker':
-      target              => 'hklm:software\microsoft\active setup\installed components','hklm:software\Wow6432Node\microsoft\active setup\installed components',#ignore lint 140 char.
+      target              => 'hklm:software\microsoft\active setup\installed components',
+      'hklm:software\Wow6432Node\microsoft\active setup\installed components',
       inherit_from_parent => true,
       owner               => 'S-1-5-18',
       permissions         => [
