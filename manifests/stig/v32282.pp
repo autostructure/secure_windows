@@ -5,8 +5,8 @@ class secure_windows::stig::v32282 (
 ) {
   if $enforced {
     $reg_acls = [
-      'hklm:software\\microsoft\\active setup\\installed components',
-      'hklm:software\\Wow6432Node\\microsoft\\active setup\\installed components',
+      'hklm:software\microsoft\active setup\installed components',
+      'hklm:software\Wow6432Node\microsoft\active setup\installed components',
     ]
     reg_acl { $reg_acls:
       inherit_from_parent => true,
