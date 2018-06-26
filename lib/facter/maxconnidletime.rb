@@ -4,7 +4,14 @@ Facter.add('maxconnidletime') do
   confine operatingsystem: :windows
   setcode do
     if Facter.value(:windows_server_type) == 'windowsdc'
-      time = Facter::Core::Execution.execute('dsquery * "cn=Default Query Policy,cn=Query-Policies,cn=Directory Service,cn=Windows NT,cn=Services,cn=Configuration,dc=test,dc=local" -attr LDAPAdminLimits')
+      fact = Facter.value(:domain)
+      Puppet.debug "fact = #{fact}"
+      hostarray = fact.split('.')
+      host = hostarray[0]
+      domain = hostarray[1]
+      Puppet.debug "host = #{host}"
+      Puppet.debug "dom = #{domain}"
+      time = Facter::Core::Execution.execute("dsquery * \"cn=Default Query Policy,cn=Query-Policies,cn=Directory Service,cn=Windows NT,cn=Services,cn=Configuration,dc=#{host},dc=#{domain}\" -attr LDAPAdminLimits")
       time.match(%r{MaxConnIdleTime=(\d*)})[1]
     end
   end

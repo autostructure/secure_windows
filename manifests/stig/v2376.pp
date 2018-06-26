@@ -13,7 +13,6 @@ class secure_windows::stig::v2376 (
 
   if $enforced {
     $domain = $facts['domain']
-#    $hostname = $facts['hostname']
 
     if($facts['windows_server_type'] == 'windowsdc') {
       file { "C:\\Windows\\SYSVOL\\sysvol\\${domain}\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}\\MACHINE\\Microsoft\\Windows NT\\SecEdit\\GptTmpl.inf": # lint:ignore:140chars
