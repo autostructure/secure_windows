@@ -1,0 +1,26 @@
+[Unicode]
+Unicode=yes
+[System Access]
+MinimumPasswordAge = 1
+MaximumPasswordAge = 60
+MinimumPasswordLength = 14
+PasswordComplexity = 1
+PasswordHistorySize = 24
+LockoutBadCount = 3
+ResetLockoutCount = 15
+LockoutDuration = 15
+RequireLogonToChangePassword = 0
+ForceLogoffWhenHourExpire = 1
+ClearTextPassword = 0
+LSAAnonymousNameLookup = 0
+[Kerberos Policy]
+MaxTicketAge = 10
+MaxRenewAge = 7
+MaxServiceAge = 600
+MaxClockSkew = 5
+TicketValidateClient = 1
+[Registry Values]
+MACHINE\System\CurrentControlSet\Control\Lsa\NoLMHash=4,1
+[Version]
+signature="$CHICAGO$"
+Revision=1
