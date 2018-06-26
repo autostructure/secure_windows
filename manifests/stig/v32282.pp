@@ -8,7 +8,8 @@ class secure_windows::stig::v32282 (
     #   'hklm:software\\microsoft\\active setup\\installed components',
     #   'hklm:software\\Wow6432Node\\microsoft\\active setup\\installed components',
     # ]
-    reg_acl { 'hklm:software\microsoft\active setup\installed components',
+    reg_acl { 'microsoft':
+      target              => 'hklm:software\microsoft\active setup\installed components',
       inherit_from_parent => true,
       owner               => 'S-1-5-18',
       permissions         => [
@@ -86,7 +87,8 @@ class secure_windows::stig::v32282 (
       }],
     }
 
-    reg_acl { 'hklm:software\Wow6432Node\microsoft\active setup\installed components',
+    reg_acl { 'wow6432':
+      target              => 'hklm:software\Wow6432Node\microsoft\active setup\installed components',
       inherit_from_parent => true,
       owner               => 'S-1-5-18',
       permissions         => [
