@@ -4,10 +4,6 @@
 class secure_windows::stig::v39328 (
   Boolean $enforced = true,
   ) {
-    if $enforced {
-      class secure_windows::stig::v39328 (
-        Boolean $enforced = true,
-      ) {
         if $enforced {
           $ou_array = $facts['organizational_units']
           $ou_array.each |$name| {
