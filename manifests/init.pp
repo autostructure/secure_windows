@@ -264,10 +264,10 @@ class secure_windows (
       class { '::secure_windows::stig::v36773': }
       class { '::secure_windows::stig::v36776': }
       class { '::secure_windows::stig::v36777': }
-      # class { '::secure_windows::stig::v39326': }
-      # class { '::secure_windows::stig::v39327': }
-      # class { '::secure_windows::stig::v39328': }
-      # class { '::secure_windows::stig::v39329': }
+      class { '::secure_windows::stig::v39326': }
+      class { '::secure_windows::stig::v39327': }
+      class { '::secure_windows::stig::v39328': }
+      class { '::secure_windows::stig::v39329': }
       class { '::secure_windows::stig::v39333': }
       class { '::secure_windows::stig::v39334': }
       class { '::secure_windows::stig::v40177': }
