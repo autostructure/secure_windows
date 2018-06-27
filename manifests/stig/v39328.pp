@@ -45,5 +45,3 @@ class secure_windows::stig::v39328 (
           }
         }
       }
-    }
-  }
