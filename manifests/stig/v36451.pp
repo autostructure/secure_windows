@@ -9,7 +9,7 @@ class secure_windows::stig::v36451 (
 
     applocker_rule { '(STIG Rule) V-73225 - Disable IE for Administrators':
       ensure            => 'present',
-      action            => 'Deny',
+      action            => 'Allow',
       conditions        => [
       {
         'publisher'  => 'O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US',

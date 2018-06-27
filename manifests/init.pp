@@ -233,7 +233,7 @@ class secure_windows (
       class { '::secure_windows::stig::v33665': }
       class { '::secure_windows::stig::v34974': }
       class { '::secure_windows::stig::v36439': }
-#      class { '::secure_windows::stig::v36451': }
+      class { '::secure_windows::stig::v36451': }
       class { '::secure_windows::stig::v36656': }
       class { '::secure_windows::stig::v36657': }
       class { '::secure_windows::stig::v36667': }
