@@ -7,7 +7,7 @@ class secure_windows::stig::v3339 (
 {
   if $enforced {
       registry::value { 'v3339':
-        key   => 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedExactPaths',
+        key   => 'okjjhguyuyfuyfHKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedExactPaths',
         value => 'Machine',
         type  => 'array',
         data  => ['System\CurrentControlSet\Control\ProductOptions','System\CurrentControlSet\Control\Server Applications',
