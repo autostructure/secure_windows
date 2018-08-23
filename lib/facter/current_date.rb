@@ -6,6 +6,6 @@ Facter.add('current_date') do
     powershell = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
     command = 'Get-Date -Format g'
     currdate = Facter::Core::Execution.exec(%(#{powershell} -command "#{command}"))
-    currdate.match(/\d\d\d\d/)
+    currdate.match(%r{\d\d\d\d})
   end
 end
