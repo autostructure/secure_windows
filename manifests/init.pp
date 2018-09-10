@@ -175,7 +175,6 @@ class secure_windows (
       class { '::secure_windows::stig::v26484': }
       class { '::secure_windows::stig::v26485': }
       class { '::secure_windows::stig::v26486': }
-      class { '::secure_windows::stig::v26487': }
       class { '::secure_windows::stig::v26488': }
       class { '::secure_windows::stig::v26489': }
       class { '::secure_windows::stig::v26490': }
