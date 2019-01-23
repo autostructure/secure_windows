@@ -1,6 +1,6 @@
 {
   "name": "autostructure-secure_windows",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Bryan Belanger",
   "summary": "This module hardens Windows Servers to DoD STIG compliance.",
   "license": "Apache-2.0",
